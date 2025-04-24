@@ -287,13 +287,6 @@ class loja(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🍕  -  Modúlo Loja carregado.")
-   # fuso = pytz.timezone('America/Sao_Paulo')
-    #now = datetime.datetime.now().astimezone(fuso)
-    #target_time = now.replace(hour=0, minute=0, second=0, microsecond=0)
-    #if now > target_time:
-   #   target_time += datetime.timedelta(days=1)
-   # time_until_target = target_time - now
-    #await asyncio.sleep(time_until_target.total_seconds())
 
     if not self.lojadiariatrocaitens.is_running():
       self.lojadiariatrocaitens.start()
@@ -302,7 +295,6 @@ class loja(commands.Cog):
 
 
 #FUNÇÂO DE TROCA DE ITENS DA LOJA
-  #@tasks.loop(seconds=24*60*60) #24H loop 24*60*60
   @tasks.loop(time=datetime.time(hour=0, minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
   async def lojadiariatrocaitens(self): 
     print(f"Rodando Troca de itens da loja diaria")
@@ -432,7 +424,7 @@ class loja(commands.Cog):
 
 
     
-  # COMANDO ADICIONAR ITENS A LOJA OWNER
+  # COMANDO PARA EXIBIR ITENS DA LOJA OWNER
   @commands.command(name="showloja", description="exibe os itens registrados da loja do bot...")
   async def showloja(self, ctx):
     if ctx.author.id == donoid:
@@ -455,7 +447,7 @@ class loja(commands.Cog):
 
 
 
-  #COMANDO ADICIONAR ITENS A LOJA OWNER
+  #COMANDO PARA EXIBIR UM ITEM DA LOJA 
   @commands.command(name="showitem", description="exibe os itens registrados da loja do bot...")
   async def showitem(self,ctx,id:str):
     if ctx.author.id == donoid:

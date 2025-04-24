@@ -74,7 +74,6 @@ async def addtemproleusuario(self, interaction, membro, cargo, tempo):
     except discord.Forbidden as e:
         if interaction:
           await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="addtemproleusuario")
-          #await interaction.response.send_message(Res.trad(interaction=interaction, str="message_erro_permissao"), delete_after=10, ephemeral=True)
 
 
 
@@ -112,6 +111,9 @@ class admin(commands.Cog):
   admin=app_commands.Group(name="admin", description="Comandos administrativos do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=False),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
 
+
+
+
    #COMANDO BANIR
   @admin.command(name="banir", description='💼⠂Banir um membro do servidor.')
   @app_commands.describe(membro="Qual membro será banido?",razão="Qual a razão do banimento?")
@@ -136,8 +138,10 @@ class admin(commands.Cog):
           else: await interaction.edit_original_response(content=Res.trad(interaction=interaction,str='message_erro'))
       except Exception as e:
           await Res.erro_brix_embed(interaction=interaction, str="message_erro_banir", e=e,comando="ban")
-          #await interaction.edit_original_response(content=Res.trad(interaction=interaction,str='message_erro_banir'))
-  
+
+
+
+
 
 #COMANDO DESBANIR
   @admin.command(name="desbanir", description='💼⠂Desbanir um membro do servidor.')
@@ -165,8 +169,10 @@ class admin(commands.Cog):
         else: await interaction.edit_original_response(content=Res.trad(interaction=interaction,str='message_erro'))
       except Exception as e:
           await Res.erro_brix_embed(interaction=interaction, str="message_erro_desbanir", e=e,comando="unban")
-        #await interaction.edit_original_response(content=Res.trad(interaction=interaction,str='message_erro_desbanir'))
-  
+
+
+
+
 
     #COMANDO KICK
   @admin.command(name="kick", description='💼⠂Expulsar um membro do servidor.')
@@ -193,7 +199,6 @@ class admin(commands.Cog):
               await interaction.edit_original_response(content=Res.trad(interaction=interaction,str='message_erro'))
       except discord.Forbidden as e:
           await Res.erro_brix_embed(interaction=interaction, str="message_erro_kick", e=e,comando="kick")
-          #await interaction.edit_original_response(content=Res.trad(interaction=interaction,str='message_erro_kick'))
 
       
 
@@ -211,6 +216,9 @@ class admin(commands.Cog):
   #------------------GRUPO CHAT ------------------
   chat=app_commands.Group(name="chat",description="Comandos para chat do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
+
+
+
   #COMANDO DELETE CHAT
   @chat.command(name="deletar",description='🗨️⠂Deleta um chat existente.')
   @commands.has_permissions(manage_channels = True)
@@ -225,6 +233,8 @@ class admin(commands.Cog):
           await asyncio.sleep(4.0)
           await interaction.channel.delete()
       else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro'),delete_after=10,ephemeral=True)
+
+
 
 
   #COMANDO PRUNE CHAT
@@ -274,6 +284,7 @@ class admin(commands.Cog):
 
     
 
+
   #COMANDO CRIAR CHAT
   @chat.command(name="criar",description='🗨️⠂Crie um novo chat.')
   @commands.has_permissions(manage_channels = True)
@@ -290,6 +301,9 @@ class admin(commands.Cog):
           else: novo_canal = await interaction.guild.create_text_channel(nome,category=categoria)
           await interaction.response.send_message(Res.trad(interaction=interaction,str='chat_create').format(novo_canal.mention),delete_after=10,ephemeral=True)
       else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro'),delete_after=10,ephemeral=True)
+
+
+
 
 
   #COMANDO INFO CHAT
@@ -340,6 +354,9 @@ class admin(commands.Cog):
   #------------------GRUPO CANAL ------------------
   canal=app_commands.Group(name="canal",description="Comandos de canais do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
+
+
+
   #COMANDO DELETE CANAL
   @canal.command(name="deletar",description='🔈⠂Deleta um canal existente.')
   @commands.has_permissions(manage_channels = True)
@@ -354,6 +371,9 @@ class admin(commands.Cog):
           await interaction.response.send_message(Res.trad(interaction=interaction,str='canal_delete'),delete_after=10)
           await canal.delete()
       else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro'),delete_after=10,ephemeral=True)
+
+
+
 
   #COMANDO CRIAR CANAL
   @canal.command(name="criar",description='🔈⠂Crie um novo canal.')
@@ -371,6 +391,9 @@ class admin(commands.Cog):
           else: novo_canal = await interaction.guild.create_voice_channel(nome,category=categoria)
           await interaction.response.send_message(Res.trad(interaction=interaction,str='canal_create').format(novo_canal.mention),delete_after=10,ephemeral=True)
       else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro'),delete_after=10,ephemeral=True)
+
+
+
 
 #COMANDO INFO CANAL
   @canal.command(name="info",description='🔈⠂Informações sobre um canal.')
@@ -421,6 +444,7 @@ class admin(commands.Cog):
   cargo=app_commands.Group(name="cargo",description="Comandos de cargo do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=False),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
 
+
   #COMANDO ADD ROLE
   @cargo.command(name="adicionar",description='🔑⠂Adiciona um cargo a um membro.')
   @app_commands.describe(membro="informe um membro",cargo="qual cargo deseja adicionar ao membro?")
@@ -450,6 +474,8 @@ class admin(commands.Cog):
         #await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_permissao"),delete_after=10, ephemeral=True)
       
 
+
+
   #COMANDO REM ROLE
   @cargo.command(name="remover",description='🔑⠂Remove um cargo de um membro.')
   @app_commands.describe(membro="informe um membro",cargo="qual cargo deseja remover do membro?")
@@ -475,8 +501,9 @@ class admin(commands.Cog):
         else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_user'),delete_after=10,ephemeral=True)
       except discord.Forbidden as e:
         await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="rolerem")
-        #await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_permissao"),delete_after=10, ephemeral=True)
      
+
+
 
     #COMANDO SWITCH ROLE
   @cargo.command(name="trocar",description='🔑⠂Troca o cargo a um membro.')
@@ -506,6 +533,8 @@ class admin(commands.Cog):
         await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="rolecharge")
         #await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_permissao"),delete_after=10, ephemeral=True)
   
+
+
 
   #COMANDO CARGO INFO
   @cargo.command(name="info",description='🔑⠂Verifica as informações de um cargo.')
@@ -539,6 +568,8 @@ class admin(commands.Cog):
     await interaction.response.defer(ephemeral=True)
     await Res.erro_brix_embed(interaction=interaction, str="message_erro_brixsystem", e=error,comando="inforole")
     
+
+
 
 #COMANDO CARGO LISTAR
   @cargo.command(name="listar",description='🔑⠂Liste todos os cargos do servidor.')
@@ -582,6 +613,8 @@ class admin(commands.Cog):
   temprole = app_commands.Group(name="temporario",description="Comandos de cargo temporario do Brix.",parent=cargo )
 
 
+
+
 #FUNÇÂO DE VERIFICAÇÃO DE ASSINANTES PREMIUM
   @tasks.loop(minutes=5) #5*60
   async def verificar_temproles(self): 
@@ -612,6 +645,8 @@ class admin(commands.Cog):
     except Exception as e:
       print(f"erro na verificação de temproles, tentando mais tarde\n{e}")
     return
+
+
 
 
   #COMANDO TEMPROLE ADICIONAR
@@ -672,7 +707,10 @@ class admin(commands.Cog):
       return sugestoes
 
 
-#COMANDO LISTAR TODOS OS TEMPRODE DO SERVIDOR
+
+
+
+#COMANDO LISTAR TODOS OS TEMPROLE DO SERVIDOR
   @temprole.command(name="listar", description="🔑⠂Lista todos os cargos temporários.")
   async def temprolelistar ( self , interaction: discord.Interaction):
     if await Res.print_brix(comando="temprolelistar",interaction=interaction):
@@ -713,6 +751,9 @@ class admin(commands.Cog):
         await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="temprolelistar")
         #await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_permissao"),delete_after=10, ephemeral=True)
         #print(f"Erro no comando temproleremover: {e}")
+
+
+
 
 
   @temprole.command(name="remover", description="🔑⠂Remova um cargo temporário de alguém.")
@@ -774,6 +815,10 @@ class admin(commands.Cog):
         sugestoes.append(app_commands.Choice(name=mensagem_sem_registros, value=""))
 
     return sugestoes
+  
+
+
+
   
   #COMANDO DE AJUDA DO CARGO TEMPORARIO
   @temprole.command(name="ajuda", description="🔑⠂Receba ajuda sobre cargos temporários.")

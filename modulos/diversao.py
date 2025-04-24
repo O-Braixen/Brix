@@ -78,6 +78,7 @@ async def buscae621slash(interaction,quantidade,item):
         await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_APIE621"),ephemeral = True)
 
 
+#API ANIMAL RANDOMICO VIA SLASH
 async def animalrandomico(interaction, quantidade, apirandom):
     try:
         await interaction.response.defer()
@@ -150,7 +151,7 @@ class diversao(commands.Cog):
 
 
 
-
+    #LOOP DE POSTAGEM DO AUTOPHOX
   @tasks.loop(hours=1) # hours=1
   async def autophox(self):
     print("🦊 - rodando Auto Phox")
@@ -264,7 +265,7 @@ class diversao(commands.Cog):
         await Res.erro_brix_embed(interaction,str="message_erro_brixsystem",e=e,comando="join")
 
 
-#COMANDO JOIN CANAL DE VOZ
+#COMANDO LEAVE CANAL DE VOZ
   @kyu.command(name="desconectar",description='🔈⠂Faz Brix sair de um canal.')
   async def leave(self,interaction:discord.Integration):
     if await Res.print_brix(comando="kyuleave",interaction=interaction):
@@ -412,7 +413,7 @@ class diversao(commands.Cog):
 
 
 
-  #GRUPO DE COMANDOS DE IMAGENS BOT 
+  #GRUPO DE COMANDOS DE IMAGENS RANDOMICAS BOT 
   gruporand=app_commands.Group(name="randomico",description="Comandos de imagens randomicos.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
 
@@ -1014,7 +1015,7 @@ class diversao(commands.Cog):
 
 
 
-#GRUPO DE COMANDOS DE MEMES DO BOT 
+#GRUPO DE COMANDOS DE DIVERSÂO DO BOT 
   diver=app_commands.Group(name="diversao",description="Comandos de diversão do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
 #COMANDO GIRAR MOEDA

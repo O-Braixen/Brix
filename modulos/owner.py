@@ -735,7 +735,7 @@ class owner(commands.Cog):
 
 
 
-
+#TAREFA PARA VERIFICAR EM QUAIS GUILDAS BRIX ESTÁ, E SE NÃO TIVER DELETA OS DADOS DO BANCO DE DADOS
   @tasks.loop(time=datetime.time(hour=2, minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
   async def verificar_guilds(self): 
     print(f"Iniciando Verificação de Servidores onde o bot está")
@@ -813,7 +813,7 @@ class owner(commands.Cog):
 
 
 
-    #GRUPO BOT 
+                  #GRUPO BOT 
   bot=app_commands.Group(name="brix",description="Comandos de gestão do sistema Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
 
@@ -822,7 +822,7 @@ class owner(commands.Cog):
 
 
 
-  # COMANDO SAY
+                  # COMANDO SAY
   @bot.command(name="say", description="🦊⠂Diga alguma coisa como Brix.")
   @app_commands.describe(mensagem=r"Qual é a mensagem? use \q para quebrar linha.", ia="Peça algo gerado por Inteligencia artificial.")
   @commands.has_permissions(manage_messages=True)
@@ -864,7 +864,7 @@ class owner(commands.Cog):
 
 
 
-# COMANDO SAY
+                  # COMANDO EMBED
   @bot.command(name="embed", description="🦊⠂Envie um embed como Brix.")
   @app_commands.describe(embed="Crie o Json no site eb.nadeko.bot")
   @commands.has_permissions(manage_messages=True)
@@ -909,7 +909,7 @@ class owner(commands.Cog):
 
 
 
-  #COMANDO PING
+                  #COMANDO PING
   @bot.command(name="ping",description='🤖⠂Exibe o ping do Brix.')
   async def ping(self,interaction: discord.Interaction):
     if await Res.print_brix(comando="ping",interaction=interaction):
@@ -958,7 +958,7 @@ class owner(commands.Cog):
 
 
 
-  #HELP comando
+                  #COMANDO DE AJUDA SOBRE O BOT
   @bot.command(name="ajuda",description='🤖⠂Ajuda sobre o Brix.')
   async def help(self,interaction: discord.Integration):
     if await Res.print_brix(comando="help",interaction=interaction):
@@ -979,7 +979,7 @@ class owner(commands.Cog):
 
 
  
-   #INFO comando
+   #COMANDO DE INFORMAÇÕES DO BOT
   @bot.command(name="info",description='🤖⠂saiba sobre o Brix.')
   async def botinfo(self,interaction: discord.Integration):
     if await Res.print_brix(comando="botinfo",interaction=interaction):
@@ -1002,7 +1002,7 @@ class owner(commands.Cog):
 
 
 
-  #CLEAR DM comando
+  #COMANDO PARA LIMPAR A DM DO USUARIO DELETANDO TUDO QUE O BRIX ENVIOU
   @bot.command(name="limpar-dm",description='🤖⠂Limpe todas as mensagens de brix em sua DM.')
   async def cleardm(self,interaction: discord.Interaction):
     if await Res.print_brix(comando="cleardm",interaction=interaction):

@@ -114,7 +114,7 @@ class BotStatus(commands.Cog):
 
 
 
-
+    #VERIFICADOR DE DATAS COMEMORATIVAS PARA USAR DE STATUS NO BOT
     @tasks.loop(minutes=10)
     async def verificar_datas_comemorativas(self):
         

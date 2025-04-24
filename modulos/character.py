@@ -24,7 +24,7 @@ chats = []
 
 
 
-#TENTATIVA VERSÂO 2
+#COMANDO PARA CONECTAR O BOT AO CHARACTER.AI
 async def enviar_mensagem_para_character_ai(self,membro,mensagem):
   try:
     message = mensagem.replace(f"<@{self.client.user.id}>", "").replace("@everyone", "todo mundo").replace("@here", "todo mundo online")
@@ -55,7 +55,7 @@ async def enviar_mensagem_para_character_ai(self,membro,mensagem):
 
 
 
-    
+#FUNÇAO PARA CRIAR UMA NOVA CONVERSA INDIVIDUAL
 async def reset_character_ai(membro):
   try:
     client = PyAsyncCAI(char_token)
@@ -79,7 +79,7 @@ async def reset_character_ai(membro):
 
 
 
-
+#FUNÇAO PARA CRIAR UMA NOVA CONVERSA INDIVIDUAL NA BRAIXEN'S HOUSE
 async def reset_character_ai_BH():
   try:
     client = PyAsyncCAI(char_token)
@@ -211,9 +211,9 @@ class caracterai(commands.Cog):
 
 
 
-  #COMANDO DAR VIP
+  #COMANDO PARA DAR RESET NA CONVERSA DO BRIX NA BRAIXEN'S HOUSE
   @commands.command(name="resetchatbrix", description='reseta a conversa do brix na BH...')
-  async def premiumonwer(self,ctx):
+  async def resetchatbrixbh(self,ctx):
     if ctx.author.id == donoid:
       await ctx.message.delete()
       brix = await reset_character_ai_BH()

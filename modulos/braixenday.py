@@ -67,16 +67,7 @@ class braixenday(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("🦊  -  Modúlo Braixen Day carregado.")
-        #fuso = pytz.timezone('America/Sao_Paulo')
-        #now = datetime.datetime.now().astimezone(fuso)
-        #target_time = now.replace(month=mes,day=dia,hour=8,minute=30)
-         # Se já passou das 9h hoje, agendar para amanhã
-       # if now > target_time:
-       #     target_time += datetime.timedelta(days=1)
-        # Calcula o tempo até o horário alvo
-       # time_until_target = target_time - now
-        # Agendar a tarefa para iniciar no horário alvo
-       # await asyncio.sleep(time_until_target.total_seconds())
+        
         if not self.diadobraixen.is_running():
             self.diadobraixen.start()
 
@@ -85,7 +76,7 @@ class braixenday(commands.Cog):
 
 
 
-    #@tasks.loop(seconds=60)
+    #Verificador do dia do braixen para postagem dedicada na BH
     @tasks.loop(time=datetime.time(hour=8 , minute= 30, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
     async def diadobraixen(self):
         fuso = pytz.timezone('America/Sao_Paulo')

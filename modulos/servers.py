@@ -5,6 +5,7 @@ from datetime import datetime
 from modulos.essential.respostas import Res
 from modulos.connection.database import BancoServidores,BancoUsuarios
 from modulos.premium import liberarpremium
+from modulos.web.webserver import atualizar_status_cache
 from dotenv import load_dotenv
 
 
@@ -261,8 +262,9 @@ class servers(commands.Cog):
   #FUNÇÂO DE ATUALIZAÇÂO DO TOTAL DE SERVIDORES NO TOP.GG
   @tasks.loop(hours=5) #24H loop 24*60*60
   async def update_quantidade_servidores(self): 
-    await asyncio.sleep(600)
+    await asyncio.sleep(60)
     try:
+      atualizar_status_cache()
       servidores = len(self.client.guilds)
       requests.post(f"https://api.discoverd.net/bots/status",headers={"Authorization": discoverd_api},json={"servers": servidores})
       requests.post(f"https://top.gg/api/bots/{self.client.user.id}/stats",headers={"Authorization": topgg_api},json={"server_count": servidores})

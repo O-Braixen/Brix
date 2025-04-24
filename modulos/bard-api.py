@@ -99,7 +99,7 @@ class bard(commands.Cog):
 
 
 
-#COMANDO BARD GPT SLASH
+#COMANDO BARD GPT SLASH PARA GERAR FANFIC
   @brixai.command(name="gerar-fanfic",description='📃⠂Gere uma fanfic curta com Braixen inteligente.')
   @app_commands.checks.cooldown(1,300)
   @app_commands.describe(prompt="Gere uma historia contendo um Braixen usando Brix AI...")
@@ -136,7 +136,7 @@ class bard(commands.Cog):
 
 
 
-#COMANDO BARD GPT SLASH
+#COMANDO BARD GPT SLASH PARA BUSCAR MIDIAS
   @brixai.command(name="midia-ask",description='❓⠂Pergunte sobre alguma midia para o Braixen inteligente que usa Google.')
   @app_commands.checks.cooldown(4,300)
   @app_commands.describe(midia="Anexe uma midia para saber sobre ela...")
@@ -148,6 +148,8 @@ class bard(commands.Cog):
   async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
     if isinstance(error,app_commands.CommandOnCooldown):
       await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
+
+
 
 
 #COMANDO DE RESUMIR CONVERSAS VIA SLASH
@@ -164,6 +166,8 @@ class bard(commands.Cog):
       await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
 
 
+
+#COMANDO DE AJUDA SOBRE IA
   @brixai.command(name="ajuda", description="❓⠂Receba ajuda sobre Braixen Inteligente.")
   async def aihelp(self, interaction: discord.Interaction):
     resposta = discord.Embed( 

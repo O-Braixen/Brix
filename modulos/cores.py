@@ -97,9 +97,14 @@ class cogcores(commands.Cog):
 
 
 
-   #GRUPO ANIVERSARIO
+   #GRUPO DE LOJA  DE CORES
     cor=app_commands.Group(name="cores",description="Comandos de compra de cores do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=False),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
+
+
+
+
+    # COMANDO EXIBIR LOJA DE CORES
     @cor.command(name="loja", description="🖌️⠂Exibe a loja de cores da comunidade.")
     async def lojacor(self, interaction:discord.Interaction):
         if await Res.print_brix(comando="lojacor",interaction=interaction):
@@ -134,6 +139,9 @@ class cogcores(commands.Cog):
 
 
 
+
+
+   # COMANDO ADICIONAR ITEM A LOJA DE CORES
     @cor.command(name="adicionar", description="🖌️⠂Adicione uma cor na loja.")
     @app_commands.describe(cargo="informe um cargo de cor",valor="informe um valor em BraixenCoin")
     async def lojaadd(self,interaction:discord.Interaction,cargo:discord.Role,valor:int):
@@ -177,6 +185,10 @@ class cogcores(commands.Cog):
         return sugestao
 
 
+
+
+
+   # COMANDO REMOVER ITEM A LOJA DE CORES
     @cor.command(name="remover", description="🖌️⠂Retire uma cor na loja.")
     @app_commands.describe(cargo="informe um cargo de cor")
     async def lojarem(self,interaction:discord.Interaction,cargo:discord.Role):
@@ -201,6 +213,9 @@ class cogcores(commands.Cog):
                 await interaction.followup.send(Res.trad(interaction=interaction,str="message_financeiro_compracor_item_notfound"))
         else: await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"),delete_after=10,ephemeral=True)
 
+
+
+   # COMANDO DEFINIR ARTE PARA A LOJA DE CORES
     @cor.command(name="arteloja", description="🖌️⠂Adicione uma arte personalizada na loja de cores.")
     @app_commands.describe(link="envie o link da imagem")
     async def artloja(self,interaction:discord.Interaction,link:str):

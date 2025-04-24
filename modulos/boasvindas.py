@@ -131,7 +131,7 @@ class boasvindas(commands.Cog):
 
 
 
-#GRUPO DE COMANDOS DE IMAGENS BOT 
+#GRUPO DE COMANDOS DE BOAS VINDAS DO BRIX
   boavinda=app_commands.Group(name="bem-vindo",description="Comandos de boas-vindas integrados no Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=False),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
 
@@ -184,7 +184,7 @@ class boasvindas(commands.Cog):
 
 
 
-  #COMANDO BOAS VINDAS DESATIVAR
+  #COMANDO BOAS VINDAS AJUDAR
   @boavinda.command(name="ajuda",description='🦊⠂Dicas de uso do boas-vindas.')
   async def boasvindasdicas(self,interaction: discord.Interaction):
     await interaction.response.send_message(Res.trad(interaction=interaction,str="message_boasvindas_dica"),delete_after=60)

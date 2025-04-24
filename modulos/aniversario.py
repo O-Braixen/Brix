@@ -39,23 +39,11 @@ class aniversario(commands.Cog):
     async def on_ready(self):
         print("🎂  -  Modúlo Aniversário carregado.")
 
-        # Calcula o horário para iniciar a tarefa às 9h da manhã
-        #obs indiquei 12h pois o servidor da squarecloud segue o padrão utc
-        #fuso = pytz.timezone('America/Sao_Paulo')
-       # now = datetime.datetime.now().astimezone(self.fusohorario)
-        #target_time = now.replace(hour=9, minute=0, second=0, microsecond=0)
-
-        # Se já passou das 9h hoje, agendar para amanhã
-        #if now > target_time:
-        #    target_time += datetime.timedelta(days=1)
-        # Calcula o tempo até o horário alvo
-        #time_until_target = target_time - now
-        # Agendar a tarefa para iniciar no horário alvo
-        #await asyncio.sleep(time_until_target.total_seconds())
-        #self.verificar_aniversariantes.start()
-
         if not self.verificar_aniversariantes.is_running():
             self.verificar_aniversariantes.start()
+
+
+
 
     #@tasks.loop(hours=24)
     @tasks.loop(time=datetime.time(hour=9 , minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
@@ -167,17 +155,25 @@ class aniversario(commands.Cog):
 
 
 
+
+
+
     #GRUPO ANIVERSARIO
     aniversario=app_commands.Group(name="aniversário",description="Comandos de aniversario do brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
 
 
-     #COMANDO set aniversario
+
+
+
+     #COMANDO DEFINIR ANIVERSARIO
     @aniversario.command(name="definir",description='🎂⠂Defina seu aniversário.')
     @app_commands.describe(dia="2 digitos para o dia",mes="2 digitos para o mês",ano="4 digitos para o ano")
     async def aniversariodefinir(self,interaction: discord.Interaction,dia: int, mes:int, ano:int):
         await interaction.response.defer(ephemeral=True) 
         await aniversariodefinir(interaction,dia,mes,ano)
           
+
+
 
     #COMANDO USUARIO ANIVERSARIO MENU
     async def useraniversariomenu(self,interaction: discord.Interaction, membro: discord.Member):
@@ -186,6 +182,9 @@ class aniversario(commands.Cog):
         await interaction.response.defer(ephemeral=True)
         menu = True
         await useraniversario(interaction,membro,menu)
+
+
+
 
      #COMANDO USUARIO ANIVERSARIO SLASH
     @aniversario.command(name="consultar",description='🎂⠂Consulte o aniversário de alguém.')
@@ -216,6 +215,9 @@ class aniversario(commands.Cog):
     #GRUPO ANIVERSARIO DE SERVIDOR
     aniversarioservidor=app_commands.Group(name="servidor",description="Comandos de aniversario do brix.",parent=aniversario)
 
+
+
+
     #Comando Aniversario servidor definir
     @aniversarioservidor.command(name="ativar", description="🎂⠂Defina um canal para lembretes de aniversários.")
     @app_commands.describe(canal="Selecione um canal...",cargoping="Selecione um cargo que será pingado...",cargodestaque = "Selecione um cargo de destaque dos aniversáriantes...")#,idioma = "Selecione um idioma")
@@ -245,6 +247,9 @@ class aniversario(commands.Cog):
             await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"),delete_after=30,ephemeral=True)
 
 
+
+
+
 #Comando Aniversario servidor definir
     @aniversarioservidor.command(name="desativar", description="🎂⠂Desative o envio de lembretes de aniversários.")
     async def aniversarioserveranunciodesativar(self, interaction: discord.Interaction):
@@ -263,6 +268,8 @@ class aniversario(commands.Cog):
         else:
             await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"),delete_after=30,ephemeral=True)
     
+
+
 
         #Comando Aniversario servidor definir
     @aniversarioservidor.command(name="status", description="🎂⠂Saiba o Status de aviso desta comunidade.")
@@ -291,6 +298,8 @@ class aniversario(commands.Cog):
 
         except Exception as e:
             await Res.erro_brix_embed(interaction, str="message_erro_brixsystem", e=e,comando="aniversarioserveranunciostatus")
+
+
 
 
     #Comando Aniversario servidor definir

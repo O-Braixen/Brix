@@ -39,17 +39,7 @@ class financeiro(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("💲  -  Modúlo Financeiro carregado.")
-   # fuso = pytz.timezone('America/Sao_Paulo')
-    #now = datetime.datetime.now().astimezone(fuso)
-   # target_time = now.replace(hour=21, minute=0, second=0, microsecond=0)
-
-   # if now > target_time:
-          #  target_time += datetime.timedelta(days=1)
-        # Calcula o tempo até o horário alvo
-    #time_until_target = target_time - now
-        # Agendar a tarefa para iniciar no horário alvo
-   # await asyncio.sleep(time_until_target.total_seconds())
-
+  
     if not self.verificar_daily.is_running():
         self.verificar_daily.start()
 
@@ -58,7 +48,6 @@ class financeiro(commands.Cog):
 
 
     #FUNÇÂO DE VERIFICAÇÃO DE RESGATE DO DAILY
-  #@tasks.loop(hours=24) #24H loop
   @tasks.loop(time=datetime.time(hour=21, minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
   async def verificar_daily(self): 
     try:
@@ -134,7 +123,7 @@ class financeiro(commands.Cog):
 
 
 
-  #GRUPO SERVIDOR
+  #GRUPO DE COMANDOS BRAIXENCOIN
   braixencoin = app_commands.Group(name="bc",description="Comandos de braixencoin do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
 
@@ -387,7 +376,7 @@ class financeiro(commands.Cog):
 
 
 
-  #COMANDO USUARIO TOP REP
+  #COMANDO BRAIXENCOIN TOPS
   @braixencoin.command(name="tops",description='💰⠂veja o Rank dos mais ricos!')
   async def braixencointops(self,interaction: discord.Integration):
         if await Res.print_brix(comando="bctops",interaction=interaction):
@@ -433,7 +422,7 @@ class financeiro(commands.Cog):
 
 
 
-
+#GRUPO DE COMANDOS DE APOSTAS VINCULADO A BRAIXENCOIN
   aposta = app_commands.Group(name="apostas", description="Comandos de aposta do sistema financeiro de Brix",parent=braixencoin,allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
 

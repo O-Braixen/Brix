@@ -252,7 +252,7 @@ class Pokeday(commands.Cog):
 
 
 
-
+#REALIZA O DONWLOAD DO CALENDARIO POKEDAY
 @tasks.loop(hours=72)
 async def downloadcalendario():
     await asyncio.sleep(10)
@@ -270,7 +270,7 @@ async def downloadcalendario():
 
 
 
-
+#VERIFICA E BUSCA UM POKÉMON OU DATA NO CALENDARIO
 async def verificar_calendario_pokemon(data_atual=None, pokemon_nome=None):
     with open('modulos/essential/pokedaycalendar.ics', 'rb') as f:
         cal = Calendar.from_ical(f.read())
