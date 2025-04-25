@@ -3,9 +3,9 @@ from discord.ext import commands, tasks
 from discord import app_commands
 from datetime import datetime
 from modulos.essential.respostas import Res
-from modulos.connection.database import BancoServidores,BancoUsuarios
+from modulos.connection.database import BancoServidores,BancoUsuarios,BancoLoja
 from modulos.premium import liberarpremium
-from modulos.web.webserver import atualizar_status_cache
+from modulos.web.webserver import atualizar_status_cache, atualizar_loja_cache
 from dotenv import load_dotenv
 
 
@@ -146,8 +146,9 @@ class servers(commands.Cog):
   async def on_ready(self):
     print("🗄️  -  Modúlo Servers carregado.")
     
-    if not self.update_quantidade_servidores.is_running():
-      self.update_quantidade_servidores.start()
+    if not self.update_api_servidores.is_running():
+      await asyncio.sleep(120)
+      self.update_api_servidores.start()
 
  
 
@@ -260,12 +261,15 @@ class servers(commands.Cog):
 
 
   #FUNÇÂO DE ATUALIZAÇÂO DO TOTAL DE SERVIDORES NO TOP.GG
-  @tasks.loop(hours=5) #24H loop 24*60*60
-  async def update_quantidade_servidores(self): 
-    await asyncio.sleep(60)
+  @tasks.loop(hours=5) # hours=5
+  async def update_api_servidores(self): 
     try:
       atualizar_status_cache()
+      filtro = {"braixencoin": {"$exists": True}}
+      dados = BancoLoja.select_many_document(filtro)
+      atualizar_loja_cache(dados)
       servidores = len(self.client.guilds)
+
       requests.post(f"https://api.discoverd.net/bots/status",headers={"Authorization": discoverd_api},json={"servers": servidores})
       requests.post(f"https://top.gg/api/bots/{self.client.user.id}/stats",headers={"Authorization": topgg_api},json={"server_count": servidores})
     except:

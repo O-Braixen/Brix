@@ -199,7 +199,10 @@ class caracterai(commands.Cog):
       resposta.set_author(name= Res.trad(user=message.author,str="onwer_botinfo_author").format(self.client.user.name) ,icon_url=self.client.user.avatar.url)
       resposta.set_thumbnail(url=self.client.user.avatar.url)
       resposta.set_footer(text=Res.trad(user=message.author,str="onwer_botinfo_footer"),icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
-      msgenviada = await message.reply(embed=resposta)
+      view = discord.ui.View()
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(user=message.author,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+      view.add_item(item=button)
+      msgenviada = await message.reply(embed=resposta , view = view)
       await asyncio.sleep(30)
       await msgenviada.delete()
 

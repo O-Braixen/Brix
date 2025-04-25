@@ -1,4 +1,4 @@
-# Brix
+# Brix - Seu novo melhor amigo raposa
 
 ![bot image](imagens/Brix/brix_elegante.png)
 
@@ -41,6 +41,10 @@ Brix conta em seu ascenal uma incrivel porém emblematica ferramenta de imagens 
 
 Gravetos de ouro, uma segunda moeda totalmente exclusiva para adquirir itens unicos em sua loja, esse é um dos varios recursos que Brix disponibiliza a todos que contratam uma assinatura mais avançada, desbloqueando todo o potencial que brix pode oferecer.
 
+
+**/website**
+
+Brix possui um incrivel e sofisticado site onde os usuarios poderão visitar e conhecer um pouquinho a mais do bot, basta visitar https://brix.squareweb.app/ para mais detalhes.
 
 
 **Instruções de instalação**

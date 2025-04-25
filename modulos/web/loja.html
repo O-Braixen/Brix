@@ -8,12 +8,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Brix The Braixen - Seu novo melhor amigo dentro do discord</title>
+<title>Brix The Braixen - Loja</title>
 <meta name="description" content="Brix é seu amigo raposa no Discord, com uma personalidade única e cheia de charme. Ele oferece recursos de administração, diversão, economia e inteligência artificial para transformar seu servidor em uma experiência inesquecível.">
 <link rel="stylesheet" href="assets/css/bulma.min.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
 <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
 <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <link
   rel="stylesheet"
@@ -30,10 +31,6 @@
     fetch("/api/status")
       .then(res => res.json())
       .then(data => {
-        document.getElementById("servidores").innerText = data.servidores;
-        document.getElementById("usuarios").innerText = data.usuarios;
-        document.getElementById("num_comandos_slash").innerText = data.num_comandos_slash;
-        document.getElementById("name").innerText = data.nome;
         document.getElementById("nome_completo").innerText = data.nome_completo;
       });
   </script>
@@ -123,6 +120,7 @@
 </nav>
 <!-- Navbar End -->
 
+
 <!-- Hero Section Start -->
 <section class="hero bg-base is-fullheight">
   <div class="hero-body">
@@ -130,27 +128,17 @@
       <div class="columns">
         <div class="column mr-6 mt-12" data-aos="fade-up">
           <p class="title msgbrix has-text-weight-bold">
-            Olá, eu sou o <br><span class="mt-20 blurple"><span id="name"></span>
+            Cofira a minha incrivel <br><span class="mt-20 blurple">Loja</span>
           </p>
           <p class="subtitle subtexto is-size-6 mt-3">
-            E quero ser o seu novo amigo raposa no Discord <br>Fofinho, esperto e sempre pronto pra dar uma patinha, kyu~!
-              De lembretes de bumps a comandos de IA, eu cuido de tudo pra deixar seu servidor mais organizado e divertido! 
+            Todos os itens listados aqui podem ser adquiridos com o comando <span class="blurple">/Loja diaria</span> lá dentro do discord, te garanto que é um item mais bonito que o anterior, então rola ai e dá uma olhada.
           </p>
-          <div class="buttons">
-            <a href="https://discord.com/oauth2/authorize?client_id=983000989894336592&permissions=269593814&integration_type=0&scope=applications.commands+bot" class="button is-info is-medium ">
-              
-              <strong><i class="fa-solid fa-plus"></i> Me Adicione!</strong>
-            </a>
 
-            <a href="https://dsc.gg/braixen" class="button is-primary is-medium is-outlined">
-              <strong><i class="fa-solid fa-question"></i> Suporte</strong>
-            </a>
-          </div>
         </div>
         <div class="column" data-aos="fade-left">
           <img
             class="image has-image-centered vert-move"
-            src="assets/img/path_to_braixen_image.png"
+            src="assets/img/image_loja.png"
             alt="hero image"
             style="width: 40rem"
           />
@@ -159,7 +147,7 @@
     </div>
   </div>
   <div class="has-text-centered" data-tippy-content="Scroll Down">
-    <a href="#features"
+    <a href="#loja"
       ><i
         class="fa-solid fa-circle-chevron-down fa-lg vert-move2 blurple"
       ></i
@@ -178,127 +166,197 @@
 </svg>
 <!-- Hero Waves End -->
 
-<!-- Features Section Start -->
-<section id="features" class="section mt-6">
+<!-- CONTEÚDO -->
+<section id="loja" class="section mt-6">
   <div class="has-text-centered">
-    <h1 class="title lined">Caracteristicas</h1>
-    <div class="line line-center blurple"></div>
-  </div>
-
-  <!-- single feature start (Left) -->
-  <div class="single-feature">
-    <div class="columns mt-6">
-      <div class="column mr-6">
-        <h4 class="title">Diversão <span class="marron fa-solid fa-face-laugh-squint"></span></h4>
-        <p class="subtitle mt-3">
-          Comandos pra animar o chat, enviar imagens fofas de Braixen, interações engraçadas e muito mais! Porque todo servidor precisa de um pouco de magia e risadas, kyu~! 🎉🦊
-        </p>
-      </div>
-      <div class="column" data-aos="fade-left">
-        <img
-          class="image has-image-centered"
-          src="assets/img/recurso 1.png"
-          alt="feature1 img"
-          style="width: 25rem;"
-        />
-      </div>
-    </div>
-  </div>
-  <!-- single feature end (Left) -->
-
-  <!-- single feature start (Right) -->
-  <div class="single-feature">
-    <div class="columns mt-6">
-      <div class="column" data-aos="fade-right">
-        <img
-          class="image has-image-centered"
-          src="assets/img/recurso 2.png"
-          alt="feature1 img"
-          style="width: 25rem;"
-        />
-      </div>
-      <div class="column">
-        <h4 class="title">  Aniversário <span class="marron fa-solid fa-cake"></span>
-        </h4>
-        <p class="subtitle mt-3">
-          Nunca mais esqueça o dia especial de alguém! Eu aviso quando os aniversários chegarem e posso até mandar uma mensagenzinha fofa pra comemorar, kyu~! 🎂✨
-        </p>
-      </div>
-    </div>
-  </div>
-  <!-- single feature end (Right) -->
-
-  <!-- single feature start (Left) -->
-  <div class="single-feature">
-    <div class="columns mt-6">
-      <div class="column mr-6">
-        <h4 class="title">
-          Inteligencia Artificial <span class="marron fa-solid fa-robot"></span>
-        </h4>
-        <p class="subtitle mt-3">
-          Equipado com a inteligência do Gemini! Consigo resumir conversas, transcrever áudios, analisar imagens e vídeos, e respondo tudo rapidinho. Também posso conversar naturalmente graças ao poder do Character.ai, kyu~! 🤖🧠
-        </p>
-      </div>
-      <div class="column" data-aos="fade-left">
-        <img
-          class="image has-image-centered"
-          src="assets/img/recurso 3.png"
-          alt="feature1 img"
-          style="width: 25rem;"
-        />
-      </div>
-    </div>
-  </div>
-  <!-- single feature end (Left) -->
-
-  <!-- single feature start (Right) -->
-  <div class="single-feature">
-    <div class="columns mt-6">
-      <div class="column" data-aos="fade-right">
-        <img
-          class="image has-image-centered"
-          src="assets/img/recurso 4.png"
-          alt="feature1 img"
-          style="width: 25rem;"
-        />
-      </div>
-      <div class="column">
-        <h4 class="title">Premium <span class="marron fa-solid fa-crown"></span></h4>
-        <p class="subtitle mt-3">
-          Quer ainda mais recursos? Com o Brix Premium, você desbloqueia funções exclusivas, mais personalização de perfil e vantagens que só os melhores treinadores têm acesso, kyu~! 🔥
-        </p>
-      </div>
-    </div>
-  </div>
-  <!-- single feature end (Right) -->
-</section>
-<!-- Features Section End -->
-
-<!-- Stats Section Start -->
-<section id="stats" class="section mt-6">
-  <div class="has-text-centered">
-    <h1 class="title lined">Estátisticas</h1>
+    <h1 class="title lined">Itens da loja diaria</h1>
     <div class="line line-center blurple"></div>
   </div>
   
-  <div class="columns mt-6">
-    <div class="column has-text-centered">
-      <p class="title has-text-weight-bold lined"><span id="servidores"></span></p>
-      <span class="subtitle has-text-weight-bold blurple"><i class="fa-solid fa-server"></i> Servidores</span>
-    </div>
 
-    <div class="column has-text-centered">
-      <p class="title has-text-weight-bold lined"><span id="num_comandos_slash"></span></p>
-      <span class="subtitle has-text-weight-bold blurple"><i class="fa-solid fa-terminal"></i> Comandos</span>
-    </div>
 
-    <div class="column has-text-centered">
-      <p class="title has-text-weight-bold lined"><span id="usuarios"></span></p>
-      <span class="subtitle has-text-weight-bold blurple"><i class="fa-solid fa-users"></i> Usuarios</span>
+
+
+  <section class="section">
+    <div class="container">
+      <!-- Total de itens -->
+      <h2 id="contador-itens" class="title is-5 mb-4"></h2>
+  
+      <!-- Barra de pesquisa -->
+      <div class="field has-addons mb-4">
+        <div class="control has-icons-left is-expanded">
+          <input class="input" type="text" placeholder="Pesquisar item..." id="searchItemInput">
+          <span class="icon is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </div>
+      
+      <!-- Botões de filtro -->
+      <div class="buttons">
+        <button class="button is-info is-medium" id="filter-all">Todos</button>
+        <button class="button is-info is-medium" id="filter-0">Itens Comum</button>
+        <button class="button is-info is-medium" id="filter-1">Itens Raros</button>
+        <button class="button is-info is-medium" id="filter-2">Itens Epicos</button>
+        <button class="button is-info is-medium" id="filter-3">Itens Exclusivos</button>
+      </div>
+
+      <!-- Container dos itens -->
+      <div id="loja-container"></div>
     </div>
+  </section>
+  
+  <!-- Modal de imagem -->
+  <div id="img-modal" class="modal">
+    <div class="modal-background" onclick="fecharModal()"></div>
+    <div class="modal-content">
+      <img id="img-modal-content" src="" style="max-height: 90vh; margin: auto; display: block;">
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="fecharModal()"></button>
   </div>
-</section>
-<!-- Stats Section End -->
+  
+  <script>
+    const searchInput = document.getElementById('searchItemInput');
+    const container = document.getElementById("loja-container");
+    const contador = document.getElementById("contador-itens");
+  
+    const raridades = {
+      0: 'Comum',
+      1: 'Raro',
+      2: 'Epico',
+      3: 'Exclusive'
+    };
+  
+    let itensFiltrados = []; // Para armazenar os itens filtrados
+  
+    async function carregarItens() {
+      try {
+        const resposta = await fetch("/api/loja");
+        const dados = await resposta.json();
+  
+        if (!Array.isArray(dados) || dados.length === 0) {
+          container.innerHTML = "<p>Nenhum item encontrado.</p>";
+          contador.textContent = "Total de itens: 0";
+          return;
+        }
+  
+        itensFiltrados = dados; // Armazena todos os itens inicialmente
+        contador.textContent = `Total de itens: ${itensFiltrados.length}`;
+  
+        exibirItens(itensFiltrados); // Exibe os itens filtrados
+  
+        // Filtro de pesquisa
+        searchInput.addEventListener('input', () => {
+          const termo = searchInput.value.toLowerCase();
+          const itensFiltradosPesquisa = itensFiltrados.filter(item =>
+            item.name.toLowerCase().includes(termo) ||
+            item.descricao.toLowerCase().includes(termo)
+          );
+          exibirItens(itensFiltradosPesquisa);
+        });
+  
+        // Eventos dos botões de filtro
+        document.getElementById('filter-all').addEventListener('click', () => {
+          exibirItens(itensFiltrados);
+        });
+  
+        document.getElementById('filter-0').addEventListener('click', () => {
+          const itensFiltradosRaridade0 = itensFiltrados.filter(item => item.raridade === 0);
+          exibirItens(itensFiltradosRaridade0);
+        });
+  
+        document.getElementById('filter-1').addEventListener('click', () => {
+          const itensFiltradosRaridade1 = itensFiltrados.filter(item => item.raridade === 1);
+          exibirItens(itensFiltradosRaridade1);
+        });
+  
+        document.getElementById('filter-2').addEventListener('click', () => {
+          const itensFiltradosRaridade2 = itensFiltrados.filter(item => item.raridade === 2);
+          exibirItens(itensFiltradosRaridade2);
+        });
+  
+        document.getElementById('filter-3').addEventListener('click', () => {
+          const itensFiltradosRaridade3 = itensFiltrados.filter(item => item.raridade === 3);
+          exibirItens(itensFiltradosRaridade3);
+        });
+  
+      } catch (erro) {
+        container.innerHTML = "<p>Erro ao carregar itens.</p>";
+        contador.textContent = "Total de itens: 0";
+        console.error(erro);
+      }
+    }
+  
+    function exibirItens(itens) {
+      if (itens.length === 0) {
+        container.innerHTML = "<p>Nenhum item encontrado.</p>";
+        return;
+      }
+  
+      const lista = document.createElement("ul");
+      lista.className = "item-grid";
+  
+      itens.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "item-box";
+        li.dataset.texto = `${item.name} ${item.descricao}`.toLowerCase();
+  
+        li.innerHTML = `
+          <img src="${item.url}" class="item-image" onclick="abrirModal('${item.url}')">
+          <div class="item-title">
+            ${item.name}
+            <span class="color-dot" style="background-color:${item.font_color}"></span>
+          </div>
+          <div class="item-description">${item.descricao}</div>
+          <div class="item-prices">
+            <span><img src="assets/img/icon_braixencoin.png"> ${item.braixencoin}</span>
+            <span><img src="assets/img/icon_graveto.png"> ${item.graveto}</span>
+            <span><img src="assets/img/iconraridade${item.raridade}.png">${raridades[item.raridade] ?? 'Desconhecida'}</span>
+          </div>
+        `;
+        lista.appendChild(li);
+      });
+
+  
+      container.innerHTML = "";
+      container.appendChild(lista);
+  
+      contador.textContent = `Total de itens: ${itens.length}`;
+    }
+    function abrirModal(src) {
+      const modal = document.getElementById("img-modal");
+      const modalImg = document.getElementById("img-modal-content");
+      modalImg.src = src;
+      modal.classList.add("is-active");
+    }
+
+    function fecharModal() {
+      const modal = document.getElementById("img-modal");
+      const modalImg = document.getElementById("img-modal-content");
+      modalImg.src = "";
+      modal.classList.remove("is-active");
+    }
+  
+    carregarItens();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </section>
+</main>
+
 
 <!-- Invite Section Start -->
 <section class="section mt-6">
@@ -365,5 +423,6 @@
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>
 <script src="assets/js/script.js"></script>
+
 </body>
 </html>

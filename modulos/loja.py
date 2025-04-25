@@ -119,8 +119,11 @@ async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanhol
 
   #BOTÂO COMPRA
   if loja[item]['_id'] in lista: #BOTÂO ITEM JÀ COMPRADO
-    botaojacomprado = discord.ui.Button(label=Res.trad(interaction=interaction,str="botão_item_adquirido"),style=discord.ButtonStyle.blurple,emoji="<:BH_Braix_Happy4:1154338634011521054>",disabled=True,row=2)
+    botaojacomprado = discord.ui.Button(label=Res.trad(interaction=interaction,str="botão_item_adquirido"),style=discord.ButtonStyle.blurple,emoji="<:BH_Braix_Happy4:1154338634011521054>",disabled=False,row=2)
     view.add_item(item=botaojacomprado)
+    botaojacomprado.callback = partial(pergunta_definir_fundo,item=item,loja=loja, originaluser=originaluser)
+
+
   else: #ELSE CASO O ITEM NÂO TENHA SIDO COMPRADO
     botaograveto = discord.ui.Button(label="{:,.0f}".format(loja[item]['graveto']),style=discord.ButtonStyle.blurple,emoji="<:Graveto:1318962131567378432>",row=2)
     view.add_item(item=botaograveto)
@@ -133,7 +136,7 @@ async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanhol
   
     botaoteste = discord.ui.Button(style=discord.ButtonStyle.blurple,row=2,emoji="<:art:1322226736116666469>")
     view.add_item(item=botaoteste)
-    botaoteste.callback = partial(testar_fundo,self,item=item,loja=loja,originaluser=originaluser,moeda ="braixencoin")
+    botaoteste.callback = partial(testar_fundo,item=item,loja=loja,originaluser=originaluser,moeda ="braixencoin")
 
   botaoduvida = discord.ui.Button(label="?",style=discord.ButtonStyle.gray,row=2)
   view.add_item(item=botaoduvida)
@@ -205,7 +208,7 @@ async def comprar_moeda(self,interaction, item, loja, moeda , novosaldo, origina
     botão = discord.ui.View()
     botaodefinirfundo = discord.ui.Button(label=Res.trad(interaction=interaction,str="botão_alterarbanner"),style=discord.ButtonStyle.blurple,emoji="🖼️",row=1)
     botão.add_item(item=botaodefinirfundo)
-    botaodefinirfundo.callback = partial(definir_fundo,banner_name = banner_name)
+    botaodefinirfundo.callback = partial(definir_fundo,banner_name = banner_name , originaluser = originaluser)
 
     # Mensagem de sucesso personalizada com base na moeda
     if moeda == 'braixencoin':
@@ -239,9 +242,28 @@ async def duvidaloja(interaction):
   await interaction.response.send_message(Res.trad(interaction=interaction,str="botão_duvida_loja"),delete_after=30,ephemeral=True)
 
 
+
+# COMANDO PARA USUARIO USAR UM FUNDO ANTERIORMENTE COMPRADO DISPONIVEL NA LOJA
+@commands.Cog.listener()
+async def pergunta_definir_fundo( interaction, item, loja, originaluser):
+  if interaction.user != originaluser:
+    await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_interacaoalheia"),delete_after=10,ephemeral=True)
+  else:
+    banner_name = loja[item]['_id']
+    botão = discord.ui.View()
+    botaodefinirfundo = discord.ui.Button(label=Res.trad(interaction=interaction,str="botão_alterarbanner"),style=discord.ButtonStyle.blurple,emoji="🖼️",row=1)
+    botão.add_item(item=botaodefinirfundo)
+    botaodefinirfundo.callback = partial(definir_fundo,banner_name = banner_name , originaluser = originaluser)
+    await interaction.response.send_message(Res.trad(interaction=interaction, str="message_pergunta_fundo_definir").format(loja[item]['name']),view=botão, ephemeral=True)
+
+
+
 #BOTÃO PARA DEFINIR FUNDO QUE O USUARIO ACABOU DE COMPRAR, ELE SALVA O NOVO FUNDO E TAMBÉM EXIBE COMO FICOU
 @commands.Cog.listener()
-async def definir_fundo(interaction: discord.Interaction, banner_name):  
+async def definir_fundo(interaction: discord.Interaction, banner_name , originaluser):  
+    if interaction.user != originaluser:
+        await interaction.response.send_message(Res.trad(interaction=interaction, str="message_erro_interacaoalheia"), delete_after=20, ephemeral=True)
+        return
     await interaction.response.defer(ephemeral=True)
     await interaction.original_response()
     
@@ -250,7 +272,6 @@ async def definir_fundo(interaction: discord.Interaction, banner_name):
     BancoUsuarios.update_document(interaction.user, insert)
     
     # Confirma a mudança do fundo
-    #await interaction.followup.send(Res.trad(interaction=interaction, str="message_fundo_definido").format(banner_name),ephemeral=True)
     await interaction.edit_original_response(content=Res.trad(interaction=interaction, str="message_fundo_definido").format(banner_name),view=None)
     await asyncio.sleep(1)
     await userperfil(interaction,interaction.user)
@@ -258,15 +279,12 @@ async def definir_fundo(interaction: discord.Interaction, banner_name):
 
 #BOTÃO PARA USUARIO VISUALIZAR O FUNDO ANTES DE COMPRA-LO
 @commands.Cog.listener()
-async def testar_fundo(self,interaction, item, loja, originaluser, moeda):
+async def testar_fundo(interaction, item, loja, originaluser, moeda):
     if interaction.user != originaluser:
         await interaction.response.send_message(Res.trad(interaction=interaction, str="message_erro_interacaoalheia"), delete_after=20, ephemeral=True)
         return
     await interaction.response.defer(ephemeral=True)
     await userperfil(interaction,interaction.user,loja[item]['_id'])
-
-
-
 
 
 
