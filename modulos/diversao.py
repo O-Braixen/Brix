@@ -373,31 +373,31 @@ class diversao(commands.Cog):
   
 
   #COMANDO PRIMARINA SLASH
-#  @img.command(name="e621",description='🎨⠂Procure algo no e621.')
-#  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
-#  @app_commands.describe(tag="indique uma tag",quantidade="quantidade de imagens, limite 15")
-#  async def e621(self,interaction: discord.Integration,tag:str,quantidade:app_commands.Choice[int]=None):
-#    await buscae621slash(interaction,quantidade,tag)
+  @img.command(name="e621",description='🎨⠂Procure algo no e621.')
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
+  @app_commands.describe(tag="indique uma tag",quantidade="quantidade de imagens, limite 15")
+  async def e621(self,interaction: discord.Integration,tag:str,quantidade:app_commands.Choice[int]=None):
+    await buscae621slash(interaction,quantidade,tag)
      
 
-#  @e621.autocomplete("tag")
-#  async def valor_autocomplete(self, interaction: discord.Interaction, current: str ) -> List[app_commands.Choice[int]]:
-        #FAZ O REQUESTS DA PESQUISA DO USUARIO
-#        r = requests.get(        "https://e621.net/tags/autocomplete.json",        params={"search[name_matches]": current},        headers={"User-Agent": "DiscordBot/1.0 (by YourUsername on e621)"}    , timeout=1).json()
-#        if "error" in r: #CASO APRESENTE ERRO RETORNA UMA LISTA GENERICA
- #           r =  e621api.tags.search(current)
-  #      sugestao = [] #MONTADOR DE SUGESTÔES
-  #      try:
-   #         for tag in r:
-   #                 sugestao.append(
-   #                     app_commands.Choice(
-   #                         name=f"{tag['name']} ({tag['post_count']})",  # Acessando o nome da tag
-   #                         value=tag['name'],   # Acessando o ID da tag
-   #                     )
-   #                 )
-   #     except:
-   #         sugestao = [] #MONTADOR DE SUGESTÔES
-   #     return sugestao [:25]
+  @e621.autocomplete("tag")
+  async def valor_autocomplete(self, interaction: discord.Interaction, current: str ) -> List[app_commands.Choice[int]]:
+    #FAZ O REQUESTS DA PESQUISA DO USUARIO
+    r = requests.get(        "https://e621.net/tags/autocomplete.json",        params={"search[name_matches]": current},        headers={"User-Agent": "DiscordBot/1.0 (by YourUsername on e621)"}    , timeout=1).json()
+    if "error" in r: #CASO APRESENTE ERRO RETORNA UMA LISTA GENERICA
+      r =  e621api.tags.search(current)
+    sugestao = [] #MONTADOR DE SUGESTÔES
+    try:
+      for tag in r:
+        sugestao.append(
+            app_commands.Choice(
+                name=f"{tag['name']} ({tag['post_count']})",  # Acessando o nome da tag
+                value=tag['name'],   # Acessando o ID da tag
+            )
+        )
+    except:
+        sugestao = [] #MONTADOR DE SUGESTÔES
+    return sugestao [:25]
 
 
 

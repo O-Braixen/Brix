@@ -145,9 +145,8 @@ class servers(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🗄️  -  Modúlo Servers carregado.")
-    
+    await self.client.wait_until_ready() #Aguardando o bot ficar pronto
     if not self.update_api_servidores.is_running():
-      await asyncio.sleep(120)
       self.update_api_servidores.start()
 
  
@@ -261,7 +260,7 @@ class servers(commands.Cog):
 
 
   #FUNÇÂO DE ATUALIZAÇÂO DO TOTAL DE SERVIDORES NO TOP.GG
-  @tasks.loop(hours=5) # hours=5
+  @tasks.loop(minutes=10) # hours=5
   async def update_api_servidores(self): 
     try:
       atualizar_status_cache()

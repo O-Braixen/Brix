@@ -459,6 +459,7 @@ class admin(commands.Cog):
       if interaction.user != membro and membro.top_role.position >= interaction.user.top_role.position or interaction.user.top_role.position <= cargo.position:
         await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_cargo'),delete_after=10, ephemeral=True)
         return
+      await interaction.response.defer()
       try:
         if interaction.permissions.manage_roles:
           resposta = discord.Embed(
@@ -467,8 +468,8 @@ class admin(commands.Cog):
             description=Res.trad(interaction=interaction,str='cargo_description').format(membro.mention,cargo)
           )
           await membro.add_roles(cargo)
-          await interaction.response.send_message(embed=resposta)
-        else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_user'),delete_after=10,ephemeral=True)
+          await interaction.edit_original_response(embed=resposta)
+        else: await interaction.edit_original_response(Res.trad(interaction=interaction,str='message_erro_permissao_user'),delete_after=10,ephemeral=True)
       except discord.Forbidden as e:
         await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="roleadd")
         #await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_permissao"),delete_after=10, ephemeral=True)
@@ -489,6 +490,7 @@ class admin(commands.Cog):
       if interaction.user != membro and membro.top_role.position >= interaction.user.top_role.position or interaction.user.top_role.position <= cargo.position:
           await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_cargo'),delete_after=10, ephemeral=True)
           return
+      await interaction.response.defer()
       try:
         if interaction.permissions.manage_roles:
           resposta = discord.Embed(
@@ -497,8 +499,8 @@ class admin(commands.Cog):
             description=Res.trad(interaction=interaction,str='cargo_description').format(membro.mention,cargo)
           )
           await membro.remove_roles(cargo)
-          await interaction.response.send_message(embed=resposta)
-        else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_user'),delete_after=10,ephemeral=True)
+          await interaction.edit_original_response(embed=resposta)
+        else: await interaction.edit_original_response(Res.trad(interaction=interaction,str='message_erro_permissao_user'),delete_after=10,ephemeral=True)
       except discord.Forbidden as e:
         await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="rolerem")
      
@@ -518,6 +520,7 @@ class admin(commands.Cog):
       if interaction.user != membro and membro.top_role.position >= interaction.user.top_role.position or interaction.user.top_role.position <= retirar.position or interaction.user.top_role.position <= colocar.position:
           await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_cargo'),delete_after=10, ephemeral=True)
           return
+      await interaction.response.defer()
       try:
         if interaction.permissions.manage_roles:
           resposta = discord.Embed(
@@ -527,8 +530,8 @@ class admin(commands.Cog):
           )
           await membro.remove_roles(retirar)
           await membro.add_roles(colocar)
-          await interaction.response.send_message(embed=resposta)
-        else: await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_user'),delete_after=10,ephemeral=True)
+          await interaction.edit_original_response(embed=resposta)
+        else: await interaction.edit_original_response(Res.trad(interaction=interaction,str='message_erro_permissao_user'),delete_after=10,ephemeral=True)
       except discord.Forbidden as e:
         await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="rolecharge")
         #await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_permissao"),delete_after=10, ephemeral=True)

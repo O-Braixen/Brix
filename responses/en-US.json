@@ -99,7 +99,7 @@
     "desban_description": "Member: {}",
     "kick_title": "🦊┃Kicked",
     "kick_description": "Member: {} \nReason: {}",
-    "chat_delete": "✅┃Goodbye chat...",
+    "chat_delete": "<a:Brix_Check:1371215835653210182>┃Goodbye chat...",
     "chat_prune": "<:stick:1272652364695998525>┃ Cleaning the chat, kyu~...\n<:Braix:1272653348306419824>┃ I'll remove all messages, but hold on! This might take a while, so be patient, okay? ~kyuuu!",
     "chat_create": "<:stick:1272652364695998525> - I created the text channel {} for you.",
     "topic_none": "No topic set.",
@@ -115,7 +115,7 @@
     "slow_text": "⌛ ⠂Slow Mode",
     "nome": "🪪 ⠂Name",
     "criação": "📅 ⠂Creation Date",
-    "canal_delete": "✅┃Bye-bye channel...",
+    "canal_delete": "<a:Brix_Check:1371215835653210182>┃Bye-bye channel...",
     "canal_create": "<:stick:1272652364695998525>┃ All set! I created the audio channel **{}** just for you, kyu~!",
     "ilimitado": "Unlimited",
     "bits_canal": "🎙 ⠂Bitrate",
@@ -124,6 +124,7 @@
     "minutos": "Minutes",
     "horas": "Hours",
     "dias": "Days",
+    "cargos" : "👥 Roles",
     "Dados": "Data",
     "Reprodução": "Reproduction",
     "Genero": "Gender",
@@ -277,6 +278,14 @@
     "message_ia_text_outrasmidias": "## ❓┃Brix AI Investigator\n```This content you sent cannot be recognized, I cannot identify messages, gifs, or other media that were not attached or have a dedicated link ~kyuu```",
     "message_ia_erro": "<:Braix_Shocked:1272663500115935264>┃ **Ahh no** kyu~\nThe **Gemini API didn't respond**, please try again later. <:Braix:1272653348306419824>\nHere's the error generated.\n```{}```",
     "message_ia_erro_cooldown": "<:Braix_Tongue:1272662386590879795>┃ Oops! This API has a usage limit, but don't worry! You can use it again <t:{}:R>, kyuuu~",
+    "message_ia_servercreate_ageserver": "<:Braix_Tongue:1272662386590879795>┃ Kyu~! This server is already over 14 days old, so for safety reasons I can't create a new one here. How about making a brand new one and adding me there? Kyuuu~!",
+    "message_ia_servercreate_erro": "<:Braix_Shocked:1272663500115935264>┃ **Oh no, kyu~!**\nI ran into a little problem with the **Gemini API**... Check out the error below! <:Braix:1272653348306419824>\n\n```{}```",
+    "message_ia_servercreate_creater": "### <:Braix_UlikeKissingBraixens:1272665955142598798>┃ Server Creator\nI'm using my little magic stick to think of something really cool for you, kyu~!\nJust give me a sec!",
+    "message_ia_servercreate_msg": "### <:Braix_uwu:1287443559074500691>┃ Look what I came up with, kyu~!\n**Server Name:** {}",
+    "message_ia_servercreate_criando": "### <:Braix_uwu:1287443559074500691>┃ Creating your server\nThe magic is happening, kyu~! This may take a bit depending on demand, so hang tight:\n\n  {} - Applying suggested structure\n  {} - Removing old roles\n  {} - Removing old channels\n  {} - Creating new roles\n  {} - Creating new channels\n  {} - Finalizing settings\n\n<:Braix_UlikeKissingBraixens:1272665955142598798> ┃ **Fox tip:** This creator is still in beta! You might need to adjust a few things afterward~",
+    "message_ia_servercreate_finalizado": "### <:Braix_uwu:1287443559074500691>┃ All done, kyu~!\nYour new server is fresh out of the oven! Take a look:\n\n**Name:** {}\n**Roles Created:** {}\n**Categories Created:** {}\n**Channels Created:** {}\n\n<:Braix_UlikeKissingBraixens:1272665955142598798> ┃ **Fox tip:** Since we’re still in beta, you may need to tweak some things manually~",
+    "message_ia_servercreate_cancelado": "<:Braix_Tongue:1272662386590879795>┃ Creation cancelled, kyu~! If you change your mind, just call me again, okay?",
+
     "message_traducao": "### <:Braix_Glass:1272664403296260126>┃ Translation with Brix\n{}",
     "message_tradutor_msg": "Choose a language to translate the message:",
     "message_tradutor_dropdown": "Choose a language...",
@@ -395,12 +404,12 @@
         "<:Braix_Happy:1272664784814342204>┃ You know, you didn't have to, but if you want to send more, I'll accept, okay ~kyuuu"
     ],
     "message_financeiro_brix_negative": [
-        "❌┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ Hey, I'm not so poor as to beg for handouts...",
-        "❌┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ Look, I think it would be better if this money stayed with you, you need it more than I do ~kyuuu",
-        "❌┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ You know, I don't want to make you poor so I can get richer ~kyuuu",
-        "❌┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ I don't need your money, I can pay my Braixen apartment by myself!!!"
+        "<a:Brix_Negative:1371215873637093466>┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ Hey, I'm not so poor as to beg for handouts...",
+        "<a:Brix_Negative:1371215873637093466>┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ Look, I think it would be better if this money stayed with you, you need it more than I do ~kyuuu",
+        "<a:Brix_Negative:1371215873637093466>┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ You know, I don't want to make you poor so I can get richer ~kyuuu",
+        "<a:Brix_Negative:1371215873637093466>┃ {} declined your transfer...\n<:Braix_Hmph:1272666561244561429>┃ I don't need your money, I can pay my Braixen apartment by myself!!!"
     ],
-    "message_financeiro_aposta_limite": "<:Braix_Blank:1272661806858371196>┃ Hey, the betting limit is **5000** <:BraixenCoin:1272655353108103220>, I don't want to see you losing all your money with me ~kyuu",
+    "message_financeiro_aposta_limite": "<:Braix_Blank:1272661806858371196>┃ Hey, the betting limit is **25000** <:BraixenCoin:1272655353108103220>, I don't want to see you losing all your money with me ~kyuu",
     "message_financeiro_aposta_acerto": [
         "<:Braix_Happy:1272664784814342204>┃ You got it right!!! Ohh, I'm giving you double the bet, **{:,.0f}** <:BraixenCoin:1272655353108103220>, for getting it right, and now you have a total of **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu",
         "<:Braix:1272653348306419824>┃ Great, for getting it right, you received **{:,.0f}** <:BraixenCoin:1272655353108103220> and now have **{:,.0f}** <:BraixenCoin:1272655353108103220> in total ~kyuuu"
@@ -408,6 +417,12 @@
     "message_financeiro_aposta_erro": [
         "<:Braix_Shocked:1272663500115935264>┃ Looks like you were wrong, the coin landed on **{}**, unfortunately, you lost the bet and are left with only **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu"
     ],
+
+    "message_financeiro_pokemon_inicio": "### <:Braix_Interrogacao:1365094508693291139>┃ Who's that Pokémon?\n-# Beta API ~kyuu reply <t:{}:R>",
+    "message_financeiro_pokemon_timeout": "<:Braix_Blank:1272661806858371196>┃ Game ended due to inactivity. ~kyuuuuuu\n<:Braix:1272653348306419824>┃ The Pokémon was: {}",
+    "message_financeiro_pokemon_acerto": "<:Braix_Happy:1272664784814342204>┃ Congratulations! You got it right! You won **{:,.0f}** <:BraixenCoin:1272655353108103220> in this game.",
+    "message_financeiro_pokemon_erro": "<:Braix_Shocked:1272663500115935264>┃ You got it wroooong, the correct Pokémon is {}, you lost the amount you bet. ~kyuuuuuu",
+
     "message_financeiro_braixenloteria": "<:Braix_Money:1272666877197418598>┃ Brix Lottery!!!\n**Your scratch card is here**, if it's drawn, the balance will **automatically go to your account** ~kyuuu \n{}",
     "message_financeiro_braixenloteria_help": "<:Braix_Money:1272666877197418598>┃ Brix Lottery!!!\n<:Braix_HappyKyu:1272666265957302353>┃ Win prizes by buying a lottery scratch card!\n<a:Braix_patpat:1272660493479444652>┃ To win, simply get 6 or more <:Braix:1272653348306419824> on your scratch card, if you get <:Braix_derp:1272663053875417219> it doesn't count, okay\n<:BraixenCoin:1272655353108103220>┃ If you get 6 <:Braix:1272653348306419824>, you win: 100 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ If you get 7 <:Braix:1272653348306419824>, you win: 500 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ If you get 8 <:Braix:1272653348306419824>, you win: 1,000 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ If you get 9 <:Braix:1272653348306419824>, you win: 10,000 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ If you get 10 <:Braix:1272653348306419824>, you win: 50,000 <:BraixenCoin:1272655353108103220>\n<:Braix:1272653348306419824>┃ Buy your scratch card for 150 <:BraixenCoin:1272655353108103220> using </apostas braixenloteria:1345864402322325589>, your chance to win a prize is *guaranteed* !!",
     "message_pergunta_fundo_definir" : "<:Braix_Interrogacao:1365094508693291139>┃ You really want to define your profile with art {}.",
@@ -432,7 +447,7 @@
     "onwer_botinfo_description": "I was created by <@197071176810364928> with a grand purpose: to be the **best Braixen bot** and, of course, your friend<:Braix_Heart2:1287443199337693184>! ~kyuu \n\nI was **programmed** in [discord python](https://discordpy.readthedocs.io/en/stable/) following the [Cogs](https://discordpy.readthedocs.io/en/stable/ext/commands/cogs.html) *coding pattern*. I stay **online and operational** thanks to [Squarecloud](https://squarecloud.app/). Want to know more about my current status? Use </brix status:1345864402846482484> and check out all the details!\n\nI am a **feature-rich** bot, so impressive that I could almost pass for a **real Braixen**! (But don't worry, I'm not throwing embers yet... or am I? ~kyuu 🔥👀)\n\nAll my commands are in **slash (/)**, so just look for me in your command list and explore everything I can do!\n\nCurrently, I am part of **{} communities**, interacting with a total of **{} members**! \n\nOh, and don't forget to<:Braix:1272653348306419824> c<:Braix_UlikeKissingBraixens:1272665955142598798>heck out my [terms of use](https://docs.google.com/document/d/1sknHLpFqJZRbWG8sJHi3C-yc5yXqwmaaXOTSWxTCjKw/edit?tab=t.0) and visit my new [website](https://brix.squareweb.app/), okay? ~kyu!",
     "message_bump_lembrete_ping": "<a:Braix_patpat:1272660493479444652>┃ Heyyy fox, you can give </bump:947088344167366698> again!\n{}",
     "message_bump_lembrete_noping": "<a:Braix_patpat:1272660493479444652>┃ Hey, it's time to give </bump:947088344167366698> again, kyuuu~! \n ┃ **F<:Braix_UlikeKissingBraixens:1272665955142598798>ox Tip:** How about making the bump even more special? Use </brix bump:1345864402846482484> to set a custom message and add whatever you want, even role mentions! <:Braix_UlikeKissingBraixens:12726<:Braix_Heart2:1287443199337693184>65955142598798>",
-    "message_erro_permissao_general": "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Seems I **don't have permission** to do that! check the permissions given to me ~kyuu!",
+    "message_erro_permissao_general": "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... It looks like I **don’t have permission** to do that! Please check my role *Brix the Braixen* directly to see if I have the Administrator permission enabled ~kyuu!",
     "message_brixday_positivo": "<:Braix_uwu:1287443559074500691> **Happy Braixen Day to me!**  ~ky<:Braix_uwu:1287443559074500691>uuuu!!\n\nAww, thanks for remembering me! I know I'm just a bunch of code, but with you around, I feel like a **real Braixen**!  \n\nMay your day be <:Braix_Heart2:1287443199337693184>as magical as a well-thrown Fire Spin! 🔥✨ ~kyuuu!!!",
     "message_brixday_negativo": "<:Braix_Glass:1272664403296260126>┃ Awww, thanks for the thought ~kyuu! But... today is **not** Braixen Day. I wish it was every day, but it seems reality doesn't work that way... \n\nT<:Braix_Cry2:1272667164637401250>here's still <t:{}:R> until the big celebration! But don't worry, when it arrives, I'm going to celebrate **like a true Braixen**! 🔥✨ ~kyuuu!",
     "message_erro_embed": "<:Braix_Blank:1272661806858371196>┃ Could not send your embed kyu~~\nRemember you need to generate the json code on the website https://eb.nadeko.bot/ and copy the json code from the website and send it to me to generate your embed kyuuu.",

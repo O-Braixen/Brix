@@ -28,7 +28,7 @@
     "desban_description" :"Membro: {}",
     "kick_title" :"🦊┃Expulso",
     "kick_description" :"Membro: {} \nRazão: {}",
-    "chat_delete" : "✅┃tchauzinho chat...",
+    "chat_delete" : "<a:Brix_Check:1371215835653210182>┃tchauzinho chat...",
     "chat_prune" : "<:stick:1272652364695998525>┃ Limpando o chat, kyu~...\n<:Braix:1272653348306419824>┃ Vou remover todas as mensagens, mas calma lá! Isso pode levar um tempinho, então seja paciente, tá bom? ~kyuuu!",
     "chat_create" : "<:stick:1272652364695998525> - Criei o canal de texto {} para você.",
     "topic_none" : "Nenhum tópico definido.",
@@ -44,7 +44,7 @@
     "slow_text" : "⌛ ⠂Modo Lento",
     "nome" : "🪪 ⠂Nome",
     "criação" : "📅 ⠂Data Criação",
-    "canal_delete" : "✅┃bye bye canal...",
+    "canal_delete" : "<a:Brix_Check:1371215835653210182>┃bye bye canal...",
     "canal_create" : "<:stick:1272652364695998525>┃ Prontinho! Criei o canal de áudio **{}** só pra você, kyu~!",
     "ilimitado" : "Ilimitado",
     "bits_canal" : "🎙 ⠂Taxa de Bits",
@@ -53,6 +53,7 @@
     "minutos": "Minutos",
     "horas": "Horas",
     "dias": "Dias",
+    "cargos" : "👥 Cargos",
 
     "Dados": "Dados",
     "Reprodução": "Reprodução",
@@ -200,7 +201,14 @@
     "message_ia_text_outrasmidias" : "## ❓┃Investigador Brix AI\n```Esse conteúdo que você enviou não pode ser reconhecido, não consigo identificar mensagens, gifs, ou outras midias que não foram anexadas ou possuem um link dedicado ~kyuu```",
     "message_ia_erro" : "<:Braix_Shocked:1272663500115935264>┃ **Ahh não** kyu~\nA **api do gemini não me respondeu**, tente novamente mais tarde. <:Braix:1272653348306419824>\nSegue o erro gerado.\n```{}```",
     "message_ia_erro_cooldown" : "<:Braix_Tongue:1272662386590879795>┃ Opa! Essa API tem um limite de uso, mas não se preocupe! Você poderá usá-la novamente <t:{}:R>, kyuuu~",
-
+    "message_ia_servercreate_ageserver" : "<:Braix_Tongue:1272662386590879795>┃ Kyu~! Esse servidor já tem mais de 14 dias, então por segurança não posso criar um novo aqui. Que tal fazer um novinho e me adicionar lá? Kyuuu~!",
+    "message_ia_servercreate_erro" : "<:Braix_Shocked:1272663500115935264>┃ **Ah não, kyu~!**\nTive um probleminha com a **API do Gemini**... Dá uma olhada no erro aqui embaixo! <:Braix:1272653348306419824>\n\n```{}```",
+    "message_ia_servercreate_creater" : "### <:Braix_UlikeKissingBraixens:1272665955142598798>┃ Criador de Servidor\nTô usando meu gravetinho mágico pra pensar em algo bem legal pra você, kyu~!\nMe dá só um segundinho!",
+    "message_ia_servercreate_msg" : "### <:Braix_uwu:1287443559074500691>┃ Olha só o que eu imaginei, kyu~!\n**Nome do Servidor:** {}",
+    "message_ia_servercreate_criando" : "### <:Braix_uwu:1287443559074500691>┃ Criando seu servidor\nA magia tá rolando, kyu~! Isso pode levar um tempinho dependendo da demanda, então segura firme:\n\n  {} - Aplicando estrutura sugerida\n  {} - Removendo cargos antigos\n  {} - Removendo canais antigos\n  {} - Criando novos cargos\n  {} - Criando novos canais\n  {} - Finalizando configurações\n\n<:Braix_UlikeKissingBraixens:1272665955142598798> ┃ **Dica de raposa:** Esse criador ainda está em fase beta! Talvez você precise ajustar algumas coisinhas depois kyu~",
+    "message_ia_servercreate_finalizado" : "### <:Braix_uwu:1287443559074500691>┃ Tudo pronto, kyu~!\nSeu novo servidor tá quentinho saindo do forno! Dá uma conferida:\n\n**Nome:** {}\n**Cargos Criados:** {}\n**Categorias Criadas:** {}\n**Canais Criados:** {}\n\n<:Braix_UlikeKissingBraixens:1272665955142598798> ┃ **Dica de raposa:** Como ainda estamos em beta, talvez seja preciso ajustar algo manualmente~",
+    "message_ia_servercreate_cancelado" : "<:Braix_Tongue:1272662386590879795>┃ Criação cancelada, kyu~! Se mudar de ideia, é só me chamar de novo, tá?",
+    
     "message_traducao" : "### <:Braix_Glass:1272664403296260126>┃ Tradução com Brix\n{}",
     "message_tradutor_msg" : "Escolha um idioma para traduzir a mensagem:",
     "message_tradutor_dropdown" : "Escolha um idioma...",
@@ -211,7 +219,7 @@
     "message_erro_banir" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que **eu não tenho permissão de banir** ou esse **membro já foi banido**.",
     "message_erro_desbanir" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que **eu não tenho permissão de desbanir** ou esse **membro já foi desbanido**.",
     "message_erro_kick" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** para **expulsar esse membro**.",
-    "message_erro_permissao_general" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** para fazer isso! verifique as permissões dadas a mim ~kyuu!",
+    "message_erro_permissao_general" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** para fazer isso! verifique diretamente no meu cargo Brix the Braixen se eu tenho a permissão administrador ativado ~kyuu!",
     "message_erro_permissao" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** para fazer isso! Dá uma olhadinha se eu posso gerenciar cargos por aqui ~kyuu!",
     "message_erro_permissao_user" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Você **não tem permissão** para isso! Verifique se você pode gerenciar cargos antes de tentar de novo ~kyuu!",
     "message_erro_permissao_cargo_user_or_onwer" : "<:Braix_Blank:1272661806858371196>┃ Kyuuu... **Ei, ei!** Você não pode mexer no próprio cargo ou no do dono da comunidade! Algumas coisas é melhor deixar como estão ~kyuuu!",
@@ -332,10 +340,29 @@
     "message_financeiro_pagamento_invalido" : "<:Braix_Shocked:1272663500115935264>┃ Eu não entendi oque você enviou, lembre-se use apenas numeros, apenas K é suportado para multiplicar o valor, tipo 1k vira 1000 <:BraixenCoin:1272655353108103220>",
     "message_financeiro_brix_agradecimento_-30k" : ["<:Braix_Happy:1272664784814342204>┃ Nossa como você é gentil, obrigado kyu...","<:Braix_Happy:1272664784814342204>┃ Uhull você acabou de fazer o dia de um braixen ainda mais feliz!!!","<:Braix_Cry2:1272667164637401250>┃ nem sei como te agradecer, graças a sua ajuda vou conseguir pagar meu aluguel"],
     "message_financeiro_brix_agradecimento_+30k" : ["<:Braix_Happy:1272664784814342204>┃ Você tá realmente querendo me deixar um pouquinho mais rico mesmo né rsrsrs","<:Braix_Happy:1272664784814342204>┃ De onde sai tanto dinheiro assim? assaltou um cofre?", "<:Braix_Happy:1272664784814342204>┃ sabe não precisava, mas se quiser mandar mais eu aceito viuu ~kyuuu"],
-    "message_financeiro_brix_negative" : ["❌┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Eiii, eu não sou tão pobre ao ponto de pedir esmolas viu...","❌┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Olha acho que seria melhor essa grana ficar com você, você precisa mais que eu ~kyuuu","❌┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ sabe eu não to querendo te deixar pobre para que eu fique mais rico ~kyuuu","❌┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ não preciso da sua grana, já consigo pagar meu Ap de braixen sozinho!!!"],
-    "message_financeiro_aposta_limite" : "<:Braix_Blank:1272661806858371196>┃ Eiii o limite do valor da aposta é de **5000** <:BraixenCoin:1272655353108103220>, Não quero ver você perdendo toda sua grana comigo ~kyuu",
+    "message_financeiro_brix_negative" : ["<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Eiii, eu não sou tão pobre ao ponto de pedir esmolas viu...","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Olha acho que seria melhor essa grana ficar com você, você precisa mais que eu ~kyuuu","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ sabe eu não to querendo te deixar pobre para que eu fique mais rico ~kyuuu","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ não preciso da sua grana, já consigo pagar meu Ap de braixen sozinho!!!"],
+    "message_financeiro_aposta_limite" : "<:Braix_Blank:1272661806858371196>┃ Eiii o limite do valor da aposta é de **25000** <:BraixenCoin:1272655353108103220>, Não quero ver você perdendo toda sua grana comigo ~kyuu",
     "message_financeiro_aposta_acerto" : ["<:Braix_Happy:1272664784814342204>┃ você acertou!!! ohh to te entregando o dobro da aposta **{:,.0f}** <:BraixenCoin:1272655353108103220> por ter acertado, e agora você ficou com o total de **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu","<:Braix:1272653348306419824>┃ Boaaa, por ter acertado você recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e ficou com **{:,.0f}** <:BraixenCoin:1272655353108103220> no total ~kyuuu"],
     "message_financeiro_aposta_erro" : ["<:Braix_Shocked:1272663500115935264>┃ Parece que você errou, a moeda caiu **{}** infelizmente você perdeu o valor da aposta e ficou com apenas **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu"],
+    
+    
+    
+    
+    
+    
+    "message_financeiro_pokemon_inicio" : "### <:Braix_Interrogacao:1365094508693291139>┃ Quem é esse Pokémon?\n-# Api em beta ~kyuu responda <t:{}:R>",
+    "message_financeiro_pokemon_timeout" : "<:Braix_Blank:1272661806858371196>┃ Jogo encerrado por inatividade. ~kyuuuuuu\n<:Braix:1272653348306419824>┃ O Pokémon era: {}",
+    "message_financeiro_pokemon_acerto" : "<:Braix_Happy:1272664784814342204>┃ Parabéns! Você acertou! Ganhou **{:,.0f}** <:BraixenCoin:1272655353108103220> neste jogo.",
+    "message_financeiro_pokemon_erro" : "<:Braix_Shocked:1272663500115935264>┃ Você errouuuuu o pokémon correto é {}, você perdeu o valor apostado. ~kyuuuuuu",
+
+
+
+
+
+
+
+
+    
     "message_financeiro_braixenloteria": "<:Braix_Money:1272666877197418598>┃ Loteria do Brix!!!\n**Sua raspadinha está aqui**, caso ela seja sorteada o saldo já **cai automaticamente na sua conta** ~kyuuu \n{}",
     "message_financeiro_braixenloteria_help": "<:Braix_Money:1272666877197418598>┃ Loteria do Brix!!!\n<:Braix_HappyKyu:1272666265957302353>┃ Ganhe prêmios comprando uma raspadinha da loteria!\n<a:Braix_patpat:1272660493479444652>┃ Para ganhar é bem simples basta tirar 6 ou mais <:Braix:1272653348306419824> na sua raspadinha, caso apareça <:Braix_derp:1272663053875417219> não vai valer blz\n<:BraixenCoin:1272655353108103220>┃ Tirando 6 <:Braix:1272653348306419824> você ganha: 100 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 7 <:Braix:1272653348306419824> você ganha: 500 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 8 <:Braix:1272653348306419824> você ganha: 1,000 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 9 <:Braix:1272653348306419824> você ganha: 10,000 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 10 <:Braix:1272653348306419824> você ganha: 50,000 <:BraixenCoin:1272655353108103220>\n<:Braix:1272653348306419824>┃ Compre sua raspadinha por 150 <:BraixenCoin:1272655353108103220> usando </apostas braixenloteria:1345864402322325589> sua chance de ganhar algo é de apenas 15% boa sorte",
     "message_pergunta_fundo_definir" : "<:Braix_Interrogacao:1365094508693291139>┃ Você deseja realmente definir seu perfil com a arte {}.",

@@ -539,7 +539,7 @@ async def baixaritensloja():
   for item in itens:
         file_name = f"{item['_id']}.png"
         file_path = os.path.join(IMAGE_SAVE_PATH, file_name)
-        await asyncio.sleep(0,5)
+        await asyncio.sleep(1)
         response = requests.get(item['url'])
         if response.status_code == 200:
           with open(file_path, 'wb') as f:
@@ -751,7 +751,7 @@ class owner(commands.Cog):
           print(f"{contador}: ⚠️ Falhou 30 vezes. Deletando registro do ID {server['_id']}")
           BancoServidores.delete_document(server['_id'])
         else:
-          print(f"{contador}: 🚨 Incrementando falhas ({falhas}/10) para o ID {server['_id']}")
+          print(f"{contador}: 🚨 Incrementando falhas ({falhas}/30) para o ID {server['_id']}")
           BancoServidores.update_document(server['_id'], {"check_falhas": falhas})
       
       else:

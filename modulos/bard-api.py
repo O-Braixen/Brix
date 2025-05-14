@@ -1,5 +1,5 @@
 from typing import Union
-import discord,os,asyncio,time,requests,aiohttp
+import discord,os,asyncio,time,requests , re ,aiohttp , datetime,json
 from discord.ext import commands
 from discord import app_commands
 from modulos.essential.respostas import Res
@@ -63,14 +63,14 @@ class bard(commands.Cog):
 
 #GRUPO DE COMANDOS DE IMAGENS BOT                                             #allowed_installs=app_commands.AppInstallationType(guild=True, user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True)
   brixai=app_commands.Group(name="ai",description="Comandos do Sistema AI integrados no bot.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
-
+  
 
 #COMANDO BARD GPT SLASH
   @brixai.command(name="gpt",description='❓⠂Pergunte algo para o Braixen inteligente.')
   @app_commands.checks.cooldown(4,300)
   @app_commands.describe(pergunta="Pergunte algo para Brix AI...")
-  async def ask(self,interaction: discord.Integration,pergunta:str):
-      if await Res.print_brix(comando="askgpt",interaction=interaction,condicao=pergunta):
+  async def gpt(self,interaction: discord.Integration,pergunta:str):
+      if await Res.print_brix(comando="gpt",interaction=interaction,condicao=pergunta):
         return
       await interaction.response.defer()
       check = await userpremiumcheck(interaction)
@@ -92,59 +92,7 @@ class bard(commands.Cog):
         await interaction.followup.send(Res.trad(interaction=interaction,str='message_ia_only_premium'))
         return
 
-  @ask.error
-  async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
-    if isinstance(error,app_commands.CommandOnCooldown):
-      await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
-
-
-
-#COMANDO BARD GPT SLASH PARA GERAR FANFIC
-  @brixai.command(name="gerar-fanfic",description='📃⠂Gere uma fanfic curta com Braixen inteligente.')
-  @app_commands.checks.cooldown(1,300)
-  @app_commands.describe(prompt="Gere uma historia contendo um Braixen usando Brix AI...")
-  async def fanfic_gerador(self,interaction: discord.Integration,prompt:str):
-      if await Res.print_brix(comando="askgpt",interaction=interaction,condicao=prompt):
-        return
-      await interaction.response.defer()
-      check = await userpremiumcheck(interaction)
-      if check == True:
-        try:
-          prompt=f"Gere uma historia curta sempre tendo um braixen, precisa ter titulo e o texto da historia com base nesses parametros aqui: {prompt} em {interaction.locale.value}"
-          ans = await generate_response_with_text(prompt)
-          if len(ans) < 1990:
-            await interaction.followup.send(ans, suppress_embeds=True)
-          else:
-            while len(ans) > 1990:
-              ans_text = ans[:1990]
-              await interaction.followup.send(ans_text, suppress_embeds=True)
-              ans = ans[1990:]
-            await interaction.followup.send(ans, suppress_embeds=True)
-        except Exception as e:
-              await Res.erro_brix_embed(interaction=interaction,str="message_ia_erro",e=e,comando="ask GPT")
-      else:
-        await interaction.followup.send(Res.trad(interaction=interaction,str='message_ia_only_premium'))
-        return
-
-  @fanfic_gerador.error
-  async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
-    if isinstance(error,app_commands.CommandOnCooldown):
-      await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
-
-
-
-
-
-
-#COMANDO BARD GPT SLASH PARA BUSCAR MIDIAS
-  @brixai.command(name="midia-ask",description='❓⠂Pergunte sobre alguma midia para o Braixen inteligente que usa Google.')
-  @app_commands.checks.cooldown(4,300)
-  @app_commands.describe(midia="Anexe uma midia para saber sobre ela...")
-  async def imgask(self, interaction: discord.Interaction, midia: discord.Attachment):
-    await interaction.response.defer()
-    await self.midiaask(interaction,midia)
-
-  @imgask.error
+  @gpt.error
   async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
     if isinstance(error,app_commands.CommandOnCooldown):
       await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
@@ -178,8 +126,31 @@ class bard(commands.Cog):
   
 
 
+
+  ask=app_commands.Group(name="ask",description="Comandos de pergunta com Sistema AI integrados no bot.",parent=brixai)
+
+
+#COMANDO BARD GPT SLASH PARA BUSCAR MIDIAS
+  @ask.command(name="midia",description='❓⠂Pergunte sobre alguma midia para o Braixen inteligente que usa Google.')
+  @app_commands.checks.cooldown(4,300)
+  @app_commands.describe(midia="Anexe uma midia para saber sobre ela...")
+  async def imgask(self, interaction: discord.Interaction, midia: discord.Attachment):
+    await interaction.response.defer()
+    await self.midiaask(interaction,midia)
+
+  @imgask.error
+  async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
+    if isinstance(error,app_commands.CommandOnCooldown):
+      await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
+
+
+
+  
+  create=app_commands.Group(name="criar",description="Comandos de Criaçção com Sistema AI integrados no bot.",parent=brixai)
+
+
 # API AINDA NÂO DISPONIVEL PARA USUARIOS FREE
-#  @brixai.command(name="gerar-imagem",description='🖼️⠂Gere uma imagem com Brix Gemini.')
+#  @create.command(name="imagem",description='🖼️⠂Gere uma imagem com Brix Gemini.')
 #  @app_commands.checks.cooldown(1,300)
  # @app_commands.describe(prompt="Descreva como deseja sua imagem...")
  # async def generate_image(self,interaction: discord.Integration,prompt:str):
@@ -190,6 +161,165 @@ class bard(commands.Cog):
 
 
 
+
+  #COMANDO BARD GPT SLASH PARA GERAR FANFIC
+  @create.command(name="fanfic",description='📃⠂Gere uma fanfic curta com Braixen inteligente.')
+  @app_commands.checks.cooldown(1,300)
+  @app_commands.describe(prompt="Gere uma historia contendo um Braixen usando Brix AI...")
+  async def fanfic_gerador(self,interaction: discord.Integration,prompt:str):
+      if await Res.print_brix(comando="fanfic_gerador",interaction=interaction,condicao=prompt):
+        return
+      await interaction.response.defer()
+      check = await userpremiumcheck(interaction)
+      if check == True:
+        try:
+          prompt=f"Gere uma historia curta sempre tendo um braixen, precisa ter titulo e o texto da historia com base nesses parametros aqui: {prompt} em {interaction.locale.value} Maximo 1000 caracteres"
+          ans = await generate_response_with_text(prompt)
+          if len(ans) < 1990:
+            await interaction.followup.send(ans, suppress_embeds=True)
+          else:
+            while len(ans) > 1990:
+              ans_text = ans[:1990]
+              await interaction.followup.send(ans_text, suppress_embeds=True)
+              ans = ans[1990:]
+            await interaction.followup.send(ans, suppress_embeds=True)
+        except Exception as e:
+              await Res.erro_brix_embed(interaction=interaction,str="message_ia_erro",e=e,comando="ask GPT")
+      else:
+        await interaction.followup.send(Res.trad(interaction=interaction,str='message_ia_only_premium'))
+        return
+
+  @fanfic_gerador.error
+  async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
+    if isinstance(error,app_commands.CommandOnCooldown):
+      await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
+
+
+
+
+
+  #COMANDO BARD GPT SLASH PARA GERAR SERVIDORES
+  @create.command(name="servidor", description="📃⠂Crie um servidor com a ajuda de um Braixen Inteligente.")
+  @app_commands.checks.cooldown(3, 360)
+  @commands.has_permissions(administrator=True)
+  @app_commands.choices(emojis=[app_commands.Choice(name="Sim", value="Sim"),app_commands.Choice(name="Não", value="não"),] , cores=[app_commands.Choice(name="Sim", value="Sim"),app_commands.Choice(name="Não", value="Não"),] , vip=[app_commands.Choice(name="Sim", value="Sim"),app_commands.Choice(name="Não", value="não"),])
+  @app_commands.describe(tema="Descreva qual será o tema do servidor..." , emojis = "Deseja que canais tenham emoji?",vip = "Deseja um setor para vips?", cores = "Deseja cargos dedicados para cores?", divisoria = "Deseja definir uma divisoria entre emoji e nome?")
+  async def servercreate(self , interaction: discord.Interaction, tema: str , emojis: app_commands.Choice[str] = None, cores: app_commands.Choice[str] = None, vip: app_commands.Choice[str] = None, divisoria: str = None ):
+    if await Res.print_brix(comando="servercreate",interaction=interaction,condicao=f"Tema:{tema} - Emoji:{emojis} - Cores:{cores} - Vip:{vip} - Divisoria:{divisoria}"):
+      return
+    await interaction.response.defer()
+    if interaction.guild is None:
+      await interaction.followup.send(Res.trad(interaction=interaction, str="message_erro_onlyservers"))
+      return
+    guild = interaction.guild
+    idade_servidor = datetime.datetime.now(datetime.timezone.utc) - guild.created_at
+    if idade_servidor > datetime.timedelta(days=14):
+      await interaction.followup.send(Res.trad(interaction=interaction,str='message_ia_servercreate_ageserver'))
+      return
+    me = interaction.guild.get_member(interaction.client.user.id)
+
+    if not me or not me.guild_permissions.administrator:
+      await interaction.followup.send(Res.trad(interaction=interaction,str='message_erro_permissao_general'))
+      return
+    
+    check = await userpremiumcheck(interaction)
+    if not check:
+      await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_only_premium'))
+      return
+    res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_creater'), color=discord.Color.yellow() )
+    res.set_thumbnail(url = "https://cdn.discordapp.com/emojis/1370974233588404304.gif")
+    await interaction.followup.send(embed =res)    
+    try:
+      # Primeiro prompt: obter nome e roles
+      ia_prompt_1 = (
+          f"Gere apenas um JSON com o nome do servidor e os cargos seguindo este formato:\n"
+          "{\n"
+          "  \"server_name\": \"...\",\n"
+          "  \"roles\": [\n"
+          "    {{\"name\": \"...\", \"color\": \"#rrggbb\", \"permissions\": \"admin|staff|Bot|vip|cor|default|notificação\"}}\n"
+          "  ]\n"
+          "}\n\n"
+          f"Regras:\n"
+          f"- Tema do servidor: {tema}, linguagem: {interaction.locale.value}\n"
+          f"- Cargos de cor: {'Não, sem cores' if cores is None else cores}\n"
+          f"- Cargo para membros vips: {'sem cargo para vip' if vip is None else vip}\n"
+          f"- Crie no mínimo 15 cargos. Se tiver cores, inclua 5 variantes das cores fora os cargos, caso seja pedido cargo de vip crie apenas 1.\n"
+          f"- Ordem dos Cargos: staff, cores (se houver), vip (se houver), bot, cargos gerais, cargos de notificações.\n"
+      )
+
+      resposta_1 = await generate_response_with_text(ia_prompt_1)
+      resposta_1 = re.sub(r"^```(json)?|```$", "", resposta_1.strip(), flags=re.MULTILINE)
+      json_roles = json.loads(resposta_1)
+      server_name = json_roles["server_name"]
+      roles = json_roles["roles"]
+
+      ia_prompt_2 = (
+          f"Gere apenas um JSON com categorias e canais para o seguinte servidor:\n"
+          "{\n"
+          "  \"categories\": [\n"
+          "    {{\n"
+          "      \"name\": \"...\",\n"
+          "      \"permissions\": [\"admin|staff|vip|default|leitura\"],\n"
+          "      \"channels\": [\n"
+          "        {{\"name\": \"emoji{divisoria}nome\", \"type\": \"text|voice\"}}\n"
+          "      ]\n"
+          "    }}\n"
+          "  ]\n"
+          "}\n\n"
+          f"Regras:\n"
+          f"- Nome: {server_name}\n"
+          f"- Tema do servidor: {tema}\n"
+          f"- Emoji: {'não' if emojis is None else emojis}\n"
+          f"- Separador: {'sem divisorias' if divisoria is None else divisoria}\n"
+          f"- vip: {'sem canais para vip' if vip is None else vip}\n"
+          f"- Organize em no mínimo 20 canais distribuídos em categorias\n"
+          f"- Deve conter: categoria staff com permissão exclusiva, leitura para boas-vindas e regras, bot commands junto do bate-papo, vip(se pedido) eles precisam ser acessíveis pela staff\n"
+          f"- Ordem dos Ccanais: canais de leitura ( permissão leitura / staff/ não colocar default), canais de batepapo ou uso de bots (permissão default), vip (se houver, permissão vip/staff/admin), setor da staff(permissão staff).\n"
+
+      )
+
+      resposta_2 = await generate_response_with_text(ia_prompt_2)
+      resposta_2 = re.sub(r"^```(json)?|```$", "", resposta_2.strip(), flags=re.MULTILINE)
+
+      json_categorias = json.loads(resposta_2)
+      categories = json_categorias["categories"]
+
+      data = {    "server_name": server_name,    "roles": roles,    "categories": categories}
+     
+      embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_msg').format(data['server_name']), color=discord.Color.yellow() )
+      cargos = ""
+      for role in data["roles"]:
+          cargos += f"- {role['name']} ({role['permissions']})\n"
+      embed.add_field(name=Res.trad(interaction=interaction,str='cargos'), value=cargos or "Nenhum", inline=False)
+
+      # Categorias e canais
+      for categoria in data["categories"]:
+        canais = ""
+        for ch in categoria["channels"]:
+          tipo = "💬 - " if ch["type"] == "text" else "🔊 - "
+          canais += f"{tipo} {ch['name']}\n"
+        embed.add_field(name=f"{categoria['name']}", value=canais or "Nenhum canal", inline=False)
+
+      view = ConfirmarAplicacao(interaction, data)
+      await interaction.edit_original_response( view=view  , embed=embed)
+
+    except Exception as e:
+        await interaction.followup.send(Res.trad(interaction=interaction,str='message_ia_servercreate_erro').format(e))
+   
+
+  @servercreate.error
+  async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
+    if isinstance(error,app_commands.CommandOnCooldown):
+      await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
+
+  # autocomplete da opção 'divisoria'
+  @servercreate.autocomplete("divisoria")
+  async def divisoria_autocomplete( self, interaction: discord.Interaction, current: str) -> list[app_commands.Choice[str]]:
+    DIVISORIAS_SUGERIDAS = [ "⫶", "∘", "⤷", "›", "•", "⇢", "⟡", "・", "➤", "➟", "➥", "➔", "⮞", "☼", "┃", "→", "≫", "✧", "⋆", "⋙", "☀", "✦", "❯", "⨠"]
+    sugestoes = [ app_commands.Choice(name=div, value=div)        for div in DIVISORIAS_SUGERIDAS        if current in div    ]
+    if current and current not in DIVISORIAS_SUGERIDAS:
+        sugestoes.insert(0, app_commands.Choice(  name=f"Opção personalizada: {current}", value=current ))
+    return sugestoes[:25]
 
 
 
@@ -399,6 +529,149 @@ class bard(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+  #GERADOR DE SERVIDOR
+  # View com botões de confirmação
+class ConfirmarAplicacao(discord.ui.View):
+    def __init__(self, interaction: discord.Interaction, data):
+        super().__init__(timeout=None)
+        self.interaction = interaction
+        self.data = data
+
+    @discord.ui.button(label="Aplicar", style=discord.ButtonStyle.green)
+    async def aplicar(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user != self.interaction.user:
+            await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_interacaoalheia'), ephemeral=True)
+            return
+        
+        await interaction.response.edit_message( view=None , embed=discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>",), color=discord.Color.yellow() ))
+        msg_enviada = await interaction.original_response()
+        await aplicar_estrutura(interaction.guild, interaction, self.data , msg_enviada)
+
+    @discord.ui.button(label="Cancelar", style=discord.ButtonStyle.red)
+    async def cancelar(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user != self.interaction.user:
+            await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_interacaoalheia'), ephemeral=True)
+            return
+        await interaction.response.edit_message(content=Res.trad(interaction=interaction,str='message_ia_servercreate_cancelado'), view=None, embed=None)
+
+
+# Função que aplica a estrutura no servidor
+async def aplicar_estrutura(guild, interaction, data , msg_enviada):
+  canal_origem = interaction.channel
+  await msg_enviada.edit( embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>",), color=discord.Color.yellow() ))
+
+   # Deletar cargos
+  for role in guild.roles:
+    if role.is_default() or role.managed or role >= guild.me.top_role:
+      continue
+    try:
+      await role.delete()
+      await asyncio.sleep(0.4)
+    except Exception as e:
+      print(f"Erro ao deletar cargo {role.name}: {e}")
+
+  embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>",), color=discord.Color.yellow() )
+  await msg_enviada.edit(content="" , embed = embed)
+
+  # Deletar canais
+  for channel in guild.channels:
+    if channel.id != canal_origem.id:
+      try:
+        await channel.delete()
+        await asyncio.sleep(0.4)
+      except discord.Forbidden:
+        await msg_enviada.edit(content=f"<a:Brix_Negative:1371215873637093466> Não consegui apagar o canal {channel.name}")
+  
+  embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>",), color=discord.Color.yellow() )
+  await msg_enviada.edit(content="" , embed = embed)
+
+  # Renomear servidor
+  try:
+    await guild.edit(name=data["server_name"])
+  except discord.Forbidden:
+    await msg_enviada.edit(content="<a:Brix_Negative:1371215873637093466> Não consegui renomear o servidor.")
+
+  # Criar cargos
+  cargos_criados = {}
+  for role_data in data["roles"]:
+    perms = discord.Permissions()
+    if role_data["permissions"] == "admin":
+      perms = discord.Permissions(administrator=True)
+    elif role_data["permissions"] == "staff":
+      perms= discord.Permissions(manage_channels=True, manage_messages=True , kick_members=True , moderate_members = True)
+    elif role_data["permissions"] == "bot":
+      perms= discord.Permissions(manage_channels=True, manage_messages=True , kick_members=True , moderate_members = True , manage_guild= True , manage_roles = True)
+    elif role_data["permissions"] == "default":
+      perms = discord.Permissions()
+
+    try:
+      cor_hex = role_data.get("color")
+      cor_discord = discord.Colour(int(cor_hex.replace("#", ""), 16)) if cor_hex else discord.Colour.default()
+
+      role = await guild.create_role(
+        name=role_data["name"],
+        colour=cor_discord,
+        permissions=perms
+      )
+      # Salva referência
+      key = role_data["permissions"]
+      cargos_criados.setdefault(key, []).append(role)
+    except discord.HTTPException as e:
+      await msg_enviada.edit(content=f"Erro ao criar cargo {role_data['name']}: {e}")
+
+  # Criar categorias e canais
+  embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>",), color=discord.Color.yellow() )
+  await msg_enviada.edit(content="" , embed = embed)
+  ContadorCanais = 0
+  for category_data in data["categories"]:
+    overwrites = {}
+
+    if any(p in ["admin", "staff" , "vip"] for p in category_data["permissions"]):
+      overwrites = {
+        guild.default_role: discord.PermissionOverwrite(view_channel=False),
+      }
+      for perm in category_data["permissions"]:
+        # Filtra os cargos da estrutura que têm esse tipo de permissão
+        nomes_roles = [role["name"].lower() for role in data["roles"] if role["permissions"] == perm]
+        for role in guild.roles:
+          if role.name.lower() in nomes_roles:
+            overwrites[role] = discord.PermissionOverwrite(view_channel=True , send_messages=True , create_public_threads= True , create_polls=False)
+          if perm == "leitura":
+            overwrites[guild.default_role] = discord.PermissionOverwrite(view_channel=True , send_messages=False , create_private_threads=False , create_polls=False)
+          if perm == "default":
+            overwrites[guild.default_role] = discord.PermissionOverwrite(view_channel=True , send_messages=True , create_private_threads=False , create_polls=False)
+            
+    else:
+      # Caso seja pública (sem perms especiais)
+      overwrites[guild.default_role] = discord.PermissionOverwrite(view_channel=True)
+
+    # Criar categoria com overwrites definidos
+    categoria = await guild.create_category(name=category_data["name"], overwrites=overwrites)
+
+    for channel_data in category_data["channels"]:
+      ContadorCanais += 1
+      if channel_data["type"] == "text":
+        await guild.create_text_channel(name=channel_data["name"], category=categoria)
+      elif channel_data["type"] == "voice":
+        await guild.create_voice_channel(name=channel_data["name"], category=categoria)
+
+
+  embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>",), color=discord.Color.yellow() )
+  await msg_enviada.edit(content="" , embed = embed)
+  await asyncio.sleep(3)
+  embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_finalizado').format(data['server_name'],len (data['roles']),len (data['categories']),ContadorCanais), color=discord.Color.yellow() )
+  await Res.print_brix(comando="servercreate",interaction=interaction,condicao="CONSTRUÇÂO CONCLUIDA")
+  await msg_enviada.edit(content="" , embed = embed)
+  await asyncio.sleep(25)
+  await canal_origem.delete()
 
 
 

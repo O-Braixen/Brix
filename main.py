@@ -13,12 +13,12 @@ token_bot = os.getenv("DISCORD_TOKEN")
 #class Client(commands.Bot): #no furuto usar AutoShardedBot
 class Client(commands.AutoShardedBot): 
     def __init__(self) -> None:
-        intençoes = discord.Intents.default()
-        intençoes.message_content = True
-        intençoes.members = True
+        intents = discord.Intents.default()
+        intents.message_content = True
+        intents.members = True
 
-        super().__init__(command_prefix='-', intents=intençoes, shard_count=1)
-        self.synced = False  # Nós usamos isso para o bot não sincronizar os comandos mais de uma vez
+        super().__init__(command_prefix='-', intents=intents, shard_count=1)
+        self.synced = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
         self.cogslist = []
         for cog in listdir("modulos"):
             if cog.endswith(".py"):

@@ -326,7 +326,7 @@ class aniversario(commands.Cog):
         proximos_aniversariantes = []
         # Iterar sobre os aniversariantes
         for usuario in aniversariantes:
-            aniversario = datetime.datetime.strptime(usuario.get("nascimento"), "%d/%m/%Y")
+            aniversario = datetime.datetime.strptime(usuario.get("nascimento"), "%d/%m/%Y").replace(tzinfo=self.fusohorario)
             proximo_aniversario = aniversario.replace(year=hoje.year)
             # Caso o aniversário já tenha passado este ano, ajustar para o próximo ano
             if proximo_aniversario < hoje:

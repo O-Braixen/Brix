@@ -1,4 +1,4 @@
-import discord,os,asyncio,time,datetime,pytz,random
+import discord,os,asyncio,time,datetime,pytz,random , requests , io
 from discord.ext import commands,tasks
 from functools import partial
 from discord import app_commands
@@ -213,16 +213,16 @@ class financeiro(commands.Cog):
   @braixencoin.command(name="saldo", description='💰⠂Consulte quantas BraixenCoin você ou alguém tem.')
   @app_commands.describe(membro="informe um membro")
   async def usersaldo(self, interaction: discord.Interaction,membro: discord.User = None):
-        if await Res.print_brix(comando="bcsaldo",interaction=interaction):
-            return
-        await interaction.response.defer()
-        if membro is None:
-            membro = interaction.user
-        try:
-            dado = BancoUsuarios.insert_document(membro)
-            await interaction.followup.send(Res.trad(interaction= interaction, str="message_financeiro_saldo").format(membro.mention,dado['braixencoin'],dado['graveto']))    
-        except:
-            await interaction.followup.send(Res.trad(interaction= interaction, str='message_erro_mongodb').format(interaction.user.id),ephemeral=True)
+    if await Res.print_brix(comando="bcsaldo",interaction=interaction):
+        return
+    await interaction.response.defer()
+    if membro is None:
+        membro = interaction.user
+    try:
+        dado = BancoUsuarios.insert_document(membro)
+        await interaction.followup.send(Res.trad(interaction= interaction, str="message_financeiro_saldo").format(membro.mention,dado['braixencoin'],dado['graveto']))    
+    except:
+        await interaction.followup.send(Res.trad(interaction= interaction, str='message_erro_mongodb').format(interaction.user.id),ephemeral=True)
 
 
 
@@ -235,7 +235,7 @@ class financeiro(commands.Cog):
   @app_commands.checks.cooldown(4,3600)
   @app_commands.describe(membro = "Informe um membro",quantidade = "quantidade de BraixenCoin")
   async def pay(self, interaction: discord.Interaction,membro:discord.User,quantidade:int):
-        if await Res.print_brix(comando="bcpagar",interaction=interaction):
+        if await Res.print_brix(comando="bcpagar",interaction=interaction , condicao=f"{membro.name} - {membro.id}  -  {quantidade}"):
             return
         #await interaction.response.defer()
         if interaction.user == membro: #verifica se o membro que interagil é o mesmo que foi passado
@@ -435,7 +435,7 @@ class financeiro(commands.Cog):
   #COMANDO CARA/COROA DE APOSTA
   @aposta.command(name="girarmoeda",description="💰⠂Aposte sua sorte na moeda e ganhe BraixenCoin.")
   @app_commands.describe(moeda="Selecione o lado da moeda...",valor="Indique o valor da aposta...")
-  @app_commands.checks.cooldown(2,60)
+  @app_commands.checks.cooldown(5,600)
   @app_commands.choices(moeda=[app_commands.Choice(name="cara", value="cara"),app_commands.Choice(name="coroa", value="coroa"),])
   async def coinflipbet(self, interaction:discord.Interaction,valor:int,moeda:app_commands.Choice[str]):
       if await Res.print_brix(comando="coinflipbet",interaction=interaction):
@@ -447,7 +447,7 @@ class financeiro(commands.Cog):
         if saldo < valor:
             await interaction.followup.send(Res.trad(interaction= interaction, str='message_financeiro_saldo_insuficiente'))
             return
-        elif valor > 5000:
+        elif valor > 25000:
             await interaction.followup.send(Res.trad(interaction= interaction, str='message_financeiro_aposta_limite'))
             return
         else:
@@ -514,7 +514,7 @@ class financeiro(commands.Cog):
 
   #COMANDO Braixen Loteria
   @aposta.command(name="braixenloteria",description="💰⠂Compre uma raspadinha e tente a sorte de ganhar algo.")
-  @app_commands.checks.cooldown(6,120)
+  @app_commands.checks.cooldown(10,300)
   async def braixenloteria(self, interaction:discord.Interaction):
     if await Res.print_brix(comando="braixenloteria",interaction=interaction):
         return
@@ -568,76 +568,120 @@ class financeiro(commands.Cog):
 
 
 
-"""
+
   @aposta.command(name="quem-e-esse-pokemon", description="💰⠂Aposte sua sorte e tente adivinhar o Pokémon!")
   @app_commands.describe(valor="Indique o valor da aposta...")
-  @app_commands.checks.cooldown(2, 60)
+  @app_commands.checks.cooldown(3, 900)
   async def quem_e_esse_pokemon(self, interaction: discord.Interaction, valor: int):
-        await interaction.response.defer()
-        dados_do_membro = BancoUsuarios.insert_document(interaction.user)
-        saldo = dados_do_membro['braixencoin']
-        if saldo < valor:
-            await interaction.followup.send(Res.trad(interaction= interaction, str='message_financeiro_saldo_insuficiente'))
-            return
-        
-        await self.start_game(interaction, valor, interaction.user)
+    if await Res.print_brix(comando="quem-e-esse-pokemon",interaction=interaction):
+        return
+    await interaction.response.defer()
+    dados_do_membro = BancoUsuarios.insert_document(interaction.user)
+    saldo = dados_do_membro['braixencoin']
+    if saldo < valor:
+        await interaction.followup.send(Res.trad(interaction= interaction, str='message_financeiro_saldo_insuficiente'))
+        return
+    elif valor > 25000:
+        await interaction.followup.send(Res.trad(interaction= interaction, str='message_financeiro_aposta_limite'))
+        return
+    
+    saldoatual = saldo - valor
+    await self.start_game(interaction, valor, saldoatual ,  interaction.user)
 
-  async def start_game(self, interaction: discord.Interaction, aposta: int, original_user: discord.User):
-        
-        response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=10000").json()
-        pokemon_data = [pokemon['name'] for pokemon in response['results']]  # Lista de nomes de Pokémon (não um conjunto)
-        pokemon = random.choice(pokemon_data)  # Escolhe um nome de Pokémon aleatório
-        
-        dex = requests.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}/").json()
+    # INICIAR JOGO QUEM È ESSE POKÈMON
+  async def start_game(self, interaction: discord.Interaction, aposta: int, saldoatual: int,original_user: discord.User):
+    response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=10000").json()
+    pokemon_data = [pokemon['name'] for pokemon in response['results']]
+    while True:
+        pokemon = random.choice(pokemon_data)
+        dex = requests.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon}/").json() #swirlix
+        imagempokemon = ( dex.get('sprites', {}) .get('other', {}) .get('home', {}) .get('front_default') )
+        if imagempokemon:
+            res = requests.get(imagempokemon, stream=True)
+            if res.status_code == 429:
+                time.sleep(5)
+            else:
+                res = res.content
+                break
 
-        imagempokemon = dex['sprites']['other']['home']['front_default']
-        nome_oculto = self.ocultar_letras(pokemon)
-        view = discord.ui.View()
+    # Criar alternativas
+    alternativas = [pokemon]
+    while len(alternativas) < 4:
+        fake = random.choice(pokemon_data)
+        if fake != pokemon and fake not in alternativas:
+            alternativas.append(fake)
+    random.shuffle(alternativas)
 
-        botao_tentar = discord.ui.Button(label="Tentar", style=discord.ButtonStyle.primary)
-        botao_tentar.callback = partial(self.tentar_adivinhar, original_user=original_user, pokemon=pokemon, aposta=aposta)
-        view.add_item(botao_tentar)
+    buffer = await self.criar_art(res, True)
+    # Criar view com botões
+    view = discord.ui.View()
+    for nome in alternativas:
+        botao = discord.ui.Button(label=nome.capitalize(), style=discord.ButtonStyle.secondary)
+        botao.callback = partial(self.verificar_resposta, original_user=original_user, resposta_usuario=nome, resposta_correta=pokemon, aposta=aposta , saldoatual = saldoatual , res = res)
+        view.add_item(botao)
 
-        botao_cancelar = discord.ui.Button(label="Cancelar", style=discord.ButtonStyle.danger)
-        botao_cancelar.callback = partial(self.cancelar_jogo, original_user=original_user)
-        view.add_item(botao_cancelar)
+    temporesposta = datetime.datetime.now() + datetime.timedelta(seconds=15)
+    mensagem = await interaction.followup.send(content=Res.trad(interaction=interaction, str='message_financeiro_pokemon_inicio').format(int(temporesposta.timestamp())),files=[discord.File(fp=buffer,filename=f"quem-é-esse-pokémon.png")] , view=view)
+    item = {"braixencoin": saldoatual}
+    BancoUsuarios.update_document(interaction.user,item)
+    self.taskgame = asyncio.create_task(self.timeout_jogo(mensagem, original_user , pokemon, res))
+    
+  # VERIFICAR RESPOSTA JOGO QUEM È ESSE POKÈMON
+  async def verificar_resposta(self, interaction: discord.Interaction, original_user: discord.User, resposta_usuario: str, resposta_correta: str, aposta: int , saldoatual: int , res):
+    if interaction.user != original_user:
+        await interaction.response.send_message(content=Res.trad(interaction=interaction, str='message_erro_interacaoalheia'), ephemeral=True)
+        return
+    await interaction.response.defer()
+    self.taskgame.cancel()
+    if resposta_usuario.lower() == resposta_correta.lower():
+        saldoganho = aposta*2
+        item = {"braixencoin": saldoatual+aposta+saldoganho}
+        BancoUsuarios.update_document(interaction.user,item)
+        await interaction.edit_original_response(content=Res.trad(interaction=interaction, str='message_financeiro_pokemon_acerto').format(saldoganho) , attachments=[], view = None)
+    else:
+        buffer = await self.criar_art(res, False)
+        await interaction.edit_original_response(content=Res.trad(interaction=interaction, str='message_financeiro_pokemon_erro').format(resposta_correta.capitalize()) , attachments=[discord.File(fp=buffer,filename=f"é-o-{resposta_correta}.png")] , view = None)
 
-        await interaction.followup.send(f"Quem é esse [Pokémon?]({imagempokemon})\n**{nome_oculto}**", view=view)
+  # TIME OUT JOGO QUEM È ESSE POKÈMON
+  async def timeout_jogo(self, mensagem: discord.Message, original_user: discord.User, pokemon:str, res):
+    await asyncio.sleep(15)
+    try:
+        buffer = await self.criar_art(res, False)
+        await mensagem.edit(content=Res.trad(user=original_user, str='message_financeiro_pokemon_timeout').format(pokemon),attachments=[discord.File(fp=buffer,filename=f"é-o-{pokemon}.png")], view = None)
+    except Exception as e:
+        print(f"Erro ao encerrar o jogo: {e}")
+  
 
-  async def tentar_adivinhar(self, interaction: discord.Interaction, original_user: discord.User, pokemon: str, aposta: int):
-        if interaction.user != original_user:
-            await interaction.response.send_message("Apenas o jogador original pode interagir!", ephemeral=True)
-            return
+  async def criar_art(self, res, black):
+    fundo = Image.new("RGBA", (595, 448), "#ffffff")
+    artfundo = Image.open("imagens/financeiro/art-aposta-queméessepokémon.png").convert("RGBA")
+    fundo.paste(artfundo, (0, 0), artfundo)
 
-        resposta = interaction.message.content.split("? ")[-1]  # Simples verificação da resposta
-        if resposta.lower() == pokemon.lower():
-            await interaction.response.send_message(f"Parabéns! Você acertou! Ganhou {aposta * 3} BraixenCoin.")
-        else:
-            await interaction.response.send_message(f"Errado! O Pokémon era {pokemon}.")
+    #artpokemon = Image.open(res.raw).convert("RGBA")
+    artpokemon = Image.open(io.BytesIO(res)).convert("RGBA")
 
-        view = discord.ui.View.from_message(interaction.message)
-        for item in view.children:
-            item.disabled = True
-        await interaction.edit_original_response(view=view)
 
-  async def cancelar_jogo(self, interaction: discord.Interaction, original_user: discord.User):
-        if interaction.user != original_user:
-            await interaction.response.send_message("Apenas o jogador original pode cancelar!", ephemeral=True)
-            return
+    if black:
+        preto = Image.new("RGBA", artpokemon.size, (0, 0, 0, 255))
+        alpha = artpokemon.split()[3]
+        artpokemon = Image.composite(preto, Image.new("RGBA", artpokemon.size, (0, 0, 0, 0)), mask=alpha)
 
-        view = discord.ui.View.from_message(interaction.message)
-        for item in view.children:
-            item.disabled = True
-        await interaction.edit_original_response(content="Jogo cancelado.", view=view)
+    artpokemon = artpokemon.resize((290, 290))
+    fundo.paste(artpokemon, (10, 65), artpokemon)
 
-  def ocultar_letras(self, nome: str):
-        oculto = list(nome)
-        indices = random.sample(range(len(nome)), max(1, len(nome) // 2))
-        for i in indices:
-            oculto[i] = "-"
-        return " ".join(oculto)
+    buffer = io.BytesIO()
+    fundo.save(buffer, format="PNG")
+    buffer.seek(0)
+    return buffer
 
-"""
+  @quem_e_esse_pokemon.error
+  async def on_test_error(self, interaction:discord.Integration, error: app_commands.AppCommandError):
+    if isinstance(error,app_commands.CommandOnCooldown):
+        await interaction.response.send_message(Res.trad(interaction= interaction, str='message_erro_cooldown').format(int(time.time() + error.retry_after)),delete_after=15, ephemeral= True)
+
+
+
+ 
 
 
 

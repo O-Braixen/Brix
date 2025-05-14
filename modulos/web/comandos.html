@@ -46,75 +46,78 @@
   role="navigation"
   aria-label="main navigation"
 >
-  <div class="navbar-brand mt-2 mb-2">
-    <a class="navbar-item" href="/">
-      <strong><span id="nome_completo"></span></strong>
+<div class="navbar-brand ml-10">
+  <a class="navbar-item " href="/">
+    <img  src="assets/img/brixfront.png"/></img>
+    <strong><span id="nome_completo"></span></strong>
 
-      <!-- or if you want to use image -->
-      <!-- <img
-        src="assets/img/Brix avatar (03-25).png"
-        width="112"
-        height="28"
-      /> -->
+    <!-- or if you want to use image -->
+    <!-- <img
+      src="assets/img/Brix avatar (03-25).png"
+      width="112"
+      height="28"
+    /> -->
+  </a>
+
+  <a
+    role="button"
+    class="navbar-burger has-text-white"
+    data-target="navMenu"
+    aria-label="menu"
+    aria-expanded="false"
+  >
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </a>
+</div>
+
+<div id="navbarBasicExample" class="navbar-menu">
+  <div class="navbar-start">
+    <a href="/" class="navbar-item is-tab">
+      Inicio
+    </a>
+    <a href="https://docs.google.com/document/d/1sknHLpFqJZRbWG8sJHi3C-yc5yXqwmaaXOTSWxTCjKw/edit?usp=sharing" class="navbar-item is-tab">
+      Termos de uso
     </a>
 
-    <a
-      role="button"
-      class="navbar-burger has-text-white"
-      data-target="navMenu"
-      aria-label="menu"
-      aria-expanded="false"
-    >
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+    <a href="comandos" class="navbar-item is-tab">
+      Comandos
     </a>
+    
+    <a href="loja" class="navbar-item is-tab">
+      Loja
+    </a>
+    <!-- 
+    <a href="premium" class="navbar-item is-tab">
+      Premium
+    </a>
+    -->
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a href="/" class="navbar-item is-tab">
-        Inicio
-      </a>
-      <a href="https://docs.google.com/document/d/1sknHLpFqJZRbWG8sJHi3C-yc5yXqwmaaXOTSWxTCjKw/edit?usp=sharing" class="navbar-item is-tab">
-        Termos de uso
-      </a>
+  <div class="navbar-end">
+    <a href="https://dsc.gg/braixen" class="navbar-item is-tab" target="_blank">
+      <i class="fa-brands fa-discord"></i>
+    </a>
+    <a href="https://top.gg/bot/983000989894336592" class="navbar-item is-tab" target="_blank">
+      <i class="fa-solid fa-check-to-slot"></i>
+    </a>
+    <a href="https://github.com/O-Braixen/Brix" class="navbar-item is-tab " target="_blank">
+      <i class="fa-brands fa-github"></i>
+    </a>
+        
 
-      <a href="comandos" class="navbar-item is-tab">
-        Comandos
-      </a>
-      
-      <a href="loja" class="navbar-item is-tab">
-        Loja
-      </a>
-      <!-- 
-      <a href="premium" class="navbar-item is-tab">
-        Premium
-      </a>
-      -->
-    </div>
-
-    <div class="navbar-end">
-      <a href="https://dsc.gg/braixen" class="navbar-item is-tab" target="_blank">
-        <i class="fa-brands fa-discord"></i>
-      </a>
-      <a href="https://top.gg/bot/983000989894336592" class="navbar-item is-tab" target="_blank">
-        <i class="fa-solid fa-check-to-slot"></i>
-      </a>
-      <a href="https://github.com/O-Braixen/Brix" class="navbar-item is-tab" target="_blank">
-        <i class="fa-brands fa-github"></i>
-      </a>
-
-      <!-- <div class="navbar-item">
-        <div class="buttons">
-          <a href="https://brix.squareweb.app" class="button is-blurple">
-            <strong
-              ><i class="fa-solid fa-right-to-bracket mr-2"></i>
-              Login</strong
-            >
-          </a>
-        </div>
-      </div>-->
+    <!--<div class="navbar-item">
+      <div class="buttons mt-2">
+        <a href="https://brix.squareweb.app" class="button is-blurple ">
+          <strong
+            ><i class="fa-solid fa-right-to-bracket mr-2"></i>
+            Login</strong
+          >
+        </a>
+      </div>
+    </div> -->
+    <i class="ml-12"></i>
     </div>
   </div>
 </nav>
@@ -126,7 +129,7 @@
   <div class="hero-body">
     <div class="">
       <div class="columns">
-        <div class="column mr-6 mt-12" data-aos="fade-up">
+        <div class="column mr-6 mt-12 ml-10" data-aos="fade-up">
           <p class="title msgbrix has-text-weight-bold">
             Cofira a minha lista de <br><span class="mt-20 blurple">Comandos</span>
           </p>
@@ -135,7 +138,7 @@
           </p>
 
         </div>
-        <div class="column" data-aos="fade-left">
+        <div class="column mr-10" data-aos="fade-left">
           <img
             class="image has-image-centered vert-move"
             src="assets/img/image_comandos.png"
@@ -306,7 +309,7 @@
 
 <!-- Invite Section Start -->
 <section class="section mt-6">
-  <div class="columns">
+  <div class="columns ml-10 mr-10">
     <div class="column has-text-left">
       <p class="title has-text-weight-bold">
         Pronto para testar o <span class="blurple" id="nome">Brix</span>?

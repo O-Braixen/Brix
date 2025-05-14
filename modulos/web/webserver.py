@@ -42,14 +42,15 @@ def atualizar_loja_cache(pymongo):
     dados = list(pymongo)[::-1]
     for item in dados:
         loja_cache.append({
-                    "name": item.get("name", "Sem nome"),
-                    "descricao": item.get("descricao", "Sem descrição"),
-                    "url": item.get("url", ""),  # URL da imagem
-                    "braixencoin": f"{item.get('braixencoin', 0):,}".replace(",", "."),
-                    "graveto": f"{item.get('graveto', 0):,}".replace(",", "."),
-                    "raridade": item.get("raridade", 0),
-                    "font_color": item.get("font_color", 0)
-                })
+            "_id": item.get("_id", "Sem id"),
+            "name": item.get("name", "Sem nome"),
+            "descricao": item.get("descricao", "Sem descrição"),
+            "url": item.get("url", ""),  # URL da imagem
+            "braixencoin": f"{item.get('braixencoin', 0):,}".replace(",", "."),
+            "graveto": f"{item.get('graveto', 0):,}".replace(",", "."),
+            "raridade": item.get("raridade", 0),
+            "font_color": item.get("font_color", 0)
+        })
 
 
 
@@ -164,7 +165,6 @@ def iniciar_webserver(bot_client):
 #RODA O WEBSERVER
 
 def _run_web():
-    #time.sleep(120)  # espera 3 minutos
     log = logging.getLogger('werkzeug')
     log.setLevel(logging.ERROR)
     app.logger.disabled = True
