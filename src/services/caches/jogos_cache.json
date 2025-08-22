@@ -1,0 +1,21 @@
+[
+  {"id": "diamond-pearl", "name": "Pokémon Diamond e Pearl", "plataforma": "Nintendo DS"},
+  {"id": "platinum", "name": "Pokémon Platinum", "plataforma": "Nintendo DS"},
+  {"id": "heartgold-soulsilver", "name": "Pokémon HeartGold e SoulSilver", "plataforma": "Nintendo DS"},
+  {"id": "black-white", "name": "Pokémon Black e White", "plataforma": "Nintendo DS"},
+  {"id": "black-2-white-2", "name": "Pokémon Black 2 e White 2", "plataforma": "Nintendo DS"},
+  {"id": "x-y", "name": "Pokémon X e Y", "plataforma": "Nintendo 3DS"},
+  {"id": "omega-ruby-alpha-sapphire", "name": "Pokémon Omega Ruby e Alpha Sapphire", "plataforma": "Nintendo 3DS"},
+  {"id": "sun-moon", "name": "Pokémon Sun e Moon", "plataforma": "Nintendo 3DS"},
+  {"id": "go", "name": "Pokémon GO", "plataforma": "Mobile"},
+  {"id": "pokemmo", "name": "PokéMMO", "plataforma": "PC/Mobile"},
+  {"id": "ultra-sun-ultra-moon", "name": "Pokémon Ultra Sun e Ultra Moon", "plataforma": "Nintendo 3DS"},
+  {"id": "lets-go-pikachu-lets-go-eevee", "name": "Pokémon Let's Go Pikachu e Let's Go Eevee", "plataforma": "Nintendo Switch"},
+  {"id": "sword-shield", "name": "Pokémon Sword e Shield", "plataforma": "Nintendo Switch"},
+  {"id": "home", "name": "Pokémon HOME", "plataforma": "Mobile/Switch"},
+  {"id": "brilliant-diamond-and-shining-pearl", "name": "Pokémon Brilliant Diamond e Shining Pearl", "plataforma": "Nintendo Switch"},
+  {"id": "legends-arceus", "name": "Pokémon Legends: Arceus", "plataforma": "Nintendo Switch"},
+  {"id": "scarlet-violet", "name": "Pokémon Scarlet e Violet", "plataforma": "Nintendo Switch"},
+  {"id": "legends-ZA", "name": "Pokémon Legends: Z-A", "plataforma": "Nintendo Switch/2"}
+  
+]

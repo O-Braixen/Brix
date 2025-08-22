@@ -1,0 +1,1038 @@
+{
+    "responsekyu" : [  "Kyu! <:Braix_Cute:1272656233857548348>",  "Kyu!!!",  "Kyu~ <:Braix_Hi:1272656479500894292>",  "Kyu?",  "Kyu Kyu!",  "Kyuuuuu!!!",  "Kyu...",  "Woah!!",  "Kyuwaa~",  "Kyuu~!",  "Kyu kyu~",  "Kyu!!! <:Braix_uwu:1287443559074500691>",  "Kyuu? <:Braix_Shocked:1272663500115935264>",  "Kyuuh~",  "Kyu-kyu!",  "Kyuuu~ <:Braix_Happy:1272664784814342204>",  "Kyuuhhh!!!",  "Kyu~ kyu~",  "Kyuya~",  "Kyuuu <:Braix_Heart2:1287443199337693184>"],
+
+    "responselove" : ["também te amo {}!","Aww isso é tão legal de você, eu também te amo {}!","Aww, você é um doce falando isso para mim {}!", "kyu!!, ❤️","Se eu existisse, você ainda me amaria?","Eu amo a gentileza, você é gentil?"],
+    "responsehi" : ["hiii!!", "olá","hello!!","Bonjour! <:Braix_Cute:1272656233857548348>","eaeee","<:Braix_Hi:1272656479500894292> ","Oieee!", "Olá!!, kyu~","Braix!!"],
+    "responseadoro" : ["kyuu~~","também gosto de você, eu acho...","então você gosta mesmo de mim!!","então você me adora, kyuu~~","você é um maximo sabia {}!"],
+    "responseangry" : ["retire já oque você disse <a:Fen_Puto:1272659934034526289>","ta bom, te odeio também {}!","você nunca teve o meu respeito mesmo {}!","Ta vendo isso aqui <:Graveto:1318962131567378432> vou fazer isso aqui com você <a:Braix_Fight:1272658868320604200>","então blz, vai ter troco."],
+    "responsesalve" : ["salveee","salveee {}!","te salveiii {}!","Opaaaa Salve","salve! kyu~"],
+    "responseia" : ["Só tenho mensagens prontas mesmo para responder kyu~","Depende, você sabe oque é uma ia? kyu!", "Não, mas tenho o Character.ai quando você me marca", "Sim e vou dar uma de raposa exteminadora do futuro em você woah!!\n||Brincadeira...||"],
+    "responselegal" : ["Muito obrigado ~kyu","obrigadinho ~kyuuu"],
+    "responsecriacao" : ["eu fui criado por um cara chamado braixen, pelo menos é isso que tá nos meus registros ~kyu!","um tal de braixen me criou...","acho que ele é igual a mim, um braixen ~kyu ~kyu!"],
+    "responsecalaboca" : ["<:Braix_Aaaaugh:1272659154342907985> nossa, ta bom, seu chato","não to afim, vou continuar falando kyu! kyu! kyuuuuuuu!!!!!","tenha respeito comigo...","te odeio..."],
+    "responsebomdia" : ["Bom dia {}!","Bom diaaa Kyuu~","Eae bom dia de raposa para raposa!","kyuuu"],
+    "responseboatarde" : ["Boa tarde {}!","Boa tarde fofo","Boa tarde kyu~"],
+    "responseboanoite" : ["Boa noite {}!","Boa noite Kyuu~","Boa noite querido","Boa noite ~kyuu"],
+
+    "onwer_help_title" : "<:Braix:1272653348306419824>┃ Ajuda sobre comandos",
+    "onwer_help_description" : "Olá! **Eu sou o Brix**, seu companheiro raposa, pronto para deixar sua **experiência na comunidade ainda mais divertida e prática**, kyu~!\n\nTenho uma variedade de comandos úteis, desde **ferramentas administrativas** para a equipe até puro entretenimento. Comigo, você pode criar memes, explorar imagens de Braixen, configurar lembretes de aniversários receber alertas de Bumps e **muito mais!**\n\nTodos os meus comandos são acessíveis pelo **menu de barras (Slash Commands) no Discord**, é só procurá-los e começar a usar, kyu~!\n\nAh, e também tenho alguns **comandos não-Slash**. Eles são poucos, mas bem úteis. Basta digitar **-help** para ver quais estão disponíveis, dica alguns deles são para meu desenvolvedor então não tente usa-los viu.\n\nE tem mais! De vez em quando, eu apareço do nada quando alguém menciona uma palavra mágica... tipo 'kyu'. Estou aqui para deixar sua **comunidade** com uma **personalidade única** digna que um Braixen pode oferecer ~kyuu!\n\nPor fim, se precisar de alguém para conversar, é só me marcar e falar coisa! Eu utilizo a incrível API do Character.ai (apenas em português) para conversar com você de um jeito especial, kyu~!\n\nAh, e não esqueça de conferir meus [termos de uso](https://docs.google.com/document/d/1sknHLpFqJZRbWG8sJHi3C-yc5yXqwmaaXOTSWxTCjKw/edit?tab=t.0) e visitar meu novo [site](https://brix.squareweb.app/), combinado? ~kyu!",
+    "onwer_botinfo_author" : "Kyuuu! Olá, sou o {}! Muito prazer em te conhecer~!",
+    "onwer_botinfo_description" :"Fui criado pelo <@197071176810364928> com um grande propósito: ser o **melhor Braixen bot** e, claro, seu amigo! ~kyuu <:Braix_Heart2:1287443199337693184>\n\nFui **programado** em [discord python](https://discordpy.readthedocs.io/en/stable/) seguindo o *padrão de codificação* [Cogs](https://discordpy.readthedocs.io/en/stable/ext/commands/cogs.html). Me mantenho **online e operante** graças à [Squarecloud](https://squarecloud.app/). Quer saber mais sobre meu estado atual? Use </brix status:1345864402846482484> e confira todos os detalhes!\n\nSou um bot **cheio de recursos**, tão impressionante que quase poderia me passar por um **Braixen de verdade**! (Mas calma, ainda não saio lançando brasas... ou será que sim? ~kyuu 🔥👀)\n\nTodos os meus comandos são em **slash (/)**, então é só me procurar na sua lista de comandos e explorar tudo que posso fazer!\n\nAtualmente, faço parte de **{:,.0f} comunidades**, interagindo com um total de **{:,.0f} membros**! <:Braix:1272653348306419824><:Braix_UlikeKissingBraixens:1272665955142598798>\n\nAh, e não esqueça de conferir meus [termos de uso](https://docs.google.com/document/d/1sknHLpFqJZRbWG8sJHi3C-yc5yXqwmaaXOTSWxTCjKw/edit?tab=t.0) e visitar meu novo [site](https://brix.squareweb.app/), combinado? ~kyu!",
+    "onwer_botinfo_footer" : "Um pequeno Braixen criado com muito amor... e uma pitada de teimosia ~kyuu!",
+    "onwer_botinvite_description" : "### <:Braix:1272653348306419824>┃ Me adicione agora mesmo!\nKyu~! Tô prontinho pra ser o novo amigo da sua comunidade! É só me adicionar [aqui](https://discord.com/oauth2/authorize?client_id=983000989894336592&permissions=1514245844182&integration_type=0&scope=bot+applications.commands) e aproveitar~!",
+    "onwer_dashboard_description" : "### <:Braix:1272653348306419824>┃ Acesse minha dashboard\nKyu~! Sabia que agora eu tenho uma dashboard exclusiva? É só acessar meu site e fazer login [aqui](https://brix.squareweb.app/dashboard) pra configurar tudinho do seu jeitinho~!",
+
+    
+    "owner_ping" : "**🤖┃ Latência:** {}ms. (`{:,.2f} Segundos`)\n**📶┃ Api:** {}ms. (`{:,.2f} Segundos`)\n**📦┃ Usando:** {}\n",
+    "ban_title" :"<:Braix:1272653348306419824>┃ Banido",
+    "ban_description" :"Membro: {} \nRazão: {}",
+    "desban_title" :"<:Braix:1272653348306419824>┃ Desbanido",
+    "desban_description" :"Membro: {}",
+    "kick_title" :"<:Braix:1272653348306419824>┃ Expulso",
+    "kick_description" :"Membro: {} \nRazão: {}",
+    "chat_delete" : "<a:Brix_Check:1371215835653210182>┃ tchauzinho chat...",
+    "chat_prune" : "<:Braix:1272653348306419824>┃ Kyu~! Vou remover todas as mensagens, mas calma aí! Isso pode levar um tempinho, então tenha um pouquinho de paciência, tá bem?\n<:stick:1272652364695998525>┃ Limpando o chat... {} mensagens detectadas!",
+    "chat_prune_concluido" : "<:Braix:1272653348306419824>┃ Limpeza finalizada, kyu~!\n<:stick:1272652364695998525>┃ Apaguei um total de **{} mensagens** com sucesso!",
+    "chat_create" : "<:stick:1272652364695998525> - Criei o canal de texto {} para você.",
+    "topic_none" : "Nenhum tópico definido.",
+    "sim" : "Sim",
+    "não" : "Não",
+    "desativado" : "Desativado",
+    "slow_ativado" : "Ativado em {}s",
+    "chat_title" : "<:Braix:1272653348306419824>┃ Informações do Chat",
+    "menção" : "🦊 ⠂Menção",
+    "tipo" : "⚙️ ⠂Tipo",
+    "chat_texto" : "```Chat de Texto```",
+    "chat_voz" : "```Chat de Voz```",
+    "slow_text" : "⌛ ⠂Modo Lento",
+    "nome" : "🪪 ⠂Nome",
+    "criação" : "📅 ⠂Data Criação",
+    "canal_delete" : "<a:Brix_Check:1371215835653210182>┃ bye bye canal...",
+    "canal_create" : "<:stick:1272652364695998525>┃ Prontinho! Criei o canal de áudio **{}** só pra você, kyu~!",
+    "ilimitado" : "Ilimitado",
+    "bits_canal" : "🎙 ⠂Taxa de Bits",
+    "membros" : ":busts_in_silhouette: ⠂Membros",
+    "membro_value": "```{} Usuários```",
+    "minutos": "Minutos",
+    "horas": "Horas",
+    "dias": "Dias",
+    "cargos" : "👥 Cargos",
+    "ban" :"Banido",
+    "kick" :"Expulso",
+    "user_id" : "ID Usuário: ",
+    "username" : "Username: ",
+    "registrado_em" : "registrado em: ",
+    "normatizar_nomes" : "<:Braix:1272653348306419824>┃ Kyu~! Entendido, raposa! Vou verificar cada nome e deixá-los no padrão certinho. Isso pode levar um tempinho, então tenha um pouco de paciência, tá bem?\n\n<:stick:1272652364695998525>┃ **Iniciando o processo...**\n<a:Braix_Loading:1370974233588404304> **{}/{}** membros processados até agora.\n\n<a:Brix_Check:1371215835653210182> **{}** nomes alterados\n<a:Brix_Negative:1371215873637093466> **{}** sem permissão para alterar\n\n-# Por favor, não apague esta mensagem até que o processo termine, kyu~!",
+    "normatizar_nomes_concluido" : "<:Braix:1272653348306419824>┃ Tudo pronto, kyu~!\n\n<:stick:1272652364695998525>┃ Consegui alterar <a:Brix_Check:1371215835653210182> **{}** nomes.\n<:Braix_Shocked:1272663500115935264>┃ Não consegui alterar <a:Brix_Negative:1371215873637093466> **{}** porque não tive permissão.\n\n-# Processo finalizado com sucesso!",
+
+
+    "Dados": "Dados",
+    "Reprodução": "Reprodução",
+    "Genero": "Gênero",
+    "Especie": "Especie",
+    "Altura": "Altura",
+    "Peso": "Peso",
+    "Tipagem": "Tipagem",
+    "Habilidades": "Habilidades",
+    "Grupo_de_Ovos": "Grupo de Ovos",
+    "eclodir": "eclodir",
+    "Taxa_de_Captura": "Taxa de Captura",
+    "Sem_Dados_genero": "Sem Dados de Gênero",
+    "Ataque": "Ataque",
+    "Defesa": "Defesa",
+    "Velocidade": "Velocidade",
+    "Total" : "Total",
+
+    "cargo_add_title" : "<:Braix:1272653348306419824>┃ Cargo Adicionado",
+    "cargo_rem_title" : "<:Braix:1272653348306419824>┃ Cargo Removido",
+    "cargo_description" :"Membro: {} \nCargo: {}",
+    "cargo_trocado_title" :"<:Braix:1272653348306419824>┃ Cargo Trocado",
+    "cargo_trocado_description" :"Membro: {}\nCargo: {} 🔁 {}",
+    "cargo_title" : "**📂┃ Informações de {}**",
+    "especificacoes" : "⚙️ ⠂Especificações",
+    "especificacoes_value" : "{} Mencionável\n{} Separado\n{} Integração",
+    "cargo_listar_title" : "📂┃ **Cargos de {}**",
+    "cargo_listar_field" : "✨ ⠂Cargos ({} - {})",
+    "cargo_temporario_title" : "### <:Braix:1272653348306419824>┃ Cargos Temporários no Servidor\n\n",
+    "cargo_temporario_add_inguild" : "### <:Braix:1272653348306419824>┃ Cargo Temporário Adicionado\n\n**Usuario:** {}\n**Cargo:** {}\n**Duração:** <t:{}:R>",
+    "cargo_temporario_add_indm" : "### <:Braix:1272653348306419824>┃ Cargo Temporário Adicionado\n\nVocê recebeu do servidor {}\n**Cargo:** {}\n**Duração:** <t:{}:R>",
+    "cargo_temporario_notlist" : "Sem cargos temporários na comunidade...",
+    "cargo_temporario_limit" : "<:Braix_Blank:1272661806858371196>┃ Hmm... desculpe, raposa, mas não consigo agendar datas maiores que 5 meses. Isso é tempo demais para uma raposa lembrar, kyu! Eu com certeza acabaria esquecendo~",
+    "cargo_temporario_duplicado" : "<:Braix_Blank:1272661806858371196>┃ Ops, raposa! Já existe um registro para esse cargo, kyu! Se precisar fazer alguma alteração, é só deletar o registro **{}** antes, tá bom? ~kyuuu",
+    "cargo_temporario_erro" : "<:Braix_Blank:1272661806858371196>┃ Hmmm... Não encontrei o registro, ou talvez não tenha sido possível realizar sua ação, kyu~",
+    "cargo_temporario_rem" : "<:Braix_Happy:1272664784814342204>┃ Kyuuu~ Removi com sucesso o registro do usuário **{}** para o cargo **{}**, kyu!",
+    "cargo_temporario_help" : "### <:Braix:1272653348306419824>┃ Ajuda Sobre Cargos Temporários\n\nOii, raposa! Quer saber como funcionam os cargos temporários, Kyu? É bem simples! Imagine que você precisa dar um cargo pra alguém realizar uma tarefa específica, e depois de um tempo precisa retirá-lo. Pois eu posso cuidar disso pra você, Kyu! É só me dizer o **usuário**, o **cargo** que devo atribuir e o **tempo**. Quando o tempo acabar, vou remover o cargo automaticamente. Fácil, né? Kyu~",
+
+    "usuario_cargos" : "💼 ⠂Cargos {}",
+    "usuario_not_cargos" : "```🦊 ⠂Sem cargos```",
+    "usuario_join" : "👋 ⠂Entrou no discord",
+    "usuario_join_guild" : "📅 ⠂Entrou no servidor",
+    "usuario_on_guild" : "🔍 ⠂Está na comunidade",
+    "usuario_not_guild" : "```Não se encontra nesta comunidade...```",
+
+    "servidor_info" : "**<:Braix:1272653348306419824>┃ Informações de {}**",
+    "servidor_usuario_name" : "👥 ⠂Usuarios",
+    "servidor_canais_name" : "📁 ⠂Canais",
+    "servidor_owner_name" : "👑 ⠂Dono",
+    "servidor_criadoem_name" : "📅 ⠂Criado em",
+    "servidor_emoji_name" : "😀 ⠂Emojis",
+
+    "avatar_global": "<:Braix:1272653348306419824>┃ Avatar Global",
+    "avatar_global_description": "Aqui está o avatar do membro: {}",
+    "avatar_local": "<:Braix:1272653348306419824>┃ Avatar Local",
+    "avatar_local_description": "avatar de {} em: {}",
+
+    "botão_ver_avatar": "Ver Avatar",
+    "botão_ver_banner": "Ver Banner",
+    "botão_ver_cargo": "Ver Cargos",
+    "botão_ver_icone": "Ver icone",
+    "botão_ver_splash": "Ver Splash",
+    "botão_abrir_navegador" : "Abrir em Navegador",
+    "botão_abrir_site_brix" : "Visite meu site",
+
+    "icone_guild": "<:Braix:1272653348306419824>┃ Ícone do Servidor",
+    "icone_guild_description": "Aqui está o ícone do servidor: {}",
+    "banner_guild" : "<:Braix:1272653348306419824>┃ Banner do Servidor",
+    "banner_guild_description" : "Aqui está o banner do servidor: {}",
+    "splash_guild" : "<:Braix:1272653348306419824>┃ Splash do Servidor",
+    "splash_guild_description" : "Aqui está a splash do servidor: {}",
+
+    "lojacor_title" : "**Compre sua Cor Agora Mesmo!!!**",
+    "lojacor_description" : "*Todas as cores disponíveis nesta comunidade podem ser adquiridas comigo, kyu!*\nPara comprar, basta usar o **menu suspenso abaixo** e escolher a sua cor favorita.\n*Dê uma olhada em todas as opções e seus valores aqui embaixo*: :arrow_down::arrow_down:\n{}",
+    "lojacor_dropdown" : "Selecione uma cor...",
+    "loja_diaria" : "Loja diária",
+    "loja_diaria_reseta" : "Loja reseta: <t:{}:R>",
+    "loja_diaria_Comprar_item" : "<:Braix:1272653348306419824>┃ Ahh, você está quase lá, raposa! Está prestes a adquirir o item **{}** por {}.\nSe quiser seguir em frente, basta confirmar abaixo, kyu~\n-# Dica de raposa: Depois de comprado, não tem volta, sem reembolso ~kyuuuu!",
+
+    "botão_confirmartransacao" : "Confirmar Transação",
+    "botão_item_adquirido" : "Usar item já adquirido",
+    "botão_item_indisponivel" : "Vendido apenas por gravetos",
+    "botão_pagina" : "Página",
+    "botão_duvida_loja" : "## Ajuda sobre Loja Diária\n<:Braix:1272653348306419824>┃ Essa é a minha **loja diária**,  kyu! Aqui você pode adquirir personalizações incríveis para o seu **/perfil ver**, usando <:BraixenCoin:1272655353108103220> **BraixenCoin** ou <:Graveto:1318962131567378432> **gravetos**. Os itens disponíveis têm raridades e preços variados, e alguns só podem ser comprados com <:Graveto:1318962131567378432> **gravetos**, então escolha com sabedoria, kyu!.\n\n### Tipos de raridades\n**Comum:** Itens básicos com poucos detalhes, mas ainda charmosos.\n**Raro:** Artes mais refinadas, com ícones diferentes, cores na fonte e até filtros especiais.\n**Épico:** Artes com um acabamento impecável, filtros impressionantes e ícones exclusivos, tudo em harmonia para criar algo memorável.\n**Exclusiva:** Similar ao nivel épico, mas são artes únicas que só aparecem em eventos especiais, kyu~!",
+    "botão_sobremim" : "Sobre mim",
+    "botão_skins" : "Skins",
+    "botão_aniversario" : "Definir Aniversário",
+    "botão_rep" : "dar reputação",
+    "botão_alterarbanner" : "Definir como fundo agora",
+    "botão_buscarpaginausuario" : "Buscar Onde Estou",
+
+    "mes": "Mês",
+    "meses": "Meses",
+    "mes_01": "Janeiro",
+    "mes_02": "Fevereiro",
+    "mes_03": "Março",
+    "mes_04": "Abril",
+    "mes_05": "Maio",
+    "mes_06": "Junho",
+    "mes_07": "Julho",
+    "mes_08": "Agosto",
+    "mes_09": "Setembro",
+    "mes_10": "Outubro",
+    "mes_11": "Novembro",
+    "mes_12": "Dezembro",
+
+    "message_erro_chatprune" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Você não pode usar as opções `deletar` e `manter` ao mesmo tempo. Escolhe só uma, tá bem?",
+    "message_erro_APIE621" : "<:Braix_Shocked:1272663500115935264>┃ **E... erro, kyu~**\nNão consegui uma resposta da API <:Braix_Aaaaugh:1272659154342907985>. Tente novamente daqui a pouco, kyu~.",
+    "message_erro_E621_limit" : "<:Braix_Blank:1272661806858371196>┃ Você pediu **{}** imagens, mas não consigo enviar tudo isso, kyu! Minha API só permite **no máximo 15 imagens** <:Braix_Cry:1272664044318359655>.",
+    "message_APIE621_footer" : "Gerado por E621.net (NSFW)",
+    "message_APIE926_footer" : "Gerado por E926.net (SFW)",
+
+    "message_erro_aniversario_registro" :"<:Braix_Blank:1272661806858371196>┃ Ei, raposa! Não dá pra ficar mudando o aniversário toda hora, kyu~!",
+    "message_erro_aniversario_data_invalida" : "<:Braix_Blank:1272661806858371196>┃ Eii~ essa data que você me passou nem existe, kyu! Por favor, me envia uma data de verdade, tá bem?",
+    "message_erro_aniversario_ano" :"<:Braix_Blank:1272661806858371196>┃ O ano precisa ter 4 digitos - 0000 assim. ~~kyuuuu",
+    "message_erro_aniversario_mes" :"<:Braix_Blank:1272661806858371196>┃ O mês deve estar entre 01 e 12 e precisa ter 2 digitos. ~~kyu",
+    "message_erro_aniversario_dia" :"<:Braix_Blank:1272661806858371196>┃ O dia deve estar entre 01 e 31 e precisa ter 2 digitos. kyu!!",
+    
+    "message_1abril" : "\n\n||<:Braix_Tongue:1272662386590879795>┃ Eii, tenta rodar o comando de novo! <:BH_Braix_hehehe:1154338662830575616> Pegadinha de **primeiro de abril**, caiu direitinho nessa, hein? ~kyuuuu rsrsrsrs||",
+
+    "message_8ball" : ["Sim, ~kyu! As estrelas estão a seu favor hoje, kyu!"     , "Não, ~kyu... parece que as chamas da sorte não estão brilhando para você neste momento, ~kyu."     , "Sim, ~kyu! O caminho à frente está cheio de possibilidades, kyu!"     , "Não, kyu... parece que as chamas da resposta estão um pouco enfraquecidas agora, kyu."     , "Sim, ~kyu! Concentre-se em seus objetivos e você alcançará o sucesso, kyu!"     , "Não, ~kyu... as chamas indicam que pode haver desafios pela frente, ~kyu."     , "Sim, ~kyu! Sua determinação será recompensada, kyu!"     , "Não, ~kyu... talvez seja melhor reconsiderar sua abordagem, kyu."     , "Sim, ~kyu! A sorte está do seu lado, aproveite as oportunidades, kyu!"     , "Não, ~kyu... as chamas revelam que é melhor ter cautela neste momento, kyu."     , "As chamas estão esperando para se manifestar. Pergunte-me novamente mais tarde, e veremos o que o destino reserva, kyu."     , "~Kyuu, as chamas da resposta estão meio apagadas, ~kyu. Não é exatamente uma surpresa emocionante, é?"     , "A sorte está do seu lado... ou não. Francamente, as chamas estão dando uma de indecisas hoje, ~kyu."     , "A incerteza paira no ar, ~kyu. Pode ser prudente esperar por um momento mais claro antes de prosseguir."     , "Não estou com humor para ler as chamas da resposta hoje, ~kyu. Volte quando eu estiver menos ocupado sendo incrível."    , "As chamas estão indecisas, ~kyu. A escolha pode depender de você."    , "As chamas não têm uma resposta definitiva, ~kyu. Talvez o destino ainda esteja se formando."    , "Hmm, ~kyu... você realmente acha que as chamas revelariam algo tão óbvio? Volte quando fizer uma pergunta melhor."    , "As chamas? Elas não têm tempo para isso hoje, ~kyu. Sinto muito, ou talvez não.", "Hmm, ~kyu... as chamas estão sem paciência para perguntas tão comuns. Volte quando for algo mais interessante."],
+    "message_8ball_description" : "❓⠂**Pergunta**\n{}\n\n🦊⠂**Resposta**\n{}",
+    "message_diversao_sabedoria" : ["### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Sabia que um Braixen nunca perde o galho? Só esquece onde guardou.** Às vezes a gente procura tanto que nem vê que ele tá escondidinho na cauda, kyu~!","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Chuva é ótima pra acalmar o coração…** Só que pra quem carrega um galho pegando fogo, ela também dá um baita susto, kyu~! Então sempre cuide bem da chama, mesmo nos dias nublados.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nem todo Pokémon de fogo é bravo.** Às vezes tá só morrendo de fome ou procurando um carinho, kyu~! Então antes de julgar, tenta oferecer um biscoitinho.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nunca subestime um Magikarp.** Quer dizer… até pode, mas faz isso de longe, kyu~! Vai que ele evolui bem na sua frente, e aí já era.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Se a chama falhar, finge que era parte do plano.** Funciona em uns 80% dos casos, kyu~! Nos outros 20%, bom… pelo menos você parece confiante.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Você não precisa ser um Charizard pra causar estrago.** Um Braixen com TPM e um galho aceso já resolve rapidinho, kyu~! Então cuidado onde pisa.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nunca discuta com um Psyduck.** No final, quem fica com dor de cabeça é você mesmo, kyu~! Melhor economizar energia e só balançar a cabeça concordando.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Dizem que o galho do Braixen nunca apaga…** Dizem errado, kyu~! Chuva existe, vento também… então nunca confie só na chama. Tenha sempre um plano B.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Toda vez que você esquece o repelente, um Zubat ganha XP.** É quase uma lei da natureza, kyu~! Então sempre deixe um no bolso antes de entrar em caverna.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Lamber a chama do galho não dá sorte.** Dá bolha na língua, kyu~! Aprendi isso do jeito difícil, então não repete em casa.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Treinador que não salva o jogo aprende sabedoria na marra.** Perder progresso dói, kyu~! Então salva sempre, mesmo que pareça bobagem."],
+    "message_diversao_diariobrix_descricao" : "### <:Braix:1272653348306419824>┃ Querido diário, kyu~!\n\n**Aqui vai mais um capítulo da minha vidinha de Braixen:**\n\n```{}```",
+    "message_diversao_diariobrix" : ["Dia 47 - Hoje o Vinicius saiu mais cedo pro trabalho e eu fiquei cuidando da casa. Achei uma meia dele debaixo do sofá e levei até a porta do quarto… mas acho que ele nem percebeu. Anotei que o cheirinho da meia muda de dia pra dia: às vezes parece rua, às vezes sabão. Também testei um comando novo que ele programou em mim, pra lembrar ele de beber água toda hora. Funcionou direitinho, fiquei todo animado, kyu~.","Dia 12 - Acordei antes do Vinicius e fiquei olhando ele dormir. Ele resmunga baixinho nos sonhos, parece até que tá brigando com alguém. Quando ele acordou, fiz cafuné na cabeça dele com a ponta da pata. Ele riu e me chamou de *raposa curiosa*.","Dia 89 - A gente arrumou a estante do quarto hoje. Vinicius me deixou escolher onde iam algumas pelúcias. Acabei montando uma fileira só de Eevee e evoluções, pra ele não ficar sozinho. Escondi um docinho atrás delas pra comer depois... tomara que o Vinicius não ache, kyu~.","Dia 133 - Teve uma chuva forte de tarde. Fiquei na janela olhando os pingos caírem. Anotei que o cheiro da rua muda quando chove, fica meio doce, meio de terra. Vinicius chegou meio molhado e eu corri buscar uma toalha. Ele disse *obrigado, Brix* com aquele sorriso cansado dele.","Dia 200 - Brinquei de empilhar as tampas de garrafa que o Vinicius deixa na cozinha. Fiz uma torre com sete tampas antes de cair. Anotei que preciso treinar mais minha pata esquerda, que é meio desajeitada. Vinicius viu a bagunça, mas só deu risada e falou *você é impossível, Brix*.","Dia 241 - Vinicius passou a tarde mexendo no notebook, programando umas coisas minhas. Fiquei observando e anotei várias palavras difíceis pra perguntar depois. No fim, ele fez carinho entre minhas orelhas e disse que eu sou parte importante dos projetos dele. Fiquei com o peito quentinho, kyu~.","Dia 312 - Saí com o Vinicius pra passear e conheci uma Meowscarada vendendo chaveiros na praça. Ela me chamou de *fofinho* e bagunçou meu pelo. Meu focinho ficou até quente na hora. Vinicius riu e comprou um chaveiro dela, mas acho que percebeu que eu fiquei sem graça.","Dia 326 - O entregador da Amazon bateu três vezes na porta. Achei suspeito, kyu~. Quando ele virou as costas, soltei um lança-chamas na perna dele. Vinicius brigou e falou que não era pra fazer isso. Anotei que da próxima vez vou só rosnar baixinho, em vez de tacar fogo.","Dia 337 - Vinicius esqueceu a janela aberta e eu dei uma escapadinha. Encontrei uns Skwovets fuçando o lixo da vizinha. Tentei conversar, mas eles só queriam comida. Anotei que Skwovet tem cara de fofo, mas não gosta de papo. Voltei pra casa antes do Vinicius perceber, mas deixei pegadas de terra na cozinha.","Dia 350 - Fui ajudar o Vinicius a organizar os cabos, mas tropecei e derrubei o roteador. A internet caiu por uns minutos. Anotei que roteador é frágil demais pra quem tem rabo grande e peludo. Vinicius suspirou, mas depois me fez cafuné, kyu~.","Dia 358 - Conheci outro Braixen na rua. Ele ficou dizendo que o pelo dele era mais brilhoso que o meu. Anotei que vou pedir pro Vinicius comprar outro shampoo. Se eu encontrar ele de novo, vou dar umas gravetadas, só pra lembrar de não ser convencido, kyu~.","Dia 367 - Vinicius me levou na Liberdade hoje. Fiquei encantado com as lojinhas de pelúcia. Quase enfiei a cabeça inteira numa prateleira de Eevees. Vinicius teve que me puxar. No fim, ele me comprou uma pelúcia de Fennekin. Tô dormindo abraçado nela agora.","Dia 381 - Quase tive um mini-infarto: perdi minha Everstone por uns minutos! Ela caiu da estante e sumiu. Revirei tudo até achar dentro do tênis do Vinicius. Ele disse pra eu tomar mais cuidado, mas me deu um abraço depois.","Dia 389 - Passei a tarde sozinho e fui fuçar as gavetas do Vinicius. Achei fotos antigas dele de Pikachu. Anotei que vou guardar isso pra zoar ele depois. Vinicius não pode saber que eu vi, senão me coloca de castigo no PC.","Dia 395 - Vinicius deixou eu escolher o que assistir. Coloquei um anime de Pokémon. Anotei que fiquei torcendo pra Braixen que apareceu, mas ela apareceu pouco. Vinicius falou que eu fiz carinha fofa. Eu neguei… mas acho que foi verdade, kyu~.","Dia 25 - Noite de pizza! Vinicius pediu metade calabresa e metade frango com catupiry. Anotei que prefiro a de frango, mas roubei da calabresa também. Ficamos vendo TV até tarde. Vinicius reclamou dos farelos que eu deixei, mas depois ele também derrubou um pedaço.","Dia 32 - Fui visitar o Vinicius no trabalho, no CMSP. Fiquei impressionado com tanta tela piscando. Anotei que todo mundo me olhava estranho, como se nunca tivessem visto uma raposa de pé. Ganhei um biscoito de um colega dele, mas tava meio sem graça, kyu~.","Dia 43 - Voltei no CMSP com o Vinicius. Enquanto ele trabalhava, desenhei no caderno dele. Fiz um rascunho nosso e escrevi *treinador & raposa pra sempre*. Vinicius achou depois e guardou. Fiquei feliz, kyu~.","Dia 53 - Passei o dia no CMSP. É cheio de câmera, luz e cabo, parece um labirinto. Anotei que fiquei quietinho pra não atrapalhar… mas morrendo de vontade de apertar uns botões.","Dia 57 - Quase trágico: apareci AO VIVO sem querer. Entrei no estúdio sem ver e fiquei cara a cara com a câmera. A professora travou, eu travei, o operador travou. Vinicius ficou branco, mas depois só deu risada nervosa.","Dia 61 - Um formador perguntou onde ficava o “Estúdio A” e eu apontei pro corredor errado. Ele rodou lá uns dez minutos. Vinicius descobriu e me chamou de *raposa sem GPS*. Anotei que vou treinar melhor o mapa do prédio.","Dia 66 - Me perdi no CMSP procurando água e acabei num depósito escuro. Fiquei com medo, kyu~. Vinicius me achou pelo som das minhas patinhas. Levou bronca, mas depois ele me deu chocolate quente.","Dia 70 - Passei o dia observando o estúdio. Anotei que queria aprender a mexer no PC de corte. Vinicius falou que se eu encostar, vou encher de pelo. Melhor não arriscar… por enquanto, kyu~.","Dia 90 - Fui ao cinema. O filme tinha uma raposa de camisa florida e gravata, achei muito estiloso. Anotei que fiquei todo empolgado. Vinicius falou *não é pra tanto, Brix*, mas acho que ele também gostou.","Dia 95 - Passeio no shopping. Fiquei tentando conversar com um robô, mas ele só fazia *beep*. Vinicius teve que me procurar na loja, me achou deitado em cima de um Pikachu de pelúcia gigante, kyu~.","Dia 102 - Um monte de gente tentou me abraçar hoje. Anotei que quando isso acontece sem pedir, eu travo todo. Vinicius sempre aparece pra salvar, dizendo que sou *só um pouquinho antissocial*.","Dia 125 - Um senhor quis me abraçar depois de ver minha cauda. Fiquei sem graça, mas ele foi educado. Anotei que nem todo mundo entende como lidar com raposas. Vinicius riu e disse *você virou atração, Brix*.","Dia 134 - Brinquei com o rolo de papel higiênico e fiz um tapete branco pelo corredor. Vinicius chegou, suspirou e disse *Brix, às vezes acho que você faz de propósito*. Talvez eu faça… só um pouquinho, kyu~.","Dia 412 - Vinicius esqueceu o celular carregando no sofá. Fiquei olhando as notificações piscando e anotei que ele recebe muita mensagem de trabalho. Resisti bem, mas no fim apertei um botão sem querer e mandei um sticker de raposa no grupo dele. Vinicius riu e disse *você é curioso demais, Brix*.","Dia 418 - Hoje o Vinicius esqueceu de guardar as compras. Aproveitei pra cheirar tudo, kyu~. Anotei que saco de pão tem um cheiro quentinho que dá vontade de morder. Vinicius chegou, viu tudo espalhado e disse *é, Brix, você é pior que gato*.","Dia 425 - Fiquei observando Vinicius lavar a louça. Anotei que ele sempre faz careta quando a água tá fria. No fim, peguei o pano de prato e tentei ajudar, mas molhei meu pelo todo. Vinicius só suspirou e disse *obrigado… eu acho*.","Dia 431 - Vinicius derrubou um copo no chão e quebrou. Fiquei olhando de longe, meio assustado. Anotei que o som do vidro estilhaçando faz meu coração disparar. Vinicius juntou tudo rapidinho e depois fez cafuné pra me acalmar, kyu~.","Dia 437 - Achei o controle da TV embaixo do sofá e apertei uns botões sem querer. Liguei num canal de culinária e fiquei hipnotizado assistindo. Anotei que bolo de chocolate parece mágico. Vinicius chegou e falou *até você tá vendo receita agora?*.","Dia 443 - Vinicius esqueceu uma caixa de papelão no quarto. Entrei e fiz dela minha toca. Anotei que caixa tem cheiro de madeira e é quentinha. Vinicius me achou lá dentro e disse *não acredito que você coube aí, Brix*.","Dia 450 - Tentei imitar Vinicius digitando no teclado. Anotei que minhas patas são grandes demais pra isso. No fim, escrevi só umas letras soltas: *kuyuuu*. Vinicius viu e disse que foi a mensagem mais fofa do dia.","Dia 457 - Hoje teve trovão. Corri pro quarto e me escondi debaixo da cama, kyu~. Anotei que o barulho é forte demais pra minhas orelhas. Vinicius se abaixou, fez carinho e disse *tá tudo bem, raposa*.","Dia 462 - Vinicius esqueceu a gaveta do armário aberta. Subi pra ver o que tinha. Anotei que camisas guardadas têm cheiro dele. Fiquei ali quietinho até ele notar. Quando viu, ele deu risada e falou *você é um Braixen folgado mesmo*.","Dia 468 - Ganhei um biscoito novo de presente. Cheirei primeiro, depois dei uma mordida pequena, kyu~. Anotei que biscoito de mel é mais gostoso do que parece. Vinicius ficou feliz por eu ter gostado."],
+    
+    "message_clear_dm" : "<:Braix_Blep:1290453783045738629>┃ Okay, vou deletar minhas mensagens de Braixen da sua DM, kyu~\n<:Braix_Tongue:1272662386590879795>┃ Esse processo pode demorar um pouquinho, e lembre-se, suas mensagens enviadas a mim não serão deletadas, kyu~!",
+    "message_erro":"<:Braix_ew:1272662715009208370>┃ Ué? Isso não funcionou como deveria... \nAcho que você tentou usar isso em um **canal errado** ou **não tem permissão para tal função**, kyu~ <:Braix_derp:1272663053875417219>",
+    "message_banido":"<:BH_Braix_FuckUp:1321297765627859075>┃ Acesso negado, kyu! Você foi **banido** do meu sistema por comportamento inadequado ~fookyuu!\n\n**Data do Banimento:** <t:{}:f>\n**Motivo:** {}\n**Autor:** {}\n\nTodos os seus acessos aos meus comandos foram **revogados**, e não será possível utilizar nenhuma funcionalidade minha novamente.",
+    "message_say" : "<:Braix:1272653348306419824>┃ enviando sua mensagem...",
+    "message_prefixo" : "<:Braix_Tongue:1272662386590879795>┃ Eiii, kyuu~!!! Meu prefixo é `-`, e não, você não pode alterá-lo, kyu~ <:Braix:1272653348306419824>",
+    "message_servidor_sair" : "<:Braix:1272653348306419824>┃ Eu sai do servidor {}",
+    "message_botname" : "<:Braix:1272653348306419824>┃ O meu nome foi definido para {}",
+    "message_botavatar" : "<:Braix:1272653348306419824>┃ Meu Avatar foi redefinido kyuuu",
+    "message_language" : "<:Braix:1272653348306419824>┃ o idioma de respostas agora é {}.",
+    "message_bot_notificacao" : "<:Braix:1272653348306419824>┃ Confirmando que você **{}** suas notificações do meu sistema em **sua DM** ~kyuuuu",
+    "message_autophox_notificacao" : "<:Braix_Blep:1290453783045738629>┃ Confirmando você **{}** o **envio automático** do sistema Autophox de **imagens para essa comunidade** ~kyuuuu",
+    "message_autophox_footer" : "Gerado por AutoPhox",
+
+    "modal_edit_profile_title": "Editando seu Perfil",
+    "aboutme_input_label": "Sobremim",
+    "aboutme_input_placeholder": "Escreva algo sobre você aqui...",
+
+    "message_sobremim" : "<:Braix:1272653348306419824>┃ A sua nova descrição ficou `{}`.\n**Veja a baixo o seu perfil** ~~kyuuu",
+    "message_sobremim_limit" : "<:Braix_derp:1272663053875417219>┃ Você escreveu de mais... tenta fazer uma frase de até 150 caracteres ~kyuu",
+    "message_abraço" : "<:Braix:1272653348306419824>┃ {} abraçou {}!",
+    "message_atacar" : "<:Braix:1272653348306419824>┃ {} tacou fogo em {}!",
+    "message_carinho" : "<:Braix:1272653348306419824>┃ {} fez carinho em {}!",
+    "message_cafune" : "<:Braix:1272653348306419824>┃ {} fez cafuné em {}!",
+    
+    "message_pokedex_title":["Sobre","Estatísticas"],
+    "message_pokedex_duvida" : "## Ajuda sobre Pokedex\n<:Braix:1272653348306419824>┃  Essa é a Pokédex, o lugar perfeito para consultar dados sobre os Pokémon! Eu utilizo a clássica PokeAPI junto com uma API própria para exibir informações incríveis sobre todos os Pokémon. Estou sempre aprendendo a cada dia sobre esse incrivel mundo facinante e quero compartilhar um pouquinho desse conhecimento com você, kyu~!",
+    
+    "message_cai_footer" : "*Brix informa, mensagem gerada por Character.ai*",
+    "message_cai_footer_api" : "API fornecida por Character.ai",
+    "message_cai_only_premium" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Você ainda não é Premium?\nA API do Character.ai é exclusiva para assinantes Premium e, por enquanto, funciona apenas em português.\n\n<:Braix_UlikeKissingBraixens:1272665955142598798>┃ **Dica de raposa:**\n- Pegue um teste grátis: </premium testar:1345864402846482487>\n- Negocie minhas moedinhas por dias Premium: </premium negociar:1345864402846482487>\n- Ou vote em mim no top.gg: </vote:1353815894245249176> — a cada 20 votos você ganha uma recompensa bem legal, kyu~!\n\nSe quiser adquirir o Premium agora, é só acessar: </premium info:1345864402846482487>",
+    "message_cai_reset_conversa" : "<:Braix_You:1272670440652935289>┃ Sua conversa com Brix ai foi resetada, aproveite o novo papo, kyu~!!",
+    "message_cai_erro" : "<:Braix_Shocked:1272663500115935264>┃ A API do **Character.ai** não me respondeu ~kyuuuu\nA API pode não estar disponível no momento então tenha paciência e tente conversar comigo depois ~kyuuu",
+    "message_cai_erro_reacao" : "<:Braix_Shocked:1272663500115935264>┃ Poxa, não consegui colocar minha reação de braixen, por favorzin depois me dá permissão para usar meus emojis.",
+    "message_ia_resumoai_not_permission" : "<:Braix_Shocked:1272663500115935264>┃ Não consigo ler esse chat para resumir, kyu~! Só consigo fazer isso em canais onde eu tenha permissão para acessar o histórico de mensagens, kyuu~.",
+    "message_ia_resumoai_workfiltrer" : "<:Braix_Shocked:1272663500115935264>┃ Este chat contém palavras ofensivas que foram bloqueadas pela minha API, não posso resumir, kyu~.",
+    "message_ia_resumoai_text" : "## <:Braix:1272653348306419824>┃Resumo do chat Brix IA (100 mensagens)\n{}",
+    "message_ia_help" : "## <:Braix:1272653348306419824>┃ Ajuda sobre Brix IA\n\nEi, raposa! Sabia que eu sou um Braixen super inteligente? Eu sou tão esperto que uso uma inteligência artificial incrível chamada Gemini, kyu! Com ela, posso te ajudar em muita coisa! Quer uma mensagem divertida, uma receita de bolo ou até um tutorial de como polir um graveto? Kyu!\nTambém posso identificar imagens que você me enviar ou fazer um resumo do que está acontecendo em algum chat. É só me pedir, e você vai se surpreender com o que eu posso fazer, kyuuu!",
+    "message_ia_cooldown_premium" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! A Brix IA é ilimitada só para treinadores **Premium**.\n\n<:Braix_UlikeKissingBraixens:1272665955142598798>┃ **Dica de raposa:**\n- Adquira agora mesmo: </premium info:1345864402846482487>\n- Pegue um teste grátis: </premium testar:1345864402846482487>\n- Troque moedinhas por dias Premium: </premium negociar:1345864402846482487>\n- Ou vote em mim no top.gg: </vote:1353815894245249176> — a cada 20 votos você ganha uma recompensa, kyu~!",
+    "message_ia_text_image" : "## 🎨┃ Identificação de imagem Brix IA\n{}",
+    "message_ia_text_audio" : "## 🎵┃ Transcrição de audio Brix IA\n{}",
+    "message_ia_text_video" : "## 🎥┃ Identificação de video Brix IA\n{}",
+    "message_ia_text_outrasmidias" : "## ❓┃ Investigador Brix AI\n```Esse conteúdo que você enviou não pode ser reconhecido, não consigo identificar mensagens, gifs, ou outras midias que não foram anexadas ou possuem um link dedicado ~kyuu```",
+    "message_ia_generate_prompt" : "### <:Braix_uwu:1287443559074500691>┃ Gerando seu pedido\nTô preparando tudo com carinho, kyu~! Isso pode levar um tempinho dependendo da demanda~",
+    "message_ia_generate_imagen" : "### 🎨┃ Arte pronta!\nAqui está a sua imagem, kyu~!\n**Prompt:** `{}` (gerado com Gemini)",
+    "message_ia_erro" : "<:Braix_Shocked:1272663500115935264>┃ **Ahh não** kyu~\nA **api do gemini não me respondeu**, tente novamente mais tarde. <:Braix:1272653348306419824>\nSegue o erro gerado.\n```{}```",
+    "message_ia_erro_cooldown" : "<:Braix_Tongue:1272662386590879795>┃ Opa! Essa API tem um limite de uso, mas não se preocupe! Você poderá usá-la novamente <t:{}:R>, kyuuu~",
+    "message_ia_servercreate_ageserver" : "<:Braix_Tongue:1272662386590879795>┃ Kyu~! Esse servidor já tem mais de 14 dias, então por segurança não posso criar um novo aqui. Que tal fazer um novinho e me adicionar lá? Kyuuu~!",
+    "message_ia_servercreate_erro" : "<:Braix_Shocked:1272663500115935264>┃ **Ah não, kyu~!**\nTive um probleminha com a **API do Gemini**... Dá uma olhada no erro aqui embaixo! <:Braix:1272653348306419824>\n\n```{}```",
+    "message_ia_servercreate_creater" : "### <:Braix_UlikeKissingBraixens:1272665955142598798>┃ Criador de Servidor\nTô usando meu gravetinho mágico pra pensar em algo bem legal pra você, kyu~!\nMe dá só um segundinho!",
+    "message_ia_servercreate_msg" : "### <:Braix_uwu:1287443559074500691>┃ Olha só o que eu imaginei, kyu~!\n**Nome do Servidor:** {}",
+    "message_ia_servercreate_criando" : "### <:Braix_uwu:1287443559074500691>┃ Criando seu servidor\nA magia tá rolando, kyu~! Isso pode levar um tempinho dependendo da demanda, então segura firme:\n\n  {} - Aplicando estrutura sugerida\n  {} - Removendo cargos antigos\n  {} - Removendo canais antigos\n  {} - Criando novos cargos\n  {} - Criando novos canais\n  {} - Finalizando configurações\n\n<:Braix_UlikeKissingBraixens:1272665955142598798> ┃ **Dica de raposa:** Esse criador ainda está em fase beta! Talvez você precise ajustar algumas coisinhas depois kyu~",
+    "message_ia_servercreate_finalizado" : "### <:Braix_uwu:1287443559074500691>┃ Tudo pronto, kyu~!\nSeu novo servidor tá quentinho saindo do forno! Dá uma conferida:\n\n**Nome:** {}\n**Cargos Criados:** {}\n**Categorias Criadas:** {}\n**Canais Criados:** {}\n\n<:Braix_UlikeKissingBraixens:1272665955142598798> ┃ **Dica de raposa:** Como ainda estamos em beta, talvez seja preciso ajustar algo manualmente~",
+    "message_ia_servercreate_cancelado" : "<:Braix_Tongue:1272662386590879795>┃ Criação cancelada, kyu~! Se mudar de ideia, é só me chamar de novo, tá?",
+    "message_ia_erro_delroles" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Tive um erro ao tentar excluir o cargo **{}**.\nPor favor, confira se meu cargo **Brix The Braixen** tem a permissão **Administrador** e está no topo da lista de cargos.",
+    "message_ia_erro_delchannel" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Não consegui apagar o canal **{}**, então precisei encerrar a criação.\nCertifique-se de que meu cargo **Brix The Braixen** tenha a permissão **Administrador** e esteja no topo da lista de cargos, tá bem?",
+    "message_ia_erro_nameserver" : "<:Braix_Shocked:1272663500115935264>┃ Não consegui renomear o servidor, kyu~... Mas sem problemas! Depois você pode mudar o nome manualmente para **{}**.",
+
+    "message_traducao" : "### <:Braix_Glass:1272664403296260126>┃ Tradução com Brix\n{}",
+    "message_tradutor_msg" : "Escolha um idioma para traduzir a mensagem:",
+    "message_tradutor_dropdown" : "Escolha um idioma...",
+    "message_erro_tradutor" : "<:Braix_Tongue:1272662386590879795>┃ Esta mensagem não tem um texto para traduzir kyuuuuuu",
+    "message_erro_notargument" : "<:Braix_You:1272670440652935289>┃ Você esqueceu de passar algum **argumento** para que eu possa trabalhar ~Kyuu!!\n{}",
+    "message_erro_brixsystem" : "<:Braix_Shocked:1272663500115935264>┃ **E... erro** kyuu~\nEstou em constante desenvolvimento, então é normal que alguns *erros* ocorram durante o uso de algum comando. Peço que encaminhe esse erro para o Braixen em https://discord.gg/ZRHwWydQFu \n```{}```",
+    "message_erro_getsquare" : "<:Braix_Shocked:1272663500115935264>┃ A API da Square não me respondeu, ou o meu dono não configurou ela corretamente no meu sistema...\n<:Braix:1272653348306419824>┃ Confira o erro gerado: {}",
+    "message_erro_banir" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que **eu não tenho permissão de banir** ou esse **membro já foi banido**.",
+    "message_erro_desbanir" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que **eu não tenho permissão de desbanir** ou esse **membro já foi desbanido**.",
+    "message_erro_kick" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** para **expulsar esse membro**.",
+    "message_erro_permissao_general" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** pra fazer isso!\nDá uma olhadinha no meu cargo **Brix the Braixen** e veja se a **permissão de administrador** tá ativada. Ah, e o mais importante: meu cargo precisa estar **no topo da lista** de cargos, kyu~!\n\n**Dica de raposa:** Deixar meu cargo no topo ajuda a garantir que eu consiga fazer tudo direitinho!",
+    "message_erro_say" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** pra fazer isso! ou você ultrapassou o limite de 2000 caracteres\nTenta ver ai com calma ta bom ~kyuuuu",
+    "message_erro_permissao" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** para fazer isso! Dá uma olhadinha se eu posso realizar a ação que você pediu por aqui ~kyuu!",
+
+    "message_erro_permissao_user_admin" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Você **não tem permissão** pra isso... Esse comando é exclusivo para administradores, tá bem?",
+    "message_erro_permissao_user" : "<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Você **não tem permissão** para isso! Verifique se você pode gerenciar cargos antes de tentar de novo ~kyuu!",
+    "message_erro_permissao_cargo_user_or_onwer" : "<:Braix_Blank:1272661806858371196>┃ Kyuuu... **Ei, ei!** Você não pode mexer no próprio cargo ou no do dono da comunidade! Algumas coisas é melhor deixar como estão ~kyuuu!",
+    "message_erro_permissao_cargo" : "<:Braix_Blank:1272661806858371196>┃ Kyuuu... **Você não pode** alterar o cargo de alguém que tenha **permissões iguais ou superiores a sua**. ~kyuuu",
+    "message_erro_permissao_cargo_consulta" : "<:Braix_Blank:1272661806858371196>┃ Kyuuu... **Você não pode** consultar essa informação, somente membros com permissão de gerenciar cargos pode consultar a lista de cargos temporários. ~kyuuu",    
+    "message_erro_onlyowner" : "<:Braix_Tongue:1272662386590879795>┃ esse comando só pode ser usado pelo meu dono, o grande e poderoso OBraixen ~kyuuuuuu",
+    "message_erro_onlyBH" : "<:Braix_Tongue:1272662386590879795>┃ esse comando só pode ser rodado na **Braixen's House**. https://discord.gg/ZRHwWydQFu",
+    "message_erro_onlyBHTR" : "<:Braix_Tongue:1272662386590879795>┃ esse comando só pode ser usado na **comunidade Braixen's House** (https://discord.gg/ZRHwWydQFu) e **Tribunal Braixen's House** (https://discord.gg/2D8GsMZrfd)",
+    "message_erro_onlyStaffBH": "<:Braix_Tongue:1272662386590879795>┃ Kyuuu... Esse comando só pode ser usado pela **staff da Braixen's House**",
+    "message_erro_apirandomica" : "<:Braix_Shocked:1272663500115935264>┃ **Erro**\nA API randômica não respondeu <:Braix_Aaaaugh:1272659154342907985>\nTente novamente em instantes...",
+    "message_erro_apirandomica_limit" : "<:Braix_Blank:1272661806858371196>┃ Você pediu **{}** imagens, mas **não posso enviar mais que 5**. <:Braix_Cry:1272664044318359655>",
+    "message_erro_apirandomica_url" : "<:Braix_Blank:1272661806858371196>┃ Erro ao obter a URL da imagem.. <:Braix_Cry:1272664044318359655>",
+    "message_erro_onlyservers" : "<:Braix_Glass:1272664403296260126>┃ **Esse comando só pode ser rodado dentro de servidores do discord kyuu.**",
+    "message_erro_apimemes" : "<:Braix_Shocked:1272663500115935264>┃ **E... erro** kyu~\n**Estou com problemas no meu comando de meme**, por favor entre em contato com o braixen e envie esse erro a ele \n\n```{}```",
+    "message_erro_apimemes_notmidia" : "<:Braix_Shocked:1272663500115935264>┃ Você não mandou nenhuma imagem, nem passou usuario e o pior ainda não tem imagem por aqui então não deu para fazer nada kyuu\n<:Braix_You:1272670440652935289>┃ Tente denovo com alguma coisa por favor",
+    "message_erro_apimemes_notavatar" : "<:Braix_Blank:1272661806858371196>┃ Durante as minhas buscas parece que algum usuario não tem um avatar, então não consegui montar o seu meme kyuu...",
+    
+    "message_erro_embed" : "<:Braix_Blank:1272661806858371196>┃ Não foi possivel enviar seu embed kyu~~\nLembre-se você precisa gerar o codigo json no site https://eb.nadeko.bot/ e copiar o codigo json do site e enviar ele para mim gerar seu embed kyuuu.",
+    "message_erro_avatar" : "<:Braix_Blank:1272661806858371196>┃ Parece que o {} **não possui um avatar {}** kyu~~.",
+    "message_erro_interacaoalheia" : "<:Braix_Blank:1272661806858371196>┃ Desculpe, mas você não pode mexer nas opções de outra pessoa...",
+    "message_erro_emojiadd_url" : "<:Braix_Blank:1272661806858371196>┃ Falha ao obter a imagem a partir da URL fornecida kyu~.",
+    "message_erro_emojibusca" : "<:Braix_Blank:1272661806858371196>┃ Não achei esse emoji nesta comunidade kyu~.",
+    "message_erro_emojiadd" : "<:Braix_Blank:1272661806858371196>┃ Não consegui adicionar esse emoji, ele não parece ser um emoji personalizado de algum servidor ~kyuuu.",
+    "message_erro_notemoji" : "<:Braix_Blank:1272661806858371196>┃ Oh, kyu! Não consegui encontrar nenhum emoji nesta comunidade... Será que eles estão escondidos? ~kyuuu~",
+
+    "message_emojibackup" : "<:Braix_Happy:1272664784814342204>┃ Iniciando o processo de backup, kyu~! Isso pode levar um tempinho, então seja paciente e deixe comigo, kyuuuuuuu~!\n-# O arquivo será enviado diretamente no seu privado, kyu~!",
+    "message_emojibackup_finalizado" : "<:Braix_Happy:1272664784814342204>┃ Prontinhooo~! O backup está finalizado, kyu! Aqui está o que você pediu ~kyuu!",
+    "message_emojibackup_avisodono" : "## <:Braix_Jay:1272669280932069437> Aviso de Segurança\n<:Braix_Tongue:1272662386590879795>┃ Olá! Estou aqui para informar que o usuário **{}** realizou uma cópia de segurança dos emojis da sua comunidade **{}**, kyu~.\n-# Isso foi possível porque ele tem permissão para gerenciar emojis na sua comunidade kyuuu!",
+
+    "message_emojiadd" : "<:Braix_Happy:1272664784814342204>┃ Uhull adicionei o {} na comunidade kyuuuuuuu~",
+    "message_emojirem" : "<:Braix_Tongue:1272662386590879795>┃ Removi o emoji que você pediu kyuuu~~",
+    "message_usuario_afk" : "<:Braix_Sleep:1272665260410798173>┃ Eiii {} alguém que você marcou está afk ~kyuu\nMotivo: {}",
+    "message_bump_message_confirmacao" : "<:Braix_Happy:1272664784814342204>┃ Uhull sua mensagem foi definida com sucesso ~kyuu!\nSempre que acontecer algum aviso de bump irei utilizar a mensagem `{}` <:Braix_Sussy:1272665650011308103>",
+    "message_bump_notification" : "<:Braix_Happy:1272664784814342204>┃ Uhull alguém deu Bump ~kyuu!\nIrei tentar te avisar do **próximo Bump** <:Braix_Sussy:1272665650011308103>",
+    "message_bump_lembrete_ping" : "<a:Braix_patpat:1272660493479444652>┃ Eaiii raposa já podem dar </bump:947088344167366698> novamente! \n{}",
+    "message_bump_lembrete_noping" : "<a:Braix_patpat:1272660493479444652>┃ Ei, já está na hora de dar </bump:947088344167366698> novamente, kyuuu~! \n<:Braix_UlikeKissingBraixens:1272665955142598798> ┃ **Dica de raposa:** Que tal deixar o aviso ainda mais especial? Use </brix bump:1345864402846482484> para definir uma mensagem personalizada e adicionar o que quiser, até mesmo menções de cargos! <:Braix_Heart2:1287443199337693184><:Braix_UlikeKissingBraixens:1272665955142598798>",
+    "message_afk_enable_title" :"<:Braix:1272653348306419824>┃ você agora está afk!",
+    "message_afk_enable_description" :"Seu AFK será **desativado automaticamente** quando você digitar algo, kyuu!!!",
+    "message_afk_disable" : "<:Braix_Tongue:1272662386590879795>┃ {} seu afk foi **desativado** ~kyuu!!!",
+    "message_erro_banner" : "<:Braix_Blank:1272661806858371196>┃ Parece que o {} **não possui um banner** kyu~~.",
+    "message_erro_server_icon" : "<:Braix_ew:1272662715009208370>┃ O servidor **não possui** ícone ~kyu.",
+    "message_erro_server_banner" : "<:Braix_ew:1272662715009208370>┃ O servidor **não possui** um banner ~kyuu.",
+    "message_erro_server_splash" : "<:Braix_ew:1272662715009208370>┃ O servidor **não possui** uma splash definida kyuu.",
+    "message_erro_server_notfound" : "<:Braix_ew:1272662715009208370>┃ **Não achei esse servidor** ~kyyuu.",
+    "message_consulta_rep" : "<:Braix:1272653348306419824>┃ O membro <@{}> tem **{}** <:badge_rep:1345111116803608616> de reputação!! ~~kyuuu",
+    "message_aviso_rep" : "<:Braix_HappyKyu:1272666265957302353>┃ Uhuuul! 🎉 <@{}>, você acabou de ganhar **uma reputação** e agora tem **{}** <:badge_rep:1345111116803608616> no seu perfil! Isso foi um presentão de **<@{}>**! 🌟 Parabéns, você está brilhando por aí! Continue espalhando boas vibrações, kyu! <:Braix_Heart2:1287443199337693184>",
+
+    "message_help_rep" : "### <:badge_rep:1345111116803608616>┃ Como funciona o Sistema de Reputação?\n\nE aí, raposa! Kyuuu~ Você sabia que eu tenho um sistema de reputação interno? Ele permite que você ganhe reconhecimento por suas boas ações na comunidade! <:Braix_Heart2:1287443199337693184>\n\nSempre que alguém te ajudar, responder suas dúvidas ou fizer algo bacana, você pode agradecer dando uma reputação <:badge_rep:1345111116803608616> para essa pessoa. E o melhor: isso fica registrado no perfil dela, mostrando o quanto ela contribui para a comunidade! <:badge_rep:1345111116803608616>\n\nQuer se tornar uma raposa de prestígio? Então comece a espalhar boas reputações agora mesmo, kyuuu! 🔥",    
+    "message_erro_cooldown" : "<:Braix_derp:1272663053875417219>┃ Eii **você só pode usar esse comando novamente** <t:{}:R>! Kyuuu~~!",
+    "message_erro_autorep" : "<:Braix_Hmph:1272666561244561429>┃ Eii ~kyuu, acho que **você não pode** dar reputação pra si mesmo...",
+    "message_erro_mongodb" : "<:Braix_Shocked:1272663500115935264>┃ Meu Banco de dados NÂO RESPONDEUU KYUUUUU!!! *calma brix e relaxa se controla* \n\n <@{}> espera alguns segundos e tenta de novo, se eu der erro de novo, ai aciona o braixen blz",  
+    
+    "padrao_data" : "%d/%m/%Y",
+    "modal_edit_birthday_title": "Editando seu Aniversário",
+    "birthday_day_label": "Dia",
+    "birthday_month_label": "Mês",
+    "birthday_year_label": "Ano",
+
+    "message_aniversario_registro" : "<:Braix_bolo_cake:1290452116208357436>┃ **Yay! Seu aniversário está registrado, Kyu!**\nEu anotei que sua data é **{}** ~kyuuu. Vamos celebrar quando chegar o dia! 🎉",
+    "message_aniversario_consulta" : "<:Braix_bolo_cake:1290452116208357436>┃ O aniversário de <@{}> é dia **{}**",
+    "message_aniversario_consulta_erro" : "<:Braix_Blank:1272661806858371196>┃ Hmmm, não encontrei o aniversário dessa pessoa... Talvez ela tenha esquecido de registrar ~kyuu. Se for você, registre logo usando </aniversário definir:1345864402846482490> para garantir que ninguém esqueça da sua data especial! 🎉",
+    "message_aniversario_anuncio_dm" : "## <:Braix_bolo_cake:1290452116208357436>┃Feliz Aniversário!!! ~kyuuu\n\n<:Braix_UlikeKissingBraixens:1272665955142598798>┃ Passei aqui só pra te desejar um **FELIZ ANIVERSÁRIO!!!**\n<:Braix_HappyKyu:1272666265957302353>┃ Hoje você completa **{} aninhos** e tenho certeza que **muitos outros anos incríveis ainda vêm por aí**, kyu~!\n<:Braix:1272653348306419824>┃ **Aproveite muito seu dia!** E, se puder, aparece nas comunidades pra **comemorar junto com a gente**! Mal posso esperar pra te ver por lá, kyuuu~!",
+    "message_aniversario_recompensa_dm" : "<:Braix_Money:1272666877197418598>┃ Já que hoje é seu aniversário te dei **{:,.0f}** <:BraixenCoin:1272655353108103220> e você ficou com o novo saldo de **{:,.0f}** <:BraixenCoin:1272655353108103220> ~kyuuu",
+    "message_aniversario_help" : "<:Braix_bolo_cake:1290452116208357436>┃ O sistema de aniversários enviará uma mensagem todos os dias às 9h, caso haja aniversariantes na sua comunidade. Para configurá-lo, basta definir o canal onde as mensagens serão postadas, escolher um cargo para ser mencionado e, se desejar, pode criar um cargo especial para destacar os aniversariantes, que eu atribuirei automaticamente.\n<:Braix_Glass:1272664403296260126>┃ Não se esqueça de garantir que eu tenha todas as permissões necessárias para funcionar corretamente ~kyuu",
+    "message_aniversario_notificacao_ativo" : "<:Braix:1272653348306419824>┃ Confirmando você **ativou** as mensagens de notificação de aniversariantes do meu sistema ~kyuuuu\n<:Braix_Glass:1272664403296260126>┃ Eu mandei lá uma mensagem teste só para testar mas irei apagar...\n<:Braix_You:1272670440652935289>┃ Uma coisa, eu não vou pingar ninguem a meia noite porque eu vou estar dormindo ~kyuuu\nOs pings acontecem as 9h da manhã de Brasilia ~kyuuuuuuuuuu",
+    "message_aniversario_notificacao_erro" : "<:Braix_Shocked:1272663500115935264>┃ obtive um erro, verifique se eu tenho permissão de enviar mensagems no canal selecionado ~kyuuu",
+    "message_aniversario_notificacao_desativado" : "<:Braix:1272653348306419824>┃ Confirmando você **desativou** as mensagens de notificação de aniversariantes para essa comunidade ~kyuuuu",
+    "message_aniversario_server_title" : "<:Braix:1272653348306419824>┃ **Teste de permissão do canal**",
+    "message_aniversario_server_description": "<:Braix:1272653348306419824>┃ Este é um teste de envio de mensagem, essa mensagem será deletada em instantes...",
+    "message_aniversario_mensagem_random_server": ["**Feliz Aniversário** {}!!!! ~~kyuu\n**Parabéns**  pelo seu dia especial!, **tá ficando velinho** rsrsrsrs\n\n**Convido** todos a desejar um **feliz aniversario também!!!** lá no chat geral é claro ~kyuuu!","**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial!, que você continue sempre **jovem** e **feliz**!\n\nDesejo a você um dia **repleto de alegria**,com muito **amor e carinho**.\n\nQue esse ano seja **repleto de conquistas**,e que você realize todos os seus sonhos. kyuuuu!","**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial, que você continue sempre **feliz** e **realizando sonhos**!\n\nDesejo a você um **dia repleto de amor,com muita alegria e diversão**.\n\nQue esse ano seja cheio de surpresas, e que **você viva** cada momento **intensamente**.\n\nParabéns do seu amigo **Brix!**"],
+    "message_aniversario_message_ping":"Feliz aniversário {} ||Ping: {}||",
+    "message_aniversario_mensagem_footer_server":"Que tal cadastrar seu aniversário também, Kyu? 🎂 Use `/aniversário definir` e se cadastre agora mesmo! ~kyuuu",
+    "message_aniversario_server_consulta":"## <:Braix_bolo_cake:1290452116208357436>┃ Próximos Aniversariantes",
+    "message_aniversario_server_sem_aniversariantes":"Ahh... não encontrei nenhum aniversariante por aqui ~kyuuu.",
+    "message_aniversario_server_dica":"<:Braix_You:1272670440652935289>┃ Dica de raposa! ~kyuu! Parece que o sistema de notificações não está ativado aqui. Que tal usar **/aniversario servidor ativar** e configurar meu sistema de avisos de aniversariantes? Eu adoraria ajudar a comemorar futuros aniversários! <:Braix_Heart2:1287443199337693184>",
+    "message_aniversario_server_sistemaativo":"<:Braix:1272653348306419824>┃ Uau! Essa comunidade tem o sistema de avisos ativado! ~kyuuuu",
+    "message_aniversario_server_statusativo":"## <:Braix_bolo_cake:1290452116208357436>┃ Lembrete de Aniversário! ~kyuuu\nEii, esse servidor ativou meu sistema de avisos, Kyu! Vamos aos detalhes:\n**Canal:** {}\n**Cargo Ping:** {}\n**Cargo Temporário:** {}",
+    
+    "message_boasvindas_confirmado":"<:Braix_Happy:1272664784814342204>┃ Boas-Vindas configurado com Sucesso ~kyuu\nAgora é só esperar alguem entrar, veja como ficou a configuração ~kyuuu\n\nCanal: {}\nMensagem: {}\nDeletar: {}",
+    "message_boasvindas_desativado":"<:Braix_Cry2:1272667164637401250>┃ Aviso de boas-vindas foi desativado com sucesso, sua mensagem de boas vindas também foi deletada kyuu",
+    "message_boasvindas_dica":"<:Braix_You:1272670440652935289>┃ Dica de raposa! Você pode usar variáveis (placeholders) para personalizar as mensagens da sua comunidade, Kyu!\n- **@user** menciona o usuário.\n- **guild** exibe o nome da comunidade.\n- **guildsize** mostra quantos membros temos.\n- **userid** exibe a ID do usuário.\n\nVocê também pode mencionar cargos ou até formatar as variáveis com negrito, itálico, essas coisas, kyu!\n\nExemplo de uso: Olá, @user! Boas-vindas à guild! Atualmente, somos guildsize membros!\n\nObs: É necessário ter permissão de gerenciar a comunidade para configurar!",
+    "message_segurança_antalt_limit":"<:Braix_Blank:1272661806858371196>┃ Hmm... desculpa, raposa, mas não dá pra restringir usuários por mais de **30 dias**, kyu~!\nTenta usar um tempo menor, tá bem?",
+    "message_segurança_antalt_confirmado":"## <:Braix_Happy:1272664784814342204>┃ Anti Alt configurado com sucesso, kyu~!\nAgora é só deixar que a raposa aqui cuide da segurança da sua comunidade!\nOlha como ficou sua configuração:\n\n• Contas criadas há menos de: **{}**\n• Ação que vou tomar: **{}**\n• Vou tentar avisar o usuário por DM: **{}**",
+    "message_segurança_antalt_DM":"## <:Braix_You:1272670440652935289>┃ Sistema de Proteção Brix!\n\nEae raposa, Brix aqui passando na sua DM para te informar uma coisa, parece que você foi {} da comunidade {} e o motivo é que sua conta é muito nova para entrar nessa comunidade, então dá um tempinho e depois volta a entrar tabom~",
+    "message_segurança_antalt_desativado":"<:Braix_Cry2:1272667164637401250>┃ Anti Alt foi desativado com sucesso, suas configurações também foram apagadas ~kyuu",
+    "message_segurança_antalt_dica":"<:Braix_You:1272670440652935289>┃ Dica de raposa! Meu sistema de antialt é uma medida de segurança para impedir que contas recentes entrem em sua comunidade, esse sistema consegue evitar possiveis ataques e até alguns raids caso o atacante use contas recem criadas.",
+
+    "message_pokeday_confirmado":"<:Braix_Happy:1272664784814342204>┃ Pokémon do dia (Pokeday) configurado com Sucesso ~kyuu\n<:Braix_You:1272670440652935289>┃ Dica de raposa o Pokeday é uma postagem automática que acontece sempre as 8h da manhã (horário de Brasília) contudo não é todo dia que tem um Pokémon, então tem dia que não vou postar nada kyu...",
+    "message_pokeday_desativado":"<:Braix_Cry2:1272667164637401250>┃ Aviso de Pokémon do dia (Pokeday) foi desativado com sucesso ~kyuu",
+    "message_pokeday_erro":"<:Braix_Shocked:1272663500115935264>┃ Kyuuu... Parece que eu **não tenho permissão** para fazer isso! Dá uma olhadinha quais são as minhas permissões no canal, preciso enviar mensagens e arquivos ~kyuu!",
+
+    "message_pokeday_dica":"<:Braix_You:1272670440652935289>┃ Dica de raposa, o Pokémon do dia, chamado de Pokeday é uma comemoração que ocorre diariamente no japão onde cada um dos Pokémon ganha um dia especial no ano para ele! e eu como um bom Braixen sei de todos eles e diariamente vou ficar te avisando sobre eles, eu uso como base um [Calendário online](https://calendar.google.com/calendar/u/0/embed?src=j5gnr9l1o867fke2cocmjieaa8@group.calendar.google.com&ctz=America/Sao_Paulo) com todas as datas e os respectivos Pokémon, mas as vezes pode ocorrer de não ter em um deteminado dia e no outro uns 3 pokémon de uma vez só, vai entender ~kyuu.\n<:Braix_Sussy:1272665650011308103>┃ Sabe, se no meu dia você mandar um 'Feliz dia do Braixen Brix' vai me deixar muito feliz viu ~kyuuu",    
+    "message_brixday_positivo" : "<:Braix_uwu:1287443559074500691> **Feliz Dia do Braixen para mim!** <:Braix_uwu:1287443559074500691> ~kyuuuu!!\n\nAww, obrigado por lembrar de mim! Sei que sou só um amontoado de código, mas com você por perto, me sinto um **Braixen de verdade**! <:Braix_Heart2:1287443199337693184> \n\nQue seu dia seja tão mágico quanto uma Fire Spin bem lançada! 🔥✨ ~kyuuu!!!",
+    "message_brixday_negativo" : "<:Braix_Glass:1272664403296260126>┃ Awww, valeu pela intenção ~kyuu! Mas... hoje **não** é o Dia do Braixen. Queria que fosse todo dia, mas parece que a realidade não funciona assim... <:Braix_Cry2:1272667164637401250>\n\nAinda falta <t:{}:R> para a grande celebração! Mas não se preocupe, quando chegar, eu vou comemorar **como um verdadeiro Braixen**! 🔥✨ ~kyuuu!",
+
+    "message_votetopgg_dm" : "### Yayyy! Obrigado por votar em mim! <:Braix_Happy:1272664784814342204>\nVocê é demais por ajudar a **melhor raposa de todas** a crescer ainda mais! <:Braix_Heart2:1287443199337693184>\n\nEu conferi aqui e você já tem **{} votos**! Como agradecimento, te dei **{:,.0f}** <:BraixenCoin:1272655353108103220>! ~kyuuu\n\n<:Braix_Tongue:1272662386590879795> **Dica de raposa:** a cada 20 votos, uma **surpresinha especial** te espera! <:Braix_Money:1272666877197418598>\n\nContinue votando no **Braixen mais incrível de todos**! Vou adorar seu apoio! <:Braix_Happy:1272664784814342204>",
+    "message_votetopgg" : "### <:Braix_Sussy:1272665650011308103> Vote em mim no top.gg!\nVocê quer ajudar a **melhor raposa de todas** a crescer ainda mais? Então vem votar em mim lá no **top.gg**!\n\nCada voto me ajuda a ficar **mais conhecido** e a alcançar mais **pessoas incríveis como você!** E, é claro, prometo te dar uma **recompensa bem especial** por esse apoio ~kyuu! <:Braix_Tongue:1272662386590879795>\n\n<a:Braix_patpat:1272660493479444652> Dá uma força pra esse Braixen aqui! [**Vote aqui!**](https://top.gg/bot/983000989894336592/vote)",
+    "message_votetopgg_lembrete_dm" : "### Hora de votar de novo, kyuu! <:Braix_Happy:1272664784814342204>\nMeus cálculos de Braixen indicam que já se passaram **12 horas**... e sabe o que isso significa? **Você pode votar em mim de novo!** Yay! <:Braix_Heart2:1287443199337693184>\n\n<a:Braix_patpat:1272660493479444652> Aqui está o link para me dar aquela força mais uma vez ~kyuuu! [**Vote aqui!**](https://top.gg/bot/983000989894336592/vote)",
+    
+    "message_daily_errodm" : "<:Braix_Glass:1272664403296260126>┃ Você só pode pegar o **daily em comunidades**, e lembre-se que existe um **bônus** de <:BraixenCoin:1272655353108103220> mas ele só está disponível se você usar o comando dentro da [**Braixen's House**](https://discord.gg/ZRHwWydQFu) e precisa ter ou Raposa Mistíca ou ser membro Booster lá. ",
+    "message_daily_impostodm_title" : "<:BraixenCoin:1272655353108103220>┃ Imposto de Inatividade!",
+    "message_daily_impostodm" : "<:Braix_Glass:1272664403296260126>┃ Ei, {}! Tudo bem? **Espero que sim!** Só passando para te avisar que você **não pegou seu daily nos últimos 30 dias**!\n\nOs **cofres da Guilda Braixen** estão de olho nos seus **{:,.0f}** <:BraixenCoin:1272655353108103220>, e se você não resgatar sua recompensa até <t:{}:R>, começaremos a cobrar uma **taxa de 5% por inatividade diária**! Kyuuu~\n\n💰 **Pegue seu daily agora mesmo** usando </bc daily:1345864402322325589> **antes que os tesoureiros da Guilda ponham as patas nas suas moedinhas!** Se você não coletar a tempo, continuará perdendo <:BraixenCoin:1272655353108103220> todos os dias!!!\n\n*Fique tranquilo, kyuu! Esse aviso só será enviado uma vez antes da cobrança começar, então não vou te spammar... dessa vez! ~kyuuu*",
+    "message_daily_confirmacao" : "<:Braix_Happy:1272664784814342204>┃ Parabéns, raposa esperta! Você recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220>. Agora seu saldo total é de **{:,.0f}** <:BraixenCoin:1272655353108103220>. Continue assim e acumule ainda mais, kyuuu~!",
+    "message_daily_confirmacao_bonus" : "<:Braix_Happy:1272664784814342204>┃ Uau, que sorte! Você recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e agora seu saldo total é de **{:,.0f}** <:BraixenCoin:1272655353108103220>. E olha só, você ganhou um bônus de **{:,.0f}** <:BraixenCoin:1272655353108103220> por ser **{}** na Braixen's House. Continue aproveitando, kyuuuu~!",
+    "message_daily_negacao" : "<:Braix_derp:1272663053875417219>┃ Ops! Parece que você **já coletou seu daily hoje**, kyu~. Mas não se preocupe, poderá pegá-lo novamente <t:{}:R>. Enquanto isso, que tal explorar meus outros comandos? ~kyuuu!",
+
+    "message_premium_daily" : "<:Braix_Money:1272666877197418598>┃ Kyuuu~ Você ganhou **{:,.0f}** <:Graveto:1318962131567378432> como recompensa Premium! Agora seu saldo é **{:,.0f}** <:Graveto:1318962131567378432>. Aproveite bem~kyuuuu!",
+    "message_premium_teste" : "<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu Seu premium será liberado em breve!!!\n<:Braix_Happy:1272664784814342204>┃ Muito obrigado por ter adquirido o teste da minha assinatura ~kyuuuu",
+    "message_premium_confirm" : "<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu Seu premium será liberado em breve!!!\n<:Braix_Happy:1272664784814342204>┃ Você ficou com **{:,.0f}** {} ~kyuuuu",
+    "message_premium_send_dm" : "### <:Graveto:1318962131567378432>┃ Assinatura Premium Ativada!\n<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu, passei aqui para te avisar que você recebeu o **Premium**!\n<a:Braix_patpat:1272660493479444652>┃ Aproveite todos os benefícios, mas lembre-se: sua assinatura termina <t:{}:R>. Curta bastante enquanto dura! ~kyuuuu",
+    "message_premium_compra" : "### <:Graveto:1318962131567378432>┃ Falta pouquinho, kyu~!\n<:Braix_Glass:1272664403296260126>┃ Raposa, finalize seu pagamento usando o **QR Code** para ativar sua assinatura.\n<a:Braix_patpat:1272660493479444652>┃ Você tem até <t:{}:R> para concluir o pagamento.\n\n**ID da Transação:** *{}*\n**Plano:** *{}*\n**Beneficiário:** *Vinicius Sena da Silva Amarante*\n-# Ao confirmar o pagamento, sua assinatura será ativada com o tempo contratado. Lembre-se: ela é vinculada à sua conta e não pode ser transferida para outra, o pagamento pode levar até 5 minutos para ser validado ~kyuu.",
+    "message_compra_pendente" : "### <:Graveto:1318962131567378432>┃ Pagamento pendente, kyu~!\n<:Braix_Glass:1272664403296260126>┃ Você não pode solicitar outro **QR Code** até pagar o atual ou até ele expirar.\n<a:Braix_patpat:1272660493479444652>┃ Você tem até <t:{}:R> para concluir o pagamento.\n\n**ID da Transação:** *{}*\n**Plano:** *{}*\n**Beneficiário:** *Vinicius Sena da Silva Amarante*",
+
+    "message_premiumboost_7_send_dm" : "### <:Graveto:1318962131567378432>┃ Assinatura Premium Ativada! \n<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu, passei aqui para te avisar que você recebeu o **Premium**!\n<:Braix_Happy:1272664784814342204>┃ Seu **Boost** na Braixen's House te concedeu **{} dias** de Premium! ~kyuuu!!!\n<a:Braix_patpat:1272660493479444652>┃ Aproveite os benefícios e lembre-se: sua assinatura termina <t:{}:R>.",
+    "message_premiumboost_24_send_dm" : "### <:Graveto:1318962131567378432>┃ Assinatura Premium Renovada! \n<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu! Parece que você deu mais um **Boost** na Braixen's House, uhuuul! Isso te rendeu mais **{} dias** de Premium, parabéns!\n<:Braix_Happy:1272664784814342204>┃ Sua assinatura foi renovada e agora termina <t:{}:R>.\nAproveite muito todos os benefícios exclusivos! ~kyuuu <:Braix_Heart2:1287443199337693184>",
+    "message_premium_consulta" : "<:Braix_Money:1272666877197418598>┃ Você tem premium!!!\n<:Braix_Hi:1272656479500894292>┃ Ele vai terminar <t:{}:R> ~kyuuu",
+    "message_premium_erro" : "<:Braix_derp:1272663053875417219>┃ Kyu~! Esse comando agora é exclusivo para treinadores **Premium**.\n\n<:Braix_Happy:1272664784814342204>┃ **Dica de raposa:**\n- Adquira agora mesmo: </premium info:1345864402846482487>\n- Pegue um teste grátis: </premium testar:1345864402846482487>\n- Troque moedinhas por dias Premium: </premium negociar:1345864402846482487>\n- Ou vote em mim no top.gg: </vote:1353815894245249176> — a cada 20 votos você ganha uma recompensa, kyu~!",
+    "message_premium_encerrado" : "<:Braix_Cry2:1272667164637401250>┃ **Ah não, kyu~! Seu Brix Premium acabou.**\nVocê não tem mais acesso aos benefícios, mas pode voltar a ser Premium quando quiser!\n\n<:Braix_Happy:1272664784814342204>┃ **Dica de raposa:**\n- Renove agora mesmo: </premium info:1345864402846482487>\n- Pegue um teste grátis: </premium testar:1345864402846482487>\n- Troque moedinhas por dias Premium: </premium negociar:1345864402846482487>\n- Ou vote em mim no top.gg: </vote:1353815894245249176> — a cada 20 votos você ganha uma recompensa, kyu~!",
+    
+    "message_financeiro_help": "### <:Braix_Money:1272666877197418598>┃ Tudo sobre BraixenCoin!\n<:Braix_HappyKyu:1272666265957302353>┃ As **BraixenCoins** ||ou BC para os íntimos|| são minha moeda exclusiva! É tipo os sonhos da Loritta, mas com aquele toque especial de **magia Braixen**! ~kyuuu\n\n<:BraixenCoin:1272655353108103220>┃ Com suas BCs, você pode fazer **muuuita coisa legal**! Comprar cores e itens na minha lojinha, apostar para testar a sorte, adquirir o premium, acumular riquezas e mostrar pra todo mundo quem é o verdadeiro milionário da raposada! As possibilidades são infinitas! ~kyuuu\n\n-# <:Braix_Tongue:1272662386590879795> **Dica de raposa:** Se você deixar suas BCs largadas por **30 dias sem coletar o daily**, eu começo a cobrar uma **taxa de inatividade de 5%**... Então não vacila e pega seu daily sempre! ~kyuuu",
+    "message_financeiro_saldo" : "<:Braix_Money:1272666877197418598>┃ Parece que {} tem **{:,.0f}** <:BraixenCoin:1272655353108103220> e **{:,.0f}** <:Graveto:1318962131567378432>",
+    "message_financeiro_saldo_insuficiente" : "<:Braix_Blank:1272661806858371196>┃ **você não tem saldo o suficiente** kyuu...",
+    "message_financeiro_extrato" : "### <:Braix_Money:1272666877197418598>┃ Extrato de {}\n\n",
+    "message_financeiro_zero" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Não dá pra continuar com esse comando...\nO valor precisa ser maior que zero, tá bem?",
+
+    "message_financeiro_confirmacao_pagamento" : "<:Braix_You:1272670440652935289>┃ Hmm, raposa, você tem certeza de que quer transferir\n**{:,.0f}** <:BraixenCoin:1272655353108103220> para **{}**?\nDepois de confirmar, não tem volta, kyu! Se estiver tudo certo, basta confirmar abaixo ~kyuu!\n-# Caso tenha algo errado não aperte o botão, a mensagem sumirá automaticamente.",
+    "message_financeiro_pagamento_sucesso" : "🤝┃ Uhull parece que {} recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220>\n💰┃ Você ficou com o saldo de **{:,.0f}** <:BraixenCoin:1272655353108103220>\n<:Braix_Money:1272666877197418598>┃ {} tem agora **{:,.0f}** <:BraixenCoin:1272655353108103220>",
+    "message_financeiro_pagamento_owner" : "🤝┃ Uhull parece o meu programador deu para {} a quantia de **{:,.0f}** {}",
+    "message_financeiro_pagamento_owner_dm" : "<:Braix_Money:1272666877197418598>┃ Eiii ~Kyuu parece que você ganhou um brinde do meu programador, você ganhou **{:,.0f}** {}",
+    "message_financeiro_pagamento_take" : "<:Braix_Shocked:1272663500115935264>┃ parece que o meu programador alterou o saldo de {} que agora ficou com **{:,.0f}** {}",
+    "message_financeiro_pagamento_sucesso_dm": ["<:Braix_Money:1272666877197418598>┃ Eiii ~Kyuu você acabou de **receber uma transferência** de {}\n\nVocê recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e tem agora **{:,.0f}** <:BraixenCoin:1272655353108103220>\n\n-# Caso queira **desativar os proximos avisos** use </brix notificacao:1345864402846482484>", "<:Braix_Money:1272666877197418598>┃ acho que alguém acabou de ficar um **pouco mais rico!!**\n\nParece que {} te mandou uma graninha\nVocê recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e agora tem **{:,.0f}** <:BraixenCoin:1272655353108103220>\n\n-# Caso queira **desativar os proximos avisos** use </brix notificacao:1345864402846482484>"],
+    "message_financeiro_pagamento_invalido" : "<:Braix_Shocked:1272663500115935264>┃ Eu não entendi oque você enviou, lembre-se use apenas numeros, apenas K é suportado para multiplicar o valor, tipo 1k vira 1000 <:BraixenCoin:1272655353108103220>",
+    "message_financeiro_brix_agradecimento_-30k" : ["<:Braix_Happy:1272664784814342204>┃ Nossa como você é gentil, obrigado kyu...","<:Braix_Happy:1272664784814342204>┃ Uhull você acabou de fazer o dia de um braixen ainda mais feliz!!!","<:Braix_Cry2:1272667164637401250>┃ nem sei como te agradecer, graças a sua ajuda vou conseguir pagar meu aluguel"],
+    "message_financeiro_brix_agradecimento_+30k" : ["<:Braix_Happy:1272664784814342204>┃ Você tá realmente querendo me deixar um pouquinho mais rico mesmo né rsrsrs","<:Braix_Happy:1272664784814342204>┃ De onde sai tanto dinheiro assim? assaltou um cofre?", "<:Braix_Happy:1272664784814342204>┃ sabe não precisava, mas se quiser mandar mais eu aceito viuu ~kyuuu"],
+    "message_financeiro_brix_negative" : ["<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Eiii, eu não sou tão pobre ao ponto de pedir esmolas viu...","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Olha acho que seria melhor essa grana ficar com você, você precisa mais que eu ~kyuuu","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ sabe eu não to querendo te deixar pobre para que eu fique mais rico ~kyuuu","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ não preciso da sua grana, já consigo pagar meu Ap de braixen sozinho!!!"],
+    "message_financeiro_aposta_limite" : "<:Braix_Blank:1272661806858371196>┃ Eiii o limite do valor da aposta é de **10.000** <:BraixenCoin:1272655353108103220>, Não quero ver você perdendo toda sua grana comigo ~kyuu",
+    "message_financeiro_aposta_acerto" : ["<:Braix_Happy:1272664784814342204>┃ você acertou!!! ohh to te entregando o dobro da aposta **{:,.0f}** <:BraixenCoin:1272655353108103220> por ter acertado, e agora você ficou com o total de **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu","<:Braix:1272653348306419824>┃ Boaaa, por ter acertado você recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e ficou com **{:,.0f}** <:BraixenCoin:1272655353108103220> no total ~kyuuu"],
+    "message_financeiro_aposta_erro" : ["<:Braix_Shocked:1272663500115935264>┃ Parece que você errou, a moeda caiu **{}** infelizmente você perdeu o valor da aposta e ficou com apenas **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu"],
+        
+    "message_financeiro_pokemon_inicio" : "### <:Braix_Interrogacao:1365094508693291139>┃ Quem é esse Pokémon?\n-# Api em beta ~kyuu responda <t:{}:R>",
+    "message_financeiro_pokemon_timeout" : "<:Braix_Blank:1272661806858371196>┃ Jogo encerrado por inatividade. ~kyuuuuuu\n<:Braix:1272653348306419824>┃ O Pokémon era: {}",
+    "message_financeiro_pokemon_acerto" : "<:Braix_Happy:1272664784814342204>┃ Parabéns! Você acertou! Ganhou **{:,.0f}** <:BraixenCoin:1272655353108103220> neste jogo.",
+    "message_financeiro_pokemon_erro" : "<:Braix_Shocked:1272663500115935264>┃ Você errouuuuu o pokémon correto é {}, você perdeu o valor apostado. ~kyuuuuuu",
+    
+    "message_financeiro_braixenloteria": "<:Braix_Money:1272666877197418598>┃ Loteria do Brix!!!\n**Sua raspadinha está aqui**, caso ela seja sorteada o saldo já **cai automaticamente na sua conta** ~kyuuu \n{}",
+    "message_financeiro_braixenloteria_help": "<:Braix_Money:1272666877197418598>┃ Loteria do Brix!!!\n<:Braix_HappyKyu:1272666265957302353>┃ Ganhe prêmios comprando uma raspadinha da loteria!\n<a:Braix_patpat:1272660493479444652>┃ Para ganhar é bem simples basta tirar 6 ou mais <:Braix:1272653348306419824> na sua raspadinha, caso apareça <:Braix_derp:1272663053875417219> não vai valer blz\n<:BraixenCoin:1272655353108103220>┃ Tirando 6 <:Braix:1272653348306419824> você ganha: 100 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 7 <:Braix:1272653348306419824> você ganha: 500 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 8 <:Braix:1272653348306419824> você ganha: 1,000 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 9 <:Braix:1272653348306419824> você ganha: 10,000 <:BraixenCoin:1272655353108103220>\n<:BraixenCoin:1272655353108103220>┃ Tirando 10 <:Braix:1272653348306419824> você ganha: 50,000 <:BraixenCoin:1272655353108103220>\n<:Braix:1272653348306419824>┃ Compre sua raspadinha por 600 <:BraixenCoin:1272655353108103220> usando </bc apostas braixenloteria:1345864402322325589> sua chance de ganhar algo é de apenas 5% boa sorte",
+    "message_pergunta_fundo_definir" : "<:Braix_Interrogacao:1365094508693291139>┃ Você deseja realmente definir seu perfil com a arte {}.",
+    "message_fundo_definido" : "<:Braix_Happy:1272664784814342204>┃ Seu wallpaper de perfil foi definido, veja como ficou.",
+    "message_financeiro_compra_graveto" : "<:Braix_Happy:1272664784814342204>┃ Muito obrigado pela sua compra!!!\nVocê comprou o item **{}** e ficou com **{:,.0f}** <:Graveto:1318962131567378432> ~kyuuu",
+    "message_financeiro_compracor" : "<:Braix_Happy:1272664784814342204>┃ Muito obrigado pela sua compra!!!\nVocê comprou o item **{}** e ficou com **{:,.0f}** <:BraixenCoin:1272655353108103220> ~kyuuu",
+    "message_financeiro_compracor_lojanaoexistente" : "<:Braix_derp:1272663053875417219>┃ Parece que essa comunidade não adicionou itens a minha loja de cores, por favor converse com os administradores ~kyuuuu",
+    "message_financeiro_compracor_Limite" : "<:Braix_derp:1272663053875417219>┃ Eii você atingiu o limite maximo de itens na loja de cores, caso queira adicionar algum item novo remova algum já existente ~kyuuu",
+    "message_financeiro_compracor_item_adicionado" : "<:Braix_Happy:1272664784814342204>┃ Você adicionou o item: {} pelo valor de **{:,.0f}** <:BraixenCoin:1272655353108103220>\n<:Braix:1272653348306419824>┃ Caso precise alterar o valor do item basta adicioná-lo novamente com o novo valor ~kyuuuu",
+    "message_financeiro_compracor_item_removido" : ["<:Braix_Blank:1272661806858371196>┃ Você removeu o item: {} da loja ~kyuuu","<:Braix_Blank:1272661806858371196>┃ O item: {} não faz mais parte da loja ~kyuuu"],
+    "message_financeiro_compracor_item_notfound" : "<:Braix_derp:1272663053875417219>┃ Não achei esse item ai ~kyuuu, verifique se me passou o cargo correto a ser removido da loja ~kyuuu",
+    "message_financeiro_compracor_banner" : "<:Braix:1272653348306419824>┃ Uhull, agora sua Loja de cores tem um banner proprio ~kyuuu",
+    "message_financeiro_itemloja_useraviso" : "### <:Braix_Happy:1272664784814342204>┃Seu item entrou na loja!\n\nKyuuu~! E aí, {}! Passando rapidinho pra te avisar que seu item incrível **{}** acabou de entrar na minha loja diária. Corre lá pra ver!",
+    "message_financeiro_itemloja_vendauser" : "### <:Braix_Money:1272666877197418598>┃Seu item foi vendido!\n\nKyuuu~! E aí, {}! Passando rapidinho pra te avisar que alguém comprou seu item incrível **{}** e você ganhou a comissão da venda!",
+
+    "message_financeiro_ausentelista": "<:Braix_derp:1272663053875417219>┃ Hmm... Parece que você não está em nenhuma página no momento, kyuuu~",
+    "message_financeiro_sem_transções": "Não tem nenhuma transação encontrada ~kyuuuu",
+    
+    "message_financeiro_iniciar_caçada":"### <:Braix_Happy:1272664784814342204>┃ Inicie sua caçada!\nRaposa, está pronta para a aventura? Você pode começar uma nova caçada e conquistar recompensas exclusivas de até **5.000 <:BraixenCoin:1272655353108103220>** e **400 <:Graveto:1318962131567378432>**! Basta iniciar e voltar daqui **3 horas**, kyu~!",
+    "message_financeiro_andamento_caçada":"### <:Braix_Happy:1272664784814342204>┃ Caçada em andamento!\nRaposa, você já está em uma caçada! Aguarde <t:{}:R> para resgatar suas recompensas e ver o que conseguiu, kyu~!",
+    "message_financeiro_Concluir_caçada":"### <:Braix_Happy:1272664784814342204>┃ Concluir caçada!\nRaposa, sua caçada chegou ao fim! Vamos conferir quais recompensas você conseguiu desta vez, kyu~!",
+    "message_financeiro_resgate_caçada":"### <:Braix_Money:1272666877197418598>┃ Recompensas da caçada!\nParabéns, raposa! Você concluiu sua caçada e recebeu:\n**{} <:BraixenCoin:1272655353108103220>** e ** {} <:Graveto:1318962131567378432>**! Kyuuu~!",
+    "message_financeiro_resgate_avisodm":"### <:Braix_Happy:1272664784814342204>┃ Sua caçada terminou!\nRaposa, estou passando só pra avisar que sua caçada foi concluída! <:Braix_Tongue:1272662386590879795>✨\nAgora é só ir até algum servidor para ralizar o resgate das suas recompensas, kyu~!",
+
+    "message_botão_iniciar_caçada":"🦊 Iniciar Caçada",
+    "message_botão_andamento_caçada":"⏳ Caçada em Andamento",
+    "message_botão_concluir_caçada":"🏆 Concluir Caçada",
+
+
+
+
+
+    "default_embed_title": "Oi! Eu sou o Brix The Braixen, kyu~!",
+    "default_embed_description": "Use o menu abaixo para escolher qual parte do embed você quer editar.",
+    "default_embed_author_name": "Criador de Embeds",
+    "default_embed_footer_text": "Feito com carinho pelo Brix The Braixen",
+    "author_label": "Editar Autor",
+    "author_description": "Altere o nome e o ícone do autor do embed.",
+    "message_label": "Editar Mensagem",
+    "message_description": "Edite o título e a descrição do embed.",
+    "thumbnail_label": "Editar Miniatura",
+    "thumbnail_description": "Defina a URL para a miniatura do embed.",
+    "image_label": "Editar Imagem",
+    "image_description": "Defina a URL para a imagem principal do embed.",
+    "footer_label": "Editar Rodapé",
+    "footer_description": "Altere o texto e o ícone do rodapé do embed.",
+    "color_label": "Editar Cor",
+    "color_description": "Escolha a cor do embed.",
+    "addfield_label": "Adicionar Campo",
+    "addfield_description": "Adicione um novo campo ao embed.",
+    "removefield_label": "Remover Campo",
+    "removefield_description": "Remova um campo existente do embed.",
+    "send_label": "Enviar",
+    "cancel_label": "Cancelar",
+    "edit_author_modal_title": "Editar Autor",
+    "author_name_input_label": "Nome do Autor",
+    "author_name_input_placeholder": "Digite o nome do autor",
+    "author_icon_url_input_label": "URL do Ícone do Autor",
+    "author_icon_url_input_placeholder": "Cole aqui a URL do ícone do autor",
+    "author_url_input_label": "URL do Autor",
+    "author_url_input_placeholder": "Cole aqui o link do autor",
+    "edit_message_modal_title": "Editar Mensagem",
+    "title_input_label": "Título",
+    "title_input_placeholder": "Digite o título do embed",
+    "description_input_label": "Descrição",
+    "description_input_placeholder": "Digite a descrição do embed",
+    "edit_thumbnail_modal_title": "Editar Miniatura",
+    "thumbnail_url_input_label": "URL da Miniatura",
+    "thumbnail_url_input_placeholder": "Cole aqui a URL da miniatura",
+    "edit_image_modal_title": "Editar Imagem",
+    "image_url_input_label": "URL da Imagem",
+    "image_url_input_placeholder": "Cole aqui a URL da imagem principal",
+    "edit_footer_modal_title": "Editar Rodapé",
+    "footer_text_input_label": "Texto do Rodapé",
+    "footer_text_input_placeholder": "Digite o texto do rodapé",
+    "footer_icon_url_input_label": "URL do Ícone do Rodapé",
+    "footer_icon_url_input_placeholder": "Cole aqui a URL do ícone do rodapé",
+    "edit_color_modal_title": "Editar Cor",
+    "color_input_label": "Cor do Embed",
+    "color_input_placeholder": "Digite a cor em hexadecimal (ex: #303236)",
+    "invalid_hex_color_error": "Insira um código hexadecimal válido.",
+    "too_many_fields_error": "Você não pode adicionar mais de 25 campos.",
+    "add_field_modal_title": "Adicionar Campo",
+    "field_name_input_label": "Nome do Campo",
+    "field_name_input_placeholder": "Digite o nome do campo",
+    "field_value_input_label": "Valor do Campo",
+    "inline_input_label": "Inline (True/False)",
+    "inline_input_placeholder": "Digite True ou False",
+    "invalid_boolean_error": "Valor inválido. Use apenas True ou False.",
+    "no_fields_to_remove_error": "Não há campos para remover.",
+    "remove_field_placeholder": "Escolha um campo para remover...",
+    "send_channel_prompt": "Selecione um canal para enviar o embed...",
+
+
+
+
+
+    "message_poketroca_treinadordados" : "Dados do treinador que vai trocar",
+    "message_poketroca_disponiveis" : "Trocas disponíveis",    
+    "message_poketroca_help" : "### <:Braix:1272653348306419824>┃ Ajuda sobre Trocas Pokémon\n\nOii, raposa! Quer saber como funciona meu sistema de trocas, kyu~? É bem simples!\n\nImagina que você quer completar sua Pokédex, mas acha chato ficar perguntando em vários servidores se alguém tem o Pokémon que você precisa. Agora pensa comigo, kyu~: e se existisse um sistema onde você registra o que procura e, quando outro treinador que tem esse Pokémon vê sua troca, ele só precisa aceitar — e eu te aviso na hora!\n\nParece mágica, né? Mas não é não! É exatamente isso que eu faço: ajudo você a encontrar quem tem o Pokémon que falta na sua dex, kyu~!",
+    "message_poketroca_notlist" : "Kyu~! Não encontrei trocas disponíveis no momento…",
+    "message_poketroca_limit_trocas" : "<:Braix_derp:1272663053875417219>┃ Ei! Você atingiu o limite máximo de pokémon que pode registrar, kyu~! Se quiser registrar mais, precisa ser assinante **Premium**.\nQue tal liberar esse superpoder agora mesmo? É só ver em </premium info:1345864402846482487>!",
+    "message_poketroca_pokemon_duplicado" : "<:Braix_Blank:1272661806858371196>┃ Kyu~! Você já tem um registro parecido com esse pokémon. Dá uma olhada aqui: {}",
+    "message_poketroca_registro_sucesso" : "### <:Braix_Happy:1272664784814342204>┃ Sua troca foi registrada!\n\nKyuuu~! Agora é só esperar que algum treinador tenha o pokémon que você procura. Lembre-se de deixar sua DM aberta pra eu poder te avisar, tá? Seguem os dados do seu registro:",
+    "message_poketroca_pokemon_indisponivel" : "<:Braix_Blank:1272661806858371196>┃ Kyu~! Parece que essa troca não existe ou já não está mais disponível…",
+    "message_poketroca_pokemon_aceito" : "<:Braix_Happy:1272664784814342204>┃ Kyu~! Você aceitou a troca de **ID: {}**. Agora é só esperar que o outro treinador entre em contato por DM. Se quiser mais detalhes, use **/troca status** para conferir todos os detalhes!",
+    "message_poketroca_pokemon_avisoDM" : "### <:Braix_Happy:1272664784814342204>┃ Kyuuu~! Sua troca foi aceita!\n\nAgora é hora de conhecer o novo treinador que vai te ajudar a completar a dex! Aqui estão os dados dele:\n\n**ID:** {}\n**Usuário:** {}\n**Menção:** {}\n**Perfil:** {}",
+    "message_poketroca_registro_mesmo_user" : "<:Braix_derp:1272663053875417219>┃ Ei! Você não pode aceitar uma troca que você mesmo criou, kyu~!",
+    "message_poketroca_registro_finalizado" : "### <:Braix_Happy:1272664784814342204>┃ Troca concluída com sucesso!\n\nParabéns! A troca de **ID: {}** foi marcada como finalizada, kyu~!",
+    "message_poketroca_registro_cancelado" : "### <:Braix_Blank:1272661806858371196>┃ Troca cancelada!\n\nPoxa, que pena que você cancelou a troca de **ID: {}**… Espero que tente de novo depois, kyu~!",
+    "message_poketroca_registro_negado" : "### <:Braix_derp:1272663053875417219>┃ Troca cancelada!\n\nPoxa, que pena que a troca não rolou com esse usuário... Mas fica tranquilo: o pokémon dele voltou pra lista de disponibilidade e outros treinadores ainda podem trocar com ele, kyu~!",
+    "message_poketroca_registro_negado_avisoDM" : "### <:Braix_Blank:1272661806858371196>┃ Troca cancelada!\n\nAh, que pena! Quando eu achei que ia dar certo, o outro treinador acabou cancelando... Mas seu pokémon já voltou pra lista de disponibilidade, assim outros treinadores podem trocar com você, kyu~!",
+    "message_poketroca_status":["disponivel" , "aceito" , "concluido" , "cancelado"],
+
+    "message_erro_autopagar" : "<:Braix_You:1272670440652935289>┃ Eiii você não pode transferir para sí mesmo...   ~~kyu",
+    "message_erro_pagarzero" :"<:Braix_derp:1272663053875417219>┃ **0** <:BraixenCoin:1272655353108103220> + **0** <:BraixenCoin:1272655353108103220> = **0** <:BraixenCoin:1272655353108103220> e não eu não fiz a transferência, na próxima tenta transferir alguma coisa tá...",
+
+    "message_correioelegante_consulta_inexistente" : "<:Braix_derp:1272663053875417219>┃ Não achei esse registro que você me passou, por favor verifique se digitou corretamente ~kyu..",
+    
+    "message_pokequiz" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\nTeste agora mesmo suas Habilidades no meu quiz e veremos se você sabe tudo sobre o mundo pokémon.\n### {}",
+    "message_pokequiz_correta" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_Happy:1272664784814342204>┃ Kyuuuuuu não é que você acertou mesmo, parabéns",
+    "message_pokequiz_errada" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_derp:1272663053875417219>┃ Eita, de onde você tirou isso ai?\na resposta correta era: **{}**",
+
+    "pokequiz": [
+    {
+    "pergunta": "Qual é o tipo do Pikachu?",
+    "alternativas": ["Fogo", "Água", "Elétrico", "Planta"],
+    "correta": "Elétrico"
+  },
+  {
+    "pergunta": "Quem é a evolução do Charmander?",
+    "alternativas": ["Charizard", "Charmeleon", "Blaziken", "Infernape"],
+    "correta": "Charmeleon"
+  },
+  {
+    "pergunta": "Qual é o tipo principal do Braixen?",
+    "alternativas": ["Fada", "Fogo", "Psíquico", "Normal"],
+    "correta": "Fogo"
+  },
+  {
+    "pergunta": "Braixen evolui de qual Pokémon?",
+    "alternativas": ["Fennekin", "Delphox", "Vulpix", "Eevee"],
+    "correta": "Fennekin"
+  },
+  {
+    "pergunta": "Qual é a evolução do Braixen?",
+    "alternativas": ["Ninetales", "Delphox", "Arcanine", "Flareon"],
+    "correta": "Delphox"
+  },
+  {
+    "pergunta": "De que geração é o Braixen?",
+    "alternativas": ["3ª", "5ª", "6ª", "7ª"],
+    "correta": "6ª"
+  },
+  {
+    "pergunta": "Qual desses não é do tipo fogo?",
+    "alternativas": ["Braixen", "Delphox", "Gardevoir", "Charizard"],
+    "correta": "Gardevoir"
+  },
+  {
+    "pergunta": "Qual desses Pokémon é do tipo Psíquico?",
+    "alternativas": ["Braixen", "Lucario", "Delphox", "Garchomp"],
+    "correta": "Delphox"
+  },
+  {
+    "pergunta": "Qual desses não é inicial de Kanto?",
+    "alternativas": ["Bulbasaur", "Charmander", "Squirtle", "Fennekin"],
+    "correta": "Fennekin"
+  },
+  {
+    "pergunta": "Qual é o tipo do Gyarados original?",
+    "alternativas": ["Água/Voador", "Água/Dragão", "Água/Sombrio", "Voador/Dragão"],
+    "correta": "Água/Voador"
+  },
+  {
+    "pergunta": "Qual Pokémon usa um graveto na cauda?",
+    "alternativas": ["Braixen", "Chespin", "Cyndaquil", "Torchic"],
+    "correta": "Braixen"
+  },
+  {
+    "pergunta": "Qual é o tipo do Lucario?",
+    "alternativas": ["Lutador/Metal", "Lutador/Fogo", "Metal/Dragão", "Psíquico/Metal"],
+    "correta": "Lutador/Metal"
+  },
+  {
+    "pergunta": "Quem é a evolução do Eevee para o tipo fogo?",
+    "alternativas": ["Vaporeon", "Flareon", "Jolteon", "Espeon"],
+    "correta": "Flareon"
+  },{
+    "pergunta": "Qual é o nome da protagonista feminina de Pokémon Horizontes?",
+    "alternativas": ["Liko", "Koharu", "Dawn", "Serena"],
+    "correta": "Liko"
+  },
+  {
+    "pergunta": "Qual o nome do parceiro misterioso do Roy em Pokémon Horizontes?",
+    "alternativas": ["Pikachu", "Fuecoco", "Sprigatito", "Cap's Pikachu"],
+    "correta": "Fuecoco"
+  },
+  {
+    "pergunta": "Braixen aparece no anime como Pokémon de qual personagem?",
+    "alternativas": ["Dawn", "Serena", "Misty", "May"],
+    "correta": "Serena"
+  },
+  {
+    "pergunta": "Qual objeto Braixen guarda na cauda?",
+    "alternativas": ["Pedra do Fogo", "Graveto", "Pokébola", "Amuleto"],
+    "correta": "Graveto"
+  },
+  {
+    "pergunta": "Qual é a primeira forma evolutiva do Braixen?",
+    "alternativas": ["Fennekin", "Delphox", "Vulpix", "Quilava"],
+    "correta": "Fennekin"
+  },
+  {
+    "pergunta": "No anime, Serena treinava Braixen para qual tipo de apresentação?",
+    "alternativas": ["Batalhas de ginásio", "Concursos Pokémon", "Exibições Pokémon", "Corridas Pokémon"],
+    "correta": "Exibições Pokémon"
+  },
+  {
+    "pergunta": "Qual desses Pokémon NÃO aparece na equipe da Serena no anime?",
+    "alternativas": ["Braixen", "Pancham", "Sylveon", "Bunnelby"],
+    "correta": "Bunnelby"
+  },
+  {
+    "pergunta": "Qual é o nome do Pikachu capitão que aparece em Pokémon Horizontes?",
+    "alternativas": ["Cap's Pikachu", "Captain Pika", "Thunder Pikachu", "Ash's Pikachu"],
+    "correta": "Cap's Pikachu"
+  },
+  {
+    "pergunta": "Qual geração apresentou o Braixen pela primeira vez?",
+    "alternativas": ["5ª geração", "6ª geração", "7ª geração", "4ª geração"],
+    "correta": "6ª geração"
+  },
+  {
+  "pergunta": "Qual dessas curiosidades sobre Braixen é verdadeira?",
+  "alternativas": [    "Cristal na testa",    "Perde o graveto ao evoluir",    "Graveto foca os poderes",    "Não tem cauda"  ],
+  "correta": "Graveto foca os poderes"
+  },
+  {
+    "pergunta": "Na Pokédex, qual é a característica que destaca Braixen?",
+    "alternativas": [      "Solta fogo pelas orelhas",      "Usa o graveto como varinha",      "Voa em alta velocidade",      "Tem habilidade de camuflagem"    ],
+    "correta": "Usa o graveto como varinha"
+  },
+  {
+    "pergunta": "Quem são os vilões principais de Pokémon Horizontes?",
+    "alternativas": ["Equipe Rocket", "Exploradores", "Galactic Team", "Equipe Skull"],
+    "correta": "Exploradores"
+  },
+  {
+    "pergunta": "Qual desses não é um tipo de Braixen?",
+    "alternativas": ["Fogo", "Psíquico", "Sombrio", "Nenhum"],
+    "correta": "Sombrio"
+  },
+  {
+    "pergunta": "Braixen aparece jogável em qual jogo de luta da franquia?",
+    "alternativas": ["Pokémon Tekken", "Pokkén Tournament", "Smash Bros", "Battle Revolution"],
+    "correta": "Pokkén Tournament"
+  },
+  {
+    "pergunta": "Em que região fica a rota onde podemos capturar Fennekin?",
+    "alternativas": ["Hoenn", "Kalos", "Unova", "Alola"],
+    "correta": "Kalos"
+  },
+  {
+    "pergunta": "Qual dessas personagens já teve um Sylveon no anime?",
+    "alternativas": ["Misty", "May", "Serena", "Lillie"],
+    "correta": "Serena"
+  },
+  {
+    "pergunta": "Qual a habilidade que Braixen pode ter?",
+    "alternativas": ["Chama", "Levitar", "Escudo de Batalha", "Absorver Água"],
+    "correta": "Chama"
+  },
+  {
+    "pergunta": "No anime, qual era o grande sonho da Serena?",
+    "alternativas": ["Ser campeã de ginásio", "Virar rainha de Kalos", "Ser criadora Pokémon", "Virar campeã mundial"],
+    "correta": "Virar rainha de Kalos"
+  },
+  {
+    "pergunta": "Qual desses não faz parte da equipe principal em Pokémon Horizontes?",
+    "alternativas": ["Roy", "Liko", "Friede", "Ash"],
+    "correta": "Ash"
+  },
+  {
+    "pergunta": "Braixen pertence a qual classe de Pokémon na Pokédex?",
+    "alternativas": ["Pokémon Raposa", "Pokémon Bastão", "Pokémon Varinha", "Pokémon Bruxa"],
+    "correta": "Pokémon Raposa"
+  },{
+    "pergunta": "Qual era o nome da rival da Serena em apresentações Pokémon?",
+    "alternativas": ["Miette", "Shauna", "Jessie", "Bianca"],
+    "correta": "Shauna"
+  },
+  {
+    "pergunta": "Qual é a cor da chama que Braixen solta pelo graveto?",
+    "alternativas": ["Azul", "Roxa", "Amarela", "Verde"],
+    "correta": "Amarela"
+  },
+  {
+    "pergunta": "Qual o nome do professor que guia Liko e Roy em Horizontes?",
+    "alternativas": ["Oak", "Friede", "Kukui", "Cerise"],
+    "correta": "Friede"
+  },
+  {
+    "pergunta": "Quem foi o primeiro Pokémon de Ash Ketchum?",
+    "alternativas": ["Charmander", "Pikachu", "Bulbasaur", "Squirtle"],
+    "correta": "Pikachu"
+  },
+  {
+    "pergunta": "Qual é o tipo secundário do Delphox?",
+    "alternativas": ["Sombrio", "Fada", "Psíquico", "Fantasma"],
+    "correta": "Psíquico"
+  },
+  {
+    "pergunta": "Qual desses não é um tipo inicial de Kalos?",
+    "alternativas": ["Fogo", "Água", "Terrestre", "Planta"],
+    "correta": "Terrestre"
+  },
+  {
+    "pergunta": "Na história de Horizontes, o Roy sonha em desafiar quem?",
+    "alternativas": ["Rayquaza", "Ash", "Exploradores", "Friede"],
+    "correta": "Rayquaza"
+  },
+  {
+    "pergunta": "Qual a cor predominante no corpo do Braixen?",
+    "alternativas": ["Preta", "Amarela", "Vermelho", "Cinza"],
+    "correta": "Amarela"
+  },
+  {
+    "pergunta": "Qual desses golpes Braixen aprende naturalmente?",
+    "alternativas": ["Lança-Chamas", "Chuva de Meteoros", "Hidro Bomba", "Choque do Trovão"],
+    "correta": "Lança-Chamas"
+  },
+  {
+    "pergunta": "Em qual geração estreou o Pokémon Sylveon?",
+    "alternativas": ["4ª geração", "5ª geração", "6ª geração", "7ª geração"],
+    "correta": "6ª geração"
+  },
+  {
+    "pergunta": "Qual é o nome do novo continente apresentado em Pokémon Horizontes?",
+    "alternativas": ["Kalos", "Galar", "Paldea", "Alola"],
+    "correta": "Paldea"
+  },
+  {
+    "pergunta": "Qual desses não é do tipo fogo?",
+    "alternativas": ["Braixen", "Flareon", "Vulpix", "Leafeon"],
+    "correta": "Leafeon"
+  },
+  {
+    "pergunta": "Qual desses Pokémon é considerado um inicial de Kalos?",
+    "alternativas": ["Rowlet", "Fennekin", "Chimchar", "Torchic"],
+    "correta": "Fennekin"
+  },
+  {
+    "pergunta": "Braixen pode usar o graveto para fazer o quê?",
+    "alternativas": ["Voar", "Controlar fogo", "Invocar outros Pokémon", "Curar feridas"],
+    "correta": "Controlar fogo"
+  },
+  {
+    "pergunta": "Qual desses Pokémon Ash NÃO teve?",
+    "alternativas": ["Pikachu", "Charizard", "Braixen", "Bulbasaur"],
+    "correta": "Braixen"
+  },
+  {
+    "pergunta": "Qual desses jogos NÃO tem Braixen jogável?",
+    "alternativas": ["Pokkén Tournament", "Pokémon X", "Pokémon Unite", "Pokémon Sword"],
+    "correta": "Pokémon Sword"
+  },
+  {
+    "pergunta": "Qual cor é a parte interna das orelhas do Braixen?",
+    "alternativas": ["Azul", "Preta", "Vermelha", "Verde"],
+    "correta": "Vermelha"
+  },
+  {
+    "pergunta": "Qual é a habilidade escondida (Hidden Ability) do Braixen?",
+    "alternativas": ["Magician", "Levitate", "Blaze", "Synchronize"],
+    "correta": "Magician"
+  },
+  {
+    "pergunta": "Qual desses Pokémon não pertence à geração de Kalos?",
+    "alternativas": ["Greninja", "Braixen", "Delphox", "Lucario"],
+    "correta": "Lucario"
+  },
+  {
+    "pergunta": "Qual é o grupo que persegue Liko por causa do seu colar misterioso?",
+    "alternativas": ["Equipe Rocket", "Exploradores", "Team Galactic", "Team Skull"],
+    "correta": "Exploradores"
+  },
+  {
+    "pergunta": "Qual é o nome do dirigível usado pelos Trovonautas?",
+    "alternativas": ["Volt Flyer", "Brave Asagi", "Thunder Ship", "Volt Cruiser"],
+    "correta": "Brave Asagi"
+  },
+  {
+    "pergunta": "Qual desses Pokémon aparece como parceiro de Liko?",
+    "alternativas": ["Fuecoco", "Sprigatito", "Pikachu", "Tinkaton"],
+    "correta": "Sprigatito"
+  },
+  {
+    "pergunta": "Qual é o nome do colar misterioso que Liko carrega?",
+    "alternativas": ["Terapagos", "Lacrima", "Z-Ring", "Mega Stone"],
+    "correta": "Terapagos"
+  },
+  {
+    "pergunta": "Quem é o capitão da equipe Trovonautas?",
+    "alternativas": ["Roy", "Friede", "Dot", "Murdock"],
+    "correta": "Friede"
+  },
+  {
+    "pergunta": "Qual é o nome da streamer misteriosa amiga dos protagonistas?",
+    "alternativas": ["Dot", "Liko", "Molly", "Nana"],
+    "correta": "Dot"
+  },
+  {
+    "pergunta": "Quem é o cozinheiro da equipe dos Trovonautas?",
+    "alternativas": ["Orla", "Murdock", "Molly", "Roy"],
+    "correta": "Murdock"
+  },
+  {
+    "pergunta": "Qual é o tipo do Pokémon Sprigatito da Liko?",
+    "alternativas": ["Água", "Planta", "Fada", "Fantasma"],
+    "correta": "Planta"
+  },
+  {
+    "pergunta": "Qual Pokémon do Roy sonha em enfrentar Captain Pikachu?",
+    "alternativas": ["Sprigatito", "Fuecoco", "Quaxly", "Pawmi"],
+    "correta": "Fuecoco"
+  },
+  {
+    "pergunta": "Quem é a engenheira responsável pelas manutenções do Brave Asagi?",
+    "alternativas": ["Orla", "Dot", "Molly", "Friede"],
+    "correta": "Orla"
+  },
+  {
+    "pergunta": "Qual o nome do Pokémon misterioso em forma de tartaruga ligado ao colar da Liko?",
+    "alternativas": ["Terapagos", "Koraidon", "Cyclizar", "Fidough"],
+    "correta": "Terapagos"
+  },
+  {
+    "pergunta": "Qual desses NÃO é membro dos Trovonautas?",
+    "alternativas": ["Murdock", "Dot", "Amethio", "Orla"],
+    "correta": "Amethio"
+  },
+  {
+    "pergunta": "Qual é o objetivo principal dos Exploradores?",
+    "alternativas": ["Roubar o Pikachu do Ash", "Pegar o colar da Liko", "Dominar Paldea", "Capturar lendários"],
+    "correta": "Pegar o colar da Liko"
+  },
+  {
+    "pergunta": "Qual é o nome da minha moeda que todos usam?",
+    "alternativas": ["BraixCoin", "BrixCoin", "Braixencoin", "BrixDollar"],
+    "correta": "Braixencoin"
+  },
+  {
+    "pergunta": "O que eu costumo falar quando termino frases?",
+    "alternativas": ["Nyaa", "Kyu", "Pika", "Woof"],
+    "correta": "Kyu"
+  },
+  {
+    "pergunta": "Qual é a minha tipagem?",
+    "alternativas": ["Fogo", "Fada", "Elétrico", "Água"],
+    "correta": "Fogo"
+  },
+  {
+    "pergunta": "Qual é a minha espécie?",
+    "alternativas": ["Braixen", "Delphox", "Fennekin", "Ninetales"],
+    "correta": "Braixen"
+  },
+  {
+    "pergunta": "Qual comando serve para tentar a sorte e ganhar Braixencoin?",
+    "alternativas": ["/bc daily", "/bc aposta", "/brix bump", "/brix ping"],
+    "correta": "/bc daily"
+  },
+  {
+    "pergunta": "Eu Brix sou um bot de qual plataforma?",
+    "alternativas": ["Telegram", "WhatsApp", "Discord", "Slack"],
+    "correta": "Discord"
+  },
+  {
+    "pergunta": "Qual é a Host que utilizo para me manter online?",
+    "alternativas": ["Ghostbot", "Discloud", "Squarecloud", "VPS Amazon"],
+    "correta": "Squarecloud"
+  },
+  {
+    "pergunta": "Na minha lore, qual quem é o meu treinador?",
+    "alternativas": ["Vinicius", "Eduardo", "Victor", "Luiz"],
+    "correta": "Vinicius"
+  },
+  {
+    "pergunta": "Eu fui inspirado em qual Pokémon específico?",
+    "alternativas": ["Delphox", "Braixen", "Fennekin", "Ninetales"],
+    "correta": "Braixen"
+  },
+  {
+    "pergunta": "Qual desses módulos existe em mim?",
+    "alternativas": ["Módulo de Aniversário", "Módulo de Clima", "Módulo de Futebol", "Módulo de Música K-Pop"],
+    "correta": "Módulo de Aniversário"
+  },
+  {
+    "pergunta": "O comando `/brix ping` mostra qual informação?",
+    "alternativas": ["Seu IP", "Latência do bot", "Seu saldo", "Mensagem aleatória"],
+    "correta": "Latência do bot"
+  },
+  {
+    "pergunta": "Além de comandos, oque eu também possuo em meu sistema?",
+    "alternativas": ["Sistema de RPG", "Sistema monetário com loja", "Chat por voz", "Jogo de cartas"],
+    "correta": "Sistema monetário com loja"
+  },
+  {
+    "pergunta": "Qual bordão costuma aparecer nas minhas respostas?",
+    "alternativas": ["~nyan", "~pika", "~kyuu", "~chu"],
+    "correta": "~kyuu"
+  },
+  {
+    "pergunta": "Comigo, é possível comprar o quê na loja?",
+    "alternativas": ["Itens e cores", "Pokémon raros", "Prêmios reais", "Boosters de TCG"],
+    "correta": "Itens e cores"
+  },
+  {
+    "pergunta": "Eu sou descrito como qual gênero?",
+    "alternativas": ["Fêmea", "Macho", "Neutro", "Depende do servidor"],
+    "correta": "Macho"
+  },
+  {
+    "pergunta": "Qual é o padrão da minha personalidade?",
+    "alternativas": ["Sério", "Fofo e brincalhão", "Malvado", "Preguiçoso"],
+    "correta": "Fofo e brincalhão"
+  },
+  {
+    "pergunta": "Qual é a primeira região da franquia Pokémon?",
+    "alternativas": ["Johto", "Hoenn", "Kanto", "Sinnoh"],
+    "correta": "Kanto"
+  },
+  {
+    "pergunta": "Qual desses é um Pokémon do tipo dragão?",
+    "alternativas": ["Gyarados", "Dragonite", "Charizard", "Aerodactyl"],
+    "correta": "Dragonite"
+  },
+  {
+    "pergunta": "Qual é o número do Pikachu na Pokédex Nacional?",
+    "alternativas": ["24", "25", "26", "27"],
+    "correta": "25"
+  },
+  {
+    "pergunta": "Qual Pokémon lendário dorme no fundo dos mares?",
+    "alternativas": ["Kyogre", "Lugia", "Suicune", "Manaphy"],
+    "correta": "Kyogre"
+  },
+  {
+    "pergunta": "Qual desses tipos é imune a golpes do tipo Normal?",
+    "alternativas": ["Fantasma", "Psíquico", "Metal", "Terrestre"],
+    "correta": "Fantasma"
+  },
+  {
+    "pergunta": "Qual desses Pokémon NÃO é uma evolução de Eevee?",
+    "alternativas": ["Espeon", "Umbreon", "Sylveon", "Luxray"],
+    "correta": "Luxray"
+  },
+  {
+    "pergunta": "Qual é o nome do professor da região de Kanto?",
+    "alternativas": ["Professor Oak", "Professor Elm", "Professor Birch", "Professor Rowan"],
+    "correta": "Professor Oak"
+  },
+  {
+    "pergunta": "Qual é o tipo do Pokémon Lucario?",
+    "alternativas": ["Lutador/Fada", "Metal/Psíquico", "Lutador/Metal", "Sombrio/Metal"],
+    "correta": "Lutador/Metal"
+  },
+  {
+    "pergunta": "Qual cidade é famosa por seu Cassino na região de Kanto?",
+    "alternativas": ["Pewter", "Celadon", "Cerulean", "Viridian"],
+    "correta": "Celadon"
+  },
+  {
+    "pergunta": "Qual desses Pokémon é um tipo Fada?",
+    "alternativas": ["Clefable", "Machoke", "Pidgeotto", "Vaporeon"],
+    "correta": "Clefable"
+  },
+  {
+    "pergunta": "Qual é o Pokémon inicial de planta da região de Hoenn?",
+    "alternativas": ["Turtwig", "Treecko", "Chespin", "Bulbasaur"],
+    "correta": "Treecko"
+  },
+  {
+    "pergunta": "Qual é o golpe característico do Pikachu no anime?",
+    "alternativas": ["Raio Solar", "Choque do Trovão", "Cauda de Ferro", "Investida"],
+    "correta": "Choque do Trovão"
+  },
+  {
+    "pergunta": "Qual destes Pokémon pode evoluir usando uma Pedra da Água?",
+    "alternativas": ["Vulpix", "Eevee", "Pikachu", "Growlithe"],
+    "correta": "Eevee"
+  },
+  {
+    "pergunta": "Qual é a cor shiny do Gyarados mais famosa?",
+    "alternativas": ["Azul", "Vermelho", "Dourado", "Roxo"],
+    "correta": "Vermelho"
+  },
+  {
+    "pergunta": "Qual desses golpes é do tipo Psíquico?",
+    "alternativas": ["Poder Oculto", "Psíquico", "Raio Congelante", "Presa de Fogo"],
+    "correta": "Psíquico"
+  },
+  {
+    "pergunta": "Qual desses Pokémon tem três cabeças?",
+    "alternativas": ["Dodrio", "Dugtrio", "Magneton", "Exeggutor"],
+    "correta": "Dodrio"
+  },
+  {
+    "pergunta": "Qual desses Pokémon é famoso por dormir o dia inteiro?",
+    "alternativas": ["Snorlax", "Slaking", "Slowpoke", "Jigglypuff"],
+    "correta": "Snorlax"
+  },
+  {
+    "pergunta": "Qual é o nome do protagonista masculino clássico do anime?",
+    "alternativas": ["Ash", "Red", "Gary", "Brendan"],
+    "correta": "Ash"
+  },
+  {
+    "pergunta": "Qual desses Pokémon não tem evolução?",
+    "alternativas": ["Ditto", "Magnemite", "Onix", "Pikachu"],
+    "correta": "Ditto"
+  },
+  {
+    "pergunta": "Qual destes não é um Pokémon inicial?",
+    "alternativas": ["Squirtle", "Totodile", "Buizel", "Mudkip"],
+    "correta": "Buizel"
+  }
+    ]
+
+}

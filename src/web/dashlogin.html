@@ -1,0 +1,263 @@
+<!--
+  | Website designed by JstnLT (https://jstnlt.my.id)
+  | This project is open source: https://github.com/JastinXyz/discord-bot-landing-page-web
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brix The Braixen - Seu novo melhor amigo dentro do discord</title>
+<meta name="description" content="Brix é seu amigo raposa no Discord, com uma personalidade única e cheia de charme. Ele oferece recursos de administração, diversão, economia e inteligência artificial para transformar seu servidor em uma experiência inesquecível.">
+<link rel="icon" href="assets/img/BH_Braix.png" type="image/png">
+<link rel="stylesheet" href="assets/css/bulma.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+<script src="assets/js/jquery-3.6.0.js"></script>
+</head>
+<body>
+<!-- Back To Top Start -->
+<a id="backtotop" data-tippy-content="Voltar ao topo.">
+  <i class="fa-solid fa-angle-up has-text-white fa-2xl mt-5"></i>
+</a>
+<!-- Back To Top End -->
+
+<!-- Navbar Start -->
+<nav
+  class="navbar is-fixed-top"
+  role="navigation"
+  aria-label="main navigation"
+>
+  <div class="navbar-brand ml-10">
+    <a class="navbar-item " href="/">
+      <img  src="assets/img/brixfront.png"/></img>
+      <strong>Brix The Braixen</span></strong>
+
+      <!-- or if you want to use image -->
+      
+    </a>
+
+    <a
+      role="button"
+      class="navbar-burger has-text-white"
+      data-target="navMenu"
+      aria-label="menu"
+      aria-expanded="false"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a href="/" class="navbar-item is-tab">
+        Inicio
+      </a>
+      <a href="https://docs.google.com/document/d/1sknHLpFqJZRbWG8sJHi3C-yc5yXqwmaaXOTSWxTCjKw/edit?usp=sharing" class="navbar-item is-tab">
+        Termos de uso
+      </a>
+
+      <a href="comandos" class="navbar-item is-tab">
+        Comandos
+      </a>
+      
+      <a href="loja" class="navbar-item is-tab">
+        Loja
+      </a>
+      <!-- 
+      <a href="premium" class="navbar-item is-tab">
+        Premium
+      </a>
+      -->
+    </div>
+
+    <div class="navbar-end">
+      <a href="https://dsc.gg/braixen" class="navbar-item is-tab" target="_blank">
+        <i class="fa-brands fa-discord"></i>
+      </a>
+      <a href="https://top.gg/bot/983000989894336592" class="navbar-item is-tab" target="_blank">
+        <i class="fa-solid fa-check-to-slot"></i>
+      </a>
+      <a href="https://github.com/O-Braixen/Brix" class="navbar-item is-tab " target="_blank">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      
+        
+
+      
+      <div class="navbar-item" id="user-dropdown">
+      {% if session.user %}
+        <a class="navbar-link is-flex is-align-items-center" id="user-dropdown-toggle" style="cursor: pointer;">
+          <figure class="image is-32x32 mr-2">
+            <img class="is-rounded" src="https://cdn.discordapp.com/avatars/{{ session.user.id }}/{{ session.user.avatar }}.png?size=1024" alt="Avatar">
+          </figure>
+          {{ session.user.username }}
+        </a>
+
+        <!-- Tira is-flex daqui -->
+        <div class="user-dropdown navbar-menu" id="user-dropdown-menu">
+          <a class="navbar-item is-tab" href="/dashboard">
+            <i class="fa-solid fa-table-columns mr-2"></i> Dashboard
+          </a>
+          <a class="navbar-item is-tab" href="/logout">
+            <i class="fa-solid fa-right-from-bracket mr-2"></i> Sair
+          </a>
+        </div>
+      {% else %}
+        <div class="buttons mt-2">
+          <a href="/login" class="button is-blurple">
+            <strong><i class="fa-solid fa-right-to-bracket mr-2"></i> Login</strong>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+
+
+      <i class="ml-12"></i>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->
+
+<!-- Hero Section Start -->
+<section class="hero bg-base is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column mr-6 mt-12 ml-10" data-aos="fade-up">
+          <p class="title msgbrix has-text-weight-bold">
+            Você não está<br><span class="mt-20 blurple">Logado
+          </p>
+          <p class="subtitle subtexto is-size-6 mt-3">
+            Não dá para eu fazer muita coisa se você não está logado, aperta o botão ai e faz seu login kyu~!
+          </p>
+          <div class="buttons">
+            <a href="/login" class="button is-info is-medium ">
+              <strong><i class="fa-solid fa-solid fa-right-to-bracket"></i> Realizar login!</strong>
+            </a>
+
+          </div>
+        </div>
+        <div class="column " data-aos="fade-left">
+          <img
+            class="image has-image-centered vert-move"
+            src="assets/img/braixen deitado.png"
+            alt="hero image"
+            style="width: 40rem"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="has-text-centered" data-tippy-content="Scroll Down">
+    <a href="#features"
+      ><i
+        class="fa-solid fa-circle-chevron-down fa-lg vert-move2 blurple"
+      ></i
+    ></a>
+  </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Hero Waves Start -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <path
+    fill="#4b4b4a"
+    fill-opacity="1"
+    d="M0,288L24,261.3C48,235,96,181,144,154.7C192,128,240,128,288,149.3C336,171,384,213,432,202.7C480,192,528,128,576,133.3C624,139,672,213,720,213.3C768,213,816,139,864,101.3C912,64,960,64,1008,106.7C1056,149,1104,235,1152,240C1200,245,1248,171,1296,144C1344,117,1392,139,1416,149.3L1440,160L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z"
+  ></path>
+</svg>
+<!-- Hero Waves End -->
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("user-dropdown-toggle");
+    const menu = document.getElementById("user-dropdown-menu");
+
+    // Sempre começa fechado, forçando o estilo
+    menu.style.display = "none";
+
+    toggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      menu.style.display = (menu.style.display === "none") ? "block" : "none";
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.style.display = "none";
+      }
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+<!-- Footer Section Start -->
+<footer class="footer bg-base">
+  <div class="content has-text-centered has-text-white">
+    <div class="mb-2">
+      <a href="https://dsc.gg/braixen" class="has-text-white" target="_blank">
+        <i class="fa-brands fa-discord"></i>
+      </a>
+      &nbsp; &nbsp;
+      <a href="https://top.gg/bot/983000989894336592" class="has-text-white" target="_blank">
+        <i class="fa-solid fa-check-to-slot"></i>
+      </a>
+      &nbsp; &nbsp;
+      <a href="https://github.com/O-Braixen/Brix" class="has-text-white" target="_blank">
+        <i class="fa-brands fa-github"></i>
+      </a>
+    </div>
+
+    <p>
+      <span class="has-text-weight-bold">Brix The Braixen</span></span>
+      <br />
+      &copy; <span id="cp-year"></span> Copyright OBraixen. Todos os direitos reservados.
+    </p>
+
+    <p style="letter-spacing: 0.1em;" class="is-uppercase">
+      Website Designed By
+      <a
+        href="https://jstnlt.my.id"
+        class="blurple has-text-weight-bold"
+        target="_blank"
+        >JstnLT</a
+      >.<br>The Original Website Design is Open Source on <a
+        href="https://github.com/JastinXyz/discord-bot-landing-page-web"
+        class="blurple has-text-weight-bold"
+        target="_blank"
+        >Github</a
+      >
+    </p>
+  </div>
+</footer>
+<!-- Footer Section End -->
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
