@@ -504,5 +504,21 @@
     "🦊⠂Inicie ou resgate sua caçada especial!": "🦊⠂start or rescue your special hunt!",
     "normalizar_nomes": "normalize_names",
     "📝⠂Normaliza nicknames cque tenham fontes diferentes ou emojis no servidor.": "📝⠂normalize nicknames that have different fonts or emojis on the server.",
-    "caçar": "hunt"
+    "caçar": "hunt",
+    "avisos": "warnings",
+    "🦊⠂Configura o canal para avisos de novos pedidos de Pokémon.": "🦊 set up the channel for new pokémon order notifications.",
+    "Canal onde os avisos serão enviados": "channel where announcements will be sent.",
+    "Cargo que será mencionado (opcional)": "job title to be mentioned (optional)",
+    "avisos-desativar": "warnings-disable",
+    "🦊⠂Desative o aviso de pedidos de Pokémon.": "🦊 disable pokémon order notifications.",
+    "Comandos da loja de cargos VIP do Brix.": "brix vip rank shop commands.",
+    "⭐⠂Exibe a loja de cargos VIP da comunidade.": "⭐⠂displays the community's vip roles store.",
+    "⭐⠂Adicione um cargo VIP na loja.": "⭐⠂add a vip role in the store.",
+    "Cargo VIP": "vip position",
+    "Custo em BraixenCoin": "cost in braixencoin",
+    "tipo": "type",
+    "Tempo da assinatura (opcional)": "subscription length (optional)",
+    "⭐⠂Remova um cargo VIP da loja.": "⭐⠂remove a vip role from the store.",
+    "⭐⠂Defina a arte da loja VIP.": "⭐⠂define the art for the vip store.",
+    "Link da imagem": "image link"
 }

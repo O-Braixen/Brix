@@ -1555,5 +1555,9 @@
     "normatizar_nomes_concluido": "<:Braix:1272653348306419824>┃ ¡Todo listo, kyu~!\n\n<:stick:1272652364695998525>┃ ¡Conseguí cambiar <a:Brix_Check:1371215835653210182> **{}** nombre<:Braix_Shocked:1272663500115935264>s.\n┃ No conseguí cambiar <a:Brix_Negative:1371215873637093466> **{}** porque no tenía permiso.\n\n-# ¡Proceso finalizado con éxito!",
     "modal_edit_profile_title": "Editando seu Perfil",
     "aboutme_input_label": "Sobremim",
-    "aboutme_input_placeholder": "Escribe algo sobre ti aquí..."
+    "aboutme_input_placeholder": "Escribe algo sobre ti aquí...",
+    "message_poketroca_aviso_ativado": "### <:Braix_Happy:1272664784814342204>┃ ¡Sistema de Avisos Activado!\n\n¡Kyuuu~! Ahora voy a estar atento y siempre que alguien registre una solicitud de intercambio de Pokémon, te avisaré en el canal que elegiste, kyu~\n**Canal configurado:** {}\n**Ping configurado:** {}",
+    "message_poketroca_aviso_desativado": "### <:Braix_Cry2:1272667164637401250>┃ ¡Sistema de Avisos Desactivado!\n\nHas desactivado mi sistema de avisos de intercambios Pokémon, kyu~. Ya no avisaré sobre nuevas peticiones, ¿de acuerdo?",
+    "message_poketroca_aviso_envio": "### <:Braix_Happy:1272664784814342204>┃ ¡Nuevo Intercambio Disponible!\n\n¡Hola {}, hay una nueva solicitud de intercambio de Pokémon!\nAlguien está buscando un **{}**, y si tienes ese Pokémon, puedes aceptar el intercambio usando el comando **/trocas aceitar** y pasando la ID de este intercambio, kyuu~\n\n-# Para ver otros intercambios disponibles, usa **/trocas disponiveis**",
+    "message_financeiro_compracor_notlist": "Kyu~! No encontré ningún artículo disponible en este momento…"
 }

@@ -248,12 +248,14 @@
           <p class="menu-label">Configurações</p>
           <ul class="menu-list">
             <li><a href="#aniversario" data-target="aniversario" class="menu-link is-active">Aniversário</a></li>
-            <li><a href="#boasvindas" data-target="boasvindas" class="menu-link">Boas-vindas</a></li>
             <li><a href="#autophox" data-target="autophox" class="menu-link">Autophox</a></li>
+            <li><a href="#boasvindas" data-target="boasvindas" class="menu-link">Boas-vindas</a></li>
+            <li><a href="#bump" data-target="bump" class="menu-link">Mensagem de Bump</a></li>
             <li><a href="#lojacores" data-target="lojacores" class="menu-link">Loja de Cores</a></li>
             <li><a href="#pokeday" data-target="pokeday" class="menu-link">Pokéday</a></li>
-            <li><a href="#bump" data-target="bump" class="menu-link">Mensagem de Bump</a></li>
+            <li><a href="#trocas-poke" data-target="trocas-poke" class="menu-link">Trocas Pokémon</a></li>
             <li><a href="#seguranca" data-target="seguranca" class="menu-link">Brix Segurança</a></li>
+
           </ul>
         </aside>
       </div>
@@ -540,6 +542,65 @@
             <p class="help">Defina uma mensagem que será enviada pelo bot na comunidade, pode incluir menção de cargos.</p>
           </div>
         </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        <div id="trocas-poke" class="box config-section">
+          <h3 class="title is-4">🔄 - Trocas Pokémon</h3>
+          <p class="subtitle is-size-6">Ativa notificações de novos pedidos de troca de Pokémon.</p>
+
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox" name="ativar_trocas" {% if retbanco.trocas_aviso %}checked{% endif %} >
+              Ativar Módulo de Avisos de Trocas
+            </label>
+            <p class="help">Ative para validar as configurações.</p>
+          </div>
+
+          <div class="field">
+            <label class="label">Canal para avisos de novas Trocas</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select name="canal_trocas">
+                  {% for canal in text_channels %}
+                    <option value="{{ canal.id }}" {% if retbanco.trocas_aviso and retbanco.trocas_aviso.canal == canal.id %}selected{% endif %}>#{{ canal.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <p class="help">Canal onde as mensagens de novos pedidos de troca serão postadas.</p>
+          </div>
+
+          <div class="field">
+            <label class="label">Cargo (opcional)</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select name="cargo_trocas">
+                  <option value="">Nenhum</option>
+                  {% for cargo in guild.roles %}
+                    <option value="{{ cargo.id }}" {% if retbanco.trocas_aviso and retbanco.trocas_aviso.cargo == cargo.id %}selected{% endif %}>{{ cargo.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <p class="help">Cargo que será mencionado nas notificações (opcional).</p>
+          </div>
+        </div>
+
+
+
+
+
 
 
         

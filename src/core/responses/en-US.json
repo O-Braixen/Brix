@@ -1677,5 +1677,9 @@
     "normatizar_nomes_concluido": "<:Braix:1272653348306419824>┃ All set, kyu~!\n\n┃ <:stick:1272652364695998525>Successfully changed <a:Brix_Check:1371215835653210182> **{}** names.\n<:Braix_Shocked:1272663500115935264>┃ Failed to change <a:Brix_Negative:1371215873637093466> **{}** because I didn't have permission.\n\n-# Process finished successfully!",
     "modal_edit_profile_title": "Editing your Profile",
     "aboutme_input_label": "About me",
-    "aboutme_input_placeholder": "Write something about yourself here..."
+    "aboutme_input_placeholder": "Write something about yourself here...",
+    "message_poketroca_aviso_ativado": "### <:Braix_Happy:1272664784814342204>┃ Warning System Activated!\n\nKyuuu~! Now I'll keep an eye out and whenever someone registers a Pokémon trade request, I'll let you know in the channel you've chosen, kyu~!\n**Configured Channel:** {}\n**Configured Ping:** {}",
+    "message_poketroca_aviso_desativado": "┃ <:Braix_Cry2:1272667164637401250>Warning System Disabled!\n\nYou've disabled my Pokémon trade warning system, kyu~. I won't warn you about new requests anymore, okay?",
+    "message_poketroca_aviso_envio": "┃ <:Braix_Happy:1272664784814342204>New Trade Available!\n\nHi {}, there's a new Pokémon trade request!\nSomeone is looking for a **{}**, and if you have that Pokémon, you can accept the trade using the command **/trades accept** and passing the ID of this trade, kyuu~\n\n-# To see other available trades, use **/trades available**",
+    "message_financeiro_compracor_notlist": "Kyu~! I couldn't find any items available at the moment..."
 }

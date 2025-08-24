@@ -8,7 +8,7 @@ from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import exibirtops , userpremiumcheck, verificar_cooldown
 from src.services.essential.diversos import calcular_saldo, Paginador_Global
 #from modulos.premium import liberarpremium
-from src.services.essential.pokemon_module import get_all_pokemon , get_pokemon
+from src.services.essential.pokemon_module import get_all_pokemon , get_pokemon , get_pokemon_sprite
 from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGEM
 from dotenv import load_dotenv
 
@@ -921,23 +921,8 @@ class financeiro(commands.Cog):
         await interaction.followup.send(Res.trad(interaction= interaction, str='message_financeiro_zero'))
         return
     
-    #if valor > 10000:
-    #    await interaction.followup.send(Res.trad(interaction= interaction, str='message_financeiro_aposta_limite'))
-    #    return
-    
     saldoatual = saldo - valor
     await self.start_game(interaction, valor, saldoatual ,  interaction.user)
-  
-  #@quem_e_esse_pokemon.autocomplete("valor")
-  #async def valor_autocomplete(self,interaction: discord.Interaction,current: str) -> list[app_commands.Choice[int]]:
-  #  try:
-  #      typed = int(current)
-   # except:
-   #     typed = 0
-   # start = max(1, min(typed, 10000))
-   # end = min(start + 25, 10000 + 1)  # limita para no máximo 25 opções
-   # return [app_commands.Choice(name=f"{int(i):_} BraixenCoin".replace("_", "."), value=i)for i in range(start, end)]
-
 
 
 
@@ -950,14 +935,17 @@ class financeiro(commands.Cog):
         imagempokemon = p.get('front_default')
         if imagempokemon:
             try:
-                res = requests.get(imagempokemon, stream=True)
-                if res.status_code == 429:
-                    time.sleep(5)
-                    continue
-                res = res.content
+                # Usa o helper com cache
+                img = get_pokemon_sprite( url=imagempokemon, pokemon=p['name'], shiny=False )
+
+                # converte pra bytes (igual você fazia com requests.content)
+                buffer = io.BytesIO()
+                img.save(buffer, format="PNG")
+                res = buffer.getvalue()
                 break
+
             except Exception as e:
-                print(f"[ERRO] Falha ao baixar sprite: {e}")
+                print(f"[ERRO] Falha ao carregar sprite com cache: {e}")
                 continue
 
     nome_correto = p['name']

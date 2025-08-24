@@ -1,7 +1,7 @@
 import discord,urllib.request,requests,re,asyncio,io,pytz,datetime,os
 from discord.ext import commands,tasks
 from discord import app_commands
-from src.services.essential.pokemon_module import verificar_calendario_pokemon , encontrar_cor_tipo , get_pokemon
+from src.services.essential.pokemon_module import verificar_calendario_pokemon , encontrar_cor_tipo , get_pokemon , get_pokemon_sprite
 from src.services.connection.database import BancoServidores
 from src.services.essential.respostas import Res
 from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGEM
@@ -94,10 +94,11 @@ class Pokeday(commands.Cog):
                     fundodraw.text((155,130),f"Gerado por Brix",font = fontemini)
                     
                     #MONTAGEM DA IMAGEM
-                    try:
-                        pokeimagem = Image.open(requests.get(dex['front_default'], stream=True).raw)
-                    except:
-                        pokeimagem = Image.open("src/assets/imagens/Pokedex/Interrogation.png")
+                    pokeimagem = get_pokemon_sprite( dex['front_default'], pokemon=specie["name"], shiny=False )
+                    #try:
+                    #    pokeimagem = Image.open(requests.get(dex['front_default'], stream=True).raw)
+                    #except:
+                    #    pokeimagem = Image.open("src/assets/imagens/Pokedex/Interrogation.png")
                     pokeimagem = pokeimagem.resize((140,140))
                     fundo.paste(fundoicones,(0,0), fundoicones)
                     backgroud.paste(fundo,(0,0),mascara)

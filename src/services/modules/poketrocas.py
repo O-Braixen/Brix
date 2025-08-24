@@ -1,13 +1,23 @@
-import discord ,datetime , re , io , requests
+import discord ,datetime , re , io , requests 
 from discord.ext import commands
 from discord import app_commands,Locale
 from functools import partial
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck 
 from src.services.essential.diversos import gerar_id_unica
-from src.services.connection.database import BancoTrocas
-from src.services.essential.pokemon_module import pokemon_autocomplete , jogos_autocomplete , encontrar_cor_tipo , get_jogo_nome, get_pokemon
+from src.services.connection.database import BancoTrocas , BancoServidores
+from src.services.essential.pokemon_module import pokemon_autocomplete , jogos_autocomplete , encontrar_cor_tipo , get_jogo_nome, get_pokemon , get_pokemon_sprite
 from PIL import Image, ImageDraw, ImageFont , ImageOps
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -62,13 +72,14 @@ async def gerar_arte_trocas(interaction, troca):
     
 
     #MONTAGEM DA IMAGEM
-    try:
-        if troca["shiny"] is True:
-            pokeimagem = Image.open(requests.get(dex['front_shiny'], stream=True).raw)
-        else:
-            pokeimagem = Image.open(requests.get(dex['front_default'], stream=True).raw)
-    except:
-        pokeimagem = Image.open("src/assets/imagens/Pokedex/Interrogation.png")        
+    pokeimagem = get_pokemon_sprite( dex['front_shiny'] if troca["shiny"] else dex['front_default'], troca["pokemon"], shiny=troca["shiny"])
+    #try:
+    #    if troca["shiny"] is True:
+    #        pokeimagem = Image.open(requests.get(dex['front_shiny'], stream=True).raw)
+    #    else:
+    #        pokeimagem = Image.open(requests.get(dex['front_default'], stream=True).raw)
+    #except:
+    #    pokeimagem = Image.open("src/assets/imagens/Pokedex/Interrogation.png")        
 
     pokeimagem = pokeimagem.resize((190,190))
     #backgroud.paste(fundoicones,(0,0), fundoicones)
@@ -124,12 +135,13 @@ async def gerar_arte_trocas_disponiveis(interaction,trocas):
         alinhado_invertido = idx in [1, 3]  # posições 2 e 4
 
         # Busca sprite do pokémon
-        try:
-            dex = await get_pokemon(t['pokemon'])
-            sprite_url = dex['front_shiny'] if t["shiny"] else dex['front_default']
-            pokeimg = Image.open(requests.get(sprite_url, stream=True).raw).convert("RGBA")
-        except:
-            pokeimg = Image.open("src/assets/imagens/Pokedex/Interrogation.png").convert("RGBA")
+        #try:
+        dex = await get_pokemon(t['pokemon'])
+        pokeimg = get_pokemon_sprite( dex['front_shiny'] if t["shiny"] else dex['front_default'], t["pokemon"], shiny=t["shiny"])
+            #sprite_url = dex['front_shiny'] if t["shiny"] else dex['front_default']
+            #pokeimg = Image.open(requests.get(sprite_url, stream=True).raw).convert("RGBA")
+        #except:
+            #pokeimg = Image.open("src/assets/imagens/Pokedex/Interrogation.png").convert("RGBA")
 
         # Redimensiona pokémon para 180x180
         pokeimg = pokeimg.resize((180, 180))
@@ -290,6 +302,53 @@ async def trocar_pagina_disponiveis( interaction, paginas, pagina, user_id):
 
 
 
+
+
+
+# ENVIO DO AVISO CASO NOVAS TROCAS POKÉMON SEJAM REGISTRADAS
+async def enviar_aviso_troca(self, troca: dict, buffer: io.BytesIO):
+    filtro_servidores = {"trocas_aviso": {"$exists": True}}
+    servidores = BancoServidores.select_many_document(filtro_servidores)
+
+    for servidor in servidores:
+        guild_id = servidor["_id"]
+        dados_aviso = servidor.get("trocas_aviso", {})
+
+        canal_id = dados_aviso.get("canal")
+        cargo_id = dados_aviso.get("cargo")
+
+        guild = self.client.get_guild(guild_id)
+        if not guild:
+            continue
+
+        canal = guild.get_channel(canal_id)
+        if not canal:
+            continue
+
+        ping = f"<@&{cargo_id}>" if cargo_id is not None else guild.name
+        texto = Res.trad(guild=guild.id, str='message_poketroca_aviso_envio').format(ping, troca['pokemon'])
+
+        try:
+            buffer.seek(0)  # Reset do ponteiro
+            arquivo = discord.File(fp=buffer, filename="registro.png")
+            await canal.send(content=texto, file=arquivo)
+        except Exception as e:
+            print(f"Erro ao enviar aviso de troca no servidor {guild_id}: {e}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class trocaspokemon(commands.Cog):
   def __init__(self, client: commands.Bot):
     self.client = client
@@ -357,6 +416,10 @@ class trocaspokemon(commands.Cog):
 
     buffer = await gerar_arte_trocas(interaction,doc)
     await interaction.followup.send(Res.trad(interaction=interaction,str="message_poketroca_registro_sucesso"), files=[discord.File(fp=buffer, filename="registro.png")])
+
+    # Aviso global
+    await enviar_aviso_troca(self, doc, buffer)
+    
 
 
 
@@ -575,6 +638,58 @@ class trocaspokemon(commands.Cog):
     # Chama a função para montar a página inicial com os botões
     await montar_pagina_disponiveis(interaction, paginas, 0, interaction.user.id)
 
+
+
+
+
+
+
+
+
+# ======================================================================
+# COMANDO PARA ATIVAR AVISOS DE TROCAS POKÈMON
+  @trocaspokemon.command(name="avisos", description="🦊⠂Configura o canal para avisos de novos pedidos de Pokémon.")
+  @app_commands.describe(canal="Canal onde os avisos serão enviados", cargoping="Cargo que será mencionado (opcional)")
+  async def setup_pedidos(self, interaction: discord.Interaction, canal: discord.TextChannel, cargoping: discord.Role = None):
+    if await Res.print_brix(comando="trocaspokemonativaravisos",interaction=interaction):
+            return
+    if interaction.guild is None:
+        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=30)
+        return
+    if not interaction.user.guild_permissions.manage_guild:
+        return await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"),delete_after=30,ephemeral=True)
+
+    if cargoping is not None:
+        item = { "trocas_aviso.canal": canal.id, "trocas_aviso.cargo": cargoping.id }
+    else:
+        item = { "trocas_aviso.canal": canal.id, "trocas_aviso.cargo": None }
+
+    BancoServidores.update_document(interaction.guild.id, item)
+    await interaction.response.send_message(Res.trad(interaction=interaction,str="message_poketroca_aviso_ativado").format(canal.mention , cargoping.mention if cargoping else ""), ephemeral=True)
+
+
+
+
+
+# ======================================================================
+#COMANDO PARA DESATIVAR AVISOS DE TROCAS POKÉMON
+  @trocaspokemon.command(name="avisos-desativar", description="🦊⠂Desative o aviso de pedidos de Pokémon.")
+  async def aniversarioserveranunciodesativar(self, interaction: discord.Interaction):
+    if await Res.print_brix(comando="trocaspokemondesativaravisos",interaction=interaction):
+        return
+    if interaction.guild is None:
+        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=30)
+        return
+    if not interaction.user.guild_permissions.manage_guild:
+        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"),delete_after=30,ephemeral=True)
+        return
+    try:
+        item = {"trocas_aviso": 0}
+        BancoServidores.delete_field(interaction.guild.id,item)
+        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_poketroca_aviso_desativado"))
+    except:
+        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"),delete_after=30,ephemeral=True)
+            
 
 
 

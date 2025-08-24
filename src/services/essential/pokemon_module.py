@@ -1,6 +1,8 @@
-import discord , requests , json , os , re , asyncio
+import discord , requests , json , os , re , asyncio , io
 from discord import app_commands
 from icalendar import Calendar
+from PIL import Image
+
 
 
 # ======= CORES POR TIPO ==========
@@ -350,3 +352,50 @@ async def inicializar_caches_se_preciso():
     if jogos_cache is None:
         jogos_cache = JogosCache()
         await jogos_cache.load_jogos_data()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+POKEMON_CACHE_DIR = "src/assets/imagens/pokemon"
+
+def get_pokemon_sprite(url: str, pokemon: str, shiny: bool = False) -> Image.Image:
+    """
+    Retorna a sprite de um Pokémon (normal ou shiny).
+    Se já existir em cache, carrega do disco.
+    Se não existir, baixa, salva e retorna.
+    """
+    os.makedirs(POKEMON_CACHE_DIR, exist_ok=True)
+
+    # Nome do arquivo ex: pikachu_normal.png | pikachu_shiny.png
+    variant = "shiny" if shiny else "normal"
+    filename = f"{pokemon}_{variant}.png"
+    path = os.path.join(POKEMON_CACHE_DIR, filename)
+
+    if os.path.exists(path):
+        return Image.open(path).convert("RGBA")
+
+    try:
+        resp = requests.get(url, stream=True, timeout=10)
+        resp.raise_for_status()
+        img = Image.open(io.BytesIO(resp.content)).convert("RGBA")
+        img.save(path)
+        return img
+    except Exception as e:
+        print(f"[ERRO SPRITE] Falha ao baixar sprite {pokemon} ({variant}): {e}")
+        # Retorna imagem de interrogação padrão se der erro
+        return Image.open("src/assets/imagens/Pokedex/Interrogation.png").convert("RGBA")

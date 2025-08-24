@@ -118,6 +118,19 @@ class cogcores(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     # COMANDO EXIBIR LOJA DE CORES
     @cor.command(name="loja", description="🖌️⠂Exibe a loja de cores da comunidade.")
     async def lojacor(self, interaction:discord.Interaction):
@@ -149,6 +162,28 @@ class cogcores(commands.Cog):
             embedcores.set_image(url=resultado[0]['lojabanner'])
         except:embedcores.set_image(url="https://cdn.discordapp.com/attachments/1067789510097768528/1146086919462207620/cores.png")
         await interaction.followup.send(embed=embedcores,view=DropdownCores(interaction,item))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -203,10 +238,31 @@ class cogcores(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    # COMANDO REMOVER ITEM A LOJA DE CORES
     @cor.command(name="remover", description="🖌️⠂Retire uma cor na loja.")
     @app_commands.describe(cargo="informe um cargo de cor")
-    async def lojarem(self,interaction:discord.Interaction,cargo:discord.Role):
+    async def lojarem(self,interaction:discord.Interaction,cargo: str):
         if await Res.print_brix(comando="lojarem",interaction=interaction):
             return
         if interaction.guild is None:
@@ -223,12 +279,65 @@ class cogcores(commands.Cog):
         except:
             await interaction.response.send_message(Res.trad(interaction=interaction,str="message_financeiro_compracor_lojanaoexistente"),delete_after=10)
             return
-        if str(cargo.id) in item:
-            item = {f"itensloja.{cargo.id}": 0}
+        if cargo in item:
+            item = {f"itensloja.{cargo}": 0}
             BancoServidores.delete_field(interaction.guild.id,item)                                                              #.replace("['","").replace("']","").split("', '")
-            await interaction.followup.send(random.choice(Res.trad( interaction=interaction, str="message_financeiro_compracor_item_removido")).format(cargo.name))
+            #await interaction.followup.send(random.choice(Res.trad( interaction=interaction, str="message_financeiro_compracor_item_removido")).format(cargo.name))
+            role = interaction.guild.get_role(int(cargo))
+            await interaction.followup.send( random.choice( Res.trad(interaction=interaction, str="message_financeiro_compracor_item_removido") ).format(role.name if role else "Cargo inexistente") )
         else:
             await interaction.followup.send(Res.trad(interaction=interaction,str="message_financeiro_compracor_item_notfound"))
+
+
+
+
+
+
+    # AUTOCOMPLETE PARA PREENCHER OS CARGOS REGISTRADOS
+    @lojarem.autocomplete("cargo")
+    async def lojarem_autocomplete(self, interaction: discord.Interaction, current: str):
+        filtro = {"_id": interaction.guild.id}
+        resultado = BancoServidores.select_many_document(filtro)
+
+        sugestoes = []
+        try:
+            item = resultado[0]['itensloja']
+        except:
+            return [app_commands.Choice(name=Res.trad(interaction=interaction, str="message_financeiro_compracor_notlist"), value="")]
+
+        for item_id, valor in item.items():
+            cargo = interaction.guild.get_role(int(item_id))
+            if not cargo:
+                continue
+
+            # filtro pelo que o usuário digitou
+            if current.lower() in cargo.name.lower():
+                sugestoes.append(app_commands.Choice(
+                    name=f"{cargo.name} - {int(valor):,}".replace(",", ".") + " BraixenCoin",
+                    value=str(cargo.id)
+                ))
+
+        if not sugestoes:
+            sugestoes.append(app_commands.Choice(name=Res.trad(interaction=interaction, str="message_financeiro_compracor_notlist"), value=""))
+
+        return sugestoes[:25]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

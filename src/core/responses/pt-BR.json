@@ -417,6 +417,7 @@
     "message_financeiro_compracor_item_adicionado" : "<:Braix_Happy:1272664784814342204>┃ Você adicionou o item: {} pelo valor de **{:,.0f}** <:BraixenCoin:1272655353108103220>\n<:Braix:1272653348306419824>┃ Caso precise alterar o valor do item basta adicioná-lo novamente com o novo valor ~kyuuuu",
     "message_financeiro_compracor_item_removido" : ["<:Braix_Blank:1272661806858371196>┃ Você removeu o item: {} da loja ~kyuuu","<:Braix_Blank:1272661806858371196>┃ O item: {} não faz mais parte da loja ~kyuuu"],
     "message_financeiro_compracor_item_notfound" : "<:Braix_derp:1272663053875417219>┃ Não achei esse item ai ~kyuuu, verifique se me passou o cargo correto a ser removido da loja ~kyuuu",
+    "message_financeiro_compracor_notlist" : "Kyu~! Não encontrei nenhum item disponíveis no momento…",
     "message_financeiro_compracor_banner" : "<:Braix:1272653348306419824>┃ Uhull, agora sua Loja de cores tem um banner proprio ~kyuuu",
     "message_financeiro_itemloja_useraviso" : "### <:Braix_Happy:1272664784814342204>┃Seu item entrou na loja!\n\nKyuuu~! E aí, {}! Passando rapidinho pra te avisar que seu item incrível **{}** acabou de entrar na minha loja diária. Corre lá pra ver!",
     "message_financeiro_itemloja_vendauser" : "### <:Braix_Money:1272666877197418598>┃Seu item foi vendido!\n\nKyuuu~! E aí, {}! Passando rapidinho pra te avisar que alguém comprou seu item incrível **{}** e você ganhou a comissão da venda!",
@@ -518,6 +519,10 @@
     "message_poketroca_registro_cancelado" : "### <:Braix_Blank:1272661806858371196>┃ Troca cancelada!\n\nPoxa, que pena que você cancelou a troca de **ID: {}**… Espero que tente de novo depois, kyu~!",
     "message_poketroca_registro_negado" : "### <:Braix_derp:1272663053875417219>┃ Troca cancelada!\n\nPoxa, que pena que a troca não rolou com esse usuário... Mas fica tranquilo: o pokémon dele voltou pra lista de disponibilidade e outros treinadores ainda podem trocar com ele, kyu~!",
     "message_poketroca_registro_negado_avisoDM" : "### <:Braix_Blank:1272661806858371196>┃ Troca cancelada!\n\nAh, que pena! Quando eu achei que ia dar certo, o outro treinador acabou cancelando... Mas seu pokémon já voltou pra lista de disponibilidade, assim outros treinadores podem trocar com você, kyu~!",
+    "message_poketroca_aviso_ativado" : "### <:Braix_Happy:1272664784814342204>┃ Sistema de Avisos Ativado!\n\nKyuuu~! Agora vou ficar de olho e sempre que alguém registrar um pedido de troca de Pokémon, te aviso no canal que você escolheu, kyu~\n**Canal configurado:** {}\n**Ping configurado:** {}",
+    "message_poketroca_aviso_desativado" : "### <:Braix_Cry2:1272667164637401250>┃ Sistema de Avisos Desativado!\n\nVocê desativou meu sistema de avisos de trocas Pokémon, kyu~. Não vou mais avisar sobre novos pedidos, tá bem?",
+    "message_poketroca_aviso_envio" : "### <:Braix_Happy:1272664784814342204>┃ Nova Troca Disponível!\n\nOi {}, tem um novo pedido de troca de Pokémon!\nAlguém está procurando um **{}**, e se você tiver esse Pokémon, pode aceitar a troca usando o comando **/trocas aceitar** e passando a ID dessa troca, kyuu~\n\n-# Para ver outras trocas disponíveis, use **/trocas disponiveis**",
+
     "message_poketroca_status":["disponivel" , "aceito" , "concluido" , "cancelado"],
 
     "message_erro_autopagar" : "<:Braix_You:1272670440652935289>┃ Eiii você não pode transferir para sí mesmo...   ~~kyu",

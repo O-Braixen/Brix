@@ -700,6 +700,18 @@ def salvar_configuracoes():
         unset_fields["pokeday"] = 1
 
     
+    # ---------------- TROCAS POKÉMON ----------------
+    if "ativar_trocas" in request.form:
+        ping_val = request.form.get("cargo_trocas", "").strip()
+        updates["trocas_aviso"] = {
+            "canal": int(request.form.get("canal_trocas")),
+            "cargo": int(ping_val) if ping_val.isdigit() else None
+        }
+    else:
+        unset_fields["trocas_aviso"] = 1
+
+
+    
     # ---------------- SEGURANÇA ----------------
     if "ativar_seguranca" in request.form:
         tempo_valor = request.form.get("tempo_antialt")
