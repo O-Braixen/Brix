@@ -33,7 +33,7 @@ class Client(commands.AutoShardedBot):
 
 
     async def setup_hook(self):
-        await self.load_extension("jishaku")
+        #await self.load_extension("jishaku")
 
         self.brixtradutor =  BrixTradutor() #Define o modulo de tradução
         await self.tree.set_translator(self.brixtradutor) #Define o tradutor padrão para os comandos
