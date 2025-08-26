@@ -90,7 +90,7 @@ async def botstatus(self,interaction):
 
 
       view = discord.ui.View()
-      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
       view.add_item(item=button)
 
       await interaction.followup.send(embed=resposta, view=view)
@@ -107,7 +107,7 @@ async def botstatus(self,interaction):
       resposta.set_footer(text=f"Rodando versão: {dadosbot['version']} - Mais detalhes use /brix version",icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
 
       view = discord.ui.View()
-      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
       view.add_item(item=button)
       
       await interaction.followup.send(embed=resposta, view=view)
@@ -573,7 +573,7 @@ class Botoesdash(discord.ui.View):
     @discord.ui.button(label="Reiniciar Bot",style=discord.ButtonStyle.red,emoji="⚡",row=4) #row=0
     async def buttonshutdown (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
-          await interaction.response.send_message(f"<:Braix_Shocked:1272663500115935264>┃ Enviando solicitação a Squarecloud...",delete_after=10)
+          await interaction.response.send_message(f"<:Braix_Shocked:1272663500115935264>┃ Enviando solicitação a Host...",delete_after=10)
           await restart(self.client.user.name)
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
@@ -677,8 +677,8 @@ class owner(commands.Cog):
     await inicializar_caches_se_preciso()
     if not self.verificar_guilds.is_running():
       self.verificar_guilds.start()
-      await asyncio.sleep(2400)
-      await baixaritensloja()
+      #await asyncio.sleep(2400)
+      #await baixaritensloja()
 
 
 
@@ -1172,7 +1172,7 @@ class owner(commands.Cog):
     )
     resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
     view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
 
@@ -1198,7 +1198,7 @@ class owner(commands.Cog):
     resposta.set_thumbnail(url=self.client.user.avatar.url)
     resposta.set_footer(text= Res.trad(interaction=interaction,str="onwer_botinfo_footer") ,icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
     view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
 
@@ -1338,7 +1338,7 @@ class owner(commands.Cog):
 
     resposta.set_thumbnail(url=self.client.user.avatar.url)
     view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://brix.squareweb.app/dashboard")
+    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://brix.discloud.app/dashboard")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
 

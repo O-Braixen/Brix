@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 from src.services.essential.host import informação
 from src.services.connection.database import BancoBot
 from src.services.essential.respostas import listapegadinha
+from src.services.essential.shardsname import NOME_DOS_SHARDS
 from dotenv import load_dotenv
 
 
@@ -67,68 +68,68 @@ class BotStatus(commands.Cog):
     @tasks.loop(minutes=10)
     async def update_status_loop(self):
         dadosbot = BancoBot.insert_document()
-        if self.isbraixenday: # Dia do Braixen
-            await self.client.change_presence(activity=discord.CustomActivity(name="🦊 Braixen Day!!!"),  status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name="🔥 Celebrando Braixen Day!"),  status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"Braixen's em Kalos TV"),  status=discord.Status.do_not_disturb)
-            await asyncio.sleep(900)
+        shard_id = self.client.shard_id
+        shard_nome = NOME_DOS_SHARDS.get(shard_id, f"Shard {shard_id}")
 
-        elif self.isnatalday: # Natal
-            await self.client.change_presence(activity=discord.CustomActivity(name="🎄 Feliz Natal!!!") ,  status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name="🎄 Natal com magia de fogo!") ,  status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"Especial de Natal na Globo") ,  status=discord.Status.online)
-            await asyncio.sleep(900)
+        status_list = []
 
-        elif self.isanonovoday: # Ano novo
-            await self.client.change_presence(activity=discord.CustomActivity(name="Feliz Ano Novo!!!"), status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name="🔥 Um Próspero Ano Novo!!!"), status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"🎆 Fogos de Artifício"), status=discord.Status.online)
-            await asyncio.sleep(900)
-        
-        elif self.abrilfools: # 1 de abril
-            await self.client.change_presence(activity=discord.CustomActivity(name=f"{len(listapegadinha)} Raposas cairam na pegadinha de primeiro de abril!"), status=discord.Status.dnd)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name="🔥 Braixen agora é um Pokémon Lendário!"), status=discord.Status.dnd)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name="🔨 Todos Foram Banidos ~kyuuuu!!!"), status=discord.Status.dnd)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name="Primeiro de Abril ~kyuuuu!!!"), status=discord.Status.dnd)
-            await asyncio.sleep(900)
+        if self.isbraixenday:  # Dia do Braixen
+            status_list = [
+                (discord.CustomActivity(name="🦊 Braixen Day!!!"), discord.Status.online),
+                (discord.CustomActivity(name="🔥 Celebrando Braixen Day!"), discord.Status.online),
+                (discord.Activity(type=discord.ActivityType.watching, name="Braixen's em Kalos TV"), discord.Status.do_not_disturb),
+            ]
 
-        else: # sem data especifica
-            await self.client.change_presence(activity=discord.CustomActivity(name="🦊 Minha casa discord.gg/braixen"), status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name=f"✨ visitando {len(self.client.guilds)} servidores kyuuuuu!"), status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name="🍕📱 Pedindo uma pizza com @obraixen"), status=discord.Status.dnd)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"Braixen's House 🦊"), status=discord.Status.do_not_disturb)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="Pokémon X em dsc.gg/braixen"), status=discord.Status.do_not_disturb)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{len(self.client.users)} usuários!"), status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name=f"🦊 {len(self.client.guilds)} guildas confiando na sabedoria de Brix!"), status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name=f"🦊 Sendo um bom Braixen, kyuu!"), status=discord.Status.online)
-            await asyncio.sleep(900)
-            await self.client.change_presence(activity=discord.CustomActivity(name=f"Versão {dadosbot['version']} Brix!"), status=discord.Status.online)
-            await asyncio.sleep(900)
+        elif self.isnatalday:  # Natal
+            status_list = [
+                (discord.CustomActivity(name="🎄 Feliz Natal!!!"), discord.Status.online),
+                (discord.CustomActivity(name="🎄 Natal com magia de fogo!"), discord.Status.online),
+                (discord.Activity(type=discord.ActivityType.watching, name="Especial de Natal na Globo"), discord.Status.online),
+            ]
+
+        elif self.isanonovoday:  # Ano novo
+            status_list = [
+                (discord.CustomActivity(name="Feliz Ano Novo!!!"), discord.Status.online),
+                (discord.CustomActivity(name="🔥 Um Próspero Ano Novo!!!"), discord.Status.online),
+                (discord.Activity(type=discord.ActivityType.watching, name="🎆 Fogos de Artifício"), discord.Status.online),
+            ]
+
+        elif self.abrilfools:  # 1 de abril
+            status_list = [
+                (discord.CustomActivity(name=f"{len(listapegadinha)} Raposas cairam na pegadinha de primeiro de abril!"), discord.Status.dnd),
+                (discord.CustomActivity(name="🔥 Braixen agora é um Pokémon Lendário!"), discord.Status.dnd),
+                (discord.CustomActivity(name="🔨 Todos Foram Banidos ~kyuuuu!!!"), discord.Status.dnd),
+                (discord.CustomActivity(name="Primeiro de Abril ~kyuuuu!!!"), discord.Status.dnd),
+            ]
+
+        else:  # sem data especifica
             try:
-                res_information , host = await informação(self.client.user.name)
+                res_information, host = await informação(self.client.user.name)
                 if host == "squarecloud":
-                    await self.client.change_presence(activity=discord.CustomActivity(name=f"🖥️ Squarecloud - {res_information['response']['cluster']}"), status=discord.Status.online)
-                if host == "discloud":
-                    await self.client.change_presence(activity=discord.CustomActivity(name=f"🖥️ Discloud - Melhor Host de todas"), status=discord.Status.online)
+                    status_list.append((discord.CustomActivity(name=f"🖥️ Squarecloud - {res_information['response']['cluster']}"), discord.Status.online))
+                elif host == "discloud":
+                    status_list.append((discord.CustomActivity(name="🖥️ Discloud - Melhor Host de todas"), discord.Status.online))
             except:
                 print("❌ falha ao coletar dados da square para status")
-            await asyncio.sleep(900)
+
+            status_list.extend([
+                (discord.CustomActivity(name="🦊 Minha casa discord.gg/braixen"), discord.Status.online),
+                (discord.CustomActivity(name=f"✨ visitando {len(self.client.guilds)} servidores kyuuuuu!"), discord.Status.online),
+                (discord.CustomActivity(name="🍕📱 Pedindo uma pizza com @obraixen"), discord.Status.dnd),
+                (discord.Activity(type=discord.ActivityType.watching, name="Braixen's House 🦊"), discord.Status.do_not_disturb),
+                (discord.Activity(type=discord.ActivityType.playing, name="Pokémon X em dsc.gg/braixen"), discord.Status.do_not_disturb),
+                (discord.Activity(type=discord.ActivityType.watching, name=f"{len(self.client.users)} usuários!"), discord.Status.online),
+                (discord.CustomActivity(name=f"🦊 {len(self.client.guilds)} guildas confiando na sabedoria de Brix!"), discord.Status.online),
+                (discord.CustomActivity(name="🦊 Sendo um bom Braixen, kyuu!"), discord.Status.online),
+                (discord.CustomActivity(name=f"Versão {dadosbot['version']} Brix!"), discord.Status.online),
+                (discord.CustomActivity(name=f"{shard_nome} ({shard_id}) em uso"), discord.Status.online),
+                (discord.CustomActivity(name="✨ Magia Pokémon em cada servidor!"), discord.Status.online),
+            ])
+
+        # loop principal para trocar os status
+        for activity, status in status_list:
+            await self.client.change_presence(activity=activity, status=status)
+            await asyncio.sleep(900)  # apenas uma vez aqui
 
 
 

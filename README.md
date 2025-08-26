@@ -69,16 +69,16 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
 
 ### 🌐 Site oficial
 - Conheça mais sobre Brix e explore recursos exclusivos:  
-👉 [brix.squareweb.app](https://brix.squareweb.app/)
+👉 [brix.discloud.app](https://brix.discloud.app/)
 
 ---
 
 ## 🛠️ Instalação
 
-### ☁️ Hospedando na SquareCloud
+### ☁️ Hospedando na Discloud
 1. Edite o arquivo `exemplo.env` com suas configurações  
 2. Renomeie para `.env`  
-3. Compacte tudo e envie para a SquareCloud  
+3. Compacte tudo e envie para a Discloud  
 
 ### 💻 Rodando localmente
 1. Instale [Python 3.11+](https://www.python.org/downloads/)  

@@ -876,5 +876,5 @@ def _run_web():
     log = logging.getLogger('werkzeug')
     log.setLevel(logging.ERROR)
     app.logger.disabled = True
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
