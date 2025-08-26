@@ -6,7 +6,7 @@ from typing import List
 from src.services.connection.database import BancoUsuarios,BancoServidores,BancoBot,BancoLoja , BancoFinanceiro , BancoLogs
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck , verificar_cooldown
-from src.services.essential.host import informação,status,restart
+from src.services.essential.host import informação,status,restart 
 from src.services.essential.gasmii import generate_response_with_text
 from src.services.essential.diversos import Paginador_Global
 from src.services.essential.pokemon_module import inicializar_caches_se_preciso
@@ -27,32 +27,34 @@ donoid = int(os.getenv("DONO_ID")) #acessa e define o id do dono
 
 #Função status
 async def botstatus(self,interaction):
-    if await Res.print_brix(comando="botstatus",interaction=interaction):
-      return
-    await interaction.response.defer()  # Defer normal
-    fuso = pytz.timezone('America/Sao_Paulo')
-    now = datetime.datetime.now().astimezone(fuso).replace(hour=0, minute=0, second=0, microsecond=0)
+  if await Res.print_brix(comando="botstatus",interaction=interaction):
+    return
+  await interaction.response.defer()  # Defer normal
+  fuso = pytz.timezone('America/Sao_Paulo')
+  now = datetime.datetime.now().astimezone(fuso).replace(hour=0, minute=0, second=0, microsecond=0)
+  try:
+    logs_hoje = BancoLogs.contar_comandos({"timestamp": {"$gte": now}})
+    dadosbot = BancoBot.insert_document()
+    if self.client.user.id == 983000989894336592:
+      ambiente = "Produção"
+    else:
+      ambiente = "Beta Teste"
     try:
-      logs_hoje = BancoLogs.contar_comandos({"timestamp": {"$gte": now}})
-      dadosbot = BancoBot.insert_document()
-      if self.client.user.id == 983000989894336592:
-        ambiente = "Produção"
-      else:
-        ambiente = "Beta Teste"
-      try:
-        res_information = await informação(self.client.user.name)
-        res_status = await status(self.client.user.name)
+      res_information , host = await informação(self.client.user.name)
+      res_status, host = await status(self.client.user.name)
+
+        #DADOS PELA SQUARECLOUD      
+      if host == "squarecloud":
         resposta = discord.Embed(
-                colour=discord.Color.yellow(),
-                title=f"🦊┃Informações do {res_information['response']['name']}",
-                description=f"{res_information['response']['desc']}"
-            )
+            colour=discord.Color.yellow(),
+            title=f"🦊┃Informações do {res_information['response']['name']}",
+            description=f"{res_information['response']['desc']}"
+        )
         resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
         resposta.add_field(name="🖥️⠂squarecloud", value=f"```{res_information['response']['cluster']}```", inline=True)
         resposta.add_field(name="📊⠂Ram", value=f"```{(res_status['response']['ram'])} / {res_information['response']['ram']} MB```", inline=True)
         resposta.add_field(name="🌡⠂CPU", value=f"```{res_status['response']['cpu']}```", inline=True)
         resposta.add_field(name="👨‍💻⠂Linguagem", value=f"```{res_information['response']['language']}```", inline=True)
-        #resposta.add_field(name="🦊⠂Dono", value=f"<@{donoid}>", inline=True)
         resposta.add_field(name="🕐⠂Uptime", value=f"<t:{round(res_status['response']['uptime']/1000)}:R>", inline=True)
         resposta.add_field(name="🌐⠂Rede", value=f"```{res_status['response']['network']['total']}```", inline=True)
         resposta.add_field(name="🏓⠂Ping", value=f"```{round(self.client.latency * 1000)}ms```", inline=True)
@@ -61,33 +63,56 @@ async def botstatus(self,interaction):
         resposta.add_field(name="👥⠂Usuários", value=f"```{len(self.client.users) :,.0f} Usuários```", inline=True)
         resposta.add_field(name="🤖⠂Usados hoje", value=f"```{logs_hoje :,.0f} Comandos```", inline=True)
         resposta.add_field(name="✨⠂Shards", value=len(self.client.latencies), inline=True)
-        #resposta.add_field(name="🍀⠂Ambiente", value=f"```{ambiente}```", inline=True)
-
         resposta.set_footer(text=f"Rodando versão: {dadosbot['version']} - Mais detalhes use /brix version",icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
-        view = discord.ui.View()
-        button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
-        view.add_item(item=button)
 
-        await interaction.followup.send(embed=resposta, view=view)
-
-      except Exception as e:
-        print(e)
+        #DADOS PELA DISCLOUD
+      if host == "discloud":
         resposta = discord.Embed(
-                colour=discord.Color.yellow(),
-                title=f"🦊┃Informações do {self.client.user.name}",
-                description=f"O melhor Braixen Bot, sem dados de hospedagem."
-            )
+            colour=discord.Color.yellow(),
+            title=f"🦊┃Informações do {self.client.user.name}",
+            description=f"🖥️⠂Discloud - {res_information['apps']['name']}"
+        )
         resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
-        resposta.add_field(name="🍀⠂Ambiente", value=f"```{ambiente}```", inline=True)
+        resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
+        resposta.add_field(name="👨‍💻⠂Linguagem", value=f"```{res_information['apps']['lang']}```", inline=True)
+        resposta.add_field(name="📊⠂Ram", value=f"```{(res_status['apps']['memory'])}```", inline=True)
+        resposta.add_field(name="🗄️⠂Armazenamento", value=f"```{res_status['apps']['ssd']}```", inline=True)
+        resposta.add_field(name="🌡⠂CPU", value=f"```{res_status['apps']['cpu']}```", inline=True)
+        resposta.add_field(name="🕐⠂Uptime", value=f"{res_status['apps']['last_restart']}", inline=True)
+        resposta.add_field(name="🌐⠂Rede", value=f"```⬇️ {res_status['apps']['netIO']['down']}/⬆️ {res_status['apps']['netIO']['up']}```", inline=True)
+        resposta.add_field(name="🏓⠂Ping", value=f"```{round(self.client.latency * 1000)}ms```", inline=True)
+        resposta.add_field(name="🔮⠂Menção", value=f"<@{self.client.user.id}>", inline=True)
+        resposta.add_field(name="🗄️⠂Servidores", value=f"```{len(self.client.guilds) :,.0f} Comunidades```", inline=True)
+        resposta.add_field(name="👥⠂Usuários", value=f"```{len(self.client.users) :,.0f} Usuários```", inline=True)
+        resposta.add_field(name="🤖⠂Usados hoje", value=f"```{logs_hoje :,.0f} Comandos```", inline=True)
+        resposta.add_field(name="✨⠂Shards", value=len(self.client.latencies), inline=True)
         resposta.set_footer(text=f"Rodando versão: {dadosbot['version']} - Mais detalhes use /brix version",icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
 
-        view = discord.ui.View()
-        button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
-        view.add_item(item=button)
-        
-        await interaction.followup.send(embed=resposta, view=view)
+
+      view = discord.ui.View()
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+      view.add_item(item=button)
+
+      await interaction.followup.send(embed=resposta, view=view)
+
     except Exception as e:
-      await Res.erro_brix_embed(interaction,str="message_erro_getsquare",e=e,comando="botstatus")
+      print(e)
+      resposta = discord.Embed(
+              colour=discord.Color.yellow(),
+              title=f"🦊┃Informações do {self.client.user.name}",
+              description=f"O melhor Braixen Bot, sem dados de hospedagem."
+          )
+      resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
+      resposta.add_field(name="🍀⠂Ambiente", value=f"```{ambiente}```", inline=True)
+      resposta.set_footer(text=f"Rodando versão: {dadosbot['version']} - Mais detalhes use /brix version",icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
+
+      view = discord.ui.View()
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+      view.add_item(item=button)
+      
+      await interaction.followup.send(embed=resposta, view=view)
+  except Exception as e:
+    await Res.erro_brix_embed(interaction,str="message_erro_getsquare",e=e,comando="botstatus")
 
 
 
@@ -648,6 +673,7 @@ class owner(commands.Cog):
   async def on_ready(self):
     print("🦊  -  Modúlo Owner carregado.")
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
+
     await inicializar_caches_se_preciso()
     if not self.verificar_guilds.is_running():
       self.verificar_guilds.start()

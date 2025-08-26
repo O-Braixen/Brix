@@ -121,8 +121,11 @@ class BotStatus(commands.Cog):
             await self.client.change_presence(activity=discord.CustomActivity(name=f"Versão {dadosbot['version']} Brix!"), status=discord.Status.online)
             await asyncio.sleep(900)
             try:
-                res_information = await informação(self.client.user.name)
-                await self.client.change_presence(activity=discord.CustomActivity(name=f"🖥️ Squarecloud - {res_information['response']['cluster']}"), status=discord.Status.online)
+                res_information , host = await informação(self.client.user.name)
+                if host == "squarecloud":
+                    await self.client.change_presence(activity=discord.CustomActivity(name=f"🖥️ Squarecloud - {res_information['response']['cluster']}"), status=discord.Status.online)
+                if host == "discloud":
+                    await self.client.change_presence(activity=discord.CustomActivity(name=f"🖥️ Discloud - Melhor Host de todas"), status=discord.Status.online)
             except:
                 print("❌ falha ao coletar dados da square para status")
             await asyncio.sleep(900)

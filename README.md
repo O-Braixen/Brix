@@ -87,10 +87,6 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
    pip install -r requirements.txt
 
 
-### 🚩 Aviso de segurança
-- Brix faz uso de diversas api's e dependencias, e uma em especifico a **e621py-wrapper** precisa de uma pequena correção manual onde você precisa comentar a linha referente a 'from distutils.command.upload import upload' no arquivo 'e621py_wrapper/e621_endpoints.py' pois novas versões do discord.py removeram essa dependencia e o grupo de desenvolvimento da api ainda não corrigiu a ausencia dessa dependencia.
-
-
 ---
 
 ### 🦊 Status do top.gg

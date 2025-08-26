@@ -4,7 +4,8 @@ from discord import app_commands
 from discord.voice_client import VoiceClient 
 from typing import List
 from functools import partial
-import e621py_wrapper as e621 #IMPORTAÇÂO E621
+#import e621py_wrapper as e621 #IMPORTAÇÂO E621
+from src.services.essential.E621api import E621
 from src.services.connection.database import BancoServidores
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck , verificar_cooldown
@@ -19,7 +20,7 @@ id_chatBH = int(os.getenv('id_chatBH'))
 try:
     #login e621
     time.sleep(2)  # Espera de 2 segundos
-    e621api = e621.client()
+    e621api = E621()
     e621api.login(os.getenv("E621_Login"), os.getenv("E621_Api"))
     print("🦊  -  Login e621 bem-sucedido!")
 except:
