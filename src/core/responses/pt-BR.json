@@ -890,7 +890,7 @@
   },
   {
     "pergunta": "Qual é a Host que utilizo para me manter online?",
-    "alternativas": ["Ghostbot", "Discloud", "Squarecloud", "VPS Amazon"],
+    "alternativas": ["Ghostbot", "Brixcloud", "Squarecloud", "VPS Amazon"],
     "correta": "Squarecloud"
   },
   {

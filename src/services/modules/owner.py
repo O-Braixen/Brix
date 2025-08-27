@@ -90,7 +90,7 @@ async def botstatus(self,interaction):
 
 
       view = discord.ui.View()
-      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
       view.add_item(item=button)
 
       await interaction.followup.send(embed=resposta, view=view)
@@ -107,7 +107,7 @@ async def botstatus(self,interaction):
       resposta.set_footer(text=f"Rodando versão: {dadosbot['version']} - Mais detalhes use /brix version",icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
 
       view = discord.ui.View()
-      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
       view.add_item(item=button)
       
       await interaction.followup.send(embed=resposta, view=view)
@@ -1172,7 +1172,7 @@ class owner(commands.Cog):
     )
     resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
     view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
+    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
 
@@ -1198,7 +1198,7 @@ class owner(commands.Cog):
     resposta.set_thumbnail(url=self.client.user.avatar.url)
     resposta.set_footer(text= Res.trad(interaction=interaction,str="onwer_botinfo_footer") ,icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
     view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.discloud.app/")
+    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
 
@@ -1338,7 +1338,7 @@ class owner(commands.Cog):
 
     resposta.set_thumbnail(url=self.client.user.avatar.url)
     view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://brix.discloud.app/dashboard")
+    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://brix.squareweb.app/dashboard")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
 

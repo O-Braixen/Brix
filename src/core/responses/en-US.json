@@ -1279,7 +1279,7 @@
                 "pergunta": "Which hosting do I use to stay online?",
                 "options": [
                     "Ghostbot",
-                    "Discloud",
+                    "Brixcloud",
                     "Squarecloud",
                     "VPS Amazon"
                 ],
