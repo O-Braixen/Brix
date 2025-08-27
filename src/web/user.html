@@ -292,7 +292,7 @@
                 <ul class="item-grid" id="lista-artes">
                   {% for item in backgrounds %}
                     <li class="item-box" style="cursor:pointer;" onclick="selecionarArte('{{ item._id }}', '{{ item.url }}')" data-nome="{{ item.name|lower }}">
-                      <img src="/imagens/backgroud/all-itens/{{ item._id }}.png" class="item-image" style="height: auto; object-fit: cover;" onerror="this.onerror=null; this.src='{{ item.url }}'">
+                      <img src="/src/assets/imagens/backgroud/all-itens/{{ item._id }}.png" class="item-image" style="height: auto; object-fit: cover;" onerror="this.onerror=null; this.src='{{ item.url }}'">
                       <div class="item-prices">
                         <span>
                           <img src="/assets/img/iconraridade{{ item.raridade }}.png"> {{ item.name }}

@@ -339,7 +339,7 @@ function exibirItens(itens) {
     li.style.animationDelay = `${index * 0.1}s`; // 0.05 segundos entre cada
     li.dataset.texto = `${item._id} ${item.name} ${item.descricao}`.toLowerCase();
     li.innerHTML = `
-      <img src="/imagens/backgroud/all-itens/${item._id}.png" 
+      <img src="/src/assets/imagens/backgroud/all-itens/${item._id}.png" 
       class="item-image" 
       onclick="abrirModal(this.src)"
       onerror="this.onerror=null; this.src='${item.url}'">
