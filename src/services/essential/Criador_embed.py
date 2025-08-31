@@ -1,10 +1,16 @@
 from typing import Dict, Optional, Union, List, Any, Union, Callable
-import discord , json
+import discord , json, io
 from discord import Embed, ButtonStyle, utils, Interaction, Colour, HTTPException, SelectOption, TextStyle , ChannelType , CategoryChannel , ForumChannel , StageChannel , Message, InteractionMessage, WebhookMessage
 from discord.ui import View, button, Button , TextInput , ChannelSelect, Modal, Select, select , Item
 from discord.ext.commands import Context
 from contextlib import suppress
 from src.services.essential.respostas import Res
+
+
+
+
+
+
 
 
 
@@ -240,11 +246,16 @@ class CriadorDeEmbed(View):
             },
         ]
 
-        self.children[0].options = [SelectOption( **option) for option in self.options_data]
+
+        self.children[0].options = [SelectOption(**option) for option in self.options_data]
         self.children[0].placeholder = Res.trad(interaction=self.interacao, str="edit_section_placeholder")
-        self.children[1].label, self.children[1].emoji, self.children[1].style = kwargs.get("send_label", Res.trad(interaction=self.interacao, str="send_label")), kwargs.get("send_emoji", "<a:Brix_Check:1371215835653210182>"), kwargs.get("send_style", ButtonStyle.gray)
-        self.children[2].label, self.children[2].emoji, self.children[2].style = kwargs.get("cancel_label", Res.trad(interaction=self.interacao, str="cancel_label")), kwargs.get("cancel_emoji", "<a:Brix_Negative:1371215873637093466>"), kwargs.get("cancel_style", ButtonStyle.gray) 
-        
+
+        self.children[1].label, self.children[1].emoji, self.children[1].style =  kwargs.get("send_label", Res.trad(interaction=self.interacao, str="send_label")), kwargs.get("send_emoji", "<a:Brix_Check:1371215835653210182>"), kwargs.get("send_style", ButtonStyle.gray) 
+        self.children[2].label, self.children[2].emoji, self.children[2].style =  kwargs.get("cancel_label", Res.trad(interaction=self.interacao, str="cancel_label")), kwargs.get("cancel_emoji", "<a:Brix_Negative:1371215873637093466>"), kwargs.get("cancel_style", ButtonStyle.gray) 
+        self.children[3].label, self.children[3].emoji, self.children[3].style =  kwargs.get("export_label", Res.trad(interaction=self.interacao, str="export_json_label")), kwargs.get("export_emoji", "📤"), kwargs.get("export_style", ButtonStyle.gray) 
+        self.children[4].label, self.children[4].emoji, self.children[4].style =  kwargs.get("import_label", Res.trad(interaction=self.interacao, str="import_json_label")), kwargs.get("import_emoji", "📥"), kwargs.get("import_style", ButtonStyle.gray) 
+
+
     async def on_error(self, interaction: Interaction, error: Exception, item: Item[Any]) -> None:
         if isinstance(error, HTTPException) and error.code == 50035:
             self.embed.description = f"_ _"
@@ -289,6 +300,92 @@ class CriadorDeEmbed(View):
     async def cancel_callback(self, interaction: Interaction, button: Button) -> None:
         await interaction.message.delete()
         self.stop()
+
+
+
+    @button()
+    async def export_callback(self, interaction: Interaction, button: Button) -> None:
+        await self.export_json(interaction)
+
+    @button()
+    async def import_callback(self, interaction: Interaction, button: Button) -> None:
+        await self.import_json(interaction)
+
+
+
+
+
+    async def interaction_check(self, interaction: Interaction) -> bool:
+        if interaction.data.get("custom_id") == "export_json":
+            return await self.export_json(interaction)
+        elif interaction.data.get("custom_id") == "import_json":
+            return await self.import_json(interaction)
+        return True
+
+
+
+    
+    async def export_json(self, interaction: Interaction):
+        try:
+            data = self.embed.to_dict()
+            json_str = json.dumps(data, indent=4, ensure_ascii=False)
+            await interaction.response.send_message(content=Res.trad(interaction=interaction, str="export_json_success") , file=discord.File(fp=io.BytesIO(json_str.encode("utf-8")), filename="embed.json"), ephemeral=True )
+
+        except Exception as e:
+            await interaction.response.send_message( Res.trad(interaction=interaction, str="export_json_error").format(e=e), ephemeral=True )
+
+        return False
+
+
+
+
+    async def import_json(self, interaction: Interaction):
+        modal = Modal( title=Res.trad(interaction=interaction, str="import_json_title") )
+        modal.add_item(TextInput( label=Res.trad(interaction=interaction, str="import_json_modal"), style=TextStyle.paragraph, required=True ))
+
+        async def on_submit(inter: Interaction):
+            try:
+                raw = str(modal.children[0])
+                data = json.loads(raw)
+                self.embed = discord.Embed.from_dict(data)
+                await self.update_embed(inter)
+
+                await inter.response.send_message(f"{Res.trad(interaction=inter, str='import_json_success')}", ephemeral=True )
+
+            except Exception as e:
+                await inter.response.send_message( f"{Res.trad(interaction=inter, str='import_json_error').format(e=e)}", ephemeral=True )
+
+        modal.on_submit = on_submit
+        await interaction.response.send_modal(modal)
+        return False
+
+
+
+
+
+        
+    #FUNÇÂO PARA EXPORTAR EMBED EM JSON
+    async def context_exportar_embed(self, interaction: Interaction, message: discord.Message):
+        try:
+            if not message.embeds:
+                await interaction.response.send_message( Res.trad(interaction=interaction, str="export_json_no_embed"), ephemeral=True )
+                return
+
+            embed = message.embeds[0]  # pega o primeiro embed
+            data = embed.to_dict()
+            json_str = json.dumps(data, indent=4, ensure_ascii=False)
+            await interaction.response.send_message( Res.trad(interaction=interaction, str="export_json_success"), file=discord.File(fp=io.BytesIO(json_str.encode("utf-8")), filename="embed.json"), ephemeral=True )
+
+
+        except Exception as e:
+            await interaction.response.send_message( Res.trad(interaction=interaction, str="export_json_error").format(e=e), ephemeral=True )
+
+
+
+
+
+
+
 
 
 class CreatorMethods:
@@ -478,3 +575,8 @@ class CreatorMethods:
         if vals := select.values:
             for value in sorted([int(v) for v in vals], reverse=True):
                 self.embed.remove_field(value)
+
+
+
+
+

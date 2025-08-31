@@ -520,5 +520,9 @@
     "Tempo da assinatura (opcional)": "subscription length (optional)",
     "⭐⠂Remova um cargo VIP da loja.": "⭐⠂remove a vip role from the store.",
     "⭐⠂Defina a arte da loja VIP.": "⭐⠂define the art for the vip store.",
-    "Link da imagem": "image link"
+    "Link da imagem": "image link",
+    "Exportar JSON do Embed": "export json from embed",
+    "presentear": "gift",
+    "💎⠂Presenteie outro membro com o Premium.": "💎⠂gift premium to another member.",
+    "Quem vai receber o presente": "who is going to receive the gift?"
 }

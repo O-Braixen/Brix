@@ -68,8 +68,6 @@ class BotStatus(commands.Cog):
     @tasks.loop(minutes=10)
     async def update_status_loop(self):
         dadosbot = BancoBot.insert_document()
-        shard_id = self.client.shard_id
-        shard_nome = NOME_DOS_SHARDS.get(shard_id, f"Shard {shard_id}")
 
         status_list = []
 
@@ -108,7 +106,7 @@ class BotStatus(commands.Cog):
                 if host == "squarecloud":
                     status_list.append((discord.CustomActivity(name=f"🖥️ Squarecloud - {res_information['response']['cluster']}"), discord.Status.online))
                 elif host == "discloud":
-                    status_list.append((discord.CustomActivity(name="🖥️ Discloud - Melhor Host de todas"), discord.Status.online))
+                    status_list.append((discord.CustomActivity(name=f"🖥️ Discloud - CLUSTER {res_information['apps']['clusterName']}"), discord.Status.online))
             except:
                 print("❌ falha ao coletar dados da square para status")
 
@@ -122,7 +120,7 @@ class BotStatus(commands.Cog):
                 (discord.CustomActivity(name=f"🦊 {len(self.client.guilds)} guildas confiando na sabedoria de Brix!"), discord.Status.online),
                 (discord.CustomActivity(name="🦊 Sendo um bom Braixen, kyuu!"), discord.Status.online),
                 (discord.CustomActivity(name=f"Versão {dadosbot['version']} Brix!"), discord.Status.online),
-                (discord.CustomActivity(name=f"{shard_nome} ({shard_id}) em uso"), discord.Status.online),
+                #(discord.CustomActivity(name=f"{shard_nome} ({shard_id}) em uso"), discord.Status.online),
                 (discord.CustomActivity(name="✨ Magia Pokémon em cada servidor!"), discord.Status.online),
             ])
 

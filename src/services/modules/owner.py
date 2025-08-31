@@ -70,7 +70,7 @@ async def botstatus(self,interaction):
         resposta = discord.Embed(
             colour=discord.Color.yellow(),
             title=f"🦊┃Informações do {self.client.user.name}",
-            description=f"🖥️⠂Discloud - {res_information['apps']['name']}"
+            description=f"🖥️⠂Discloud - CLUSTER {res_information['apps']['clusterName']}"
         )
         resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
         resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
@@ -665,6 +665,11 @@ class owner(commands.Cog):
     self.client = client
 
 
+    # no __init__ da classe (ou onde você inicializa os menus)
+    self.menu_exportar_embed = app_commands.ContextMenu( name="Copiar JSON do Embed", callback=self.exportar_embed_json, type=discord.AppCommandType.message, allowed_installs=app_commands.AppInstallationType(guild=True, user=True), allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True) )
+    self.client.tree.add_command(self.menu_exportar_embed)
+
+
 
 
 
@@ -875,34 +880,6 @@ class owner(commands.Cog):
 
 
 
-  """
-#TAREFA PARA VERIFICAR EM QUAIS GUILDAS BRIX ESTÁ, E SE NÃO TIVER DELETA OS DADOS DO BANCO DE DADOS
-  @tasks.loop(time=datetime.time(hour=2, minute=0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
-  async def verificar_guilds(self): 
-    print(f"🦊 - Iniciando Verificação de Servidores onde o bot está")
-    dados = BancoServidores.select_many_document({})
-    sem = asyncio.Semaphore(50)
-    async def verificar(server, i):
-      async with sem:
-        servidor = self.client.get_guild(int(server['_id']))
-        if servidor is None:
-          falhas = server.get("check_falhas", 0) + 1
-          if falhas >= 30:
-            print(f"{i}: ⚠️ Falhou 30 vezes. Deletando registro do ID {server['_id']}")
-            await asyncio.to_thread(BancoServidores.delete_document, server['_id'])
-          else:
-            print(f"{i}: 🚨 Incrementando falhas ({falhas}/30) para o ID {server['_id']}")
-            await asyncio.to_thread(BancoServidores.update_document, server['_id'], {"check_falhas": falhas})
-        else:
-          print(f"{i}: ✔️ Servidor válido: {servidor.name} (ID: {servidor.id})")
-          if "check_falhas" in server:
-            await asyncio.to_thread(BancoServidores.delete_field, server['_id'], {"check_falhas": 0})
-    
-    tasks_list = [verificar(server, i+1) for i, server in enumerate(dados)]
-    await asyncio.gather(*tasks_list)
-
-    print(f"🦊 - Verificação de Servidores Concluída")"""
-
   #TAREFA PARA VERIFICAR EM QUAIS GUILDAS BRIX ESTÁ, E SE NÃO TIVER DELETA OS DADOS DO BANCO DE DADOS
   @tasks.loop(time=datetime.time(hour=2, minute=0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
   async def verificar_guilds(self): 
@@ -1053,40 +1030,15 @@ class owner(commands.Cog):
     view = CriadorDeEmbed(interacao= interaction)
     await interaction.response.send_message(embed=view.get_default_embed, view=view)
 
-                  # COMANDO EMBED
-  """@bot.command(name="embed", description="🦊⠂Envie um embed como Brix.")
-  @app_commands.describe(embed="Crie o Json no site eb.nadeko.bot")
-  @commands.has_permissions(manage_messages=True)
-  async def embed(self, interaction: discord.Interaction, embed: str):
-    if await Res.print_brix(comando="say",interaction=interaction,condicao=f"json:{embed}"):
+
+
+
+
+   #COMANDO EXPORTAR EMBED JSON MENU
+  async def exportar_embed_json(self,interaction: discord.Interaction, mensagem: discord.Message):
+    if await Res.print_brix(comando="exportar_embed_json",interaction=interaction):
       return
-    if interaction.user.id == donoid:
-      await interaction.response.send_message(Res.trad(interaction=interaction, str="message_say"), delete_after=2, ephemeral=True)
-      envio = interaction.channel.send
-    else:
-      envio = interaction.response.send_message
-    try:
-      data = json.loads(embed)
-      content = data.get("content", None)
-      embeds = data.get("embeds", [])
-      embedpronto = []
-      for embed_data in embeds:
-        if "color" in embed_data:
-          color_str = embed_data["color"].lstrip('#')
-          embed_data["color"] = int(color_str, 16)
-        if "thumbnail" in embed_data and isinstance(embed_data["thumbnail"], str):
-          embed_data["thumbnail"] = {"url": embed_data["thumbnail"]}
-        if "image" in embed_data and isinstance(embed_data["image"], str):
-          embed_data["image"] = {"url": embed_data["image"]}
-        if "fields" in embed_data and isinstance(embed_data["fields"], str):
-          fields = embed_data.get("fields", [])
-          for field in fields:
-            embed_data[field]
-        embedpronto.append(discord.Embed.from_dict(embed_data))
-      await envio(content=content, embeds=embedpronto)
-    except Exception as e:
-      await envio(content=Res.trad(interaction=interaction, str="message_erro_embed"))
-      # Res.erro_brix_embed(interaction,str="message_erro_brixsystem",e=e,comando="embed")"""
+    await CriadorDeEmbed.context_exportar_embed(self,interaction,mensagem)
 
 
 

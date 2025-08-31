@@ -5,6 +5,7 @@ from discord import app_commands
 from src.services.connection.database import BancoUsuarios , BancoFinanceiro , BancoPagamentos
 from src.services.essential.respostas import Res
 from src.services.essential.API_Mercadopago import criar_link_pagamento , update_pagamentos
+from PIL import Image, ImageDraw, ImageFont , ImageOps
 from dotenv import load_dotenv
 
 
@@ -20,7 +21,7 @@ BH_id_boost_channel = int(os.getenv('BH_id_boost_channel'))
 
   
 #FUNÇÂO DE DAR PREMIUM A MEMBRO
-async def liberarpremium(self, ctx, user, args, boost):
+async def liberarpremium(self, ctx, user, args, boost, presente = None):
     dado = BancoUsuarios.insert_document(user)
     message = f"## 🦊 - Brix Premium\nUsuario: {user.mention}"
     try:
@@ -34,7 +35,10 @@ async def liberarpremium(self, ctx, user, args, boost):
     try:
         BancoUsuarios.update_document(user, item)
         message += "\n:white_check_mark: - Premium Ativado."
-        descricao_dm = (Res.trad(str=f"message_premiumboost_{args}_send_dm").format(args, int(premium.timestamp())) if boost else Res.trad(user=user, str="message_premium_send_dm").format(int(premium.timestamp())) )
+        if presente:
+          descricao_dm = Res.trad(str="message_premium_presente_send_dm").format(args , presente, int(premium.timestamp()))
+        else:
+          descricao_dm = (Res.trad(str=f"message_premiumboost_{args}_send_dm").format(args, int(premium.timestamp())) if boost else Res.trad(user=user, str="message_premium_send_dm").format(int(premium.timestamp())) )
         embed_para_usuario = discord.Embed(            colour=discord.Color.yellow(),            description=descricao_dm     )
         embed_para_usuario.set_thumbnail(url="https://cdn.discordapp.com/emojis/1318962131567378432")
 
@@ -65,98 +69,124 @@ async def liberarpremium(self, ctx, user, args, boost):
 
 
 #Função exibir item loja
-async def comprarpremium(self,interaction:discord.Interaction,quant):
+async def comprarpremium(self, interaction: discord.Interaction, quant, presente_para: discord.User = None):
   await interaction.original_response()
   valor = 4.99
   if quant == 1:
-    texto = f"{quant} {Res.trad(interaction=interaction,str='mes')}"
+      texto = f"{quant} {Res.trad(interaction=interaction,str='mes')}"
   else:
-    texto = f"{quant} {Res.trad(interaction=interaction,str='meses')}"
-      #VIEW DOS BOTÔES
+      texto = f"{quant} {Res.trad(interaction=interaction,str='meses')}"
+
   view = discord.ui.View()
 
   if quant == 1:
-    menos = discord.ui.Button(label="",emoji="<:menos:1272649363168170176>",style=discord.ButtonStyle.gray, disabled=True)
+      menos = discord.ui.Button(label="",emoji="<:menos:1272649363168170176>",style=discord.ButtonStyle.gray, disabled=True)
   else:
-    menos = discord.ui.Button(label="",emoji="<:menos:1272649363168170176>",style=discord.ButtonStyle.gray)
+      menos = discord.ui.Button(label="",emoji="<:menos:1272649363168170176>",style=discord.ButtonStyle.gray)
   view.add_item(item=menos)
 
   plano = discord.ui.Button(label=f"{texto} ({round(valor*quant , 2)})",style=discord.ButtonStyle.gray,  disabled=True)
   view.add_item(item=plano)
 
   if quant >= 12:
-    mais = discord.ui.Button(label="",emoji="<:mais:1272649351780372602>",style=discord.ButtonStyle.gray, disabled=True)
+      mais = discord.ui.Button(label="",emoji="<:mais:1272649351780372602>",style=discord.ButtonStyle.gray, disabled=True)
   else:
-    mais = discord.ui.Button(label="",emoji="<:mais:1272649351780372602>",style=discord.ButtonStyle.gray)
+      mais = discord.ui.Button(label="",emoji="<:mais:1272649351780372602>",style=discord.ButtonStyle.gray)
   view.add_item(item=mais)
 
   adquirir_assinatura = discord.ui.Button(label="Comprar",emoji="🦊",style=discord.ButtonStyle.green,row=2)
   view.add_item(item=adquirir_assinatura)
 
 
-  async def mover_item(self,interaction , quant):
-    # Desabilita os botões
-    view = discord.ui.View.from_message(interaction.message)
-    for item in view.children:
-        item.disabled = True
-    await interaction.response.edit_message(view=view)
+  async def mover_item(self, interaction , quant):
+      view = discord.ui.View.from_message(interaction.message)
+      for item in view.children:
+          item.disabled = True
+      await interaction.response.edit_message(view=view)
 
-    await comprarpremium(self,interaction=interaction, quant=quant, )
+      await comprarpremium(self, interaction=interaction, quant=quant, presente_para=presente_para)
 
-  async def comprar_item(self,interaction: discord.Interaction , quant , valor , texto):
-    await interaction.response.defer(ephemeral=True)  
-    # Desabilita os botões
-    view = discord.ui.View.from_message(interaction.message)
-    for item in view.children:
-        item.disabled = True
-    await interaction.edit_original_response(content="", view = view)
+  async def comprar_item(self, interaction: discord.Interaction , quant , valor , texto, presente_para=None):
+      await interaction.response.defer(ephemeral=True)  
+      view = discord.ui.View.from_message(interaction.message)
+      for item in view.children:
+          item.disabled = True
+      await interaction.edit_original_response(content="", view=view)
 
-    # Criar o pagamento no sistema
-    valido , existente , id , qrcodebase , link , plano , expira = criar_link_pagamento(interaction.user.id , quant , valor , texto)
-   
-    if valido is False: # verifica se criou um pagamento valido, caso contrario retorna erro
-      await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="message_erro_brixsystem"))
-      return
+      # Criar o pagamento no sistema
+      valido , existente , id , qrcodebase , link , plano , expira = criar_link_pagamento(interaction.user.id , quant , valor , texto)
+      
+      if valido is False:
+          await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="message_erro_brixsystem"))
+          return
 
-    # Decodifica
-    qr_bytes = base64.b64decode(qrcodebase)
+      # se for presente, salvar quem recebe
+      if presente_para:
+          BancoPagamentos.update_payment(id, {"destinatario_id": presente_para.id})
 
-    qr_file = io.BytesIO(qr_bytes)  # cria objeto de arquivo em memória
-    qr_file.seek(0)
-    file = discord.File(qr_file, filename="qrcode.png")
+      qr_bytes = base64.b64decode(qrcodebase)
+      qr_file = io.BytesIO(qr_bytes)
+      qr_file.seek(0)
+      file = discord.File(qr_file, filename="qrcode.png")
 
+      view = discord.ui.View()
+      button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url=link)
+      view.add_item(item=button)
 
-    view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url=link)
-    view.add_item(item=button)
+      if existente is True:
+        embed_retorno = discord.Embed(colour=discord.Color.yellow(),description=Res.trad(interaction=interaction,str="message_compra_pendente").format( int(expira.timestamp()) , id , plano))
+      else:
+        if presente_para:
+          embed_retorno = discord.Embed(colour=discord.Color.yellow(),description=Res.trad(interaction=interaction,str="message_premium_presente_compra").format( int(expira.timestamp()) , id , plano, presente_para.mention))
+        else:
+          embed_retorno = discord.Embed(colour=discord.Color.yellow(),description=Res.trad(interaction=interaction,str="message_premium_compra").format( int(expira.timestamp()) , id , plano))
 
-    if existente is True:
-      embed_retorno = discord.Embed(colour=discord.Color.yellow(),description=Res.trad(interaction=interaction,str="message_compra_pendente").format( int(expira.timestamp()) , id , plano))
-    else: embed_retorno = discord.Embed(colour=discord.Color.yellow(),description=Res.trad(interaction=interaction,str="message_premium_compra").format( int(expira.timestamp()) , id , plano))
-    embed_retorno.set_thumbnail(url="https://cdn.discordapp.com/emojis/1318962131567378432")  
-    embed_retorno.set_image(url="attachment://qrcode.png")
+      embed_retorno.set_thumbnail(url="https://cdn.discordapp.com/emojis/1318962131567378432")  
+      embed_retorno.set_image(url="attachment://qrcode.png")
 
-
-    await interaction.edit_original_response(content="",embed=embed_retorno , attachments=[file], view = view )    
-    try:
-      if existente is False:
-        # Se quiser mandar na DM, recria o objeto (tem que ser novo)
-        qr_file2 = io.BytesIO(qr_bytes)
-        qr_file2.seek(0)
-        file2 = discord.File(qr_file2, filename="qrcode.png")
-        msg_dm = await interaction.user.send(embed=embed_retorno, file=file2 ,  view = view )
-        data = { "msg_dm" : msg_dm.id }
-        BancoPagamentos.update_payment( id , data )
-
-    except:
-      print("DM FECHADA")
-
+      await interaction.edit_original_response(content="",embed=embed_retorno , attachments=[file], view = view )    
+      try:
+          if existente is False:
+              qr_file2 = io.BytesIO(qr_bytes)
+              qr_file2.seek(0)
+              file2 = discord.File(qr_file2, filename="qrcode.png")
+              msg_dm = await interaction.user.send(embed=embed_retorno, file=file2 ,  view = view )
+              data = { "msg_dm" : msg_dm.id }
+              BancoPagamentos.update_payment( id , data )
+      except:
+          print("DM FECHADA")
 
 
   menos.callback = partial(mover_item,self,quant=quant-1)
   mais.callback = partial(mover_item,self,quant=quant+1)
-  adquirir_assinatura.callback = partial(comprar_item,self,quant=quant, valor= valor , texto = texto)
-  await interaction.edit_original_response(content="",attachments=[discord.File("src/assets/imagens/financeiro/banner premium.png")],view=view)
+  adquirir_assinatura.callback = partial(comprar_item,self,quant=quant, valor= valor , texto = texto, presente_para=presente_para)
+  if presente_para is None:
+    await interaction.edit_original_response(content="",attachments=[discord.File("src/assets/imagens/financeiro/banner premium.png")],view=view)
+  else:
+    fonte = ImageFont.truetype("src/assets/font/PoetsenOne-Regular.ttf",40)
+    fundo = Image.new('RGBA', (1600, 700), (0,0,0,0))
+    art = Image.open("src/assets/imagens/financeiro/banner premium presentear.png")
+    d = ImageDraw.Draw(art)
+    d.text((430, 370), f"{presente_para.display_name}", align="center", font=fonte , fill="#f5a3a7")
+    d.text((430, 430), f"Name: {presente_para.name}", font=fonte, fill="#f5a3a7")
+    d.text((430, 490), f"ID: {presente_para.id}", font=fonte, fill="#f5a3a7")
+    if presente_para.avatar:
+        membroavatar = await presente_para.avatar.read()
+        membroavatar = Image.open(io.BytesIO(membroavatar))
+    else:
+        membroavatar = Image.open(f"src/assets/imagens/icons/server-not-icon.jpg")
+    membroavatar = membroavatar.resize((300,300)) 
+    mascaraavatar = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
+    mascaraavatar = mascaraavatar.resize((300,300)) 
+    
+    fundo.paste(art, (0,0), art)
+    fundo.paste(membroavatar,(100,370),mascaraavatar) 
+    # Salva a imagem no buffer
+    buffer = io.BytesIO()
+    fundo.save(buffer, 'PNG')
+    buffer.seek(0)
+
+    await interaction.edit_original_response(content="",attachments=[discord.File(fp=buffer, filename="Presente Premium.png")] ,view=view)
 
 
 
@@ -265,22 +295,30 @@ class premium(commands.Cog):
 
   async def VERIFICAR_PAGAMENTOS(self):
     try:
-        await update_pagamentos(self)
-        filtro = {"ativado": False, "mp_status": "approved"}
-        busca = BancoPagamentos.select_by_filter(filtro)
-        for pagamento in busca:
-            try:
-                usuario = pagamento['user_id']
-                dias = 31 * pagamento['quant_meses']
-                user = await self.client.fetch_user(usuario)
-                BancoPagamentos.update_payment(pagamento["mp_payment_id"], {"ativado": True})
-                await liberarpremium(self, None, user, dias, False)
-                banner_name = "braixen-premium-v2"
-                item = {f"backgrouds.{banner_name}": banner_name}
-                BancoUsuarios.update_document(user, item)
+      await update_pagamentos(self)
+      filtro = {"ativado": False, "mp_status": "approved"}
+      busca = BancoPagamentos.select_by_filter(filtro)
+      for pagamento in busca:
+        try:
+            usuario = pagamento['user_id']
+            dias = 31 * pagamento['quant_meses']
+            # se for presente, envia para o destinatário
+            if "destinatario_id" in pagamento and pagamento["destinatario_id"]:
+              user = await self.client.fetch_user(pagamento["destinatario_id"])
+              presente = await self.client.fetch_user(usuario)
+              presente = presente.mention
+            else:
+              user = await self.client.fetch_user(usuario)
+              presente = None
+            
+            BancoPagamentos.update_payment(pagamento["mp_payment_id"], {"ativado": True})
+            await liberarpremium(self, None, user, dias, False , presente)
+            banner_name = "braixen-premium-v2"
+            item = {f"backgrouds.{banner_name}": banner_name}
+            BancoUsuarios.update_document(user, item)
 
-            except Exception as e:
-                print(f"Erro ao ativar premium para {usuario}: {e}")
+        except Exception as e:
+            print(f"Erro ao ativar premium para {usuario}: {e}")
     except Exception as e:
         print(f"erro na verificação de pagamentos do mercadopago.\n{e}")
 
@@ -457,6 +495,19 @@ class premium(commands.Cog):
     await interaction.response.send_message(file = discord.File("src/assets/imagens/financeiro/banner premium testar.png"),view=view)
 
 
+
+
+
+  @premium.command(name="presentear", description="💎⠂Presenteie outro membro com o Premium.")
+  @app_commands.describe(membro="Quem vai receber o presente")
+  async def premiumpresentear(self, interaction: discord.Interaction, membro: discord.User):
+    if await Res.print_brix(comando="premiumpresentear", interaction=interaction):
+      return
+    if interaction.user == membro:
+      return await interaction.response.send_message(Res.trad(interaction=interaction,str="message_premium_presente_autopresente"), ephemeral=True)
+    
+    await interaction.response.send_message("Por Favor Aguarde....", ephemeral=True)
+    await comprarpremium(self, interaction=interaction, quant=1, presente_para=membro)
 
 
 

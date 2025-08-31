@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 
 
 load_dotenv()
-square_token = os.getenv("square_token") #acessa e define o token da square cloud
-discloud_token = os.getenv("discloud_token") #acessa e define o token da square cloud
+square_token = os.getenv("square_token") #acessa e define o token da Square cloud
+discloud_token = os.getenv("discloud_token") #acessa e define o token da Discloud
 
 appid = None
 host = None

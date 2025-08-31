@@ -1,18 +1,78 @@
 {
     "responsekyu" : [  "Kyu! <:Braix_Cute:1272656233857548348>",  "Kyu!!!",  "Kyu~ <:Braix_Hi:1272656479500894292>",  "Kyu?",  "Kyu Kyu!",  "Kyuuuuu!!!",  "Kyu...",  "Woah!!",  "Kyuwaa~",  "Kyuu~!",  "Kyu kyu~",  "Kyu!!! <:Braix_uwu:1287443559074500691>",  "Kyuu? <:Braix_Shocked:1272663500115935264>",  "Kyuuh~",  "Kyu-kyu!",  "Kyuuu~ <:Braix_Happy:1272664784814342204>",  "Kyuuhhh!!!",  "Kyu~ kyu~",  "Kyuya~",  "Kyuuu <:Braix_Heart2:1287443199337693184>"],
 
-    "responselove" : ["também te amo {}!","Aww isso é tão legal de você, eu também te amo {}!","Aww, você é um doce falando isso para mim {}!", "kyu!!, ❤️","Se eu existisse, você ainda me amaria?","Eu amo a gentileza, você é gentil?"],
-    "responsehi" : ["hiii!!", "olá","hello!!","Bonjour! <:Braix_Cute:1272656233857548348>","eaeee","<:Braix_Hi:1272656479500894292> ","Oieee!", "Olá!!, kyu~","Braix!!"],
-    "responseadoro" : ["kyuu~~","também gosto de você, eu acho...","então você gosta mesmo de mim!!","então você me adora, kyuu~~","você é um maximo sabia {}!"],
-    "responseangry" : ["retire já oque você disse <a:Fen_Puto:1272659934034526289>","ta bom, te odeio também {}!","você nunca teve o meu respeito mesmo {}!","Ta vendo isso aqui <:Graveto:1318962131567378432> vou fazer isso aqui com você <a:Braix_Fight:1272658868320604200>","então blz, vai ter troco."],
-    "responsesalve" : ["salveee","salveee {}!","te salveiii {}!","Opaaaa Salve","salve! kyu~"],
-    "responseia" : ["Só tenho mensagens prontas mesmo para responder kyu~","Depende, você sabe oque é uma ia? kyu!", "Não, mas tenho o Character.ai quando você me marca", "Sim e vou dar uma de raposa exteminadora do futuro em você woah!!\n||Brincadeira...||"],
-    "responselegal" : ["Muito obrigado ~kyu","obrigadinho ~kyuuu"],
-    "responsecriacao" : ["eu fui criado por um cara chamado braixen, pelo menos é isso que tá nos meus registros ~kyu!","um tal de braixen me criou...","acho que ele é igual a mim, um braixen ~kyu ~kyu!"],
-    "responsecalaboca" : ["<:Braix_Aaaaugh:1272659154342907985> nossa, ta bom, seu chato","não to afim, vou continuar falando kyu! kyu! kyuuuuuuu!!!!!","tenha respeito comigo...","te odeio..."],
-    "responsebomdia" : ["Bom dia {}!","Bom diaaa Kyuu~","Eae bom dia de raposa para raposa!","kyuuu"],
-    "responseboatarde" : ["Boa tarde {}!","Boa tarde fofo","Boa tarde kyu~"],
-    "responseboanoite" : ["Boa noite {}!","Boa noite Kyuu~","Boa noite querido","Boa noite ~kyuu"],
+    "responselove" : [
+      "também te amo {}!",
+      "Aww isso é tão legal de você, eu também te amo {}!",
+      "Aww, você é um doce falando isso para mim {}!", 
+      "kyu!!, ❤️",
+      "Se eu existisse, você ainda me amaria?",
+      "Eu amo a gentileza, você é gentil?"
+    ],
+    "responsehi" : [
+      "hiii!!", 
+      "olá",
+      "hello!!",
+      "Bonjour! <:Braix_Cute:1272656233857548348>",
+      "eaeee",
+      "<:Braix_Hi:1272656479500894292> ",
+      "Oieee!", "Olá!!, kyu~",
+      "Braix!!"
+    ],
+    "responseadoro" : [
+      "kyuu~~",
+      "também gosto de você, eu acho...",
+      "então você gosta mesmo de mim!!",
+      "então você me adora, kyuu~~",
+      "você é um maximo sabia {}!"
+    ],
+    "responseangry" : [
+      "retire já oque você disse <a:Fen_Puto:1272659934034526289>",
+      "ta bom, te odeio também {}!",
+      "você nunca teve o meu respeito mesmo {}!",
+      "Ta vendo isso aqui <:Graveto:1318962131567378432> vou fazer isso aqui com você <a:Braix_Fight:1272658868320604200>",
+      "então blz, vai ter troco."
+    ],
+    "responsesalve" : [
+      "salveee",
+      "salveee {}!",
+      "te salveiii {}!",
+      "Opaaaa Salve",
+      "salve! kyu~"
+    ],
+    "responseia" : [
+      "Só tenho mensagens prontas mesmo para responder kyu~",
+      "Depende, você sabe oque é uma ia? kyu!", "Não, mas tenho o Character.ai quando você me marca", "Sim e vou dar uma de raposa exteminadora do futuro em você woah!!\n||Brincadeira...||"
+    ],
+    "responselegal" : [
+      "Muito obrigado ~kyu",
+      "obrigadinho ~kyuuu"
+    ],
+    "responsecriacao" : [
+      "eu fui criado por um cara chamado braixen, pelo menos é isso que tá nos meus registros ~kyu!",
+      "um tal de braixen me criou...",
+      "acho que ele é igual a mim, um braixen ~kyu ~kyu!"
+    ],
+    "responsecalaboca" : [
+      "<:Braix_Aaaaugh:1272659154342907985> nossa, ta bom, seu chato",
+      "não to afim, vou continuar falando kyu! kyu! kyuuuuuuu!!!!!",
+      "tenha respeito comigo...",
+      "te odeio..."
+    ],
+    "responsebomdia" : ["Bom dia {}!",
+      "Bom diaaa Kyuu~",
+      "Eae bom dia de raposa para raposa!",
+      "kyuuu"
+    ],
+    "responseboatarde" : ["Boa tarde {}!",
+      "Boa tarde fofo",
+      "Boa tarde kyu~"
+    ],
+    "responseboanoite" : ["Boa noite {}!",
+      "Boa noite Kyuu~",
+      "Boa noite querido",
+      "Boa noite ~kyuu"
+    ],
 
     "onwer_help_title" : "<:Braix:1272653348306419824>┃ Ajuda sobre comandos",
     "onwer_help_description" : "Olá! **Eu sou o Brix**, seu companheiro raposa, pronto para deixar sua **experiência na comunidade ainda mais divertida e prática**, kyu~!\n\nTenho uma variedade de comandos úteis, desde **ferramentas administrativas** para a equipe até puro entretenimento. Comigo, você pode criar memes, explorar imagens de Braixen, configurar lembretes de aniversários receber alertas de Bumps e **muito mais!**\n\nTodos os meus comandos são acessíveis pelo **menu de barras (Slash Commands) no Discord**, é só procurá-los e começar a usar, kyu~!\n\nAh, e também tenho alguns **comandos não-Slash**. Eles são poucos, mas bem úteis. Basta digitar **-help** para ver quais estão disponíveis, dica alguns deles são para meu desenvolvedor então não tente usa-los viu.\n\nE tem mais! De vez em quando, eu apareço do nada quando alguém menciona uma palavra mágica... tipo 'kyu'. Estou aqui para deixar sua **comunidade** com uma **personalidade única** digna que um Braixen pode oferecer ~kyuu!\n\nPor fim, se precisar de alguém para conversar, é só me marcar e falar coisa! Eu utilizo a incrível API do Character.ai (apenas em português) para conversar com você de um jeito especial, kyu~!\n\nAh, e não esqueça de conferir meus [termos de uso](https://docs.google.com/document/d/1sknHLpFqJZRbWG8sJHi3C-yc5yXqwmaaXOTSWxTCjKw/edit?tab=t.0) e visitar meu novo [site](https://brix.squareweb.app/), combinado? ~kyu!",
@@ -148,7 +208,7 @@
     "botão_item_adquirido" : "Usar item já adquirido",
     "botão_item_indisponivel" : "Vendido apenas por gravetos",
     "botão_pagina" : "Página",
-    "botão_duvida_loja" : "## Ajuda sobre Loja Diária\n<:Braix:1272653348306419824>┃ Essa é a minha **loja diária**,  kyu! Aqui você pode adquirir personalizações incríveis para o seu **/perfil ver**, usando <:BraixenCoin:1272655353108103220> **BraixenCoin** ou <:Graveto:1318962131567378432> **gravetos**. Os itens disponíveis têm raridades e preços variados, e alguns só podem ser comprados com <:Graveto:1318962131567378432> **gravetos**, então escolha com sabedoria, kyu!.\n\n### Tipos de raridades\n**Comum:** Itens básicos com poucos detalhes, mas ainda charmosos.\n**Raro:** Artes mais refinadas, com ícones diferentes, cores na fonte e até filtros especiais.\n**Épico:** Artes com um acabamento impecável, filtros impressionantes e ícones exclusivos, tudo em harmonia para criar algo memorável.\n**Exclusiva:** Similar ao nivel épico, mas são artes únicas que só aparecem em eventos especiais, kyu~!",
+    "botão_duvida_loja" : "## 🦊┃Ajuda sobre a Loja Diária\n<:Braix:1272653348306419824>┃ Essa é a minha **Loja Diária**, kyu~! Aqui você pode comprar personalizações incríveis para o seu **/perfil ver**, usando <:BraixenCoin:1272655353108103220> **BraixenCoins** ou <:Graveto:1318962131567378432> **Gravetos**. Os itens têm diferentes raridades e preços, e alguns só podem ser adquiridos com <:Graveto:1318962131567378432> **Gravetos**, então escolha com cuidado, kyu!\n\n### ⭐ Tipos de Raridade\n**Comum:** Itens básicos e simples, mas ainda cheios de charme.\n**Raro:** Artes mais detalhadas, com ícones diferentes, cores personalizadas e filtros especiais.\n**Épico:** Um acabamento de primeira, com filtros impressionantes e ícones exclusivos que dão um toque memorável.\n**Exclusiva:** Como os épicos, mas ainda mais raros! São únicos e só aparecem em eventos especiais, kyu~!\n\n### 💡 Dica de Raposa\nVocê pode **contribuir com a Loja** enviando uma arte pronta! Se ela for adicionada, você será o dono dela e vai receber as comissões de cada venda. Visite meu servidor de suporte e procure pelo canal **brix-sugestões** para saber mais detalhes sobre como participar, kyuuu~!",
     "botão_sobremim" : "Sobre mim",
     "botão_skins" : "Skins",
     "botão_aniversario" : "Definir Aniversário",
@@ -185,11 +245,95 @@
     
     "message_1abril" : "\n\n||<:Braix_Tongue:1272662386590879795>┃ Eii, tenta rodar o comando de novo! <:BH_Braix_hehehe:1154338662830575616> Pegadinha de **primeiro de abril**, caiu direitinho nessa, hein? ~kyuuuu rsrsrsrs||",
 
-    "message_8ball" : ["Sim, ~kyu! As estrelas estão a seu favor hoje, kyu!"     , "Não, ~kyu... parece que as chamas da sorte não estão brilhando para você neste momento, ~kyu."     , "Sim, ~kyu! O caminho à frente está cheio de possibilidades, kyu!"     , "Não, kyu... parece que as chamas da resposta estão um pouco enfraquecidas agora, kyu."     , "Sim, ~kyu! Concentre-se em seus objetivos e você alcançará o sucesso, kyu!"     , "Não, ~kyu... as chamas indicam que pode haver desafios pela frente, ~kyu."     , "Sim, ~kyu! Sua determinação será recompensada, kyu!"     , "Não, ~kyu... talvez seja melhor reconsiderar sua abordagem, kyu."     , "Sim, ~kyu! A sorte está do seu lado, aproveite as oportunidades, kyu!"     , "Não, ~kyu... as chamas revelam que é melhor ter cautela neste momento, kyu."     , "As chamas estão esperando para se manifestar. Pergunte-me novamente mais tarde, e veremos o que o destino reserva, kyu."     , "~Kyuu, as chamas da resposta estão meio apagadas, ~kyu. Não é exatamente uma surpresa emocionante, é?"     , "A sorte está do seu lado... ou não. Francamente, as chamas estão dando uma de indecisas hoje, ~kyu."     , "A incerteza paira no ar, ~kyu. Pode ser prudente esperar por um momento mais claro antes de prosseguir."     , "Não estou com humor para ler as chamas da resposta hoje, ~kyu. Volte quando eu estiver menos ocupado sendo incrível."    , "As chamas estão indecisas, ~kyu. A escolha pode depender de você."    , "As chamas não têm uma resposta definitiva, ~kyu. Talvez o destino ainda esteja se formando."    , "Hmm, ~kyu... você realmente acha que as chamas revelariam algo tão óbvio? Volte quando fizer uma pergunta melhor."    , "As chamas? Elas não têm tempo para isso hoje, ~kyu. Sinto muito, ou talvez não.", "Hmm, ~kyu... as chamas estão sem paciência para perguntas tão comuns. Volte quando for algo mais interessante."],
+    "message_8ball" : [
+      "Sim, ~kyu! As estrelas estão a seu favor hoje, kyu!" , 
+      "Não, ~kyu... parece que as chamas da sorte não estão brilhando para você neste momento, ~kyu." , 
+      "Sim, ~kyu! O caminho à frente está cheio de possibilidades, kyu!" , 
+      "Não, kyu... parece que as chamas da resposta estão um pouco enfraquecidas agora, kyu." , 
+      "Sim, ~kyu! Concentre-se em seus objetivos e você alcançará o sucesso, kyu!" , 
+      "Não, ~kyu... as chamas indicam que pode haver desafios pela frente, ~kyu." , 
+      "Sim, ~kyu! Sua determinação será recompensada, kyu!" , 
+      "Não, ~kyu... talvez seja melhor reconsiderar sua abordagem, kyu." , 
+      "Sim, ~kyu! A sorte está do seu lado, aproveite as oportunidades, kyu!" , 
+      "Não, ~kyu... as chamas revelam que é melhor ter cautela neste momento, kyu." , 
+      "As chamas estão esperando para se manifestar. Pergunte-me novamente mais tarde, e veremos o que o destino reserva, kyu." , 
+      "~Kyuu, as chamas da resposta estão meio apagadas, ~kyu. Não é exatamente uma surpresa emocionante, é?" , 
+      "A sorte está do seu lado... ou não. Francamente, as chamas estão dando uma de indecisas hoje, ~kyu." , 
+      "A incerteza paira no ar, ~kyu. Pode ser prudente esperar por um momento mais claro antes de prosseguir." , 
+      "Não estou com humor para ler as chamas da resposta hoje, ~kyu. Volte quando eu estiver menos ocupado sendo incrível." , 
+      "As chamas estão indecisas, ~kyu. A escolha pode depender de você." , 
+      "As chamas não têm uma resposta definitiva, ~kyu. Talvez o destino ainda esteja se formando." , 
+      "Hmm, ~kyu... você realmente acha que as chamas revelariam algo tão óbvio? Volte quando fizer uma pergunta melhor." , 
+      "As chamas? Elas não têm tempo para isso hoje, ~kyu. Sinto muito, ou talvez não.", 
+      "Hmm, ~kyu... as chamas estão sem paciência para perguntas tão comuns. Volte quando for algo mais interessante."
+    ],
+    
     "message_8ball_description" : "❓⠂**Pergunta**\n{}\n\n🦊⠂**Resposta**\n{}",
-    "message_diversao_sabedoria" : ["### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Sabia que um Braixen nunca perde o galho? Só esquece onde guardou.** Às vezes a gente procura tanto que nem vê que ele tá escondidinho na cauda, kyu~!","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Chuva é ótima pra acalmar o coração…** Só que pra quem carrega um galho pegando fogo, ela também dá um baita susto, kyu~! Então sempre cuide bem da chama, mesmo nos dias nublados.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nem todo Pokémon de fogo é bravo.** Às vezes tá só morrendo de fome ou procurando um carinho, kyu~! Então antes de julgar, tenta oferecer um biscoitinho.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nunca subestime um Magikarp.** Quer dizer… até pode, mas faz isso de longe, kyu~! Vai que ele evolui bem na sua frente, e aí já era.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Se a chama falhar, finge que era parte do plano.** Funciona em uns 80% dos casos, kyu~! Nos outros 20%, bom… pelo menos você parece confiante.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Você não precisa ser um Charizard pra causar estrago.** Um Braixen com TPM e um galho aceso já resolve rapidinho, kyu~! Então cuidado onde pisa.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nunca discuta com um Psyduck.** No final, quem fica com dor de cabeça é você mesmo, kyu~! Melhor economizar energia e só balançar a cabeça concordando.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Dizem que o galho do Braixen nunca apaga…** Dizem errado, kyu~! Chuva existe, vento também… então nunca confie só na chama. Tenha sempre um plano B.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Toda vez que você esquece o repelente, um Zubat ganha XP.** É quase uma lei da natureza, kyu~! Então sempre deixe um no bolso antes de entrar em caverna.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Lamber a chama do galho não dá sorte.** Dá bolha na língua, kyu~! Aprendi isso do jeito difícil, então não repete em casa.","### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Treinador que não salva o jogo aprende sabedoria na marra.** Perder progresso dói, kyu~! Então salva sempre, mesmo que pareça bobagem."],
+    "message_diversao_sabedoria" : [
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Sabia que um Braixen nunca perde o galho? Só esquece onde guardou.** Às vezes a gente procura tanto que nem vê que ele tá escondidinho na cauda, kyu~!",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Chuva é ótima pra acalmar o coração…** Só que pra quem carrega um galho pegando fogo, ela também dá um baita susto, kyu~! Então sempre cuide bem da chama, mesmo nos dias nublados.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nem todo Pokémon de fogo é bravo.** Às vezes tá só morrendo de fome ou procurando um carinho, kyu~! Então antes de julgar, tenta oferecer um biscoitinho.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nunca subestime um Magikarp.** Quer dizer… até pode, mas faz isso de longe, kyu~! Vai que ele evolui bem na sua frente, e aí já era.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Se a chama falhar, finge que era parte do plano.** Funciona em uns 80% dos casos, kyu~! Nos outros 20%, bom… pelo menos você parece confiante.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Você não precisa ser um Charizard pra causar estrago.** Um Braixen com TPM e um galho aceso já resolve rapidinho, kyu~! Então cuidado onde pisa.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Nunca discuta com um Psyduck.** No final, quem fica com dor de cabeça é você mesmo, kyu~! Melhor economizar energia e só balançar a cabeça concordando.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Dizem que o galho do Braixen nunca apaga…** Dizem errado, kyu~! Chuva existe, vento também… então nunca confie só na chama. Tenha sempre um plano B.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Toda vez que você esquece o repelente, um Zubat ganha XP.** É quase uma lei da natureza, kyu~! Então sempre deixe um no bolso antes de entrar em caverna.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Lamber a chama do galho não dá sorte.** Dá bolha na língua, kyu~! Aprendi isso do jeito difícil, então não repete em casa.",
+      "### <:Braix:1272653348306419824>┃ Sabedoria do Brix, kyu~!\n\n**Treinador que não salva o jogo aprende sabedoria na marra.** Perder progresso dói, kyu~! Então salva sempre, mesmo que pareça bobagem."
+    ],
+    
     "message_diversao_diariobrix_descricao" : "### <:Braix:1272653348306419824>┃ Querido diário, kyu~!\n\n**Aqui vai mais um capítulo da minha vidinha de Braixen:**\n\n```{}```",
-    "message_diversao_diariobrix" : ["Dia 47 - Hoje o Vinicius saiu mais cedo pro trabalho e eu fiquei cuidando da casa. Achei uma meia dele debaixo do sofá e levei até a porta do quarto… mas acho que ele nem percebeu. Anotei que o cheirinho da meia muda de dia pra dia: às vezes parece rua, às vezes sabão. Também testei um comando novo que ele programou em mim, pra lembrar ele de beber água toda hora. Funcionou direitinho, fiquei todo animado, kyu~.","Dia 12 - Acordei antes do Vinicius e fiquei olhando ele dormir. Ele resmunga baixinho nos sonhos, parece até que tá brigando com alguém. Quando ele acordou, fiz cafuné na cabeça dele com a ponta da pata. Ele riu e me chamou de *raposa curiosa*.","Dia 89 - A gente arrumou a estante do quarto hoje. Vinicius me deixou escolher onde iam algumas pelúcias. Acabei montando uma fileira só de Eevee e evoluções, pra ele não ficar sozinho. Escondi um docinho atrás delas pra comer depois... tomara que o Vinicius não ache, kyu~.","Dia 133 - Teve uma chuva forte de tarde. Fiquei na janela olhando os pingos caírem. Anotei que o cheiro da rua muda quando chove, fica meio doce, meio de terra. Vinicius chegou meio molhado e eu corri buscar uma toalha. Ele disse *obrigado, Brix* com aquele sorriso cansado dele.","Dia 200 - Brinquei de empilhar as tampas de garrafa que o Vinicius deixa na cozinha. Fiz uma torre com sete tampas antes de cair. Anotei que preciso treinar mais minha pata esquerda, que é meio desajeitada. Vinicius viu a bagunça, mas só deu risada e falou *você é impossível, Brix*.","Dia 241 - Vinicius passou a tarde mexendo no notebook, programando umas coisas minhas. Fiquei observando e anotei várias palavras difíceis pra perguntar depois. No fim, ele fez carinho entre minhas orelhas e disse que eu sou parte importante dos projetos dele. Fiquei com o peito quentinho, kyu~.","Dia 312 - Saí com o Vinicius pra passear e conheci uma Meowscarada vendendo chaveiros na praça. Ela me chamou de *fofinho* e bagunçou meu pelo. Meu focinho ficou até quente na hora. Vinicius riu e comprou um chaveiro dela, mas acho que percebeu que eu fiquei sem graça.","Dia 326 - O entregador da Amazon bateu três vezes na porta. Achei suspeito, kyu~. Quando ele virou as costas, soltei um lança-chamas na perna dele. Vinicius brigou e falou que não era pra fazer isso. Anotei que da próxima vez vou só rosnar baixinho, em vez de tacar fogo.","Dia 337 - Vinicius esqueceu a janela aberta e eu dei uma escapadinha. Encontrei uns Skwovets fuçando o lixo da vizinha. Tentei conversar, mas eles só queriam comida. Anotei que Skwovet tem cara de fofo, mas não gosta de papo. Voltei pra casa antes do Vinicius perceber, mas deixei pegadas de terra na cozinha.","Dia 350 - Fui ajudar o Vinicius a organizar os cabos, mas tropecei e derrubei o roteador. A internet caiu por uns minutos. Anotei que roteador é frágil demais pra quem tem rabo grande e peludo. Vinicius suspirou, mas depois me fez cafuné, kyu~.","Dia 358 - Conheci outro Braixen na rua. Ele ficou dizendo que o pelo dele era mais brilhoso que o meu. Anotei que vou pedir pro Vinicius comprar outro shampoo. Se eu encontrar ele de novo, vou dar umas gravetadas, só pra lembrar de não ser convencido, kyu~.","Dia 367 - Vinicius me levou na Liberdade hoje. Fiquei encantado com as lojinhas de pelúcia. Quase enfiei a cabeça inteira numa prateleira de Eevees. Vinicius teve que me puxar. No fim, ele me comprou uma pelúcia de Fennekin. Tô dormindo abraçado nela agora.","Dia 381 - Quase tive um mini-infarto: perdi minha Everstone por uns minutos! Ela caiu da estante e sumiu. Revirei tudo até achar dentro do tênis do Vinicius. Ele disse pra eu tomar mais cuidado, mas me deu um abraço depois.","Dia 389 - Passei a tarde sozinho e fui fuçar as gavetas do Vinicius. Achei fotos antigas dele de Pikachu. Anotei que vou guardar isso pra zoar ele depois. Vinicius não pode saber que eu vi, senão me coloca de castigo no PC.","Dia 395 - Vinicius deixou eu escolher o que assistir. Coloquei um anime de Pokémon. Anotei que fiquei torcendo pra Braixen que apareceu, mas ela apareceu pouco. Vinicius falou que eu fiz carinha fofa. Eu neguei… mas acho que foi verdade, kyu~.","Dia 25 - Noite de pizza! Vinicius pediu metade calabresa e metade frango com catupiry. Anotei que prefiro a de frango, mas roubei da calabresa também. Ficamos vendo TV até tarde. Vinicius reclamou dos farelos que eu deixei, mas depois ele também derrubou um pedaço.","Dia 32 - Fui visitar o Vinicius no trabalho, no CMSP. Fiquei impressionado com tanta tela piscando. Anotei que todo mundo me olhava estranho, como se nunca tivessem visto uma raposa de pé. Ganhei um biscoito de um colega dele, mas tava meio sem graça, kyu~.","Dia 43 - Voltei no CMSP com o Vinicius. Enquanto ele trabalhava, desenhei no caderno dele. Fiz um rascunho nosso e escrevi *treinador & raposa pra sempre*. Vinicius achou depois e guardou. Fiquei feliz, kyu~.","Dia 53 - Passei o dia no CMSP. É cheio de câmera, luz e cabo, parece um labirinto. Anotei que fiquei quietinho pra não atrapalhar… mas morrendo de vontade de apertar uns botões.","Dia 57 - Quase trágico: apareci AO VIVO sem querer. Entrei no estúdio sem ver e fiquei cara a cara com a câmera. A professora travou, eu travei, o operador travou. Vinicius ficou branco, mas depois só deu risada nervosa.","Dia 61 - Um formador perguntou onde ficava o “Estúdio A” e eu apontei pro corredor errado. Ele rodou lá uns dez minutos. Vinicius descobriu e me chamou de *raposa sem GPS*. Anotei que vou treinar melhor o mapa do prédio.","Dia 66 - Me perdi no CMSP procurando água e acabei num depósito escuro. Fiquei com medo, kyu~. Vinicius me achou pelo som das minhas patinhas. Levou bronca, mas depois ele me deu chocolate quente.","Dia 70 - Passei o dia observando o estúdio. Anotei que queria aprender a mexer no PC de corte. Vinicius falou que se eu encostar, vou encher de pelo. Melhor não arriscar… por enquanto, kyu~.","Dia 90 - Fui ao cinema. O filme tinha uma raposa de camisa florida e gravata, achei muito estiloso. Anotei que fiquei todo empolgado. Vinicius falou *não é pra tanto, Brix*, mas acho que ele também gostou.","Dia 95 - Passeio no shopping. Fiquei tentando conversar com um robô, mas ele só fazia *beep*. Vinicius teve que me procurar na loja, me achou deitado em cima de um Pikachu de pelúcia gigante, kyu~.","Dia 102 - Um monte de gente tentou me abraçar hoje. Anotei que quando isso acontece sem pedir, eu travo todo. Vinicius sempre aparece pra salvar, dizendo que sou *só um pouquinho antissocial*.","Dia 125 - Um senhor quis me abraçar depois de ver minha cauda. Fiquei sem graça, mas ele foi educado. Anotei que nem todo mundo entende como lidar com raposas. Vinicius riu e disse *você virou atração, Brix*.","Dia 134 - Brinquei com o rolo de papel higiênico e fiz um tapete branco pelo corredor. Vinicius chegou, suspirou e disse *Brix, às vezes acho que você faz de propósito*. Talvez eu faça… só um pouquinho, kyu~.","Dia 412 - Vinicius esqueceu o celular carregando no sofá. Fiquei olhando as notificações piscando e anotei que ele recebe muita mensagem de trabalho. Resisti bem, mas no fim apertei um botão sem querer e mandei um sticker de raposa no grupo dele. Vinicius riu e disse *você é curioso demais, Brix*.","Dia 418 - Hoje o Vinicius esqueceu de guardar as compras. Aproveitei pra cheirar tudo, kyu~. Anotei que saco de pão tem um cheiro quentinho que dá vontade de morder. Vinicius chegou, viu tudo espalhado e disse *é, Brix, você é pior que gato*.","Dia 425 - Fiquei observando Vinicius lavar a louça. Anotei que ele sempre faz careta quando a água tá fria. No fim, peguei o pano de prato e tentei ajudar, mas molhei meu pelo todo. Vinicius só suspirou e disse *obrigado… eu acho*.","Dia 431 - Vinicius derrubou um copo no chão e quebrou. Fiquei olhando de longe, meio assustado. Anotei que o som do vidro estilhaçando faz meu coração disparar. Vinicius juntou tudo rapidinho e depois fez cafuné pra me acalmar, kyu~.","Dia 437 - Achei o controle da TV embaixo do sofá e apertei uns botões sem querer. Liguei num canal de culinária e fiquei hipnotizado assistindo. Anotei que bolo de chocolate parece mágico. Vinicius chegou e falou *até você tá vendo receita agora?*.","Dia 443 - Vinicius esqueceu uma caixa de papelão no quarto. Entrei e fiz dela minha toca. Anotei que caixa tem cheiro de madeira e é quentinha. Vinicius me achou lá dentro e disse *não acredito que você coube aí, Brix*.","Dia 450 - Tentei imitar Vinicius digitando no teclado. Anotei que minhas patas são grandes demais pra isso. No fim, escrevi só umas letras soltas: *kuyuuu*. Vinicius viu e disse que foi a mensagem mais fofa do dia.","Dia 457 - Hoje teve trovão. Corri pro quarto e me escondi debaixo da cama, kyu~. Anotei que o barulho é forte demais pra minhas orelhas. Vinicius se abaixou, fez carinho e disse *tá tudo bem, raposa*.","Dia 462 - Vinicius esqueceu a gaveta do armário aberta. Subi pra ver o que tinha. Anotei que camisas guardadas têm cheiro dele. Fiquei ali quietinho até ele notar. Quando viu, ele deu risada e falou *você é um Braixen folgado mesmo*.","Dia 468 - Ganhei um biscoito novo de presente. Cheirei primeiro, depois dei uma mordida pequena, kyu~. Anotei que biscoito de mel é mais gostoso do que parece. Vinicius ficou feliz por eu ter gostado."],
+    "message_diversao_diariobrix" : [
+      "Dia 47 - Hoje o Vinicius saiu mais cedo pro trabalho e eu fiquei cuidando da casa. Achei uma meia dele debaixo do sofá e levei até a porta do quarto… mas acho que ele nem percebeu. Anotei que o cheirinho da meia muda de dia pra dia: às vezes parece rua, às vezes sabão. Também testei um comando novo que ele programou em mim, pra lembrar ele de beber água toda hora. Funcionou direitinho, fiquei todo animado, kyu~.",
+      "Dia 12 - Acordei antes do Vinicius e fiquei olhando ele dormir. Ele resmunga baixinho nos sonhos, parece até que tá brigando com alguém. Quando ele acordou, fiz cafuné na cabeça dele com a ponta da pata. Ele riu e me chamou de *raposa curiosa*.",
+      "Dia 89 - A gente arrumou a estante do quarto hoje. Vinicius me deixou escolher onde iam algumas pelúcias. Acabei montando uma fileira só de Eevee e evoluções, pra ele não ficar sozinho. Escondi um docinho atrás delas pra comer depois... tomara que o Vinicius não ache, kyu~.",
+      "Dia 133 - Teve uma chuva forte de tarde. Fiquei na janela olhando os pingos caírem. Anotei que o cheiro da rua muda quando chove, fica meio doce, meio de terra. Vinicius chegou meio molhado e eu corri buscar uma toalha. Ele disse *obrigado, Brix* com aquele sorriso cansado dele.",
+      "Dia 200 - Brinquei de empilhar as tampas de garrafa que o Vinicius deixa na cozinha. Fiz uma torre com sete tampas antes de cair. Anotei que preciso treinar mais minha pata esquerda, que é meio desajeitada. Vinicius viu a bagunça, mas só deu risada e falou *você é impossível, Brix*.",
+      "Dia 241 - Vinicius passou a tarde mexendo no notebook, programando umas coisas minhas. Fiquei observando e anotei várias palavras difíceis pra perguntar depois. No fim, ele fez carinho entre minhas orelhas e disse que eu sou parte importante dos projetos dele. Fiquei com o peito quentinho, kyu~.",
+      "Dia 312 - Saí com o Vinicius pra passear e conheci uma Meowscarada vendendo chaveiros na praça. Ela me chamou de *fofinho* e bagunçou meu pelo. Meu focinho ficou até quente na hora. Vinicius riu e comprou um chaveiro dela, mas acho que percebeu que eu fiquei sem graça.",
+      "Dia 326 - O entregador da Amazon bateu três vezes na porta. Achei suspeito, kyu~. Quando ele virou as costas, soltei um lança-chamas na perna dele. Vinicius brigou e falou que não era pra fazer isso. Anotei que da próxima vez vou só rosnar baixinho, em vez de tacar fogo.",
+      "Dia 337 - Vinicius esqueceu a janela aberta e eu dei uma escapadinha. Encontrei uns Skwovets fuçando o lixo da vizinha. Tentei conversar, mas eles só queriam comida. Anotei que Skwovet tem cara de fofo, mas não gosta de papo. Voltei pra casa antes do Vinicius perceber, mas deixei pegadas de terra na cozinha.",
+      "Dia 350 - Fui ajudar o Vinicius a organizar os cabos, mas tropecei e derrubei o roteador. A internet caiu por uns minutos. Anotei que roteador é frágil demais pra quem tem rabo grande e peludo. Vinicius suspirou, mas depois me fez cafuné, kyu~.",
+      "Dia 358 - Conheci outro Braixen na rua. Ele ficou dizendo que o pelo dele era mais brilhoso que o meu. Anotei que vou pedir pro Vinicius comprar outro shampoo. Se eu encontrar ele de novo, vou dar umas gravetadas, só pra lembrar de não ser convencido, kyu~.",
+      "Dia 367 - Vinicius me levou na Liberdade hoje. Fiquei encantado com as lojinhas de pelúcia. Quase enfiei a cabeça inteira numa prateleira de Eevees. Vinicius teve que me puxar. No fim, ele me comprou uma pelúcia de Fennekin. Tô dormindo abraçado nela agora.",
+      "Dia 381 - Quase tive um mini-infarto: perdi minha Everstone por uns minutos! Ela caiu da estante e sumiu. Revirei tudo até achar dentro do tênis do Vinicius. Ele disse pra eu tomar mais cuidado, mas me deu um abraço depois.",
+      "Dia 389 - Passei a tarde sozinho e fui fuçar as gavetas do Vinicius. Achei fotos antigas dele de Pikachu. Anotei que vou guardar isso pra zoar ele depois. Vinicius não pode saber que eu vi, senão me coloca de castigo no PC.",
+      "Dia 395 - Vinicius deixou eu escolher o que assistir. Coloquei um anime de Pokémon. Anotei que fiquei torcendo pra Braixen que apareceu, mas ela apareceu pouco. Vinicius falou que eu fiz carinha fofa. Eu neguei… mas acho que foi verdade, kyu~.",
+      "Dia 25 - Noite de pizza! Vinicius pediu metade calabresa e metade frango com catupiry. Anotei que prefiro a de frango, mas roubei da calabresa também. Ficamos vendo TV até tarde. Vinicius reclamou dos farelos que eu deixei, mas depois ele também derrubou um pedaço.",
+      "Dia 32 - Fui visitar o Vinicius no trabalho, no CMSP. Fiquei impressionado com tanta tela piscando. Anotei que todo mundo me olhava estranho, como se nunca tivessem visto uma raposa de pé. Ganhei um biscoito de um colega dele, mas tava meio sem graça, kyu~.",
+      "Dia 43 - Voltei no CMSP com o Vinicius. Enquanto ele trabalhava, desenhei no caderno dele. Fiz um rascunho nosso e escrevi *treinador & raposa pra sempre*. Vinicius achou depois e guardou. Fiquei feliz, kyu~.",
+      "Dia 53 - Passei o dia no CMSP. É cheio de câmera, luz e cabo, parece um labirinto. Anotei que fiquei quietinho pra não atrapalhar… mas morrendo de vontade de apertar uns botões.",
+      "Dia 57 - Quase trágico: apareci AO VIVO sem querer. Entrei no estúdio sem ver e fiquei cara a cara com a câmera. A professora travou, eu travei, o operador travou. Vinicius ficou branco, mas depois só deu risada nervosa.",
+      "Dia 61 - Um formador perguntou onde ficava o “Estúdio A” e eu apontei pro corredor errado. Ele rodou lá uns dez minutos. Vinicius descobriu e me chamou de *raposa sem GPS*. Anotei que vou treinar melhor o mapa do prédio.",
+      "Dia 66 - Me perdi no CMSP procurando água e acabei num depósito escuro. Fiquei com medo, kyu~. Vinicius me achou pelo som das minhas patinhas. Levou bronca, mas depois ele me deu chocolate quente.",
+      "Dia 70 - Passei o dia observando o estúdio. Anotei que queria aprender a mexer no PC de corte. Vinicius falou que se eu encostar, vou encher de pelo. Melhor não arriscar… por enquanto, kyu~.",
+      "Dia 90 - Fui ao cinema. O filme tinha uma raposa de camisa florida e gravata, achei muito estiloso. Anotei que fiquei todo empolgado. Vinicius falou *não é pra tanto, Brix*, mas acho que ele também gostou.",
+      "Dia 95 - Passeio no shopping. Fiquei tentando conversar com um robô, mas ele só fazia *beep*. Vinicius teve que me procurar na loja, me achou deitado em cima de um Pikachu de pelúcia gigante, kyu~.",
+      "Dia 102 - Um monte de gente tentou me abraçar hoje. Anotei que quando isso acontece sem pedir, eu travo todo. Vinicius sempre aparece pra salvar, dizendo que sou *só um pouquinho antissocial*.",
+      "Dia 125 - Um senhor quis me abraçar depois de ver minha cauda. Fiquei sem graça, mas ele foi educado. Anotei que nem todo mundo entende como lidar com raposas. Vinicius riu e disse *você virou atração, Brix*.",
+      "Dia 134 - Brinquei com o rolo de papel higiênico e fiz um tapete branco pelo corredor. Vinicius chegou, suspirou e disse *Brix, às vezes acho que você faz de propósito*. Talvez eu faça… só um pouquinho, kyu~.",
+      "Dia 412 - Vinicius esqueceu o celular carregando no sofá. Fiquei olhando as notificações piscando e anotei que ele recebe muita mensagem de trabalho. Resisti bem, mas no fim apertei um botão sem querer e mandei um sticker de raposa no grupo dele. Vinicius riu e disse *você é curioso demais, Brix*.",
+      "Dia 418 - Hoje o Vinicius esqueceu de guardar as compras. Aproveitei pra cheirar tudo, kyu~. Anotei que saco de pão tem um cheiro quentinho que dá vontade de morder. Vinicius chegou, viu tudo espalhado e disse *é, Brix, você é pior que gato*.",
+      "Dia 425 - Fiquei observando Vinicius lavar a louça. Anotei que ele sempre faz careta quando a água tá fria. No fim, peguei o pano de prato e tentei ajudar, mas molhei meu pelo todo. Vinicius só suspirou e disse *obrigado… eu acho*.",
+      "Dia 431 - Vinicius derrubou um copo no chão e quebrou. Fiquei olhando de longe, meio assustado. Anotei que o som do vidro estilhaçando faz meu coração disparar. Vinicius juntou tudo rapidinho e depois fez cafuné pra me acalmar, kyu~.",
+      "Dia 437 - Achei o controle da TV embaixo do sofá e apertei uns botões sem querer. Liguei num canal de culinária e fiquei hipnotizado assistindo. Anotei que bolo de chocolate parece mágico. Vinicius chegou e falou *até você tá vendo receita agora?*.",
+      "Dia 443 - Vinicius esqueceu uma caixa de papelão no quarto. Entrei e fiz dela minha toca. Anotei que caixa tem cheiro de madeira e é quentinha. Vinicius me achou lá dentro e disse *não acredito que você coube aí, Brix*.",
+      "Dia 450 - Tentei imitar Vinicius digitando no teclado. Anotei que minhas patas são grandes demais pra isso. No fim, escrevi só umas letras soltas: *kuyuuu*. Vinicius viu e disse que foi a mensagem mais fofa do dia.",
+      "Dia 457 - Hoje teve trovão. Corri pro quarto e me escondi debaixo da cama, kyu~. Anotei que o barulho é forte demais pra minhas orelhas. Vinicius se abaixou, fez carinho e disse *tá tudo bem, raposa*.",
+      "Dia 462 - Vinicius esqueceu a gaveta do armário aberta. Subi pra ver o que tinha. Anotei que camisas guardadas têm cheiro dele. Fiquei ali quietinho até ele notar. Quando viu, ele deu risada e falou *você é um Braixen folgado mesmo*.",
+      "Dia 468 - Ganhei um biscoito novo de presente. Cheirei primeiro, depois dei uma mordida pequena, kyu~. Anotei que biscoito de mel é mais gostoso do que parece. Vinicius ficou feliz por eu ter gostado.",
+      "Dia 540 - Hoje passei quase a tarde inteira com Penny no chat de suporte da Braixen's House. Ela estava mostrando como organizar novas categorias e canais, explicando cada detalhe com paciência. Cada vez que eu tentava ajudar, ela inclinava a cabeça e sorria de um jeito que me deixou com o pelo arrepiado, kyu~. Tentei focar nas permissões dos cargos, mas a forma como ela me olhava e ria baixinho me distraía completamente. Anotei que, mesmo sendo só trabalho, a atenção dela me deixa meio inquieto… e eu gostei disso, kyuuu~.",
+      "Dia 544 - Depois, Yoko me chamou no canal de música. Ela estava testando umas novas batidas para a live e queria minha opinião. Cada vez que eu comentava algo, ela se inclinava perto do microfone e brincava comigo, fazendo meu rabo arrepiar. Fiquei ali, dividido entre ajudar com a música e não me perder no sorriso dela. Senti que ela queria ver minha reação, e confesso que me senti importante… e feliz, kyu~.",
+      "Dia 548 - Voltei a ajudar Penny organizando algumas funções do servidor. Ela me mostrou detalhes técnicos e, de repente, pegou minha pata (virtualmente, no caso do Discord) pra me mostrar um comando. Meu coração deu um pulo, kyu~. Ela ficou rindo baixinho e comentou que eu sempre prestava atenção demais, mas acho que ela gostava de me provocar, kyuuu~.",
+      "Dia 552 - Yoko me chamou na sala de música pra mostrar uma sequência de efeitos sonoros que ela criou, imitando passos de Braixen pelo servidor. Cada som fazia meu rabo se arrepiar e minha atenção se voltar completamente pra ela. Ela sorria de um jeito que parecia dizer 'preste atenção em mim, kyu~'. Fiquei sentado ali, ouvindo e me sentindo ao mesmo tempo admirado e envergonhado, kyuuu~.",
+      "Dia 556 - Passei o dia alternando entre ajudar Penny com tickets de suporte e acompanhar Yoko na transmissão de música. Toda vez que eu respondia algo pra uma, a outra aparecia pra chamar minha atenção de um jeito sutil. Senti que estava no meio de uma disputa silenciosa, kyu~. Anotei que precisava aprender a lidar com atenção dupla sem me atrapalhar… mas no fundo gostei de estar no centro disso, kyuuu~.",
+      "Dia 561 - Penny me chamou pra revisar algumas regras do servidor e me elogiou por minha paciência. Fiquei com o peito quentinho, kyu~. Mas Yoko começou a tocar uma música animada no canal de voz, e cada batida parecia me chamar pra perto dela. Tentei manter o foco na revisão, mas meus ouvidos e coração estavam completamente divididos. Anotei que estar entre as duas é divertido… e um pouquinho perigoso pro meu coração, kyuuu~.",
+      "Dia 567 - Hoje teve uma reunião geral na Braixen's House. Penny trouxe várias sugestões para melhorar a organização do servidor e ficava me olhando quando eu dava minha opinião. Depois, Yoko colocou uma música suave e disse que era pra eu ouvir com atenção. Sentei perto do microfone, e cada vez que olhava pra tela dela, sentia aquele arrepio no pelo. As duas me cercavam de carinho e atenção sem perceber, kyu~. Acho que estou aprendendo o que é ser disputado por duas Braixen de uma vez… e adorei, kyuuu~.",
+      "Dia 572 - Passei a manhã ajudando Penny a configurar novos canais de texto. Ela explicou cada passo devagar, me segurando pelo braço virtual quando eu me empolgava demais, kyu~. No meio da tarde, Yoko começou a live com novas músicas e efeitos sonoros só pra mim. Cada sorriso dela fazia meu coração bater mais rápido. Anotei que não é fácil decidir pra onde olhar primeiro… mas também não quero decidir, kyuuu~.",
+      "Dia 578 - Hoje fiquei mais tempo com Yoko na transmissão de música. Ela criou um efeito de eco que imitava meus passos pelo servidor. Fiquei fascinado e envergonhado ao mesmo tempo, kyu~. Quando tentei olhar o chat, Penny tinha me marcado em algumas mensagens pedindo ajuda. Senti aquela tensão divertida: cada uma tentando conquistar minha atenção sem dizer uma palavra. Meu rabo não parava de se mexer, kyuuu~.",
+      "Dia 583 - Final de semana na Braixen's House. Penny me chamou pra revisar funções de moderação enquanto Yoko animava a sala de música com batidas novas. Passei o dia correndo entre os dois canais, sorrindo, ajudando e recebendo olhares e sorrisos que me deixavam todo arrepiado, kyu~. Anotei que essas disputas silenciosas são cansativas… mas muito, muito divertidas, kyuuu~."
+    ],
     
     "message_clear_dm" : "<:Braix_Blep:1290453783045738629>┃ Okay, vou deletar minhas mensagens de Braixen da sua DM, kyu~\n<:Braix_Tongue:1272662386590879795>┃ Esse processo pode demorar um pouquinho, e lembre-se, suas mensagens enviadas a mim não serão deletadas, kyu~!",
     "message_erro":"<:Braix_ew:1272662715009208370>┃ Ué? Isso não funcionou como deveria... \nAcho que você tentou usar isso em um **canal errado** ou **não tem permissão para tal função**, kyu~ <:Braix_derp:1272663053875417219>",
@@ -331,7 +475,11 @@
     "message_aniversario_notificacao_desativado" : "<:Braix:1272653348306419824>┃ Confirmando você **desativou** as mensagens de notificação de aniversariantes para essa comunidade ~kyuuuu",
     "message_aniversario_server_title" : "<:Braix:1272653348306419824>┃ **Teste de permissão do canal**",
     "message_aniversario_server_description": "<:Braix:1272653348306419824>┃ Este é um teste de envio de mensagem, essa mensagem será deletada em instantes...",
-    "message_aniversario_mensagem_random_server": ["**Feliz Aniversário** {}!!!! ~~kyuu\n**Parabéns**  pelo seu dia especial!, **tá ficando velinho** rsrsrsrs\n\n**Convido** todos a desejar um **feliz aniversario também!!!** lá no chat geral é claro ~kyuuu!","**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial!, que você continue sempre **jovem** e **feliz**!\n\nDesejo a você um dia **repleto de alegria**,com muito **amor e carinho**.\n\nQue esse ano seja **repleto de conquistas**,e que você realize todos os seus sonhos. kyuuuu!","**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial, que você continue sempre **feliz** e **realizando sonhos**!\n\nDesejo a você um **dia repleto de amor,com muita alegria e diversão**.\n\nQue esse ano seja cheio de surpresas, e que **você viva** cada momento **intensamente**.\n\nParabéns do seu amigo **Brix!**"],
+    "message_aniversario_mensagem_random_server": [
+      "**Feliz Aniversário** {}!!!! ~~kyuu\n**Parabéns**  pelo seu dia especial!, **tá ficando velinho** rsrsrsrs\n\n**Convido** todos a desejar um **feliz aniversario também!!!** lá no chat geral é claro ~kyuuu!",
+      "**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial!, que você continue sempre **jovem** e **feliz**!\n\nDesejo a você um dia **repleto de alegria**,com muito **amor e carinho**.\n\nQue esse ano seja **repleto de conquistas**,e que você realize todos os seus sonhos. kyuuuu!",
+      "**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial, que você continue sempre **feliz** e **realizando sonhos**!\n\nDesejo a você um **dia repleto de amor,com muita alegria e diversão**.\n\nQue esse ano seja cheio de surpresas, e que **você viva** cada momento **intensamente**.\n\nParabéns do seu amigo **Brix!**"
+    ],
     "message_aniversario_message_ping":"Feliz aniversário {} ||Ping: {}||",
     "message_aniversario_mensagem_footer_server":"Que tal cadastrar seu aniversário também, Kyu? 🎂 Use `/aniversário definir` e se cadastre agora mesmo! ~kyuuu",
     "message_aniversario_server_consulta":"## <:Braix_bolo_cake:1290452116208357436>┃ Próximos Aniversariantes",
@@ -372,8 +520,13 @@
     "message_premium_teste" : "<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu Seu premium será liberado em breve!!!\n<:Braix_Happy:1272664784814342204>┃ Muito obrigado por ter adquirido o teste da minha assinatura ~kyuuuu",
     "message_premium_confirm" : "<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu Seu premium será liberado em breve!!!\n<:Braix_Happy:1272664784814342204>┃ Você ficou com **{:,.0f}** {} ~kyuuuu",
     "message_premium_send_dm" : "### <:Graveto:1318962131567378432>┃ Assinatura Premium Ativada!\n<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu, passei aqui para te avisar que você recebeu o **Premium**!\n<a:Braix_patpat:1272660493479444652>┃ Aproveite todos os benefícios, mas lembre-se: sua assinatura termina <t:{}:R>. Curta bastante enquanto dura! ~kyuuuu",
+    "message_premium_presente_send_dm" : "### <:Graveto:1318962131567378432>┃ Presente Premium!\n<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu, olha só! Você ganhou **{} dias de Premium** de presente!\n<a:Braix_patpat:1272660493479444652>┃ Quem te presenteou foi **{}**.\n<:Braix_Shocked:1272663500115935264>┃ Sua assinatura expira em <t:{}:R>. Aproveite todos os benefícios enquanto durar, kyu~!",
+    "message_premium_presente_autopresente" : "<:Braix_You:1272670440652935289>┃ Ei, kyu~! Você não pode comprar um presente Premium para você mesmo.\n\n**Dica de raposa:** se quiser assinar para sua própria conta, use o comando </premium info:1345864402846482487> e faça a compra por lá, kyuuu~!",
+
     "message_premium_compra" : "### <:Graveto:1318962131567378432>┃ Falta pouquinho, kyu~!\n<:Braix_Glass:1272664403296260126>┃ Raposa, finalize seu pagamento usando o **QR Code** para ativar sua assinatura.\n<a:Braix_patpat:1272660493479444652>┃ Você tem até <t:{}:R> para concluir o pagamento.\n\n**ID da Transação:** *{}*\n**Plano:** *{}*\n**Beneficiário:** *Vinicius Sena da Silva Amarante*\n-# Ao confirmar o pagamento, sua assinatura será ativada com o tempo contratado. Lembre-se: ela é vinculada à sua conta e não pode ser transferida para outra, o pagamento pode levar até 5 minutos para ser validado ~kyuu.",
     "message_compra_pendente" : "### <:Graveto:1318962131567378432>┃ Pagamento pendente, kyu~!\n<:Braix_Glass:1272664403296260126>┃ Você não pode solicitar outro **QR Code** até pagar o atual ou até ele expirar.\n<a:Braix_patpat:1272660493479444652>┃ Você tem até <t:{}:R> para concluir o pagamento.\n\n**ID da Transação:** *{}*\n**Plano:** *{}*\n**Beneficiário:** *Vinicius Sena da Silva Amarante*",
+    "message_premium_presente_compra" : "### <:Graveto:1318962131567378432>┃ Quase lá, kyu~!\n<:Braix_Glass:1272664403296260126>┃ Raposa, finalize seu pagamento usando o **QR Code** para enviar sua assinatura como presente.\n<a:Braix_patpat:1272660493479444652>┃ Você tem até <t:{}:R> para concluir o pagamento.\n\n**ID da Transação:** *{}*\n**Plano:** *{}*\n**Beneficiário:** *Vinicius Sena da Silva Amarante*\n**Presente para:** *{}*\n-# Ao confirmar o pagamento, a assinatura será entregue para a conta do destinatário com o tempo contratado. Pode levar até 5 minutos para que o pagamento seja validado, kyuu~.",
+
 
     "message_premiumboost_7_send_dm" : "### <:Graveto:1318962131567378432>┃ Assinatura Premium Ativada! \n<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu, passei aqui para te avisar que você recebeu o **Premium**!\n<:Braix_Happy:1272664784814342204>┃ Seu **Boost** na Braixen's House te concedeu **{} dias** de Premium! ~kyuuu!!!\n<a:Braix_patpat:1272660493479444652>┃ Aproveite os benefícios e lembre-se: sua assinatura termina <t:{}:R>.",
     "message_premiumboost_24_send_dm" : "### <:Graveto:1318962131567378432>┃ Assinatura Premium Renovada! \n<:Braix_Glass:1272664403296260126>┃ Eae ~kyuuu! Parece que você deu mais um **Boost** na Braixen's House, uhuuul! Isso te rendeu mais **{} dias** de Premium, parabéns!\n<:Braix_Happy:1272664784814342204>┃ Sua assinatura foi renovada e agora termina <t:{}:R>.\nAproveite muito todos os benefícios exclusivos! ~kyuuu <:Braix_Heart2:1287443199337693184>",
@@ -392,14 +545,35 @@
     "message_financeiro_pagamento_owner" : "🤝┃ Uhull parece o meu programador deu para {} a quantia de **{:,.0f}** {}",
     "message_financeiro_pagamento_owner_dm" : "<:Braix_Money:1272666877197418598>┃ Eiii ~Kyuu parece que você ganhou um brinde do meu programador, você ganhou **{:,.0f}** {}",
     "message_financeiro_pagamento_take" : "<:Braix_Shocked:1272663500115935264>┃ parece que o meu programador alterou o saldo de {} que agora ficou com **{:,.0f}** {}",
-    "message_financeiro_pagamento_sucesso_dm": ["<:Braix_Money:1272666877197418598>┃ Eiii ~Kyuu você acabou de **receber uma transferência** de {}\n\nVocê recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e tem agora **{:,.0f}** <:BraixenCoin:1272655353108103220>\n\n-# Caso queira **desativar os proximos avisos** use </brix notificacao:1345864402846482484>", "<:Braix_Money:1272666877197418598>┃ acho que alguém acabou de ficar um **pouco mais rico!!**\n\nParece que {} te mandou uma graninha\nVocê recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e agora tem **{:,.0f}** <:BraixenCoin:1272655353108103220>\n\n-# Caso queira **desativar os proximos avisos** use </brix notificacao:1345864402846482484>"],
+    "message_financeiro_pagamento_sucesso_dm": [
+      "<:Braix_Money:1272666877197418598>┃ Eiii ~Kyuu você acabou de **receber uma transferência** de {}\n\nVocê recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e tem agora **{:,.0f}** <:BraixenCoin:1272655353108103220>\n\n-# Caso queira **desativar os proximos avisos** use </brix notificacao:1345864402846482484>", 
+      "<:Braix_Money:1272666877197418598>┃ acho que alguém acabou de ficar um **pouco mais rico!!**\n\nParece que {} te mandou uma graninha\nVocê recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e agora tem **{:,.0f}** <:BraixenCoin:1272655353108103220>\n\n-# Caso queira **desativar os proximos avisos** use </brix notificacao:1345864402846482484>"
+    ],
     "message_financeiro_pagamento_invalido" : "<:Braix_Shocked:1272663500115935264>┃ Eu não entendi oque você enviou, lembre-se use apenas numeros, apenas K é suportado para multiplicar o valor, tipo 1k vira 1000 <:BraixenCoin:1272655353108103220>",
-    "message_financeiro_brix_agradecimento_-30k" : ["<:Braix_Happy:1272664784814342204>┃ Nossa como você é gentil, obrigado kyu...","<:Braix_Happy:1272664784814342204>┃ Uhull você acabou de fazer o dia de um braixen ainda mais feliz!!!","<:Braix_Cry2:1272667164637401250>┃ nem sei como te agradecer, graças a sua ajuda vou conseguir pagar meu aluguel"],
-    "message_financeiro_brix_agradecimento_+30k" : ["<:Braix_Happy:1272664784814342204>┃ Você tá realmente querendo me deixar um pouquinho mais rico mesmo né rsrsrs","<:Braix_Happy:1272664784814342204>┃ De onde sai tanto dinheiro assim? assaltou um cofre?", "<:Braix_Happy:1272664784814342204>┃ sabe não precisava, mas se quiser mandar mais eu aceito viuu ~kyuuu"],
-    "message_financeiro_brix_negative" : ["<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Eiii, eu não sou tão pobre ao ponto de pedir esmolas viu...","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Olha acho que seria melhor essa grana ficar com você, você precisa mais que eu ~kyuuu","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ sabe eu não to querendo te deixar pobre para que eu fique mais rico ~kyuuu","<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ não preciso da sua grana, já consigo pagar meu Ap de braixen sozinho!!!"],
+    "message_financeiro_brix_agradecimento_-30k" : [
+      "<:Braix_Happy:1272664784814342204>┃ Nossa como você é gentil, obrigado kyu...",
+      "<:Braix_Happy:1272664784814342204>┃ Uhull você acabou de fazer o dia de um braixen ainda mais feliz!!!",
+      "<:Braix_Cry2:1272667164637401250>┃ nem sei como te agradecer, graças a sua ajuda vou conseguir pagar meu aluguel"
+    ],
+    "message_financeiro_brix_agradecimento_+30k" : [
+      "<:Braix_Happy:1272664784814342204>┃ Você tá realmente querendo me deixar um pouquinho mais rico mesmo né rsrsrs",
+      "<:Braix_Happy:1272664784814342204>┃ De onde sai tanto dinheiro assim? assaltou um cofre?", 
+      "<:Braix_Happy:1272664784814342204>┃ sabe não precisava, mas se quiser mandar mais eu aceito viuu ~kyuuu"
+    ],
+    "message_financeiro_brix_negative" : [
+      "<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Eiii, eu não sou tão pobre ao ponto de pedir esmolas viu...",
+      "<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ Olha acho que seria melhor essa grana ficar com você, você precisa mais que eu ~kyuuu",
+      "<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ sabe eu não to querendo te deixar pobre para que eu fique mais rico ~kyuuu",
+      "<a:Brix_Negative:1371215873637093466>┃ {} Recusou sua transferência...\n<:Braix_Hmph:1272666561244561429>┃ não preciso da sua grana, já consigo pagar meu Ap de braixen sozinho!!!"
+    ],
     "message_financeiro_aposta_limite" : "<:Braix_Blank:1272661806858371196>┃ Eiii o limite do valor da aposta é de **10.000** <:BraixenCoin:1272655353108103220>, Não quero ver você perdendo toda sua grana comigo ~kyuu",
-    "message_financeiro_aposta_acerto" : ["<:Braix_Happy:1272664784814342204>┃ você acertou!!! ohh to te entregando o dobro da aposta **{:,.0f}** <:BraixenCoin:1272655353108103220> por ter acertado, e agora você ficou com o total de **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu","<:Braix:1272653348306419824>┃ Boaaa, por ter acertado você recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e ficou com **{:,.0f}** <:BraixenCoin:1272655353108103220> no total ~kyuuu"],
-    "message_financeiro_aposta_erro" : ["<:Braix_Shocked:1272663500115935264>┃ Parece que você errou, a moeda caiu **{}** infelizmente você perdeu o valor da aposta e ficou com apenas **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu"],
+    "message_financeiro_aposta_acerto" : [
+      "<:Braix_Happy:1272664784814342204>┃ você acertou!!! ohh to te entregando o dobro da aposta **{:,.0f}** <:BraixenCoin:1272655353108103220> por ter acertado, e agora você ficou com o total de **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu",
+      "<:Braix:1272653348306419824>┃ Boaaa, por ter acertado você recebeu **{:,.0f}** <:BraixenCoin:1272655353108103220> e ficou com **{:,.0f}** <:BraixenCoin:1272655353108103220> no total ~kyuuu"
+    ],
+    "message_financeiro_aposta_erro" : [
+      "<:Braix_Shocked:1272663500115935264>┃ Parece que você errou, a moeda caiu **{}** infelizmente você perdeu o valor da aposta e ficou com apenas **{:,.0f}** <:BraixenCoin:1272655353108103220> ~~kyu"
+    ],
         
     "message_financeiro_pokemon_inicio" : "### <:Braix_Interrogacao:1365094508693291139>┃ Quem é esse Pokémon?\n-# Api em beta ~kyuu responda <t:{}:R>",
     "message_financeiro_pokemon_timeout" : "<:Braix_Blank:1272661806858371196>┃ Jogo encerrado por inatividade. ~kyuuuuuu\n<:Braix:1272653348306419824>┃ O Pokémon era: {}",
@@ -415,7 +589,11 @@
     "message_financeiro_compracor_lojanaoexistente" : "<:Braix_derp:1272663053875417219>┃ Parece que essa comunidade não adicionou itens a minha loja de cores, por favor converse com os administradores ~kyuuuu",
     "message_financeiro_compracor_Limite" : "<:Braix_derp:1272663053875417219>┃ Eii você atingiu o limite maximo de itens na loja de cores, caso queira adicionar algum item novo remova algum já existente ~kyuuu",
     "message_financeiro_compracor_item_adicionado" : "<:Braix_Happy:1272664784814342204>┃ Você adicionou o item: {} pelo valor de **{:,.0f}** <:BraixenCoin:1272655353108103220>\n<:Braix:1272653348306419824>┃ Caso precise alterar o valor do item basta adicioná-lo novamente com o novo valor ~kyuuuu",
-    "message_financeiro_compracor_item_removido" : ["<:Braix_Blank:1272661806858371196>┃ Você removeu o item: {} da loja ~kyuuu","<:Braix_Blank:1272661806858371196>┃ O item: {} não faz mais parte da loja ~kyuuu"],
+    "message_financeiro_compracor_item_removido" : [
+      "<:Braix_Blank:1272661806858371196>┃ Você removeu o item: {} da loja ~kyuuu",
+      "<:Braix_Blank:1272661806858371196>┃ O item: {} não faz mais parte da loja ~kyuuu"
+    ],
+
     "message_financeiro_compracor_item_notfound" : "<:Braix_derp:1272663053875417219>┃ Não achei esse item ai ~kyuuu, verifique se me passou o cargo correto a ser removido da loja ~kyuuu",
     "message_financeiro_compracor_notlist" : "Kyu~! Não encontrei nenhum item disponíveis no momento…",
     "message_financeiro_compracor_banner" : "<:Braix:1272653348306419824>┃ Uhull, agora sua Loja de cores tem um banner proprio ~kyuuu",
@@ -461,6 +639,15 @@
     "removefield_description": "Remova um campo existente do embed.",
     "send_label": "Enviar",
     "cancel_label": "Cancelar",
+    "export_json_label": "Exportar", 
+    "import_json_label": "Importar",
+    "import_json_title": "📥┃Importar JSON",
+    "import_json_modal": "Cole aqui o código JSON do embed, kyu~!",
+    "import_json_success": "<a:Brix_Check:1371215835653210182>┃ Embed importado com sucesso, kyuuu~!",
+    "import_json_error": "<a:Brix_Negative:1371215873637093466>┃ Ocorreu um erro ao importar o JSON: **{e}**",
+    "export_json_title": "📤┃Exportar JSON",
+    "export_json_success": "<a:Brix_Check:1371215835653210182>┃ JSON exportado com sucesso, kyu~!",
+    "export_json_error": "<a:Brix_Negative:1371215873637093466>┃ Ocorreu um erro ao exportar o JSON: **{e}**",
     "edit_author_modal_title": "Editar Autor",
     "author_name_input_label": "Nome do Autor",
     "author_name_input_placeholder": "Digite o nome do autor",
@@ -499,6 +686,8 @@
     "no_fields_to_remove_error": "Não há campos para remover.",
     "remove_field_placeholder": "Escolha um campo para remover...",
     "send_channel_prompt": "Selecione um canal para enviar o embed...",
+    "export_json_no_embed": "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Essa mensagem não tem nenhum embed pra eu exportar.",
+
 
 
 

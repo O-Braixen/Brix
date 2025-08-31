@@ -614,29 +614,27 @@ class diversao(commands.Cog):
     if await Res.print_brix(comando="braixenrealmeme",interaction=interaction):
         return
     print(f"Comando /meme braixenreal - User {interaction.user.name}")
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
-            if not imagem_pil:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
-                return
+    
+    try:
+        await interaction.response.defer()
+        imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
+        if not imagem_pil:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+            return
 
-            fundo = Image.new("RGB",(362,480),"white")
+        fundo = Image.new("RGB",(362,480),"white")
 
-            imagem_pil  = imagem_pil.resize((224,153))
-            meme = Image.open("src/assets/imagens/memes/Vinicius_Segurando_Cartao_Sem_Fundo.png")
-            fundo.paste(imagem_pil,(71,237))
-            fundo.paste(meme,(0,0),meme)
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen da vida real.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenrealmeme")
-            
+        imagem_pil  = imagem_pil.resize((224,153))
+        meme = Image.open("src/assets/imagens/memes/Vinicius_Segurando_Cartao_Sem_Fundo.png")
+        fundo.paste(imagem_pil,(71,237))
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen da vida real.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenrealmeme")
+        
 
 
 #criador de memes Braixen INTERNET
@@ -645,27 +643,25 @@ class diversao(commands.Cog):
   async def braixenmonitor(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixenmonitor",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            fundo = Image.new("RGB",(800,751),"white")
-            imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
-            if not imagem_pil:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
-                return
-            
-            imagem_pil = imagem_pil.resize((345,245))
-            meme = Image.open("src/assets/imagens/memes/braixen monitor.png")
-            fundo.paste(imagem_pil,(337,94))
-            fundo.paste(meme,(0,0),meme)
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen e seu pc.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenmonitor")
+
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(800,751),"white")
+        imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
+        if not imagem_pil:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+            return
+        
+        imagem_pil = imagem_pil.resize((345,245))
+        meme = Image.open("src/assets/imagens/memes/braixen monitor.png")
+        fundo.paste(imagem_pil,(337,94))
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen e seu pc.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenmonitor")
 
 
 
@@ -675,44 +671,42 @@ class diversao(commands.Cog):
   async def mybraixen(self,interaction: discord.Interaction, rival:discord.User):
     if await Res.print_brix(comando="mybraixen",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            
-            
-            if not interaction.user.avatar or not rival.avatar:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
-                return
-            
-            interaction_image_data = await interaction.user.avatar.replace(size=512, format="png").read()
-            rival_image_data = await rival.avatar.replace(size=512, format="png").read()
+  
+    try:
+        await interaction.response.defer()
+        
+        
+        if not interaction.user.avatar or not rival.avatar:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
+            return
+        
+        interaction_image_data = await interaction.user.avatar.replace(size=512, format="png").read()
+        rival_image_data = await rival.avatar.replace(size=512, format="png").read()
 
-            mascaraavatar = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
-            mascaraavatar = mascaraavatar.resize((75,75))
+        mascaraavatar = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
+        mascaraavatar = mascaraavatar.resize((75,75))
 
-            membro_bytesio = io.BytesIO(interaction_image_data)
-            avatar1 = Image.open(membro_bytesio)
-            avatar1 = avatar1.resize((75,75))
-            
-            membro_bytesio = io.BytesIO(rival_image_data)
-            avatar2 = Image.open(membro_bytesio)
-            avatar2 = avatar2.resize((75,75))
+        membro_bytesio = io.BytesIO(interaction_image_data)
+        avatar1 = Image.open(membro_bytesio)
+        avatar1 = avatar1.resize((75,75))
+        
+        membro_bytesio = io.BytesIO(rival_image_data)
+        avatar2 = Image.open(membro_bytesio)
+        avatar2 = avatar2.resize((75,75))
 
-            fundo = Image.new("RGB",(440,550),"white")
-            meme = Image.open("src/assets/imagens/memes/don_t_touch_her.png")
-            fundo.paste(meme,(0,0))
-            fundo.paste(avatar1,(120,370),mascaraavatar)
-            fundo.paste(avatar2,(300,31),mascaraavatar)
-            fundo.paste(avatar2,(270,380),mascaraavatar)
+        fundo = Image.new("RGB",(440,550),"white")
+        meme = Image.open("src/assets/imagens/memes/don_t_touch_her.png")
+        fundo.paste(meme,(0,0))
+        fundo.paste(avatar1,(120,370),mascaraavatar)
+        fundo.paste(avatar2,(300,31),mascaraavatar)
+        fundo.paste(avatar2,(270,380),mascaraavatar)
 
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="minha braixen.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="mybraixen")
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="minha braixen.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="mybraixen")
 
 
 #criador de memes NOSSA Braixen
@@ -721,63 +715,60 @@ class diversao(commands.Cog):
   async def nossabraixen(self,interaction: discord.Interaction, cara1:discord.User, cara2:discord.User, cara3:discord.User, braixen:discord.User=None):
     if await Res.print_brix(comando="nossabraixen",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
+    try:
+        await interaction.response.defer()
 
-            if not cara1.avatar or not cara2.avatar or not cara3.avatar:
+        if not cara1.avatar or not cara2.avatar or not cara3.avatar:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
+            return
+
+        membro_image_data = await cara1.avatar.replace(size=512, format="png").read()
+        membro_bytesio = io.BytesIO(membro_image_data)
+        avatar1 = Image.open(membro_bytesio)
+        avatar1 = avatar1.resize((90,90))
+
+        membro_image_data = await cara2.avatar.replace(size=512, format="png").read()
+        membro_bytesio = io.BytesIO(membro_image_data)
+        avatar2 = Image.open(membro_bytesio)
+        avatar2 = avatar2.resize((90,90))
+
+        membro_image_data = await cara3.avatar.replace(size=512, format="png").read()
+        membro_bytesio = io.BytesIO(membro_image_data)
+        avatar3 = Image.open(membro_bytesio)
+        avatar3 = avatar3.resize((90,90))
+
+        fundo = Image.new("RGB",(500,500),"white")
+        meme = Image.open("src/assets/imagens/memes/3-caras-e-uma-braixen.png")
+
+        mascaraavatar = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
+        mascaraavatar = mascaraavatar.resize((90,90))
+
+        fundo.paste(meme,(0,0))
+        fundo.paste(avatar1,(37,110),mascaraavatar)
+        fundo.paste(avatar2,(195,95),mascaraavatar)
+        fundo.paste(avatar3,(375,105),mascaraavatar)
+        if braixen is None:
+            buffer = io.BytesIO()
+            fundo.save(buffer,format="PNG")
+            buffer.seek(0)
+            await interaction.followup.send(file=discord.File(fp=buffer,filename="nossa braixen.png"))
+        else:
+            if not braixen.avatar:
                 await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
                 return
-
-            membro_image_data = await cara1.avatar.replace(size=512, format="png").read()
+            membro_image_data = await braixen.avatar.replace(size=512, format="png").read()
             membro_bytesio = io.BytesIO(membro_image_data)
-            avatar1 = Image.open(membro_bytesio)
-            avatar1 = avatar1.resize((90,90))
-
-            membro_image_data = await cara2.avatar.replace(size=512, format="png").read()
-            membro_bytesio = io.BytesIO(membro_image_data)
-            avatar2 = Image.open(membro_bytesio)
-            avatar2 = avatar2.resize((90,90))
-
-            membro_image_data = await cara3.avatar.replace(size=512, format="png").read()
-            membro_bytesio = io.BytesIO(membro_image_data)
-            avatar3 = Image.open(membro_bytesio)
-            avatar3 = avatar3.resize((90,90))
-
-            fundo = Image.new("RGB",(500,500),"white")
-            meme = Image.open("src/assets/imagens/memes/3-caras-e-uma-braixen.png")
-
-            mascaraavatar = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
-            mascaraavatar = mascaraavatar.resize((90,90))
-
-            fundo.paste(meme,(0,0))
-            fundo.paste(avatar1,(37,110),mascaraavatar)
-            fundo.paste(avatar2,(195,95),mascaraavatar)
-            fundo.paste(avatar3,(375,105),mascaraavatar)
-            if braixen is None:
-                buffer = io.BytesIO()
-                fundo.save(buffer,format="PNG")
-                buffer.seek(0)
-                await interaction.followup.send(file=discord.File(fp=buffer,filename="nossa braixen.png"))
-            else:
-                if not braixen.avatar:
-                    await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
-                    return
-                membro_image_data = await braixen.avatar.replace(size=512, format="png").read()
-                membro_bytesio = io.BytesIO(membro_image_data)
-                avatar4 = Image.open(membro_bytesio)
-                avatar4 = avatar4.resize((80,80))
-                mascara4 = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
-                mascara4 = mascara4.resize((80,80))
-                fundo.paste(avatar4,(220,234),mascara4)
-                buffer = io.BytesIO()
-                fundo.save(buffer,format="PNG")
-                buffer.seek(0)
-                await interaction.followup.send(file=discord.File(fp=buffer,filename="nossa braixen.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="nossabraixen")
+            avatar4 = Image.open(membro_bytesio)
+            avatar4 = avatar4.resize((80,80))
+            mascara4 = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
+            mascara4 = mascara4.resize((80,80))
+            fundo.paste(avatar4,(220,234),mascara4)
+            buffer = io.BytesIO()
+            fundo.save(buffer,format="PNG")
+            buffer.seek(0)
+            await interaction.followup.send(file=discord.File(fp=buffer,filename="nossa braixen.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="nossabraixen")
 
 
 #criador de memes Braixen ABRAÇO
@@ -786,29 +777,27 @@ class diversao(commands.Cog):
   async def braixenhug(self,interaction: discord.Interaction, membro:discord.User):
     if await Res.print_brix(comando="braixenhug",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            fundo = Image.new("RGB",(750,750),"white")
-            if not membro.avatar:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
-                return
-            
-            membro_image_data = await membro.avatar.replace(size=512, format="png").read()
-            membro_bytesio = io.BytesIO(membro_image_data)
-            membro = Image.open(membro_bytesio)
-            membro = membro.resize((170,170))
-            meme = Image.open("src/assets/imagens/memes/braixen-hug.png")
-            fundo.paste(membro,(290,260))
-            fundo.paste(meme,(0,0),meme)
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen hug.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenhug")
+    
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(750,750),"white")
+        if not membro.avatar:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
+            return
+        
+        membro_image_data = await membro.avatar.replace(size=512, format="png").read()
+        membro_bytesio = io.BytesIO(membro_image_data)
+        membro = Image.open(membro_bytesio)
+        membro = membro.resize((170,170))
+        meme = Image.open("src/assets/imagens/memes/braixen-hug.png")
+        fundo.paste(membro,(290,260))
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen hug.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenhug")
 
 
 #criador de memes Braixen TABLET
@@ -817,27 +806,25 @@ class diversao(commands.Cog):
   async def braixentablet(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixentablet",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            fundo = Image.new("RGB",(593,900),"white")
-            imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
-            if not imagem_pil:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
-                return
-            
-            imagem_pil = imagem_pil.resize((495,380))
-            meme = Image.open("src/assets/imagens/memes/braixen tablet.png")
-            fundo.paste(imagem_pil,(50,478))
-            fundo.paste(meme,(0,0),meme)
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen e seu tablet.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixentablet")
+    
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(593,900),"white")
+        imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
+        if not imagem_pil:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+            return
+        
+        imagem_pil = imagem_pil.resize((495,380))
+        meme = Image.open("src/assets/imagens/memes/braixen tablet.png")
+        fundo.paste(imagem_pil,(50,478))
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen e seu tablet.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixentablet")
 
 
 #criador de memes Braixen TRISTE
@@ -846,26 +833,24 @@ class diversao(commands.Cog):
   async def braixentriste(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixentriste",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            fundo = Image.new("RGB",(460,281),"white")
-            imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
-            if not imagem_pil:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
-                return
-            imagem_pil = imagem_pil.resize((460,281))
-            meme = Image.open("src/assets/imagens/memes/braixen-sad.png")
-            fundo.paste(imagem_pil,(0,0))
-            fundo.paste(meme,(0,0),meme)
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen sad.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixentriste")
+    
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(460,281),"white")
+        imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
+        if not imagem_pil:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+            return
+        imagem_pil = imagem_pil.resize((460,281))
+        meme = Image.open("src/assets/imagens/memes/braixen-sad.png")
+        fundo.paste(imagem_pil,(0,0))
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen sad.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixentriste")
 
 
 #criador de memes Braixen SMASH
@@ -874,29 +859,27 @@ class diversao(commands.Cog):
   async def braixensmash(self,interaction: discord.Interaction, membro:discord.User):
     if await Res.print_brix(comando="braixensmash",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            fundo = Image.new("RGB",(600,332),"white")
-            if not membro.avatar:
-                    await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
-                    return
-            membro_image_data = await membro.avatar.replace(size=512, format="png").read()
-            membro_bytesio = io.BytesIO(membro_image_data)
-            membro = Image.open(membro_bytesio)
-            membro = membro.resize((230,230))
-            membro = membro.rotate(-10)
-            meme = Image.open("src/assets/imagens/memes/braixen-smash.png")
-            fundo.paste(membro,(410,32))          
-            fundo.paste(meme,(0,0),meme)
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen smash.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixensmash")
+   
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(600,332),"white")
+        if not membro.avatar:
+                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
+                return
+        membro_image_data = await membro.avatar.replace(size=512, format="png").read()
+        membro_bytesio = io.BytesIO(membro_image_data)
+        membro = Image.open(membro_bytesio)
+        membro = membro.resize((230,230))
+        membro = membro.rotate(-10)
+        meme = Image.open("src/assets/imagens/memes/braixen-smash.png")
+        fundo.paste(membro,(410,32))          
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen smash.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixensmash")
 
 
 
@@ -906,27 +889,25 @@ class diversao(commands.Cog):
   async def braixensleep(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixensleep",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            fundo = Image.new("RGB",(558,787),"white")
-            imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
-            if not imagem_pil:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
-                return
-           
-            imagem_pil = imagem_pil.resize((243,274))
-            meme = Image.open("src/assets/imagens/memes/braixen-sleep.png")
-            fundo.paste(imagem_pil,(0,0))
-            fundo.paste(meme,(0,0),meme)
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen Sleep.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixensleep")
+    
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(558,787),"white")
+        imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
+        if not imagem_pil:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+            return
+        
+        imagem_pil = imagem_pil.resize((243,274))
+        meme = Image.open("src/assets/imagens/memes/braixen-sleep.png")
+        fundo.paste(imagem_pil,(0,0))
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen Sleep.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixensleep")
 
 
 
@@ -937,61 +918,59 @@ class diversao(commands.Cog):
   async def braixencitacao(self,interaction: discord.Interaction,variante:app_commands.Choice[str], imagem: discord.Attachment=None, frase: str = None ,ia: str=None):
     if await Res.print_brix(comando="braixencitacao",interaction=interaction):
         return
-    if frase is None and ia is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_notargument").format("escreva uma frase ou peça uma para a IA"),ephemeral = True)
-    else:
-        try:
-            await interaction.response.defer()
-            if frase is not None:
-                if len(frase) > 72:
-                    await interaction.followup.send(f"Limite de caracteres atingido, você enviou {len(frase)} caracteres", ephemeral = True)
+    
+    try:
+        await interaction.response.defer()
+        if frase is not None:
+            if len(frase) > 72:
+                await interaction.followup.send(f"Limite de caracteres atingido, você enviou {len(frase)} caracteres", ephemeral = True)
+                return
+            
+        if ia is not None:
+            Check = await userpremiumcheck(interaction)
+            if Check == False:
+                permitido, tempo_restantante = await verificar_cooldown(interaction, "braixencitacao", 120)
+                if not permitido:
+                    await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
                     return
-                
-            if ia is not None:
-                Check = await userpremiumcheck(interaction)
-                if Check == False:
-                    permitido, tempo_restantante = await verificar_cooldown(interaction, "braixencitacao", 120)
-                    if not permitido:
-                        await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
-                        return
-                frase = await generate_response_with_text(f"{ia} que braixen diria limite 60 caracteres totais")
-                frase.replace('"','')
-                
-            if (variante.value == 'gun'):
-                    meme = Image.open("src/assets/imagens/memes/braixen-citacao-gun.png")
-            if (variante.value == 'gun2'):
-                    meme = Image.open("src/assets/imagens/memes/braixen-citacao-gun-olhoaberto.png")
-            fonte = ImageFont.truetype("src/assets/font/Hey Comic.ttf",30)
-            fontegrande = ImageFont.truetype("src/assets/font/Hey Comic.ttf",50)
-            if imagem is None:
-                fundo = Image.new("RGB",(835,367),"white")
-                fundo.paste(meme,(0,0))
-                fundodraw = ImageDraw.Draw(fundo)
-                fundodraw.text((35,30),f"Citação\nFamosa",font = fontegrande)
-                fundodraw.multiline_text((30,200),f"\n".join(textwrap.wrap(f"'{frase}'",width=22)),font=fonte,spacing=0,align ="right")
-                fundodraw.text((205,325),f"-Braixen",font = fonte)
+            frase = await generate_response_with_text(f"{ia} que braixen diria limite 60 caracteres totais")
+            frase.replace('"','')
+            
+        if (variante.value == 'gun'):
+                meme = Image.open("src/assets/imagens/memes/braixen-citacao-gun.png")
+        if (variante.value == 'gun2'):
+                meme = Image.open("src/assets/imagens/memes/braixen-citacao-gun-olhoaberto.png")
+        fonte = ImageFont.truetype("src/assets/font/Hey Comic.ttf",30)
+        fontegrande = ImageFont.truetype("src/assets/font/Hey Comic.ttf",50)
+        if imagem is None:
+            fundo = Image.new("RGB",(835,367),"white")
+            fundo.paste(meme,(0,0))
+            fundodraw = ImageDraw.Draw(fundo)
+            fundodraw.text((35,30),f"Citação\nFamosa",font = fontegrande)
+            fundodraw.multiline_text((30,200),f"\n".join(textwrap.wrap(f"'{frase}'",width=22)),font=fonte,spacing=0,align ="right")
+            fundodraw.text((205,325),f"-Braixen",font = fonte)
 
-            else:
-                fundo = Image.new("RGB",(835,870),"white")
-                arquivo = await imagem.read()
-                imagem = Image.open(io.BytesIO(arquivo))
-                imagem = imagem.resize((835,502))
-                fundo.paste(imagem,(0,0))
-                fundo.paste(meme,(0,502))
+        else:
+            fundo = Image.new("RGB",(835,870),"white")
+            arquivo = await imagem.read()
+            imagem = Image.open(io.BytesIO(arquivo))
+            imagem = imagem.resize((835,502))
+            fundo.paste(imagem,(0,0))
+            fundo.paste(meme,(0,502))
 
-                fundodraw = ImageDraw.Draw(fundo)
-                fundodraw.text((35,540),f"Citação\nFamosa",font = fontegrande)
-                for i in range(24, len(frase), 24):
-                    frase = frase[:i] + "\n" + frase[i:]
-                fundodraw.multiline_text((30,700),f"'{frase}'",font=fonte,spacing=0,align ="right")
-                fundodraw.text((205,830),f"-Braixen",font = fonte)
+            fundodraw = ImageDraw.Draw(fundo)
+            fundodraw.text((35,540),f"Citação\nFamosa",font = fontegrande)
+            for i in range(24, len(frase), 24):
+                frase = frase[:i] + "\n" + frase[i:]
+            fundodraw.multiline_text((30,700),f"'{frase}'",font=fonte,spacing=0,align ="right")
+            fundodraw.text((205,830),f"-Braixen",font = fonte)
 
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen citacao.png"))
-        except Exception as e:
-           await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixencitacao")
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen citacao.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixencitacao")
 
 
 
@@ -1002,61 +981,61 @@ class diversao(commands.Cog):
     if await Res.print_brix(comando="braixensays",interaction=interaction):
         return
     try:
-            await interaction.response.defer()
-            ignoreimage = False
-            if frase is not None:
-                ignoreimage = True
-                if len(frase) > 72:
-                    await interaction.followup.send(f"Limite de caracteres atingido, você enviou {len(frase)} caracteres", ephemeral = True)
+        await interaction.response.defer()
+        ignoreimage = False
+        if frase is not None:
+            ignoreimage = True
+            if len(frase) > 72:
+                await interaction.followup.send(f"Limite de caracteres atingido, você enviou {len(frase)} caracteres", ephemeral = True)
+                return
+            
+        if ia is not None:
+            ignoreimage = True
+            Check = await userpremiumcheck(interaction)
+            if Check == False:
+                permitido, tempo_restantante = await verificar_cooldown(interaction, "braixensays", 120)
+                if not permitido:
+                    await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
                     return
+            frase = await generate_response_with_text(f"{ia} que braixen diria limite 68 caracteres totais")
+        if ignoreimage is True:
+            meme = Image.open("src/assets/imagens/memes/braixen-says.png")
+            fundo = Image.new("RGBA", meme.size, (0, 0, 0, 0))
+            fundo.paste(meme,(0,0),meme)
+            fonte = ImageFont.truetype("src/assets/font/Hey Comic.ttf",24)
+
+            frase_wrapped = "\n".join(textwrap.wrap(frase.replace('"',''), width=17))
+
+                # Criar uma nova imagem para o texto, com transparência
+            text_img = Image.new("RGBA", (fundo.width, fundo.height), (0, 0, 0, 0))
+            text_draw = ImageDraw.Draw(text_img)
+            text_draw.multiline_text((0, 0), frase_wrapped, font=fonte, fill="black", spacing=0, align="left")
                 
-            if ia is not None:
-                ignoreimage = True
-                Check = await userpremiumcheck(interaction)
-                if Check == False:
-                    permitido, tempo_restantante = await verificar_cooldown(interaction, "braixensays", 120)
-                    if not permitido:
-                        await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
-                        return
-                frase = await generate_response_with_text(f"{ia} que braixen diria limite 68 caracteres totais")
-            if ignoreimage is True:
-                meme = Image.open("src/assets/imagens/memes/braixen-says.png")
-                fundo = Image.new("RGBA", meme.size, (0, 0, 0, 0))
-                fundo.paste(meme,(0,0),meme)
-                fonte = ImageFont.truetype("src/assets/font/Hey Comic.ttf",24)
+            text_img = text_img.rotate(-9, expand=1)
+            bbox = text_img.getbbox()
+            text_img = text_img.crop(bbox)
+                
+                # Posição do texto na imagem final
+            text_pos = (195, 265)
+            fundo.paste(text_img, text_pos, text_img)
 
-                frase_wrapped = "\n".join(textwrap.wrap(frase.replace('"',''), width=17))
+        else:
+            meme = Image.open("src/assets/imagens/memes/braixen-says-imagem.png")
+            mask = Image.open("src/assets/imagens/memes/braixen-says-imagem-mask.png")
+            fundo = Image.new("RGBA", meme.size, (0, 0, 0, 0))
+            imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
+            if not imagem_pil:
+                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+                return
+            imagem_pil = imagem_pil.resize((255,180)).rotate(-9,expand=True)
+            fundo.paste(imagem_pil,(160,250))
+            fundo.paste(Image.new("RGBA", meme.size, (0, 0, 0, 0)),(0,0),mask)
+            fundo.paste(meme,(0,0),meme)
 
-                    # Criar uma nova imagem para o texto, com transparência
-                text_img = Image.new("RGBA", (fundo.width, fundo.height), (0, 0, 0, 0))
-                text_draw = ImageDraw.Draw(text_img)
-                text_draw.multiline_text((0, 0), frase_wrapped, font=fonte, fill="black", spacing=0, align="left")
-                    
-                text_img = text_img.rotate(-9, expand=1)
-                bbox = text_img.getbbox()
-                text_img = text_img.crop(bbox)
-                    
-                    # Posição do texto na imagem final
-                text_pos = (195, 265)
-                fundo.paste(text_img, text_pos, text_img)
-
-            else:
-                meme = Image.open("src/assets/imagens/memes/braixen-says-imagem.png")
-                mask = Image.open("src/assets/imagens/memes/braixen-says-imagem-mask.png")
-                fundo = Image.new("RGBA", meme.size, (0, 0, 0, 0))
-                imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
-                if not imagem_pil:
-                    await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
-                    return
-                imagem_pil = imagem_pil.resize((255,180)).rotate(-9,expand=True)
-                fundo.paste(imagem_pil,(160,250))
-                fundo.paste(Image.new("RGBA", meme.size, (0, 0, 0, 0)),(0,0),mask)
-                fundo.paste(meme,(0,0),meme)
-
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen says.png"))
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen says.png"))
 
     except Exception as e:
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixensays")
@@ -1068,30 +1047,28 @@ class diversao(commands.Cog):
   async def braixendrake(self,interaction: discord.Interaction, img_1: discord.Attachment = None, url_1: str = None, avatar_1: discord.User = None,img_2: discord.Attachment = None, url_2: str = None, avatar_2: discord.User = None):
     if await Res.print_brix(comando="braixensleep",interaction=interaction):
         return
-    if interaction.guild is None:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
-    else:
-        try:
-            await interaction.response.defer()
-            fundo = Image.new("RGB",(534,534),"white")
-            meme = Image.open("src/assets/imagens/memes/braixen_drake_meme.png")
-            img1 = await pegar_imagem(interaction, img_1, url_1, avatar_1,0)
-            img2 = await pegar_imagem(interaction, img_2, url_2, avatar_2,1)
-            if not img1 or not img2:
-                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
-                return
-            img1 = img1.resize((265,264))
-            img2 = img2.resize((265,264))
-            fundo.paste(meme,(0,0))
-            fundo.paste(img1,(269,0))
-            fundo.paste(img2,(269,270))
-            
-            buffer = io.BytesIO()
-            fundo.save(buffer,format="PNG")
-            buffer.seek(0)
-            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen Drake.png"))
-        except Exception as e:
-            await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixendrake")
+
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(534,534),"white")
+        meme = Image.open("src/assets/imagens/memes/braixen_drake_meme.png")
+        img1 = await pegar_imagem(interaction, img_1, url_1, avatar_1,0)
+        img2 = await pegar_imagem(interaction, img_2, url_2, avatar_2,1)
+        if not img1 or not img2:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+            return
+        img1 = img1.resize((265,264))
+        img2 = img2.resize((265,264))
+        fundo.paste(meme,(0,0))
+        fundo.paste(img1,(269,0))
+        fundo.paste(img2,(269,270))
+        
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen Drake.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixendrake")
 
 
 #criador de memes LOONA FOTO
