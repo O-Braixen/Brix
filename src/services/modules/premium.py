@@ -21,7 +21,7 @@ BH_id_boost_channel = int(os.getenv('BH_id_boost_channel'))
 
   
 #FUNÇÂO DE DAR PREMIUM A MEMBRO
-async def liberarpremium(self, ctx, user, args, boost, presente = None):
+"""async def liberarpremium(self, ctx, user, args, boost, presente = None):
     dado = BancoUsuarios.insert_document(user)
     message = f"## 🦊 - Brix Premium\nUsuario: {user.mention}"
     try:
@@ -36,7 +36,7 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
         BancoUsuarios.update_document(user, item)
         message += "\n:white_check_mark: - Premium Ativado."
         if presente:
-          descricao_dm = Res.trad(str="message_premium_presente_send_dm").format(args , presente, int(premium.timestamp()))
+          descricao_dm = Res.trad(str="message_premium_presente_send_dm").format(args , presente.mention, int(premium.timestamp()))
         else:
           descricao_dm = (Res.trad(str=f"message_premiumboost_{args}_send_dm").format(args, int(premium.timestamp())) if boost else Res.trad(user=user, str="message_premium_send_dm").format(int(premium.timestamp())) )
         embed_para_usuario = discord.Embed(            colour=discord.Color.yellow(),            description=descricao_dm     )
@@ -59,7 +59,68 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
     try:
         await ctx.send(embed=resposta)
     except:
-        print("Falha ao enviar mensagem no chat para avisar do premium.")
+        print("Falha ao enviar mensagem no chat para avisar do premium.")"""
+
+
+
+
+
+#FUNÇÂO DE DAR PREMIUM A MEMBRO
+async def liberarpremium(self, ctx, user, args, boost, presente = None):
+    tz = pytz.timezone('America/Sao_Paulo')
+    agora = datetime.datetime.now().astimezone(tz)
+
+    # pega dado do banco ou cria novo
+    dado = BancoUsuarios.insert_document(user)
+    premium = dado.get("premium", agora)
+
+    # adiciona dias
+    premium += datetime.timedelta(days=args)
+    BancoUsuarios.update_document(user, {"premium": premium})
+    
+    message = f"## 🦊 - Brix Premium\nUsuario: {user.mention}"
+
+
+    # mensagem DM pro usuário
+    if presente:
+        descricao_dm = Res.trad(str="message_premium_presente_send_dm").format( args, presente.mention, int(premium.timestamp()) )
+    elif boost:
+        descricao_dm = Res.trad(str=f"message_premiumboost_{args}_send_dm").format( args, int(premium.timestamp()) )
+    else:
+        descricao_dm = Res.trad(user=user, str="message_premium_send_dm").format( int(premium.timestamp()) )
+
+    embed_para_usuario = discord.Embed( colour=discord.Color.yellow(), description=descricao_dm ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+
+
+    # tentativa de enviar DM
+    try:
+      await user.send(embed=embed_para_usuario)
+      message += f":white_check_mark: - DM Enviada.\nDuração: <t:{int(premium.timestamp())}:R>"
+    except:
+      message += f":x: - DM não enviada.\nDuração: <t:{int(premium.timestamp())}:R>"
+      print(f"Falha ao enviar DM para {user.id} - {user.name}")
+
+    if presente:
+      try:
+          descricao_presenteador = Res.trad(str="message_premium_presenteador_send_dm").format( user.mention ,args )
+          embed_para_presenteador = discord.Embed( colour=discord.Color.yellow(), description=descricao_presenteador ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+          await presente.send(embed=embed_para_presenteador)
+          message += ":white_check_mark: - Mensagem enviada ao presenteador."
+      except:
+          message += ":x: - Não consegui enviar DM ao presenteador."
+
+    print(f"Premium ativo para: {user.id} - {user.name}")
+
+    # resposta no chat
+    resposta = discord.Embed( color=discord.Color.yellow(), description=message)
+    try:
+      await ctx.send(embed=resposta)
+    except:
+      print("Falha ao enviar mensagem no chat para avisar do premium.")
+
+
+
+
 
 
 
@@ -306,7 +367,6 @@ class premium(commands.Cog):
             if "destinatario_id" in pagamento and pagamento["destinatario_id"]:
               user = await self.client.fetch_user(pagamento["destinatario_id"])
               presente = await self.client.fetch_user(usuario)
-              presente = presente.mention
             else:
               user = await self.client.fetch_user(usuario)
               presente = None
