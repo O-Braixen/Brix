@@ -69,7 +69,7 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
 
 ### 🌐 Site oficial
 - Conheça mais sobre Brix e explore recursos exclusivos:  
-👉 [brix.discloud.app](https://brix.discloud.app/)
+👉 [brix.squareweb.app](https://brix.squareweb.app/)
 
 ---
 
@@ -78,7 +78,14 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
 ### ☁️ Hospedando na Discloud
 1. Edite o arquivo `exemplo.env` com suas configurações  
 2. Renomeie para `.env`  
-3. Compacte tudo e envie para a Discloud  
+3. Edite o arquivo discloud.config
+4. Compacte tudo e envie para a Discloud  
+
+### ☁️ Hospedando na Squarecloud
+1. Edite o arquivo `exemplo.env` com suas configurações  
+2. Renomeie para `.env`  
+3. Edite o arquivo squarecloud.app
+4. Compacte tudo e envie para a Squarecloud  
 
 ### 💻 Rodando localmente
 1. Instale [Python 3.11+](https://www.python.org/downloads/)  
