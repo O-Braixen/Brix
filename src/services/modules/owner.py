@@ -552,7 +552,7 @@ class Botoesdash(discord.ui.View):
     async def lojadonwload (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_message("<:Braix_Hmph:1272666561244561429>┃ Okay Kyuu, vou atualizar os arquivos locais")
-          await baixaritensloja()
+          await baixaritensloja(baixe_tudo=True)
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner",),delete_after=10,ephemeral=True)
 
@@ -629,7 +629,7 @@ class Botoesdash(discord.ui.View):
 
 
 #--------------- COMANDO PARA BAIXAR ITENS DA LOJA PARA OS ARQUIVOS LOCAIS -----------
-async def baixaritensloja():
+"""async def baixaritensloja():
   filtro = {"_id": {"$ne": "diaria"}}
   itens = BancoLoja.select_many_document(filtro)
   IMAGE_SAVE_PATH = r"src/assets/imagens/backgroud/all-itens"
@@ -654,7 +654,59 @@ async def baixaritensloja():
     tarefas = [baixar_imagem(item, idx + 1) for idx, item in enumerate(itens)]
     await asyncio.gather(*tarefas)
 
-  print('✅ - Todos os itens foram baixados...')
+  print('✅ - Todos os itens foram baixados...')"""
+
+
+
+
+
+
+#--------------- COMANDO PARA BAIXAR ITENS DA LOJA PARA OS ARQUIVOS LOCAIS -----------
+async def baixaritensloja(baixe_tudo: bool = False):
+    filtro = {"_id": {"$ne": "diaria"}}
+    itens = BancoLoja.select_many_document(filtro)
+    IMAGE_SAVE_PATH = r"src/assets/imagens/backgroud/all-itens"
+
+    if not os.path.exists(IMAGE_SAVE_PATH):
+        os.makedirs(IMAGE_SAVE_PATH)
+
+    print('🦊 - Iniciando Download dos itens da loja...')
+
+    async with aiohttp.ClientSession() as session:
+        async def baixar_imagem(item, idx):
+            file_name = f"{item['_id']}.png"
+            file_path = os.path.join(IMAGE_SAVE_PATH, file_name)
+
+            # Checagem individual por arquivo
+            if os.path.exists(file_path) and not baixe_tudo:
+                if os.path.getsize(file_path) > 0:
+                    print(f"⏭️ - Pulando {idx:02d} - {file_name} (já existe e está OK)")
+                    return
+                else:
+                    print(f"⚠️ - Rebaixando {idx:02d} - {file_name} (arquivo vazio/corrompido)")
+
+            try:
+                async with session.get(item['url']) as response:
+                    if response.status == 200:
+                        content = await response.read()
+                        if content:  # só salva se realmente veio algo
+                            with open(file_path, 'wb') as f:
+                                f.write(content)
+                            print(f"🖼️ - Imagem Salva {idx:02d} - {file_name}")
+                        else:
+                            print(f"⚠️ - Resposta vazia para {item['url']}")
+                    else:
+                        print(f'❌ - Falha ao baixar: {item["url"]} ({response.status})')
+            except Exception as e:
+                print(f'❌ - Erro ao baixar {item["url"]}: {e}')
+
+        tarefas = [baixar_imagem(item, idx + 1) for idx, item in enumerate(itens)]
+        await asyncio.gather(*tarefas)
+
+    print('✅ - Download concluído!')
+
+
+
 
 
 
@@ -682,8 +734,8 @@ class owner(commands.Cog):
     await inicializar_caches_se_preciso()
     if not self.verificar_guilds.is_running():
       self.verificar_guilds.start()
-      #await asyncio.sleep(2400)
-      #await baixaritensloja()
+      await asyncio.sleep(900)
+      await baixaritensloja()
 
 
 

@@ -936,7 +936,7 @@ class financeiro(commands.Cog):
         if imagempokemon:
             try:
                 # Usa o helper com cache
-                img = get_pokemon_sprite( url=imagempokemon, pokemon=p['name'], shiny=False )
+                img = get_pokemon_sprite( url=imagempokemon, pokemon=p['id'], shiny=False )
 
                 # converte pra bytes (igual você fazia com requests.content)
                 buffer = io.BytesIO()

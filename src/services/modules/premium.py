@@ -322,7 +322,7 @@ class premium(commands.Cog):
 
 
 #FUNÇÂO DE VERIFICAÇÃO DE ASSINANTES PREMIUM
-  @tasks.loop(minutes=30) #6H loop 6*60*60
+  @tasks.loop(minutes=15) #LOOP DE 15 Minutos
   async def verificar_premium(self): 
     try:
       filtro = {"premium": {"$exists":True}}

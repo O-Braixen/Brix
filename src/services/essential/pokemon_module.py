@@ -207,9 +207,6 @@ class PokemonCache:
 
 
 
-
-
-
 # ======================================================================
 class JogosCache:
     def __init__(self, cache_file='src/services/caches/jogos_cache.json'):

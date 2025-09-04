@@ -7,7 +7,7 @@ from discord import app_commands,Locale
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck 
 from src.services.connection.database import BancoTrocas
-from src.services.essential.pokemon_module import verificar_calendario_pokemon , encontrar_cor_tipo, pokemon_autocomplete , get_pokemon
+from src.services.essential.pokemon_module import verificar_calendario_pokemon , encontrar_cor_tipo, pokemon_autocomplete , get_pokemon , get_pokemon_sprite
 from discord.app_commands import locale_str as _T
 
 
@@ -204,9 +204,10 @@ async def montarpokedex(self,interaction: discord.Interaction,pokemon , brilhant
     specie = requests.get(f"{dex['species']}/").json()
     aniversario = await verificar_calendario_pokemon(pokemon_nome=dex['name'])
     try:
-        if brilhante is True:
-            imagempokemon = Image.open(requests.get(dex['front_shiny'], stream=True).raw) 
-        else: imagempokemon = Image.open(requests.get(dex['front_default'], stream=True).raw)
+        imagempokemon = get_pokemon_sprite( dex['front_shiny'] if brilhante else dex['front_default'], dex["id"], shiny=brilhante)
+        #if brilhante is True:
+        #    imagempokemon = Image.open(requests.get(dex['front_shiny'], stream=True).raw) 
+        #else: imagempokemon = Image.open(requests.get(dex['front_default'], stream=True).raw)
     except:
         imagempokemon = Image.open("src/assets/imagens/Pokedex/Interrogation.png")
 

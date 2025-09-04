@@ -72,7 +72,7 @@ async def gerar_arte_trocas(interaction, troca):
     
 
     #MONTAGEM DA IMAGEM
-    pokeimagem = get_pokemon_sprite( dex['front_shiny'] if troca["shiny"] else dex['front_default'], troca["pokemon"], shiny=troca["shiny"])
+    pokeimagem = get_pokemon_sprite( dex['front_shiny'] if troca["shiny"] else dex['front_default'], dex["id"], shiny=troca["shiny"])
     #try:
     #    if troca["shiny"] is True:
     #        pokeimagem = Image.open(requests.get(dex['front_shiny'], stream=True).raw)
@@ -137,7 +137,7 @@ async def gerar_arte_trocas_disponiveis(interaction,trocas):
         # Busca sprite do pokémon
         #try:
         dex = await get_pokemon(t['pokemon'])
-        pokeimg = get_pokemon_sprite( dex['front_shiny'] if t["shiny"] else dex['front_default'], t["pokemon"], shiny=t["shiny"])
+        pokeimg = get_pokemon_sprite( dex['front_shiny'] if t["shiny"] else dex['front_default'], dex["id"], shiny=t["shiny"])
             #sprite_url = dex['front_shiny'] if t["shiny"] else dex['front_default']
             #pokeimg = Image.open(requests.get(sprite_url, stream=True).raw).convert("RGBA")
         #except:

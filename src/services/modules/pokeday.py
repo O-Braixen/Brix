@@ -94,7 +94,7 @@ class Pokeday(commands.Cog):
                     fundodraw.text((155,130),f"Gerado por Brix",font = fontemini)
                     
                     #MONTAGEM DA IMAGEM
-                    pokeimagem = get_pokemon_sprite( dex['front_default'], pokemon=specie["name"], shiny=False )
+                    pokeimagem = get_pokemon_sprite( dex['front_default'], pokemon=specie["id"], shiny=False )
                     #try:
                     #    pokeimagem = Image.open(requests.get(dex['front_default'], stream=True).raw)
                     #except:
