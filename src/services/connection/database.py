@@ -177,6 +177,9 @@ class BancoServidores: # Classe da coleção de servidores
 lojacollection = db_connection.get_collection("loja")
 
 class BancoLoja:
+
+    def insert_one(id):
+        lojacollection.insert_one({"_id" : id})
     
     def insert_document(id,name,braixencoin,graveto,raridade,url,descricao,fontcor): #inserindo um novo registro
         if lojacollection.find_one({"_id" : id}) is None:

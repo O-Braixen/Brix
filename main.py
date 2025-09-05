@@ -2,7 +2,6 @@ import discord, os  , datetime , pytz ,platform , asyncio
 from os import listdir
 from discord.ext import commands
 from dotenv import load_dotenv
-from src.web import webserver
 from src.services.essential.shardsname import NOME_DOS_SHARDS
 from src.services.essential.translator import BrixTradutor
 
@@ -68,16 +67,12 @@ class Client(commands.AutoShardedBot):
         print(f"🍕  -  Estou em {len(self.guilds)} comunidades com um total de {len(self.users)} membros")
         print(f"⏰  -  A hora no sistema é {now.strftime('%d/%m/%Y às %H:%M:%S')}\n\n")
         
-        asyncio.create_task(webserver.loop_dados_site())
         
 
 
         
 # COISA DO MAIN NÃO MEXER
 client = Client()
-
-# INICIA O SITE
-webserver.iniciar_webserver(client)
 
 # LIGA O BOT
 client.run(token_bot)
