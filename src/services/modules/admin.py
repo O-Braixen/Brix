@@ -24,6 +24,12 @@ donoid = int(os.getenv("DONO_ID"))
 
 
 
+
+
+
+
+
+
 # ======================================================================
 #FUNÇÃO ADICIONAR CARGO TEMPORARIO
 async def addtemproleusuario(self, interaction, membro, cargo, tempo):

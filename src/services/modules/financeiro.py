@@ -7,7 +7,6 @@ from src.services.connection.database import BancoUsuarios , BancoFinanceiro
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import exibirtops , userpremiumcheck, verificar_cooldown
 from src.services.essential.diversos import calcular_saldo, Paginador_Global
-#from modulos.premium import liberarpremium
 from src.services.essential.pokemon_module import get_all_pokemon , get_pokemon , get_pokemon_sprite
 from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGEM
 from dotenv import load_dotenv

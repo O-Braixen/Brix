@@ -177,10 +177,7 @@ class BancoServidores: # Classe da coleção de servidores
 lojacollection = db_connection.get_collection("loja")
 
 class BancoLoja:
-
-    def insert_one(id):
-        lojacollection.insert_one({"_id" : id})
-    
+   
     def insert_document(id,name,braixencoin,graveto,raridade,url,descricao,fontcor): #inserindo um novo registro
         if lojacollection.find_one({"_id" : id}) is None:
             document = {"_id": id,"name": name,"braixencoin": braixencoin,"graveto": graveto,"raridade": raridade,"url": url,"descricao": descricao,"font_color":fontcor}
@@ -210,7 +207,16 @@ class BancoLoja:
 
 
 
+    def insert_loja(id):
+        botconfigcollection.insert_one({"_id" : id})
 
+    def update_loja(id,item): #atualizando um item no banco de dados
+        document = botconfigcollection.replace_one({"_id" : id}, item  , upsert =True)
+        return document
+
+    def select_loja( filtro): #dando select em um deteminado filtro no banco de dados
+        document = botconfigcollection.find(filtro)
+        return document
 
 
 

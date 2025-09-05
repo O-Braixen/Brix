@@ -123,43 +123,6 @@ class bard(commands.Cog):
 
 
 # ======================================================================
-  """
-#COMANDO BARD GPT SLASH
-  @brixai.command(name="gpt",description='❓⠂Pergunte algo para o Braixen inteligente.')
-  @app_commands.checks.cooldown(4,120)
-  @app_commands.describe(pergunta="Pergunte algo para Brix AI...")
-  async def gpt(self,interaction: discord.Interaction,pergunta:str):
-      if await Res.print_brix(comando="gpt",interaction=interaction,condicao=pergunta):
-        return
-      res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-      res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
-      await interaction.response.send_message(embed=res)
-      check = await userpremiumcheck(interaction)
-      if check == False:
-        permitido, tempo_restantante = await verificar_cooldown(interaction, "gpt", 120)
-        if not permitido:
-          await interaction.edit_original_response(embed=None , content=Res.trad(interaction=interaction,str='message_ia_cooldown_premium'))
-          return
-
-      try:
-        prompt=f"Você é brix um braixen bot dentro do discord, curioso, carismatico, e muito ajudante, você ta respondendo para o usuario: {interaction.user} que perguntou {pergunta} em {interaction.locale.value} responda para ele da melhor forma possivel, lembre-se que você se referencia como Brix AI"
-        ans = await generate_response_with_text(prompt)
-        if len(ans) < 1990:
-          await interaction.edit_original_response(embed=None , content=ans)
-        else:
-          await interaction.delete_original_response()
-          while len(ans) > 1990:
-            ans_text = ans[:1990]
-            await interaction.followup.send(ans_text)
-            ans = ans[1990:]
-          await interaction.followup.send(ans)
-      except Exception as e:
-            await Res.erro_brix_embed(interaction=interaction,str="message_ia_erro",e=e,comando="ask GPT")"""
-        
-
-
-
-
 
   @brixai.command( name="gpt", description='❓⠂Pergunte algo para o Braixen inteligente.' )
   @app_commands.checks.cooldown(4, 120)
@@ -304,34 +267,34 @@ class bard(commands.Cog):
 
 
 # ======================================================================
-  """
+  
 # API AINDA NÂO DISPONIVEL PARA USUARIOS FREE
-  @create.command(name="imagem",description='📃⠂Gere uma imagem com Brix Gemini.')
-  @app_commands.checks.cooldown(1,120)
-  @app_commands.describe(prompt="Descreva como deseja sua imagem...")
-  async def generate_image(self,interaction: discord.Interaction,prompt:str):
-    res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-    res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
-    await interaction.response.send_message(embed=res)
-    check = await userpremiumcheck(interaction)
-    if check == False:
-      permitido, tempo_restantante = await verificar_cooldown(interaction, "generate_image", 120)
-      if not permitido:
-        await interaction.edit_original_response(embed=None , content=Res.trad(interaction=interaction,str='message_ia_cooldown_premium'))
-        return
-    art , text= await generate_image_by_text(prompt)
-    file = discord.File(fp=art, filename="Brix_gemini_image.png")
-    res =  discord.Embed(description=Res.trad(interaction=interaction, str="message_ia_generate_imagen").format(text), color=discord.Color.yellow() )
-    res.set_image(url="attachment://Brix_gemini_image.png")
+  #@create.command(name="imagem",description='📃⠂Gere uma imagem com Brix Gemini.')
+  #@app_commands.checks.cooldown(1,120)
+  #@app_commands.describe(prompt="Descreva como deseja sua imagem...")
+  #async def generate_image(self,interaction: discord.Interaction,prompt:str):
+  #  res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
+  #  res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+  #  await interaction.response.send_message(embed=res)
+  #  check = await userpremiumcheck(interaction)
+  #  if check == False:
+  #    permitido, tempo_restantante = await verificar_cooldown(interaction, "generate_image", 120)
+  #    if not permitido:
+  #      await interaction.edit_original_response(embed=None , content=Res.trad(interaction=interaction,str='message_ia_cooldown_premium'))
+  #      return
+  #  art , text= await generate_image_by_text(prompt)
+  #  file = discord.File(fp=art, filename="Brix_gemini_image.png")
+  #  res =  discord.Embed(description=Res.trad(interaction=interaction, str="message_ia_generate_imagen").format(text), color=discord.Color.yellow() )
+  #  res.set_image(url="attachment://Brix_gemini_image.png")
     
 
-    await interaction.edit_original_response(content="",embed=res , attachments=[file])  
+  #  await interaction.edit_original_response(content="",embed=res , attachments=[file])  
 
-  @generate_image.error
-  async def on_test_error(self, interaction:discord.Interaction, error: app_commands.AppCommandError):
-    if isinstance(error,app_commands.CommandOnCooldown):
-      await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
-  """
+  #@generate_image.error
+  #async def on_test_error(self, interaction:discord.Interaction, error: app_commands.AppCommandError):
+  #  if isinstance(error,app_commands.CommandOnCooldown):
+  #    await interaction.response.send_message(Res.trad(interaction=interaction,str='message_ia_erro_cooldown').format(int(time.time() + error.retry_after)), ephemeral= True)
+  
 
 
 

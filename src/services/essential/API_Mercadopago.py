@@ -54,7 +54,7 @@ def criar_link_pagamento(user_id , quant_meses , preco , texto):
         "transaction_amount": float(preco*quant_meses),
         "description": f"Brix Premium ({texto})",
         "external_reference": f"{user_id}-{quant_meses}", 
-        "notification_url": "https://brix.squareweb.app/comprapremium",
+        "notification_url": "https://brixbot.xyz/comprapremium",
         "payer": {
             "email": "comprador@email.com",
             "first_name": str(user_id),

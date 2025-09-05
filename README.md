@@ -69,7 +69,8 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
 
 ### 🌐 Site oficial
 - Conheça mais sobre Brix e explore recursos exclusivos:  
-👉 [brix.squareweb.app](https://brix.squareweb.app/)
+👉 [brixbot.xyz](https://brixbot.xyz/)
+- Sabia que o site também é publico? segue o repositorio dele https://github.com/O-Braixen/website-brix
 
 ---
 

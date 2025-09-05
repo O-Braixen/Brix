@@ -9,25 +9,53 @@ from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGE
 from dotenv import load_dotenv
 
 
+
+
+
+# ======================================================================
+# LOAD DOS DADOS DO .ENV
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env')) #load .env da raiz
-donoid = int(os.getenv("DONO_ID")) #acessa e define o id do dono
+DONOID = int(os.getenv("DONO_ID")) #acessa e define o id do dono
+
+# ID fixo do canal de loja
+CHANNEL_LOJA_ID = 1384179152315224234
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================================
 # AQUI SÒ SERVE PARA CHAMAR A LOJA DE FATO, AQUI É RESPONSAVEL POR COLETAR OS DADOS PARA ENVIAR PARA A CONTRUÇÃO DA LOJA
 async def chamarlojadiaria(self,interaction:discord.Interaction,item):
     await interaction.original_response()
     try:
       #consulta no banco de dados para saber quais são os itens disponiveis na loja de hoje
       filtro = {"_id": "diaria"}
-      diaria = BancoLoja.select_many_document(filtro)
+      diaria = list(BancoLoja.select_loja(filtro))  # transforma cursor em lista
       lista = []
       #ordena os itens na loja de hoje em uma nova lista
+      
       for id,art in diaria[0].items():
         if id.startswith('item'):
           lista.append(art)
+
+      if lista == []:
+        await interaction.followup.send(content=Res.trad(interaction=interaction,str="loja_diaria_sem_item").format(interaction.user.id))
+        return
       #usa a lista ordenada para coletar mais informações dos itens, nome, valores essas coisas
       filtro = {"_id": {"$in":lista}}
       dados = BancoLoja.select_many_document(filtro)
@@ -41,6 +69,22 @@ async def chamarlojadiaria(self,interaction:discord.Interaction,item):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================================
 #Função exibir item loja
 async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanholoja,originaluser):
   await interaction.original_response()
@@ -51,27 +95,20 @@ async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanhol
   except:
     backgroud = Image.open(requests.get(loja[item]['url'], stream=True).raw)
   backgroud = backgroud.resize((500,250))
-  #fundo.paste(backgroud,(50,65))
   fundo.paste(backgroud,(50,50))
-  #artloja = Image.open(f"src/assets/imagens/financeiro/art-loja.png")
   fundo.paste(self.loja_artloja,(0,0),self.loja_artloja)
 
-  #fontegrande = ImageFont.truetype("src/assets/font/PoetsenOne-Regular.ttf", 27)
   textoname = Res.trad(interaction=interaction,str="loja_diaria")
   fundodraw = ImageDraw.Draw(fundo)
   h = fundodraw.textlength(textoname,self.loja_fontegrande)
   fundodraw.text(((MAX_h-h)/2, 5), textoname, font=self.loja_fontegrande, fill='#eff1f3',align='center')
-                              #25
-  #fonte = ImageFont.truetype("src/assets/font/PoetsenOne-Regular.ttf", 27)
   textoname = loja[item]['name']
   graveto = '-' if str(loja[item]['graveto']) == '0' else "{:,}".format(int(loja[item]['graveto']))
   braixencoin = '-' if str(loja[item]['braixencoin']) == '0' else "{:,}".format(int(loja[item]['braixencoin']))
   pagina = f"{item+1}/{len(tamanholoja)}"
 
-  #fundodraw = ImageDraw.Draw(fundo)
   h = fundodraw.textlength(textoname,self.loja_fontegrande)
   fundodraw.text(((MAX_h-h)/2, 300), textoname, font=self.loja_fontegrande, fill='#ffffff',align='center')
-                              #325
   if loja[item]['raridade'] == 0:
     textoname = "Item Comum"
   elif loja[item]['raridade'] == 1:
@@ -81,14 +118,11 @@ async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanhol
   elif loja[item]['raridade'] == 3:
     textoname = "Item Exclusivo"
 
-  #fontepequena = ImageFont.truetype("src/assets/font/PoetsenOne-Regular.ttf", 22)
-  #fundodraw = ImageDraw.Draw(fundo)
+
   h = fundodraw.textlength(textoname,self.loja_fontepequena)
   fundodraw.text(((MAX_h-h)/2, 325), textoname, font=self.loja_fontepequena, fill='#ffffff',align='center')
-        #                      355
   fundodraw.text((45, 375), graveto, font=self.loja_fontegrande, fill='#ffffff')
   fundodraw.text((495, 375), braixencoin, font=self.loja_fontegrande, fill='#ffffff')
-  #item+1}/{len(tamanholoja)
   h = fundodraw.textlength(pagina,self.loja_fontepequena)
   fundodraw.text(((MAX_h-h)/2, 385), pagina, font=self.loja_fontepequena, fill='#ffffff',align='center')
 
@@ -156,6 +190,10 @@ async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanhol
 
 
 
+
+
+
+
 # COMANDO PARA COMFIRMAR A COMPRAR DE UM ITEM
 @commands.Cog.listener()
 async def confirmacao_comprar(self,interaction:discord.Interaction, item, tamanholoja , loja, originaluser, moeda):
@@ -185,6 +223,10 @@ async def confirmacao_comprar(self,interaction:discord.Interaction, item, tamanh
   botãoconfirmação.callback = partial(comprar_moeda,self,item=item,loja=loja, moeda = moeda , novosaldo = novosaldo , originaluser=originaluser)
 
   await interaction.edit_original_response(content = Res.trad(interaction=interaction, str='loja_diaria_Comprar_item').format(loja[item]['name'],emoji),view=botão)#, attachments=[])
+
+
+
+
 
 
 
@@ -242,6 +284,12 @@ async def comprar_moeda(self,interaction, item, loja, moeda , novosaldo, origina
     await chamarlojadiaria(self,interaction,item)
 
 
+
+
+
+
+
+
 #BOTÃO PARA TROCA DE PAGINA DE ITENS, ELE SUPORTA TANTO IR PARA FRENTE QUANTO IR PARA TRÁS
 @commands.Cog.listener()
 async def mover_item(self,interaction,item,loja,tamanholoja,originaluser,sentido):
@@ -258,10 +306,20 @@ async def mover_item(self,interaction,item,loja,tamanholoja,originaluser,sentido
     await exibiritemloja(self,interaction,item=item+sentido,loja=loja,tamanholoja=tamanholoja,originaluser=originaluser)
 
 
+
+
+
+
+
 #COMANDO DE EXIBIR AJUDA SOBRE A LOJA, CLASSICO BOTÃO DE AJUDA
 @commands.Cog.listener()
 async def duvidaloja(interaction):
   await interaction.response.send_message(Res.trad(interaction=interaction,str="botão_duvida_loja"),delete_after=30,ephemeral=True)
+
+
+
+
+
 
 
 
@@ -277,6 +335,11 @@ async def pergunta_definir_fundo( interaction, item, loja, originaluser):
     botão.add_item(item=botaodefinirfundo)
     botaodefinirfundo.callback = partial(definir_fundo,banner_name = banner_name , originaluser = originaluser)
     await interaction.response.send_message(Res.trad(interaction=interaction, str="message_pergunta_fundo_definir").format(loja[item]['name']),view=botão, ephemeral=True)
+
+
+
+
+
 
 
 
@@ -299,6 +362,11 @@ async def definir_fundo(interaction: discord.Interaction, banner_name , original
     await userperfil(interaction,interaction.user)
 
 
+
+
+
+
+
 #BOTÃO PARA USUARIO VISUALIZAR O FUNDO ANTES DE COMPRA-LO
 @commands.Cog.listener()
 async def testar_fundo(interaction, item, loja, originaluser, moeda):
@@ -315,15 +383,49 @@ async def testar_fundo(interaction, item, loja, originaluser, moeda):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------Classe Da Loja---------------------------
+
 class loja(commands.Cog):
   def __init__(self, client: commands.Bot):
     self.client = client
+
+
+
+
+
 
 # CARREGANDO COISAS PADROES DE USO NO SISTEMA DE TOPS DO BOT
     self.loja_artloja = Image.open(f"src/assets/imagens/financeiro/art-loja.png")
     self.loja_fontegrande = ImageFont.truetype("src/assets/font/PoetsenOne-Regular.ttf", 27)
     self.loja_fontepequena = ImageFont.truetype("src/assets/font/PoetsenOne-Regular.ttf", 22)
   
+
+
+
+
+
+
   @commands.Cog.listener()
   async def on_ready(self):
     print("🍕  -  Modúlo Loja carregado.")
@@ -334,46 +436,63 @@ class loja(commands.Cog):
 
 
 
-#FUNÇÂO DE TROCA DE ITENS DA LOJA
-  @tasks.loop(time=datetime.time(hour=0, minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
-  async def lojadiariatrocaitens(self): 
-    print(f"🔄️ - Rodando Troca de itens da loja diária")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================================
+  # FUNÇÃO DE TROCA DE ITENS DA LOJA
+  @tasks.loop(time=datetime.time(hour=0, minute=0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
+  async def lojadiariatrocaitens(self):
+    print("🔄️ - Rodando Troca de itens da loja diária")
     try:
-      itens_para_banco = {}
-      lojaativo = BancoBot.insert_document()
+        itens_para_banco = {}
+        lojaativo = BancoBot.insert_document()
 
-      if lojaativo['rotacaoloja'] is False:
-        print("❌ - rotação de loja desativada")
-        for i in range(1,9): #DICA SEMPRE INDICAR +1 no FINAL
-          chave = f"item{i}"
-          valor = lojaativo[f'lojaitem{i}']
-          itens_para_banco[chave] = valor
-          print(f"Entro na loja o item: {lojaativo[f'lojaitem{i}']}")
+        if lojaativo.get('rotacaoloja') is False:
+            print("❌ - rotação de loja desativada")
+            for i in range(1, 9):
+                chave = f"item{i}"
+                valor = lojaativo.get(f'lojaitem{i}')
+                itens_para_banco[chave] = valor
+                print(f"Entrou na loja o item: {valor}")
 
-          #Envia para banco de dados para uso futuro
-        BancoLoja.update_one(id='diaria',item=itens_para_banco)
-        print("update realizado com sucesso kyuu")
-        return
-      else:
-            # CONSULTANDO NO BANCO TODOS OS ITENS
+            BancoLoja.update_loja(id="diaria", item= itens_para_banco)
+            print("✅ - update realizado com sucesso kyuu")
+            return
+
+        # CONSULTA ITENS DISPONÍVEIS
         filtro = {"graveto": {"$ne": 0}, "_id": {"$ne": "diaria"}}
         itens = BancoLoja.select_many_document(filtro)
 
-            # CONSULTANDO NO BANCO OS ITENS ATUAIS
-        filtro = {"_id": "diaria"}
-        diaria = BancoLoja.select_many_document(filtro)
-
+        # CONSULTA ITENS ATUAIS
+        diaria = list(BancoLoja.select_loja({"_id": "diaria"}))
         listaatual = []
-        for id,item in diaria[0].items():
-          if id.startswith('item'):
-            listaatual.append(item)
+        if diaria:
+            for id, item in diaria[0].items():
+                if id.startswith('item'):
+                    listaatual.append(item)
+        else:
+            print("⚠️ Registrando id da loja diaria")
+            BancoLoja.insert_loja("diaria")
+            return
 
-            # Listas para armazenar os itens de diferentes raridades
-        raridade_0 = []
-        raridade_1 = []
-        raridade_2 = []
-        itens_selecionados = []
-        # Separar os itens por raridade
+        # CLASSIFICAR POR RARIDADE
+        raridade_0, raridade_1, raridade_2 = [], [], []
         for item in itens:
             if item['raridade'] == 0:
                 raridade_0.append(item)
@@ -381,105 +500,133 @@ class loja(commands.Cog):
                 raridade_1.append(item)
             elif item['raridade'] == 2:
                 raridade_2.append(item)
-        # Verificar se o item não está na lista anterior
+
+        itens_selecionados = []
+
         def item_nao_na_lista_anterior(item, lista_anterior):
-            for item_anterior in lista_anterior:
-              if item_anterior == item['_id']:
-                return False
-            return True
+            return item['_id'] not in lista_anterior
 
-        # Selecionar 2 itens de raridade 0 sem duplicatas # essa parte foi desativada para exibir itens mais raros
-        while len(itens_selecionados) < 4 and len(raridade_0) > 0:
+        # Selecionar até 4 comuns
+        tentativas = 0
+        while len(itens_selecionados) < 4 and raridade_0 and tentativas < 5:
             item = random.choice(raridade_0)
-            if item not in itens_selecionados and item_nao_na_lista_anterior(item, listaatual):
-               itens_selecionados.append(item)
-
-        # Selecionar 1 item de raridade 1 sem duplicatas
-        while len(itens_selecionados) < 8 and (len(raridade_1) + len(raridade_0)) > 0:
-            raridades_1_ou_0 = raridade_1 + raridade_0 
-            item = random.choice(raridades_1_ou_0)
-            if item not in itens_selecionados and item_nao_na_lista_anterior(item, listaatual):
-               itens_selecionados.append(item)
-
-        # Selecionar 1 item de raridade 1 ou 2 sem duplicatas
-        while len(itens_selecionados) < 10 and (len(raridade_2) ) > 0:
-            raridades_1_ou_2 = raridade_2
-            item = random.choice(raridades_1_ou_2)
-            if item not in itens_selecionados and item_nao_na_lista_anterior(item, listaatual):
-               itens_selecionados.append(item)
-
-        # Selecionar 1 item de raridade 1 sem duplicatas
-        #while len(itens_selecionados) < 8 and (len(raridade_1) + len(raridade_0) + len(raridade_2)) > 0:
-        #    raridades = raridade_1 + raridade_0 + raridade_2
-        #    item = random.choice(raridades)
-        #    if item not in itens_selecionados and item_nao_na_lista_anterior(item, listaatual):
-        #        itens_selecionados.append(item)
+            if item['_id'] not in [i['_id'] for i in itens_selecionados] and item_nao_na_lista_anterior(item, listaatual):
+                itens_selecionados.append(item)
+                tentativas = 0  # reset se conseguiu
+            else:
+                tentativas += 1
 
 
-            # Criar um dicionário com os itens selecionados
-        channel = self.client.get_channel(1384179152315224234)
-        await channel.purge(limit=30)
-        await channel.send(content=f"# Loja Diaria de {datetime.datetime.now().strftime('%d/%m/%Y')    }")
+        # Selecionar até 8 comuns/raros
+        tentativas = 0
+        while len(itens_selecionados) < 8 and (raridade_1 or raridade_0) and tentativas < 5:
+            raridades = raridade_1 + raridade_0
+            item = random.choice(raridades)
+            if item['_id'] not in [i['_id'] for i in itens_selecionados] and item_nao_na_lista_anterior(item, listaatual):
+                itens_selecionados.append(item)
+                tentativas = 0
+            else:
+                tentativas += 1
 
-        for i, item in enumerate(itens_selecionados,start=1):
-          chave = f"item{i}"
-          valor = item['_id']
-          itens_para_banco[chave] = valor
-          print(f"Entro na loja o item: {item['_id']}")
-          # Mostra o item no canal da BH
-          respostaart = discord.Embed( colour=discord.Color.yellow(),description=f"## Item {i} - {item['name']}\n\n{item['descricao']}"    )
-          respostaart.set_image(url=item['url'])
-          if item['raridade'] == 0:
-            raridade = "Comum"
-          elif item['raridade'] == 1:
-            raridade = "Raro"
-          elif item['raridade'] == 2:
-            raridade = "Epica"
-          elif item['raridade'] == 3:
-            raridade = "Exclusiva"
-
-          respostaart.add_field(name="Braixencoin", value="{:,.0f} <:BraixenCoin:1272655353108103220>".format(item['braixencoin']), inline=True)
-          respostaart.add_field(name="Gravetos", value="{:,.0f} <:Graveto:1318962131567378432>".format(item['graveto']), inline=True)
-          respostaart.add_field(name="Raridade", value="{}".format(raridade), inline=True)
-          await channel.send(embed=respostaart)
-          #await asyncio.sleep(0.2)
-          # Verificar se item é de usuário
-          match = re.search(r"(\d{17,20})", valor)
-          if match:
-            id_usuario = int(match.group(1))
-            try:
-              user = await self.client.fetch_user(id_usuario)
-              usuario = BancoUsuarios.insert_document(user)
-              if usuario['dm-notification'] is True:
-                resposta_dm = discord.Embed(
-                  color=discord.Color.yellow(),
-                  description=Res.trad(user=user, str='message_financeiro_itemloja_useraviso').format( user.name , valor )
-                )
-                resposta_dm.set_image(url=item['url'])
-                await user.send(embed=resposta_dm)
-                print(f"✅ - avisando usuario ({id_usuario}) da entrada do item {valor}")
-            except Exception as e:
-              print(f"Não foi possível enviar DM para {id_usuario}: {str(e)}")
+        # Selecionar até 10 épicos
+        tentativas = 0
+        while len(itens_selecionados) < 10 and raridade_2 and tentativas < 5:
+            item = random.choice(raridade_2)
+            if item['_id'] not in [i['_id'] for i in itens_selecionados] and item_nao_na_lista_anterior(item, listaatual):
+                itens_selecionados.append(item)
+                tentativas = 0
+            else:
+                tentativas += 1
 
 
-          #Envia para banco de dados para uso futuro
-        BancoLoja.update_one(id='diaria',item=itens_para_banco)
+        # --- SALVAR LOJA NO BANCO ---
+        for i, item in enumerate(itens_selecionados, start=1):
+            chave = f"item{i}"
+            itens_para_banco[chave] = item['_id']
+            print(f"Entrou na loja o item: {item['_id']}")
+
+        BancoLoja.update_loja(id="diaria", item= itens_para_banco)
         print("🔄️ - loja atualizada")
 
-
+        # --- ATUALIZAR BANNER DO BRIX ---
         bannerbrix = random.choice(itens_selecionados)
         insert = {"backgroud": bannerbrix['_id']}
-        BancoUsuarios.update_document(self.client.user,insert)
-        print(f"banner do Brix atualizado para: {bannerbrix['_id']}")
-        return
-    except:
-      print("erro na atualização da loja diária.")
-      return
-  
+        BancoUsuarios.update_document(self.client.user, insert)
+        print(f"✨ - Banner do Brix atualizado para: {bannerbrix['_id']}")
+
+        # --- NOTIFICAR CANAL (opcional) ---
+        channel = self.client.get_channel(CHANNEL_LOJA_ID)
+        if channel:
+            await channel.purge(limit=50)
+            await channel.send(content=f"# Loja Diaria de {datetime.datetime.now().strftime('%d/%m/%Y')}")
+            for i, item in enumerate(itens_selecionados, start=1):
+                respostaart = discord.Embed(
+                    colour=discord.Color.yellow(),
+                    description=f"## Item {i} - {item['name']}\n\n{item['descricao']}"
+                )
+                respostaart.set_image(url=item['url'])
+
+                raridade_txt = {0: "Comum", 1: "Raro", 2: "Épico", 3: "Exclusivo"}.get(item['raridade'], "Desconhecido")
+
+                respostaart.add_field(name="Braixencoin", value="{:,.0f} <:BraixenCoin:1272655353108103220>".format(item['braixencoin']), inline=True)
+                respostaart.add_field(name="Gravetos", value="{:,.0f} <:Graveto:1318962131567378432>".format(item['graveto']), inline=True)
+                respostaart.add_field(name="Raridade", value=raridade_txt, inline=True)
+                await channel.send(embed=respostaart)
+
+                # Se for item de usuário, mandar DM
+                match = re.search(r"(\d{17,20})", item['_id'])
+                if match:
+                    id_usuario = int(match.group(1))
+                    try:
+                        user = await self.client.fetch_user(id_usuario)
+                        usuario = BancoUsuarios.insert_document(user)
+                        if usuario.get('dm-notification') is True:
+                            resposta_dm = discord.Embed(
+                                color=discord.Color.yellow(),
+                                description=Res.trad(user=user, str='message_financeiro_itemloja_useraviso').format(user.name, item['_id'])
+                            )
+                            resposta_dm.set_image(url=item['url'])
+                            await user.send(embed=resposta_dm)
+                            print(f"✅ - Avisando usuario ({id_usuario}) da entrada do item {item['_id']}")
+                    except Exception as e:
+                        print(f"⚠️ Não foi possível enviar DM para {id_usuario}: {e}")
+
+    except Exception as e:
+        print(f"❌ Erro na atualização da loja diária: {e}")
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================================
   #COMANDO ADICIONAR ITENS A LOJA OWNER
   @commands.command(name="addloja", description="adiciona um item a loja do bot...")
   async def addloja(self,ctx,id:str = None,name:str = None,graveto:int = None,braixencoin:int = None,raridade:int = None,url:str = None,fontcor:str = None, *, descricao: str = None):
@@ -487,7 +634,7 @@ class loja(commands.Cog):
         await ctx.message.delete()
     except:
         print("falta de permissão na comunidade")
-    if ctx.author.id == donoid:
+    if ctx.author.id == DONOID:
       if id is None or name is None or braixencoin is None or graveto is None or raridade is None or url is None or descricao is None or fontcor is None:
         await ctx.send(Res.trad(guild=ctx.guild.id,str="message_erro_notargument").format("use ```-addloja id nome em parenteses graveto braixencoin raridade url com parenteses #CorFonte descrição```"))
         return
@@ -503,11 +650,18 @@ class loja(commands.Cog):
 
 
 
-    
+
+
+
+
+
+
+
+# ======================================================================
   # COMANDO PARA EXIBIR ITENS DA LOJA OWNER
   @commands.command(name="showloja", description="exibe os itens registrados da loja do bot...")
   async def showloja(self, ctx):
-    if ctx.author.id == donoid:
+    if ctx.author.id == DONOID:
         filtro = {"braixencoin": {"$exists": True}}
         dados = BancoLoja.select_many_document(filtro).sort('raridade', -1)
         itens_por_mensagem = 10  # Defina o número máximo de itens por mensagem
@@ -527,10 +681,18 @@ class loja(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+# ======================================================================
   #COMANDO PARA EXIBIR UM ITEM DA LOJA 
   @commands.command(name="showitem", description="exibe um deteminado itens registrado da loja do bot...")
   async def showitem(self,ctx,id:str):
-    if ctx.author.id == donoid:
+    if ctx.author.id == DONOID:
       try:
         dados = BancoLoja.select_one(id)
         lista = f"[{dados['name']}]({dados['url']}) Raridade: **{dados['raridade']}**\n**{dados['graveto']}** <:Graveto:1318962131567378432> --- **{dados['braixencoin']}** <:BraixenCoin:1272655353108103220> - ID: {dados['_id']}\nDescrição: {dados['descricao']}\n\n```-addloja {dados['_id']} '{dados['name']}' {dados['graveto']} {dados['braixencoin']} {dados['raridade']} {dados['url']} {dados['font_color']} {dados['descricao']}```"
@@ -552,8 +714,26 @@ class loja(commands.Cog):
 
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================================  
   #GRUPO COMANDOS DA LOJA DO BRIX 
   loja=app_commands.Group(name="loja",description="Comandos da loja do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
+
+
+
+
+
 
 
 
@@ -567,6 +747,14 @@ class loja(commands.Cog):
   
 
 
+
+
+
+
+
+
+
+
   # COMANDO DE EXIBIR OS ITENS DA LOJA DO BRIX
   @loja.command(name="itens", description="🦊⠂Exibe os itens da diária de brix.")
   async def lojaitens(self,interaction: discord.Interaction):
@@ -576,6 +764,18 @@ class loja(commands.Cog):
     await interaction.response.defer()
     await painelexibirskin(self,interaction,lotes=0,banner='braixen-house-2023',paginatual=1,totalpages=0,originaluser = interaction.user)
            
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -652,6 +852,24 @@ async def painelexibirskin(self,interaction: discord.Interaction,lotes,banner,pa
     except:
       resposta.add_field(name="item a venda?", value="não", inline=True)
     await interaction.edit_original_response(content='',embed=resposta, view=view)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

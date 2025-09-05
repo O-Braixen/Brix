@@ -4,7 +4,6 @@ from discord import app_commands
 from discord.voice_client import VoiceClient 
 from typing import List
 from functools import partial
-#import e621py_wrapper as e621 #IMPORTAÇÂO E621
 from src.services.essential.E621api import E621
 from src.services.connection.database import BancoServidores
 from src.services.essential.respostas import Res
@@ -14,17 +13,36 @@ from src.services.essential.imagem import pegar_imagem
 from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGEM
 Image.MAX_IMAGE_PIXELS = None
 
+
+# ======================================================================
+
 id_chatBH = int(os.getenv('id_chatBH'))
 
 
+
+
+
+
+
+
+# ======================================================================
+#REALIZANDO O LOGIN DA API DO E621
 try:
-    #login e621
     time.sleep(2)  # Espera de 2 segundos
     e621api = E621()
     e621api.login(os.getenv("E621_Login"), os.getenv("E621_Api"))
     print("🦊  -  Login e621 bem-sucedido!")
 except:
     print(f"❌  -  Falha no login do e621")
+
+
+
+
+
+
+
+
+
 
 
 
@@ -76,6 +94,22 @@ async def buscae621slash(interaction,quantidade,item):
         await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_APIE621"),ephemeral = True)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #API ANIMAL RANDOMICO VIA SLASH
 async def animalrandomico(interaction, quantidade, apirandom):
     try:
@@ -109,12 +143,36 @@ async def animalrandomico(interaction, quantidade, apirandom):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================================
+
+
 class diversao(commands.Cog):
   def __init__(self, client: commands.Bot):
     self.client = client
      # Cache para contar erros de cada registro: chave = ID do servidor, valor = contador
     self.autophox_error_count = {}
     
+
+
+
+
+
+
+
+
+
 
 
 
@@ -126,6 +184,17 @@ class diversao(commands.Cog):
         await asyncio.sleep(1800) #1800
         self.autophox.start()
   
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -144,6 +213,19 @@ class diversao(commands.Cog):
                 await message.reply(random.choice(Res.trad(guild=message.guild.id,str='responsekyu')))
             except:
                 print(f"falha ao enviar Kyu no servidor {message.guild.name} - {message.guild.id} para o {message.author.name} - {message.author.id}")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -204,6 +286,23 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #------------------COMANDOS-------------------------------
 
   # Comando AutoPhox
@@ -238,7 +337,7 @@ class diversao(commands.Cog):
 
 
 
-    """
+    
 #GRUPO DE COMANDOS DE KYU DO BOT 
   kyu=app_commands.Group(name="kyu",description="Comandos de voz do Brix.")
 
@@ -277,7 +376,26 @@ class diversao(commands.Cog):
         await interaction.guild.voice_client.disconnect(force=True)
         await interaction.followup.send(embed=resposta)
     except Exception as e:
-        await Res.erro_brix_embed(interaction,str="message_erro_brixsystem",e=e,comando="leave")"""
+        await Res.erro_brix_embed(interaction,str="message_erro_brixsystem",e=e,comando="leave")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -296,6 +414,16 @@ class diversao(commands.Cog):
   img=app_commands.Group(name="img",description="Comandos de imagens do bot.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
 
+
+
+
+
+
+
+
+
+
+
 #COMANDO BRAIXEN SLASH
   @img.command(name="braixen",description='🎨⠂imagem de Braixen.')
   @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
@@ -303,6 +431,17 @@ class diversao(commands.Cog):
   async def braixen(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None):
     item = "braixen"
     await buscae621slash(interaction,quantidade,item)
+
+
+
+
+
+
+
+
+
+
+
 
 
 #COMANDO FENNEKIN SLASH
@@ -314,6 +453,17 @@ class diversao(commands.Cog):
     await buscae621slash(interaction,quantidade,item)
 
 
+
+
+
+
+
+
+
+
+
+
+
 #COMANDO DELPHOX SLASH
   @img.command(name="delphox",description='🎨⠂imagem de Delphox.')
   @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
@@ -322,6 +472,18 @@ class diversao(commands.Cog):
     item = "delphox"
     await buscae621slash(interaction,quantidade,item)
   
+
+
+
+
+
+
+
+
+
+
+
+
 
   #COMANDO PRIMARINA SLASH
   @img.command(name="busca",description='🎨⠂Procure algo no e621.')
@@ -362,6 +524,18 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 #GRUPO DE COMANDOS DE DIVERSÂO DO BOT 
   modulodiversao=app_commands.Group(name="diversao",description="Comandos de diversão do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
@@ -383,6 +557,11 @@ class diversao(commands.Cog):
     else:
         mensagem = "<:BraixenCoinCoroa:1272655802070732852>  - **coroa**"
     await interaction.response.send_message(mensagem)
+
+
+
+
+
 
 
 
@@ -432,6 +611,14 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
 #COMANDO 8BALL
   @modulodiversao.command(name='8ball',description='🎱⠂Pergunte algo de sim/não ao Brix.')
   @app_commands.describe(pergunta = "Escreva sua pergunta de sim ou não...")
@@ -458,6 +645,12 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
 #COMANDO SABEDORIA DE BRIX
   @modulodiversao.command(name='sabedoria',description='🦊⠂Adquira um conhecimento aleatório de brix.')
   async def sabedoriabrix(self, interaction:discord.Interaction):
@@ -466,6 +659,17 @@ class diversao(commands.Cog):
     await interaction.response.defer()
     resposta = discord.Embed( colour=discord.Color.yellow(),description=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')))
     await interaction.followup.send(embed=resposta)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -479,6 +683,20 @@ class diversao(commands.Cog):
     resposta = discord.Embed( colour=discord.Color.yellow(),description=Res.trad( interaction=interaction, str='message_diversao_diariobrix_descricao').format(diario))
     resposta.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/3238/3238016.png")
     await interaction.followup.send(embed=resposta)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -539,8 +757,45 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   #GRUPO DE COMANDOS DE IMAGENS RANDOMICAS BOT 
   gruporand=app_commands.Group(name="randomico",description="Comandos de imagens randomicos.",parent = modulodiversao)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #COMANDO RAPOSA RANDOMICA SLASH
@@ -567,6 +822,19 @@ class diversao(commands.Cog):
         await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_apirandomica"),delete_after=10,ephemeral = True)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #COMANDO GATO RANDOMICO SLASH
   @gruporand.command(name="gato",description='🎨⠂imagem aleatoria de um gato.')
   @app_commands.describe(quantidade="quantidade de imagens, limite 5")
@@ -575,6 +843,18 @@ class diversao(commands.Cog):
         return
     apirandom = "https://api.thecatapi.com/v1/images/search"
     await animalrandomico(interaction,quantidade,apirandom)
+
+
+
+
+
+
+
+
+
+
+
+
 
 #COMANDO CACHORRO RANDOMICO SLASH
   @gruporand.command(name="cachorro",description='🎨⠂imagem aleatoria de um cachorro.')
@@ -601,11 +881,48 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #--------------------------------  SETOR DOS MEMES ------------------------------------
   
 
 #GRUPO DE COMANDOS DE MEMES DO BOT 
   meme=app_commands.Group(name="meme",description="Comandos de geração de imangens do Brix.",parent=modulodiversao)
+
+
+
+
+
+
+
+
+
+
+
 
 #criador de memes Braixen REAL
   @meme.command(name="braixen-real",description='🤡⠂Oque Vinicius está segurando?')
@@ -637,6 +954,21 @@ class diversao(commands.Cog):
         
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #criador de memes Braixen INTERNET
   @meme.command(name="braixen-internet",description='🤡⠂Oque assustou Braixen?')
   @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
@@ -662,6 +994,21 @@ class diversao(commands.Cog):
         await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen e seu pc.png"))
     except Exception as e:
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenmonitor")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -707,6 +1054,25 @@ class diversao(commands.Cog):
         await interaction.followup.send(file=discord.File(fp=buffer,filename="minha braixen.png"))
     except Exception as e:
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="mybraixen")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #criador de memes NOSSA Braixen
@@ -771,6 +1137,23 @@ class diversao(commands.Cog):
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="nossabraixen")
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #criador de memes Braixen ABRAÇO
   @meme.command(name="braixen-hug",description='🤡⠂Seja abraçado por uma braixen.')
   @app_commands.describe(membro="Indique alguem para ser abraçado")
@@ -800,6 +1183,23 @@ class diversao(commands.Cog):
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixenhug")
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #criador de memes Braixen TABLET
   @meme.command(name="braixen-tablet",description='🤡⠂Oque Braixen viu em seu tablet?')
   @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
@@ -827,6 +1227,26 @@ class diversao(commands.Cog):
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixentablet")
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #criador de memes Braixen TRISTE
   @meme.command(name="braixen-triste",description='🤡⠂Oque deixou Braixen triste?')
   @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
@@ -851,6 +1271,25 @@ class diversao(commands.Cog):
         await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen sad.png"))
     except Exception as e:
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixentriste")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #criador de memes Braixen SMASH
@@ -883,6 +1322,25 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #criador de memes Braixen Sleep
   @meme.command(name="braixen-sleep",description='🤡⠂Oque Braixen está sonhando?')
   @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
@@ -908,6 +1366,28 @@ class diversao(commands.Cog):
         await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen Sleep.png"))
     except Exception as e:
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixensleep")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -971,6 +1451,29 @@ class diversao(commands.Cog):
         await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen citacao.png"))
     except Exception as e:
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixencitacao")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1041,6 +1544,28 @@ class diversao(commands.Cog):
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixensays")
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #criador de memes Braixen Sleep
   @meme.command(name="braixen-drake",description='🤡⠂Braixen ao melhor estilo drake')
   @app_commands.describe(img_1="Anexe uma imagem para virar meme", img_2="Anexe uma imagem para virar meme",url_1="URL de uma imagem", avatar_1="Use o avatar de um usuário",url_2="URL de uma imagem", avatar_2="Use o avatar de um usuário")
@@ -1069,6 +1594,23 @@ class diversao(commands.Cog):
         await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen Drake.png"))
     except Exception as e:
         await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixendrake")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #criador de memes LOONA FOTO

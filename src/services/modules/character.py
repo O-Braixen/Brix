@@ -205,30 +205,6 @@ class caracterai(commands.Cog):
 
 
     # RETORNO DO BRIX AI CAI EM QUALQUER MENSAGEM QUE ELE SEJA MENCIONADO
-      """elif f"<@{self.client.user.id}> " in message.content and message.author != self.client.user:
-      async with message.channel.typing():
-        if message.guild is None:
-          await message.reply(Res.trad(user=message.author,str="message_erro_onlyservers"))
-        else:
-          try:
-            Check = await userpremiumcheck(message.author)
-            if Check == False:
-              await message.reply(Res.trad(user=message.author,str="message_cai_only_premium"))
-              return
-            
-            try:
-              await message.add_reaction('<:BH_Badge_PequenoMago:1154180154076176466>')
-            except: message.reply(Res.trad(user=message.author,str='message_cai_erro_reacao'))
-            response = await enviar_mensagem_para_character_ai(self,message.author,message.content)
-            print(f"brix respondeu para {message.author.name} : {response}")
-            chance_de_aparecer = 20
-            if random.randint(1, 100) <= chance_de_aparecer:
-                response += f"\n{Res.trad(user=message.author,str='message_cai_footer')}"
-            await message.reply(response,allowed_mentions = discord.AllowedMentions(everyone=False))
-          except Exception as e:
-            await message.channel.send( Res.trad(user=message.author,str="message_cai_erro") )
-            print(e)"""
-
     elif message.guild and message.author != self.client.user and message.content.startswith(f"<@{self.client.user.id}> "):
       async with message.channel.typing():
         try:
@@ -268,7 +244,7 @@ class caracterai(commands.Cog):
         resposta.set_thumbnail(url=self.client.user.avatar.url)
         resposta.set_footer(text=Res.trad(user=message.author,str="onwer_botinfo_footer"),icon_url="https://cdn.discordapp.com/emojis/976096456513552406.png")
         view = discord.ui.View()
-        button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(user=message.author,str="botão_abrir_site_brix"),url="https://brix.squareweb.app/")
+        button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(user=message.author,str="botão_abrir_site_brix"),url="https://brixbot.xyz/")
         view.add_item(item=button)
         try:
           msgenviada = await message.reply(embed=resposta, view=view)
