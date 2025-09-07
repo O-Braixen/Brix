@@ -230,56 +230,55 @@ class BotStatus(commands.Cog):
 #FUNÇÃO PARA ATUALIZAR O CACHE DOS COMANDOS
     @tasks.loop(minutes=10)
     async def atualizar_status_cache(self):
-        if self.client and self.client.is_ready():
-            try:
-                filtro = {"braixencoin": {"$exists": True}}
-                usuarios = BancoUsuarios.select_many_document(filtro)
-            except Exception as e:
-                print(f"[ERRO] Falha ao atualizar cache: {e}")
-                return  # Sai e tenta de novo na próxima chamada
+        try:
+            filtro = {"braixencoin": {"$exists": True}}
+            usuarios = BancoUsuarios.select_many_document(filtro)
+        except Exception as e:
+            print(f"[ERRO] Falha ao atualizar cache: {e}")
+            return  # Sai e tenta de novo na próxima chamada
 
-            comandos_normais = [cmd.name for cmd in self.client.commands]
-            comandos_slash = []
+        comandos_normais = [cmd.name for cmd in self.client.commands]
+        comandos_slash = []
 
-            for cmd in sorted(self.client.tree.get_commands(), key=lambda c: c.name):
-                if isinstance(cmd, discord.app_commands.Group):
-                    comandos_slash.extend(extrair_comandos_grupo(cmd))
-                elif isinstance(cmd, discord.app_commands.ContextMenu):
-                    continue
-                else:
-                    comandos_slash.append({
-                        "nome": cmd.name,
-                        "descricao": getattr(cmd, "description", "Sem descrição"),
-                        "opcoes": [
-                            {
-                                "nome": opt.name,
-                                "tipo": str(opt.type),
-                                "descricao": opt.description,
-                                "obrigatorio": opt.required
-                            }
-                            for opt in getattr(cmd, "parameters", [])
-                        ]
-                    })       
+        for cmd in sorted(self.client.tree.get_commands(), key=lambda c: c.name):
+            if isinstance(cmd, discord.app_commands.Group):
+                comandos_slash.extend(extrair_comandos_grupo(cmd))
+            elif isinstance(cmd, discord.app_commands.ContextMenu):
+                continue
+            else:
+                comandos_slash.append({
+                    "nome": cmd.name,
+                    "descricao": getattr(cmd, "description", "Sem descrição"),
+                    "opcoes": [
+                        {
+                            "nome": opt.name,
+                            "tipo": str(opt.type),
+                            "descricao": opt.description,
+                            "obrigatorio": opt.required
+                        }
+                        for opt in getattr(cmd, "parameters", [])
+                    ]
+                })       
 
-            total_moeda = sum(usuario.get("braixencoin", 0) for usuario in usuarios)
-            total_moeda = calcular_saldo(total_moeda)
+        total_moeda = sum(usuario.get("braixencoin", 0) for usuario in usuarios)
+        total_moeda = calcular_saldo(total_moeda)
 
 
-            status_cache = {
-                "hora_atualização": datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo')),
-                "servidores": calcular_saldo(len(self.client.guilds)), 
-                "usuarios": calcular_saldo(len(self.client.users)), 
-                "braixencoin": total_moeda,
-                "shards": f"{self.client.shard_count:,}".replace(",", "."),
-                "nome_completo": str(self.client.application.name),
-                "num_comandos_normais": len(comandos_normais),
-                "num_comandos_slash": f"{len(comandos_slash):,}".replace(",", "."),
-                "total_comandos": f"{len(comandos_normais) + len(comandos_slash):,}".replace(",", "."),
-                "lista_comandos_normais": comandos_normais,
-                "lista_comandos_slash": comandos_slash,
-            }
-            item = {"status_cache": status_cache , "name": str(self.client.user.name)}
-            BancoBot.update_one(item)
+        status_cache = {
+            "hora_atualização": datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo')),
+            "servidores": calcular_saldo(len(self.client.guilds)), 
+            "usuarios": calcular_saldo(len(self.client.users)), 
+            "braixencoin": total_moeda,
+            "shards": f"{self.client.shard_count:,}".replace(",", "."),
+            "nome_completo": str(self.client.application.name),
+            "num_comandos_normais": len(comandos_normais),
+            "num_comandos_slash": f"{len(comandos_slash):,}".replace(",", "."),
+            "total_comandos": f"{len(comandos_normais) + len(comandos_slash):,}".replace(",", "."),
+            "lista_comandos_normais": comandos_normais,
+            "lista_comandos_slash": comandos_slash,
+        }
+        item = {"status_cache": status_cache , "name": str(self.client.user.name)}
+        BancoBot.update_one(item)
 
 
 

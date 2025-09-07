@@ -270,7 +270,7 @@ class servers(commands.Cog):
 
   @commands.Cog.listener()
   async def on_guild_join(self,guild):
-    print(f'Fui adicionado ao servidor: {guild.name} (ID: {guild.id})')
+    print(f'🍕🍕🍕 - Fui adicionado ao servidor: {guild.name} (ID: {guild.id})')
 
 
 
@@ -281,7 +281,7 @@ class servers(commands.Cog):
 
   @commands.Cog.listener()
   async def on_guild_remove(self,guild):
-    print(f'Fui removido do servidor: {guild.name} (ID: {guild.id})')
+    print(f'❌❌❌ - Fui removido do servidor: {guild.name} (ID: {guild.id})')
 
 
 
@@ -290,7 +290,7 @@ class servers(commands.Cog):
 
 
   # FUNÇÃO DE ATUALIZAÇÃO DO TOTAL DE SERVIDORES NO TOP.GG E BOTLIST
-  @tasks.loop(hours=5)
+  @tasks.loop(hours=1)
   async def update_api_servidores(self):
     try:
       servidores = len(self.client.guilds)
