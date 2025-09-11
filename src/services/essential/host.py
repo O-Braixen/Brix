@@ -43,10 +43,10 @@ async def appname(nome):
     global host
     if appid is None:
         if host == None:
-            print("🤖 - Nenhum token de Host encontrado. Verifique o .env")
+            print("🤖  -  Nenhum token de Host encontrado. Verifique o .env")
             return
         
-        print(f"🤖 - Usando a hospedagem da {host}")
+        print(f"🤖  -  Usando a hospedagem da {host}")
         if host == "squarecloud":
             busca =  requests.get(f"https://api.squarecloud.app/v2/users/me", headers={"Authorization": square_token})
             aplicativos = busca.json().get("response", {}).get("applications", [])

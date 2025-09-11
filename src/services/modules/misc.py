@@ -370,11 +370,7 @@ class misc(commands.Cog):
       motivo = "ele não falou kyuuu"
     afklist.append(interaction.user.id)
     afklist.append(motivo)
-    resposta = discord.Embed(
-      title=Res.trad(interaction=interaction,str="message_afk_enable_title"),
-      description=Res.trad(interaction=interaction,str="message_afk_enable_description"),
-      colour=discord.Color.yellow()
-    )
+    resposta = discord.Embed( title=Res.trad(interaction=interaction,str="message_afk_enable_title"), description=Res.trad(interaction=interaction,str="message_afk_enable_description"),      colour=discord.Color.yellow()    )
     await interaction.response.send_message(embed=resposta,delete_after=5,ephemeral=True)
 
 
@@ -409,6 +405,7 @@ class misc(commands.Cog):
     )
     resposta.set_image(url=f"{random.choice(imagem)}")
     await interaction.response.send_message(embed=resposta)
+
 
 
 

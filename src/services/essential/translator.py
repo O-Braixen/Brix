@@ -142,7 +142,7 @@ class BrixTradutor(app_commands.Translator):
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(self.translations[locale], f, ensure_ascii=False, indent=4)
 
-        print(f"Traduzido comando para {file_name}: {translated_text}")
+        print(f"✅ - Traduzido comando para {file_name}: {translated_text}")
         return translated_text
 
 

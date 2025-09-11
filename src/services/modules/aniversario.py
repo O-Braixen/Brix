@@ -98,10 +98,10 @@ class aniversario(commands.Cog):
                 )
                 embed.set_thumbnail(url="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg")
                 await user.send(embed=embed)
-                print(f"Enviando DM para: {aniversariante_id}")
+                print(f"🎂 - Enviando DM para: {aniversariante_id}")
 
             except Exception as e:
-                print(f"Não foi possível enviar DM para {aniversariante_id}: {str(e)}")
+                print(f"🎂 - Não foi possível enviar DM para {aniversariante_id}: {str(e)}")
 
         if listaaniversariante:
             print("🎂 - Iniciando envio para servidores")
@@ -114,9 +114,9 @@ class aniversario(commands.Cog):
 
                 if not servidor or not canal:
                     if not servidor:
-                        print(f"Servidor Não mais disponivel: {servidor_id}")
+                        print(f"🔴 - Servidor Não mais disponivel: {servidor_id}")
                     if not canal:
-                        print(f"Canal não mais acessivel ou disponivel: {servidor_info['aniversario']['canal']}, deletando registro")
+                        print(f"🔴 - Canal não mais acessivel ou disponivel: {servidor_info['aniversario']['canal']}, deletando registro")
                         BancoServidores.delete_field(servidor_id, {"aniversario": 0})
                     continue
 
@@ -161,13 +161,13 @@ class aniversario(commands.Cog):
                                 if membro_servidor:
                                     await addtemproleusuario(self, None, membro_servidor, cargo, 15*60*60)
 
-                        print(f"Mensagem acumulada enviada no servidor {servidor.name} para {len(aniversariantes_servidor)} aniversariantes")
+                        print(f"🎂 - Mensagem acumulada enviada no servidor {servidor.name} para {len(aniversariantes_servidor)} aniversariantes")
 
                     except Exception as e:
-                        print(f"Erro ao enviar mensagem acumulada no servidor {servidor_id}: {str(e)}")
+                        print(f"🎂 - Erro ao enviar mensagem acumulada no servidor {servidor_id}: {str(e)}")
         else:
-            print("Nenhum aniversariante encontrado hoje.")
-        print("Verificação de aniversariantes finalizada")
+            print("🎂 - Nenhum aniversariante encontrado hoje.")
+        print("🎂 - Verificação de aniversariantes finalizada")
 
 
 

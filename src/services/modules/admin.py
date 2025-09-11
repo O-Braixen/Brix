@@ -41,7 +41,7 @@ async def addtemproleusuario(self, interaction, membro, cargo, tempo):
         # Checa se o tempo excede o limite de 3650 horas (aproximadamente 5 MESES)
         if tempo_final > horario_meses:
             if interaction:
-                await interaction.edit_original_response(content = Res.trad(interaction=interaction, str='cargo_temporario_limit'))
+                await interaction.edit_original_response(content = Res.trad(interaction=interaction, str='cargo_temporario_limit'), view=None)
             return
         else:
             item = { f"temprole.{gerar_id_unica()}": { "tempo": tempo_final, "cargo": cargo.id, "usuario": membro.id,  "responsavel": interaction.user.id if interaction else None,  "horaregistro": horario }}
@@ -54,7 +54,7 @@ async def addtemproleusuario(self, interaction, membro, cargo, tempo):
                     color=discord.Color.yellow(),
                     description=Res.trad(interaction=interaction, str='cargo_temporario_add_inguild').format(membro.mention, cargo.mention, int(tempo_final.timestamp()))
                 )
-                await interaction.edit_original_response(embed=resposta)
+                await interaction.edit_original_response(embed=resposta , view=None)
 
             # Envia uma notificação por DM ao membro
             dadosmembro = BancoUsuarios.insert_document(membro)
@@ -67,9 +67,9 @@ async def addtemproleusuario(self, interaction, membro, cargo, tempo):
                     )
                     await membro.send(embed=resposta_dm)
                 else:
-                    print("membro não recebe notificações via DM")
+                    print("🦊 - membro não recebe notificações via DM")
             except:
-                print("erro no envio de dm para informar recebimento de cargo")
+                print("🔴 - erro no envio de dm para informar recebimento de cargo")
     # Excessão para apresentar erro de permissão
     except discord.Forbidden as e:
         if interaction:
@@ -137,7 +137,7 @@ class admin(commands.Cog):
   @app_commands.describe(membro="Qual membro será banido?",razão="Qual a razão do banimento?")
   @commands.has_permissions(ban_members=True)
   async def ban(self,interaction: discord.Interaction, membro: discord.User, razão: str):
-    if await Res.print_brix(comando="ban",interaction=interaction,condicao=membro):
+    if await Res.print_brix(comando="ban",interaction=interaction,condicao=membro.id):
       return
     #verificação se ta rodando em servidor
     if interaction.guild is None:
@@ -177,7 +177,7 @@ class admin(commands.Cog):
   @app_commands.describe(membro="Qual membro será desbanido?")
   @commands.has_permissions(ban_members=True)
   async def unban(self,interaction: discord.Interaction, membro:str):
-    if await Res.print_brix(comando="unban",interaction=interaction,condicao=membro):
+    if await Res.print_brix(comando="unban",interaction=interaction,condicao=membro.id):
       return
     #verificação se ta rodando em servidor
     if interaction.guild is None:
@@ -219,7 +219,7 @@ class admin(commands.Cog):
   @app_commands.describe(membro="Qual membro será expulso?", razão="Qual a razão da expulsão?")
   @commands.has_permissions(kick_members=True)
   async def kick(self, interaction: discord.Interaction, membro: discord.User, razão: str):
-    if await Res.print_brix(comando="kick",interaction=interaction,condicao=membro):
+    if await Res.print_brix(comando="kick",interaction=interaction,condicao=membro.id):
       return
     if interaction.guild is None:
       await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
@@ -800,18 +800,18 @@ class admin(commands.Cog):
               cargo = server.get_role(info['cargo'])
               member = server.get_member(int(info['usuario']))
               await member.remove_roles(cargo)
-              print(f"usuario: {info['usuario']} teve o {cargo} removido")
+              print(f"😿 - usuario: {info['usuario']} teve o {cargo} removido")
             except:
-              print(f"falha ao remover cargo de usuario: {info['usuario']}")
+              print(f"🙀 - falha ao remover cargo de usuario: {info['usuario']}")
           
           # Após remover os cargos expirados, verifica se o campo 'temprole' está vazio
         servidor_atualizado = BancoServidores.insert_document(servidor['_id'])
         if 'temprole' in servidor_atualizado and not servidor_atualizado['temprole']:
           # Se o 'temprole' estiver vazio, remove o campo do documento
-          print(f"Deletado o campo do servidor: {servidor['_id']}")
+          print(f"🦊 - Deletado o campo do servidor: {servidor['_id']}")
           BancoServidores.delete_field(servidor['_id'], {"temprole": 0})
     except Exception as e:
-      print(f"erro na verificação de temproles, tentando mais tarde\n{e}")
+      print(f"🔴 - erro na verificação de temproles, tentando mais tarde\n{e}")
     return
 
 

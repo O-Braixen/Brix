@@ -81,7 +81,7 @@
     "onwer_botinfo_footer" : "Um pequeno Braixen criado com muito amor... e uma pitada de teimosia ~kyuu!",
     "onwer_botinvite_description" : "### <:Braix:1272653348306419824>┃ Me adicione agora mesmo!\nKyu~! Tô prontinho pra ser o novo amigo da sua comunidade! É só me adicionar [aqui](https://discord.com/oauth2/authorize?client_id=983000989894336592&permissions=1514245844182&integration_type=0&scope=bot+applications.commands) e aproveitar~!",
     "onwer_dashboard_description" : "### <:Braix:1272653348306419824>┃ Acesse minha dashboard\nKyu~! Sabia que agora eu tenho uma dashboard exclusiva? É só acessar meu site e fazer login [aqui](https://brixbot.xyz/dashboard) pra configurar tudinho do seu jeitinho~!",
-
+    "onwer_help_apresentação" : "Kyuuu~! Prazer, eu sou o **Brix**, um Braixen fofinho pronto pra ajudar! <:Braix:1272653348306419824>\n\n- Eu não uso prefixo, todos os meus comandos são com `/`.\n- Quer conversar comigo? Me marca no começo da mensagem!\n- E lembra: eu sou uma raposa fofa, então seja gentil comigo <:Braix_Heart2:1287443199337693184>\n\nPra ver tudo o que eu faço, é só usar a barrinha `/` e procurar meu rostinho na lista de aplicativos, kyuuu~!",
     
     "owner_ping" : "**🤖┃ Latência:** {}ms. (`{:,.2f} Segundos`)\n**📶┃ Api:** {}ms. (`{:,.2f} Segundos`)\n**📦┃ Usando:** {}\n",
     "ban_title" :"<:Braix:1272653348306419824>┃ Banido",
@@ -116,6 +116,7 @@
     "minutos": "Minutos",
     "horas": "Horas",
     "dias": "Dias",
+    "permanente": "Permanente",
     "cargos" : "👥 Cargos",
     "ban" :"Banido",
     "kick" :"Expulso",
@@ -198,8 +199,8 @@
     "splash_guild_description" : "Aqui está a splash do servidor: {}",
 
     "lojacor_title" : "**Compre sua Cor Agora Mesmo!!!**",
-    "lojacor_description" : "*Todas as cores disponíveis nesta comunidade podem ser adquiridas comigo, kyu!*\nPara comprar, basta usar o **menu suspenso abaixo** e escolher a sua cor favorita.\n*Dê uma olhada em todas as opções e seus valores aqui embaixo*: :arrow_down::arrow_down:\n{}",
-    "lojacor_dropdown" : "Selecione uma cor...",
+    "lojacor_description" : "## 🎨┃ Loja de Cores\n*Todas as cores disponíveis nesta comunidade podem ser adquiridas comigo, kyu~!*\nPara comprar, é só usar o **menu suspenso abaixo** e escolher sua cor favorita.\n\nDá uma olhadinha nas opções e valores logo aqui embaixo, kyu~! :arrow_down::arrow_down:\n\n{}",
+    "lojacor_dropdown" : "🦊┃ Selecione uma cor...",
     "loja_diaria" : "Loja diária",
     "loja_diaria_reseta" : "Loja reseta: <t:{}:R>",
     "loja_diaria_Comprar_item" : "<:Braix:1272653348306419824>┃ Ahh, você está quase lá, raposa! Está prestes a adquirir o item **{}** por {}.\nSe quiser seguir em frente, basta confirmar abaixo, kyu~\n-# Dica de raposa: Depois de comprado, não tem volta, sem reembolso ~kyuuuu!",
@@ -209,7 +210,7 @@
     "botão_item_adquirido" : "Usar item já adquirido",
     "botão_item_indisponivel" : "Vendido apenas por gravetos",
     "botão_pagina" : "Página",
-    "botão_duvida_loja" : "## 🦊┃Ajuda sobre a Loja Diária\n<:Braix:1272653348306419824>┃ Essa é a minha **Loja Diária**, kyu~! Aqui você pode comprar personalizações incríveis para o seu **/perfil ver**, usando <:BraixenCoin:1272655353108103220> **BraixenCoins** ou <:Graveto:1318962131567378432> **Gravetos**. Os itens têm diferentes raridades e preços, e alguns só podem ser adquiridos com <:Graveto:1318962131567378432> **Gravetos**, então escolha com cuidado, kyu!\n\n### ⭐ Tipos de Raridade\n**Comum:** Itens básicos e simples, mas ainda cheios de charme.\n**Raro:** Artes mais detalhadas, com ícones diferentes, cores personalizadas e filtros especiais.\n**Épico:** Um acabamento de primeira, com filtros impressionantes e ícones exclusivos que dão um toque memorável.\n**Exclusiva:** Como os épicos, mas ainda mais raros! São únicos e só aparecem em eventos especiais, kyu~!\n\n### 💡 Dica de Raposa\nVocê pode **contribuir com a Loja** enviando uma arte pronta! Se ela for adicionada, você será o dono dela e vai receber as comissões de cada venda. Visite meu servidor de suporte e procure pelo canal **brix-sugestões** para saber mais detalhes sobre como participar, kyuuu~!",
+    "botão_duvida_loja" : "## <:Braix:1272653348306419824>┃Ajuda sobre a Loja Diária\n<:Braix:1272653348306419824>┃ Essa é a minha **Loja Diária**, kyu~! Aqui você pode comprar personalizações incríveis para o seu **/perfil ver**, usando <:BraixenCoin:1272655353108103220> **BraixenCoins** ou <:Graveto:1318962131567378432> **Gravetos**. Os itens têm diferentes raridades e preços, e alguns só podem ser adquiridos com <:Graveto:1318962131567378432> **Gravetos**, então escolha com cuidado, kyu!\n\n### ⭐ Tipos de Raridade\n**Comum:** Itens básicos e simples, mas ainda cheios de charme.\n**Raro:** Artes mais detalhadas, com ícones diferentes, cores personalizadas e filtros especiais.\n**Épico:** Um acabamento de primeira, com filtros impressionantes e ícones exclusivos que dão um toque memorável.\n**Exclusiva:** Como os épicos, mas ainda mais raros! São únicos e só aparecem em eventos especiais, kyu~!\n\n### 💡 Dica de Raposa\nVocê pode **contribuir com a Loja** enviando uma arte pronta! Se ela for adicionada, você será o dono dela e vai receber as comissões de cada venda. Visite meu servidor de suporte e procure pelo canal **brix-sugestões** para saber mais detalhes sobre como participar, kyuuu~!",
     "botão_sobremim" : "Sobre mim",
     "botão_skins" : "Skins",
     "botão_aniversario" : "Definir Aniversário",
@@ -395,7 +396,7 @@
 
     "message_traducao" : "### <:Braix_Glass:1272664403296260126>┃ Tradução com Brix\n{}",
     "message_tradutor_msg" : "Escolha um idioma para traduzir a mensagem:",
-    "message_tradutor_dropdown" : "Escolha um idioma...",
+    "message_tradutor_dropdown" : "🦊┃ Escolha um idioma...",
     "message_erro_tradutor" : "<:Braix_Tongue:1272662386590879795>┃ Esta mensagem não tem um texto para traduzir kyuuuuuu",
     "message_erro_notargument" : "<:Braix_You:1272670440652935289>┃ Você esqueceu de passar algum **argumento** para que eu possa trabalhar ~Kyuu!!\n{}",
     "message_erro_brixsystem" : "<:Braix_Shocked:1272663500115935264>┃ **E... erro** kyuu~\nEstou em constante desenvolvimento, então é normal que alguns *erros* ocorram durante o uso de algum comando. Peço que encaminhe esse erro para o Braixen em https://discord.gg/ZRHwWydQFu \n```{}```",
@@ -427,6 +428,8 @@
     "message_erro_embed" : "<:Braix_Blank:1272661806858371196>┃ Não foi possivel enviar seu embed kyu~~\nLembre-se você precisa gerar o codigo json no site https://eb.nadeko.bot/ e copiar o codigo json do site e enviar ele para mim gerar seu embed kyuuu.",
     "message_erro_avatar" : "<:Braix_Blank:1272661806858371196>┃ Parece que o {} **não possui um avatar {}** kyu~~.",
     "message_erro_interacaoalheia" : "<:Braix_Blank:1272661806858371196>┃ Desculpe, mas você não pode mexer nas opções de outra pessoa...",
+    "message_erro_interacaoexpirada" : "<:Braix_Blank:1272661806858371196>┃ Desculpe, mas você não pode mais mexer nessas opções pois elas expiraram, usa o comando novamente ~kyuu...",
+
     "message_erro_emojiadd_url" : "<:Braix_Blank:1272661806858371196>┃ Falha ao obter a imagem a partir da URL fornecida kyu~.",
     "message_erro_emojibusca" : "<:Braix_Blank:1272661806858371196>┃ Não achei esse emoji nesta comunidade kyu~.",
     "message_erro_emojiadd" : "<:Braix_Blank:1272661806858371196>┃ Não consegui adicionar esse emoji, ele não parece ser um emoji personalizado de algum servidor ~kyuuu.",
@@ -598,7 +601,7 @@
 
     "message_financeiro_compracor_item_notfound" : "<:Braix_derp:1272663053875417219>┃ Não achei esse item ai ~kyuuu, verifique se me passou o cargo correto a ser removido da loja ~kyuuu",
     "message_financeiro_compracor_notlist" : "Kyu~! Não encontrei nenhum item disponíveis no momento…",
-    "message_financeiro_compracor_banner" : "<:Braix:1272653348306419824>┃ Uhull, agora sua Loja de cores tem um banner proprio ~kyuuu",
+    "message_financeiro_compracor_banner" : "<:Braix:1272653348306419824>┃ Uhull, agora sua Loja de cores tem um banner próprio ~kyuuu",
     "message_financeiro_itemloja_useraviso" : "### <:Braix_Happy:1272664784814342204>┃Seu item entrou na loja!\n\nKyuuu~! E aí, {}! Passando rapidinho pra te avisar que seu item incrível **{}** acabou de entrar na minha loja diária. Corre lá pra ver!",
     "message_financeiro_itemloja_vendauser" : "### <:Braix_Money:1272666877197418598>┃Seu item foi vendido!\n\nKyuuu~! E aí, {}! Passando rapidinho pra te avisar que alguém comprou seu item incrível **{}** e você ganhou a comissão da venda!",
 
@@ -718,6 +721,28 @@
 
     "message_erro_autopagar" : "<:Braix_You:1272670440652935289>┃ Eiii você não pode transferir para sí mesmo...   ~~kyu",
     "message_erro_pagarzero" :"<:Braix_derp:1272663053875417219>┃ **0** <:BraixenCoin:1272655353108103220> + **0** <:BraixenCoin:1272655353108103220> = **0** <:BraixenCoin:1272655353108103220> e não eu não fiz a transferência, na próxima tenta transferir alguma coisa tá...",
+
+
+    "viploja_title" : "## <:Braix:1272653348306419824>┃ Loja VIP de {}",
+    "viploja_description" : "Kyu~! Aqui na minha lojinha VIP você pode garantir cargos especiais com diferentes tempos e valores. Dá uma espiadinha em todas as opções disponíveis, tenho certeza que vai achar algo que combina com você, kyuuu~!\n\n{}",
+    "viploja_dropdown" : "🦊┃ Escolha uma opção...",
+    "viploja_erro_item" : "<:Braix_Blank:1272661806858371196>┃ Hmmm... Não encontrei esse item ou não consegui concluir sua ação, kyu~!",
+    "viploja_erro_ja_existente" : "<:Braix_Blank:1272661806858371196>┃ Ops, raposa! Você já tem esse cargo, kyu~! Não dá pra comprá-lo novamente na loja VIP. Só é possível adquirir cargos que você ainda não possui, tá bem? ~kyuuu",
+    "viploja_erro_registro_existente" : "<:Braix_Blank:1272661806858371196>┃ Kyu~! Pelo que vi, você já tem um registro de cargo temporário com esse cargo. Então, em vez de criar outro, eu só vou te entregar o cargo de novo, tá bem? Kyuuu~!",
+    "viploja_lojanaoexistente" : "<:Braix_derp:1272663053875417219>┃ Parece que essa comunidade ainda não adicionou itens na loja VIP. Fala com os administradores pra dar uma olhadinha nisso, kyuuu~",
+    "viploja_Limite" : "<:Braix_derp:1272663053875417219>┃ Eii, kyu~! Você atingiu o limite máximo de itens na loja VIP. Pra adicionar um novo, vai ser preciso remover algum já existente ~kyuuu",
+    "viploja_item_adicionado" : "<:Braix_Happy:1272664784814342204>┃ Parabéns! O cargo VIP **{}** foi adicionado com sucesso!\nValor: **{:,.0f}** <:BraixenCoin:1272655353108103220>\nDuração: **{}**\n\n-# 🦊 Dica de raposa: você pode adicionar o mesmo cargo com tempos diferentes, tipo 30 dias / 90 dias. Assim oferece mais opções de plano na sua loja!",
+    "viploja_item_notfound" : "<:Braix_derp:1272663053875417219>┃ Não encontrei esse item, kyu~! Verifique se passou o registro correto pra remoção da loja VIP.",
+    "viploja_item_removido" : "<:Braix_Blank:1272661806858371196>┃ O item **{}** foi removido da loja VIP com sucesso, kyu~!",
+    "viploja_banner" : "<:Braix:1272653348306419824>┃ Uhul, kyu~! Agora sua loja VIP tem um banner personalizado!",
+    "viploja_notlist" : "Kyu~! Não encontrei nenhum item na loja VIP desta comunidade...",
+    "viploja_ajuda" : "## <:Braix:1272653348306419824>┃ Ajuda sobre Loja VIP\n\nKyu~! Eu posso automatizar a venda de cargos VIP na sua comunidade. Basta registrar o cargo, definir o preço em **BraixenCoin** e escolher a duração: pode ser em **horas, dias ou meses**. Se não definir tempo, o cargo vira **permanente**!\n\nVocê também pode registrar o **mesmo cargo várias vezes** com planos diferentes (ex.: 1 mês, 3 meses ou permanente). Assim, os membros compram direto no painel e recebem o cargo na hora, sem precisar de atendimento. Todo o valor arrecadado vai automaticamente para quem cadastrou a oferta.\n\n<:Braix_uwu:1287443559074500691>┃ Então, treinador... que tal testar essa magia agora mesmo e colocar sua Loja VIP pra funcionar? Kyuuu~!",
+
+
+    
+
+
+
 
     "message_correioelegante_consulta_inexistente" : "<:Braix_derp:1272663053875417219>┃ Não achei esse registro que você me passou, por favor verifique se digitou corretamente ~kyu..",
     

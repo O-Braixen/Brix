@@ -106,14 +106,12 @@ async def generate_response_with_video_and_text(video_data, text):
     
     try:
         myfile = genaiclient.files.upload(file=temp_video_path )
-        print(myfile)
     except: return f"❌ Erro na tentativa de consulta com a API do gemini, tente mais tarde"
     for attempt in range(MAX_RETRIES):
         try:
-            print(f"tentativa: {attempt}")
+            print(f"🔮  -  tentativa: {attempt}")
             await asyncio.sleep(0.3)
             response = genaiclient.models.generate_content(model=modelo_linguagem , contents= [myfile , text], config= types.GenerateContentConfig(safety_settings=configurações_de_segurança))
-            print(response)
             return response.text
         except:
             if attempt < MAX_RETRIES - 1:

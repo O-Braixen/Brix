@@ -83,7 +83,7 @@ class menucores(discord.ui.Select):
 #PAINEL PERSISTENTE CORES
 class DropdownCores(discord.ui.View):
     def __init__(self, interaction: discord.Interaction,item): 
-        super().__init__(timeout=60)
+        super().__init__(timeout=120)
         self.add_item(menucores(interaction,item))
 
 
@@ -151,8 +151,6 @@ class cogcores(commands.Cog):
         for item_id, valor in item.items():
 
             lista += "<@&{}> - **{:,.0f}** <:BraixenCoin:1272655353108103220>\n".format(item_id,int(valor))
-            #lista += "**{:,.0f}** <:BraixenCoin:1272655353108103220> <@&{}>\n".format(int(valor),item_id)
-            #itens += "**{:,.0f}** <:BraixenCoin:1272655353108103220> <@&{}> | ".format(int(cores[i+1]),cores[i])
         embedcores = discord.Embed(
             colour=discord.Color.yellow(),
             title=Res.trad(interaction=interaction,str='lojacor_title'),
@@ -162,8 +160,10 @@ class cogcores(commands.Cog):
             embedcores.set_image(url=resultado[0]['lojabanner'])
         except:embedcores.set_image(url="https://cdn.discordapp.com/attachments/1067789510097768528/1146086919462207620/cores.png")
         await interaction.followup.send(embed=embedcores,view=DropdownCores(interaction,item))
+        await asyncio.sleep(120)
+        await interaction.edit_original_response(content=Res.trad(interaction=interaction, str='message_erro_interacaoexpirada'), embed = None, view = None)
 
-
+        
 
 
 

@@ -113,7 +113,7 @@ class financeiro(commands.Cog):
             apartamento = brix['braixencoin'] - int(custobrix)
             updates.append({"_id": brix['_id'],"update": {"$set": {"braixencoin": apartamento , "date-daily": datetime.datetime.now().strftime("%d/%m/%Y") }}})
             transacoes.append({    "user_id": str(brix['_id']),    "tipo": "gasto",    "origem": "Aluguel Ap",    "valor": custobrix,    "moeda": "braixencoin",    "descricao": "Taxa apartamento do Brix.",    "timestamp": datetime.datetime.now()})
-            print(f"Brix pagou o aluguel do ap com o vini, brix tinha {brix['braixencoin']} e agora ficou com {apartamento}")
+            print(f"💲 - Brix pagou o aluguel do ap com o vini, brix tinha {brix['braixencoin']} e agora ficou com {apartamento}")
         except Exception as e:
             print(f"Error na cobrança do apartamento de brix: {e}")
         # Executa as atualizações em lote
@@ -986,8 +986,6 @@ class financeiro(commands.Cog):
     if task:
         task.cancel()
     await interaction.response.defer()
-    #self.jogos_em_andamento[interaction.message.id].cancel()
-    #del self.jogos_em_andamento[interaction.message.id]
     
     buffer = await self.criar_art(res, False)
     if resposta_usuario.lower() == resposta_correta.lower():

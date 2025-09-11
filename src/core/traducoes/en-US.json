@@ -525,5 +525,7 @@
     "presentear": "gift",
     "💎⠂Presenteie outro membro com o Premium.": "💎⠂gift premium to another member.",
     "Quem vai receber o presente": "who is going to receive the gift?",
-    "Copiar JSON do Embed": "copy embed json"
+    "Copiar JSON do Embed": "copy embed json",
+    "📝⠂Normaliza nicknames que tenham fontes diferentes ou emojis no servidor.": "📝⠂normalize nicknames that have different fonts or emojis on the server.",
+    "⭐⠂Ajuda sobre a loja VIP.": "⭐⠂help about the vip store."
 }

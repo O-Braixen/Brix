@@ -127,7 +127,7 @@ class Res:
             colour=discord.Color.red(),
             description=Res.trad(interaction=interaction, str=str).format(mensagem_erro)
             )
-    print(f"error: {e}\n{interaction.user} - comando:{comando}")
+    print(f"🔴 - error: {e}\n{interaction.user} - comando:{comando}")
     try:
         await interaction.response.send_message(embed=resposta,delete_after=30, ephemeral= True)
     except:
@@ -149,7 +149,7 @@ class Res:
     now = datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo'))
     primeiroabril = datetime.date(now.year , 4 , 1 )
     if 'ban' in usuario_banco:  # Verifica se 'servidor' não é None ou vazio
-        print(f"Usuario {interaction.user.id} na lista de banidos, comando negado")
+        print(f"🦊 - Usuario {interaction.user.id} na lista de banidos, comando negado")
         await interaction.response.send_message(Res.trad(interaction=interaction,str="message_banido").format(int(usuario_banco['ban']['data'].timestamp()),usuario_banco['ban']['motivo'],usuario_banco['ban']['autor']),delete_after=60)
         return True
     
@@ -159,7 +159,7 @@ class Res:
             await interaction.response.send_message(Res.trad(interaction=interaction,str="message_banido").format(int(now.timestamp()),"Porque eu quis","Brix The Braixen") )
             await asyncio.sleep(10)
             await interaction.followup.send(Res.trad(interaction=interaction,str="message_1abril"))
-            print(f"Usuario {interaction.user.id} Caiu na pegadinha de primeiro de abril")
+            print(f"😼 - Usuario {interaction.user.id} Caiu na pegadinha de primeiro de abril")
             return True
 
     else:

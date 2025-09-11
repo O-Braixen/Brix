@@ -56,7 +56,7 @@ async def verificar_calendario_pokemon(data_atual=None, pokemon_nome=None):
         mes_procurado = data_atual.month
         listapokemon = []
         
-        print(f"Verificando pokeday para hoje: {data_atual}")
+        print(f"🦊  -  Verificando pokeday para hoje: {data_atual}")
         for component in cal.walk('VEVENT'):
             dtstart = component.get('dtstart').dt
             if dtstart.day == dia_procurado and dtstart.month == mes_procurado:
@@ -114,7 +114,7 @@ class PokemonCache:
                     self.pokemon_data = json.load(f)
                     cache_existente = { p['name']: p for p in self.pokemon_data }
                 except Exception as e:
-                    print(f"[WARN] Falha ao ler cache local: {e}")
+                    print(f"🔴 - [WARN] Falha ao ler cache local: {e}")
                     self.pokemon_data = []
                     cache_existente = {}
 
@@ -159,7 +159,7 @@ class PokemonCache:
                         stats = detalhe['stats']
                         species = detalhe['species']['url'] #requests.get(species_url, timeout=5).json()
                     except Exception as e:
-                        print(f"[WARN] Falha ao buscar dados de {nome}: {e}")
+                        print(f"🔴 - [WARN] Falha ao buscar dados de {nome}: {e}")
                         front_default, front_shiny, poke_id, types = None, None, None, []
                         abilities, stats, species = None, None, None
 
@@ -177,17 +177,17 @@ class PokemonCache:
                     if novos_count % 40 == 0:
                         with open(self.cache_file, 'w', encoding='utf-8') as f:
                             json.dump(nova_lista, f, ensure_ascii=False, indent=2)
-                        print(f"Cache parcial salvo após {novos_count} novos pokémon.")
+                        print(f"🦊  -  Cache parcial salvo após {novos_count} novos pokémon.")
 
             # salva cache final completo
             with open(self.cache_file, 'w', encoding='utf-8') as f:
                 json.dump(nova_lista, f, ensure_ascii=False, indent=2)
             self.pokemon_data = nova_lista
-            print(f"Cache final salvo após {novos_count} novos pokémon.")
+            print(f"🦊 - Cache final salvo após {novos_count} novos pokémon.")
         except Exception as e:
-            print(f"[AVISO] Falha ao consultar lista geral da API: {e}")
+            print(f"🔴 - [AVISO] Falha ao consultar lista geral da API: {e}")
             if not self.pokemon_data:
-                print("[ERRO] Nenhum dado disponível. Lista vazia.")
+                print("🔴 - [ERRO] Nenhum dado disponível. Lista vazia.")
 
         self.loaded = True
 
@@ -223,10 +223,10 @@ class JogosCache:
                 with open(self.cache_file, 'r', encoding='utf-8') as f:
                     self.jogos_data = json.load(f)
             except Exception as e:
-                print(f"[ERRO] Falha ao carregar o cache: {e}")
+                print(f"🔴 - [ERRO] Falha ao carregar o cache: {e}")
                 self.jogos_data = []
         else:
-            print("[AVISO] Cache não encontrado. Lista de jogos vazia.")
+            print("🔴 - [AVISO] Cache não encontrado. Lista de jogos vazia.")
             self.jogos_data = []
 
         self.loaded = True
@@ -393,6 +393,6 @@ def get_pokemon_sprite(url: str, pokemon: str, shiny: bool = False) -> Image.Ima
         img.save(path)
         return img
     except Exception as e:
-        print(f"[ERRO SPRITE] Falha ao baixar sprite {pokemon} ({variant}): {e}")
+        print(f"🔴 - [ERRO SPRITE] Falha ao baixar sprite {pokemon} ({variant}): {e}")
         # Retorna imagem de interrogação padrão se der erro
         return Image.open("src/assets/imagens/Pokedex/Interrogation.png").convert("RGBA")

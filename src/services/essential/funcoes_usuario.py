@@ -252,7 +252,7 @@ async def userpremiumcheck(interaction):
     dado = BancoUsuarios.insert_document(usuario)
     premiumativo = BancoBot.insert_document()
     if premiumativo['premiumsys'] is False:
-        print("sistema premium desativado, comando liberado")
+        print("💎  -  sistema premium desativado, comando liberado")
         return True
     else:
         try:

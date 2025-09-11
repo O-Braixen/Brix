@@ -48,7 +48,7 @@ class boasvindas(commands.Cog):
 
   @commands.Cog.listener()
   async def on_member_join(self,member : discord.Member):
-    print(f"membro {member.id} entrou na {member.guild.id} - {member.guild.name} ")
+    print(f"➡️ - membro {member.id} entrou na {member.guild.id} - {member.guild.name} ")
     
     # Respostas da BH
     membro = member.mention
@@ -88,7 +88,7 @@ class boasvindas(commands.Cog):
             elif acao_configurada == "ban":
               await member.ban(reason="Brix proteção Anti-Alt: Conta muito nova.")
           except:
-            print(f"falha ao aplicar penalidade em :{member.guild.id}")
+            print(f"🔴 - falha ao aplicar penalidade em :{member.guild.id}")
           return
 
 
@@ -155,7 +155,7 @@ class boasvindas(commands.Cog):
       contador = self.member_join_error_count.get(servidor_id, 0) + 1
       self.member_join_error_count[servidor_id] = contador
                 
-      print(f"Contador de erros para o servidor {servidor_id}: {contador}")
+      print(f"🔴 - Contador de erros para o servidor {servidor_id}: {contador}")
               
       if contador > 2:
           print(f"Mais de 2 erros para o servidor {servidor_id}. Deletando registro.")
@@ -301,7 +301,7 @@ class boasvindas(commands.Cog):
 
 
   # COMANDO DE NORMALIZAR NOMES, SÓ PODE SER USADO POR AQUELES QUE PODEM GERENCIAR NICKNAMES
-  @seguranca.command(name="normalizar_nomes", description='📝⠂Normaliza nicknames cque tenham fontes diferentes ou emojis no servidor.')
+  @seguranca.command(name="normalizar_nomes", description='📝⠂Normaliza nicknames que tenham fontes diferentes ou emojis no servidor.')
   @commands.has_permissions(manage_nicknames=True)
   async def normalizar_nomes_cmd(self, interaction: discord.Interaction):
     if await Res.print_brix(comando="normalizar_nomes", interaction=interaction):
@@ -346,7 +346,6 @@ class boasvindas(commands.Cog):
           sem_permissao += 1
 
       processados += 1
-      print(nome_original)
       # Atualiza apenas a cada 10 processados ou no final
       if processados % 10 == 0 or processados == total_membros:
         if status_msg:

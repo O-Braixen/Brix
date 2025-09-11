@@ -109,3 +109,32 @@ async def trocar_pagina(self, interaction, blocos, pagina, originaluser, descri�
 
 
 
+
+
+
+
+
+
+
+
+
+
+# ======================================================================
+#SISTEMA DE FORMATAÇÃO DE TEMPO CONVERTENDO SEGUNDOS EM TEXTO
+def formatar_tempo(segundos: int , interaction) -> str:
+    if isinstance(segundos, str) and segundos == "perm":
+        return Res.trad(interaction=interaction,str='permanente')
+    
+    # Se vier como string de número, converte
+    if isinstance(segundos, str) and segundos.isdigit():
+        segundos = int(segundos)
+    
+    if segundos < 3600:  # menos de 1h → minutos
+        minutos = segundos // 60
+        return f"{minutos} {Res.trad(interaction=interaction,str='minutos')}"
+    elif segundos < 86400:  # menos de 1 dia → horas
+        horas = segundos // 3600
+        return f"{horas} {Res.trad(interaction=interaction,str='horas')}"
+    else:  # 1 dia ou mais → dias
+        dias = segundos // 86400
+        return f"{dias} {Res.trad(interaction=interaction,str='dias')}"

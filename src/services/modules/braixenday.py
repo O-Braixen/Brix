@@ -1,4 +1,4 @@
-import discord,os,asyncio,datetime,pytz
+import discord,os,asyncio,datetime,pytz,re
 from discord.ext import commands,tasks
 from discord import app_commands
 from src.services.essential.respostas import Res
@@ -72,7 +72,19 @@ class braixenday(commands.Cog):
                 await message.reply(Res.trad(str='message_brixday_positivo').format(message.author))
             else:
                 await message.reply(Res.trad(str='message_brixday_negativo').format(int(databraixenday.timestamp())))
-            
+        
+         # RETORNO DO BRIX CASO ALGUEM ESCREVA "BRIX" OU SUAS VARIAÇÕES
+        elif message.author != self.client.user and not message.author.bot:
+            conteudo = message.content.strip().lower()
+
+            # Caso seja só "brix"
+            if conteudo == "brix":
+                await message.reply(Res.trad(user=message.author,str="onwer_help_apresentação"))
+
+            # Caso tenha +brix, -brix ou brix no meio do texto
+            elif re.search(r"(?:^|\s).*?brix(?:\s|$)", conteudo):
+
+                await message.reply(Res.trad(user=message.author,str="onwer_help_apresentação"))
 
 
 

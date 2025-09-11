@@ -929,9 +929,7 @@ class diversao(commands.Cog):
   @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
   async def braixenrealmeme(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixenrealmeme",interaction=interaction):
-        return
-    print(f"Comando /meme braixenreal - User {interaction.user.name}")
-    
+        return    
     try:
         await interaction.response.defer()
         imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)

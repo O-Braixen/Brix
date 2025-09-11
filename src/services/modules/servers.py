@@ -166,7 +166,7 @@ class servers(commands.Cog):
 
   @commands.Cog.listener()
   async def on_ready(self):
-    print("🗄️  -  Modúlo Servers carregado.")
+    print("💚  -  Modúlo Servers carregado.")
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
     #LIGANDO TASKS
     if not self.update_api_servidores.is_running():

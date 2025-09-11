@@ -358,7 +358,7 @@ async def definir_fundo(interaction: discord.Interaction, banner_name , original
     
     # Confirma a mudança do fundo
     await interaction.edit_original_response(content=Res.trad(interaction=interaction, str="message_fundo_definido").format(banner_name),view=None)
-    await asyncio.sleep(1)
+    await asyncio.sleep(2)
     await userperfil(interaction,interaction.user)
 
 
@@ -641,7 +641,7 @@ class loja(commands.Cog):
       else:
         BancoLoja.update_document(id,name,braixencoin,graveto,raridade,url,descricao,fontcor)
         msg = await ctx.send(f"registrado o item {name} - {braixencoin} <:BraixenCoin:1272655353108103220> - Raridade: {raridade}")
-        await asyncio.sleep(10)
+        await asyncio.sleep(20)
         await msg.delete()
     else:
       await ctx.send(Res.trad(user=ctx.author,str='message_erro_onlyowner'))
@@ -744,6 +744,8 @@ class loja(commands.Cog):
       return 
     await interaction.response.defer() #defer como resposta
     await chamarlojadiaria(self,interaction,0)
+    await asyncio.sleep(240)
+    await interaction.edit_original_response(content=Res.trad(interaction=interaction, str='message_erro_interacaoexpirada'), embed = None,attachments=None, view = None)
   
 
 

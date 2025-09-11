@@ -217,7 +217,7 @@ class caracterai(commands.Cog):
             await message.reply(Res.trad(user=message.author, str='message_cai_erro_reacao'))
 
           response = await enviar_mensagem_para_character_ai(self, message.author, message.content)
-          print(f"brix respondeu para {message.author.name} {message.author.id}: {response}")
+          print(f"🦊 - brix respondeu para {message.author.name} {message.author.id}: {response}")
 
           if random.randint(1, 100) <= 20:
             response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
@@ -260,6 +260,8 @@ class caracterai(commands.Cog):
         print(e)
         return
 
+
+    
 
 
 
@@ -379,7 +381,7 @@ class caracterai(commands.Cog):
       return
     
     response = await enviar_mensagem_para_character_ai(self,interaction.user,mensagem)
-    print(f"brix respondeu para {interaction.user.name} : {response}")
+    print(f"🦊 - brix respondeu para {interaction.user.name} : {response}")
     await interaction.followup.send(response)
     
 
