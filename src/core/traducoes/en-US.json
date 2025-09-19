@@ -527,5 +527,13 @@
     "Quem vai receber o presente": "who is going to receive the gift?",
     "Copiar JSON do Embed": "copy embed json",
     "📝⠂Normaliza nicknames que tenham fontes diferentes ou emojis no servidor.": "📝⠂normalize nicknames that have different fonts or emojis on the server.",
-    "⭐⠂Ajuda sobre a loja VIP.": "⭐⠂help about the vip store."
+    "⭐⠂Ajuda sobre a loja VIP.": "⭐⠂help about the vip store.",
+    "teste": "test",
+    "": "porfavor,forneçaamensagemquevocêgostariaqueeutraduzisseparaoinglês.",
+    "test": "test",
+    "Comandos de tag do servidor do bot.": "bot server tag commands.",
+    "🗄️⠂Exibe informações do sistema de tag do servidor.": "🗄️⠂displays server tag system information.",
+    "🗄️⠂Ative a entrega de cargos para membros que usam a tag do seu servidor.": "🗄️⠂enable role delivery for members who use your server's tag.",
+    "🗄️⠂desative a entrega de cargos para membros que usam a tag do seu servidor.": "🗄️⠂disable role delivery to members who use your server's tag.",
+    "🗄️⠂Veja todos os membros que usam a tag do seu servidor.": "🗄️⠂see all members who use your server's tag."
 }

@@ -434,9 +434,10 @@ class Botoesdash(discord.ui.View):
         
         partes = []
         parte_atual = lista
-        
-        for server in servers:
-            entrada = f"**Nome:** `{server.name}` - **id:** `{server.id}`\n"
+
+        for i, server in enumerate(servers, start=1):  # contador automático
+            entrada = f"`{i}` - **Nome:** `{server.name}` - **id:** `{server.id}`\n"
+
             if len(parte_atual) + len(entrada) > 2000:
                 partes.append(parte_atual)
                 parte_atual = ""

@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from src.services.essential.respostas import Res
 from src.services.connection.database import BancoServidores,BancoUsuarios,BancoLoja , BancoFinanceiro
 from src.services.modules.premium import liberarpremium
+from src.services.essential.diversos import Paginador_Global
 from dotenv import load_dotenv
 
 
@@ -25,6 +26,9 @@ canal_vote_topgg = os.getenv("canal_vote_topgg")
 class BotoesBuscarServidor(discord.ui.View):
     def __init__(self,interaction ,menu, client,server):
         super().__init__(timeout=300)
+        # Cache para contar erros de cada registro: chave = ID do servidor, valor = contador
+        self.tag_error_count =[]
+
         self.interaction = interaction
         self.menu = menu
         self.client = client
@@ -171,15 +175,23 @@ class servers(commands.Cog):
     #LIGANDO TASKS
     if not self.update_api_servidores.is_running():
       await asyncio.sleep(20)
+      print("🍕  -  Iniciando update de dados dos servidores em API's externas")
       self.update_api_servidores.start()
 
     if not self.loop_bumps.is_running():
       await asyncio.sleep(20)
+      print("🍕  -  Iniciando Verificação de bumps nas comunidades")
       self.loop_bumps.start()
     
     if not self.lembretes_topgg.is_running():
       await asyncio.sleep(20)
+      print("🍕  -  Iniciando Verificação de lembretes do top.gg")
       self.lembretes_topgg.start()
+    
+    if not self.verificar_tags.is_running():
+      await asyncio.sleep(20)
+      print("🍕  -  Iniciando verificação de tags nas comunidades")
+      self.verificar_tags.start()
 
  
 
@@ -250,7 +262,14 @@ class servers(commands.Cog):
 
 
 
-  #Comando AutoPhox 
+
+
+
+
+
+
+
+  #Comando VOTE TOP.GG 
   @app_commands.command(name="vote", description="🦊⠂Vote no melhor Braixen bot.")
   async def votebrix(self, interaction: discord.Interaction):
     if await Res.print_brix(comando="votebrix",interaction=interaction):
@@ -261,6 +280,9 @@ class servers(commands.Cog):
     item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://top.gg/bot/983000989894336592/vote")
     view.add_item(item=item)
     await interaction.response.send_message(embed=resposta , view=view)
+
+
+
 
 
 
@@ -279,9 +301,17 @@ class servers(commands.Cog):
 
 
 
+
+
+
   @commands.Cog.listener()
   async def on_guild_remove(self,guild):
     print(f'❌❌❌ - Fui removido do servidor: {guild.name} (ID: {guild.id})')
+
+
+
+
+
 
 
 
@@ -305,6 +335,15 @@ class servers(commands.Cog):
 
     except Exception as e:
       print(f"Falha ao atualizar algum lugar: {e}")
+
+
+
+
+
+
+
+
+
 
 
 
@@ -374,6 +413,11 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
   @tasks.loop(minutes=10)
   async def lembretes_topgg(self):
     await asyncio.sleep(5)  # Delay para evitar spam
@@ -382,20 +426,21 @@ class servers(commands.Cog):
 
     for u in usuarios:
       try:
-        user = await self.client.fetch_user(u["_id"])
-        resposta = discord.Embed(
-          colour=discord.Color.yellow(),
-          description=Res.trad(user=user, str='message_votetopgg_lembrete_dm')
-        )
-        resposta.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/8957/8957077.png")
-        view = discord.ui.View()
-        item = discord.ui.Button(
-          style=discord.ButtonStyle.blurple,
-          label=Res.trad(user=user, str="botão_abrir_navegador"),
-          url="https://top.gg/bot/983000989894336592/vote"
-        )
-        view.add_item(item)
-        await user.send(embed=resposta, view=view)
+        
+        if u["dm-notification"] is True:
+          user = await self.client.fetch_user(u["_id"])
+          resposta = discord.Embed(
+            colour=discord.Color.yellow(),
+            description=Res.trad(user=user, str='message_votetopgg_lembrete_dm')
+          )
+          resposta.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/8957/8957077.png")
+          view = discord.ui.View()
+          item = discord.ui.Button( style=discord.ButtonStyle.blurple, label=Res.trad(user=user, str="botão_abrir_navegador"), url="https://top.gg/bot/983000989894336592/vote" )
+          view.add_item(item)
+          await user.send(embed=resposta, view=view)
+        else:
+          print("🦊 - membro não recebe notificações via DM")
+          
       except:
         print(f"[voto] Falha ao enviar lembrete para {u['_id']}")
 
@@ -407,9 +452,128 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # ======================================================================
+  # TASK DE VERIFICAÇÃO DE TAGS DE SERVIDOR
+  @tasks.loop(minutes=10)  # roda a cada 10 min
+  async def verificar_tags(self):
+    filtro = {"tag_server": {"$exists": True}}
+    try:
+      servidores = BancoServidores.select_many_document(filtro)
+
+      for servidor in servidores:
+        
+        guild_id = servidor["_id"]
+        cargo_id = servidor["tag_server"]["cargo"]
+        notificar = servidor["tag_server"]["aviso_dm"]
+
+        guild = self.client.get_guild(guild_id)
+        if not guild:
+          continue
+        
+        print(f"verificando {guild.name} - {guild.id}")
+
+        cargo = guild.get_role(cargo_id)
+        if not cargo:
+          # incrementa contador de erros
+            contador = self.tag_error_count.get(guild_id, 0) + 1
+            self.tag_error_count[guild_id] = contador
+
+            print(f"Cargo {cargo_id} não encontrado em {guild.name}. Erro {contador}/40")
+
+            # se passar de 40, remove do banco e reseta contador
+            if contador >= 40:
+                print(f"Removendo configuração de tag do servidor {guild.name} ({guild_id}) após 40 falhas.")
+                BancoServidores.delete_field(guild_id, {"tag_server": servidor["tag_server"]})
+                del self.tag_error_count[guild_id]
+
+            continue  # pula para o próximo servidor
+
+        # se achou o cargo, reseta contador de erro (se existir)
+        if guild_id in self.tag_error_count:
+            del self.tag_error_count[guild_id]
+
+        # ================================
+        # ETAPA 1: Adicionar cargo a quem tem a tag
+        # ================================
+        for member in guild.members:
+          if ( member.primary_guild and member.primary_guild.id == guild.id and member.primary_guild.identity_enabled ):
+            if cargo not in member.roles:
+              try:
+                await member.add_roles(cargo, reason="Usa a tag do servidor")
+                await asyncio.sleep(0.5) #Evitar abuso de api do discord
+                print(f"🦊 {member} recebeu o cargo {cargo.name}")
+
+                if notificar:
+                  dados_do_membro = BancoUsuarios.insert_document(member)
+                  if dados_do_membro["dm-notification"] is True:
+                    try:
+                      await member.send( Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name) )
+                    except:
+                      print(f"📪 Falha ao enviar DM para {member}")
+              except Exception as e:
+                  print(f"❌ Erro ao adicionar cargo em {member}: {e}")
+
+        # ================================
+        # ETAPA 2: Remover cargo de quem deixou de usar a tag
+        # ================================
+        for member in guild.members:
+          if cargo in member.roles:
+            if not ( member.primary_guild and member.primary_guild.id == guild.id and member.primary_guild.identity_enabled ):
+              try:
+                await member.remove_roles(cargo, reason="Parou de usar a tag do servidor")
+                await asyncio.sleep(0.5) #Evitar abuso de api do discord
+                print(f"😿 {member} perdeu o cargo {cargo.name}")
+
+                if notificar:
+                  dados_do_membro = BancoUsuarios.insert_document(member)
+                  if dados_do_membro["dm-notification"] is True:
+                    try:
+                      await member.send( Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(cargo.name, guild.name) )
+                    except:
+                      print(f"📪 Falha ao enviar DM para {member}")
+              except Exception as e:
+                print(f"❌ Erro ao remover cargo de {member}: {e}")
+
+    except Exception as e:
+      print(f"🔴 - erro na verificação de tags, tentando mais tarde\n{e}")
+    return
+
+
+
+
+
+
+
+
+
+
+
   
 #GRUPO SERVIDOR 
   servidor=app_commands.Group(name="servidor",description="Comandos de servidores do bot.",allowed_installs=app_commands.AppInstallationType(guild=True,user=False),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
+
+
+
+
+
+
+
 
 #COMANDO ICONE DE SERVIDOR
   @servidor.command(name="icone", description='🗄️⠂Exibe o ícone do servidor.')
@@ -417,18 +581,51 @@ class servers(commands.Cog):
     self.servidor = interaction.guild
     await iconeserver(self,interaction)
    
+
+
+
+
+
+
+
+
+
+
+
+
 #COMANDO BANNER DE SERVIDOR
   @servidor.command(name="banner", description='🗄️⠂Exibe o banner do servidor.')
   async def banner(self, interaction: discord.Interaction):
     self.servidor = interaction.guild
     await bannerserver(self,interaction)
         
+
+
+
+
+
+
+
+
+
+
+
+
 #COMANDO SPLASH DE SERVIDOR
   @servidor.command(name="splash", description='🗄️⠂Exibe a splash do servidor.')
   async def splash(self, interaction: discord.Interaction):
     self.servidor = interaction.guild
     await splashserver(self,interaction)
    
+
+
+
+
+
+
+
+
+
 #COMANDO INFORMAÇÂO DE SERVIDOR
   @servidor.command(name="info", description='🗄️⠂Exibe informações sobre o servidor.')
   @app_commands.describe(id="informe uma id de um servidor")
@@ -463,6 +660,138 @@ class servers(commands.Cog):
     if servidor.created_at: resposta.add_field(name=Res.trad(interaction=interaction,str="servidor_criadoem_name"), value=f"**<t:{int(servidor.created_at.timestamp())}:d>-<t:{int(servidor.created_at.timestamp())}:R>**")
 
     await interaction.response.send_message(embed=resposta , view=BotoesBuscarServidor(client=self,interaction=interaction,menu=False,server=servidor))
+
+
+
+
+
+
+
+
+  servidortag=app_commands.Group(name="tag",description="Comandos de tag do servidor do bot.", parent=servidor)
+
+
+
+#COMANDO DE AJUDA DO SISTEMA DE TAG DO SERVIDOR 
+  @servidortag.command(name="ajuda", description='🗄️⠂Exibe informações do sistema de tag do servidor.')
+  async def servidor_tag_ajuda (self, interaction: discord.Interaction):
+    resposta = discord.Embed( 
+      colour=discord.Color.yellow(),
+      description=Res.trad(interaction=interaction,str="servidor_tag_ajuda")
+    )
+    await interaction.response.send_message(embed=resposta)
+  
+
+
+
+
+
+
+  #COMANDO DE ATIVAR A ENTREGA DE CARGOS DO SISTEMA DE TAG DO SERVIDOR 
+  @servidortag.command(name="ativar", description='🗄️⠂Ative a entrega de cargos para membros que usam a tag do seu servidor.')
+  @app_commands.describe(  cargo="qual cargo deseja adicionar ao membro?"  ,  notificar="Notificar usuário em DM?"  )
+  async def servidor_tag_ativar (self, interaction: discord.Interaction, cargo : discord.Role, notificar : bool):
+    if await Res.print_brix(comando="servidor_tag_ativar", interaction=interaction, condicao=f"{cargo.name}"):
+      return
+    try:
+      if interaction.guild is None:
+        await interaction.response.send_message(Res.trad(interaction=interaction, str="message_erro_onlyservers"), delete_after=20, ephemeral=True)
+        return
+      # Verificando se o usuário tem permissão
+      if not interaction.user.guild_permissions.manage_roles:
+        await interaction.response.send_message(Res.trad(interaction=interaction, str='message_erro_permissao_user'), delete_after=20, ephemeral=True)
+        return
+      
+      await interaction.response.defer()
+      item = { "tag_server.cargo": cargo.id , "tag_server.aviso_dm": notificar}
+      BancoServidores.update_document(interaction.guild.id, item)
+      await interaction.followup.send(Res.trad(interaction=interaction, str="servidor_tag_ativado").format(cargo.mention, "<a:Brix_Check:1371215835653210182>" if notificar else "<a:Brix_Negative:1371215873637093466>"))
+    except Exception as e:
+      await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="servidor_tag_ativar")
+
+
+
+
+
+
+
+
+
+  #COMANDO DE DESATIVAR A ENTREGA DE CARGOS DO SISTEMA DE TAG DO SERVIDOR 
+  @servidortag.command(name="desativar", description='🗄️⠂desative a entrega de cargos para membros que usam a tag do seu servidor.')
+  async def servidor_tag_desativar (self, interaction: discord.Interaction):
+    if await Res.print_brix(comando="servidor_tag_desativar", interaction=interaction):
+      return
+    try:
+      if interaction.guild is None:
+        await interaction.response.send_message(Res.trad(interaction=interaction, str="message_erro_onlyservers"), delete_after=20, ephemeral=True)
+        return
+      # Verificando se o usuário tem permissão
+      if not interaction.user.guild_permissions.manage_roles:
+          await interaction.response.send_message(Res.trad(interaction=interaction, str='message_erro_permissao_user'), delete_after=20, ephemeral=True)
+          return
+      
+      await interaction.response.defer()
+      item = {"tag_server": interaction.channel.id}
+      BancoServidores.delete_field(interaction.guild.id, item)
+      await interaction.followup.send(Res.trad(interaction=interaction, str="servidor_tag_desativado"))
+    except Exception as e:
+      await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="servidor_tag_desativar")
+
+
+
+
+
+
+
+
+
+
+  #COMANDO DE LISTAR TODOS OS MEMBROS QUE USAM A TAG DO SERVIDOR 
+  @servidortag.command(name="listar", description='🗄️⠂Veja todos os membros que usam a tag do seu servidor.')
+  async def servidor_tag_listar (self, interaction: discord.Interaction):
+    if await Res.print_brix(comando="servidor_tag_listar",interaction=interaction):
+      return
+    try:
+      if interaction.guild is None:
+        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
+        return
+      await interaction.response.send_message("https://cdn.discordapp.com/emojis/1370974233588404304.gif")
+
+      lista = []
+      count_mesma_tag = 0
+      count_outras_tags = 0
+
+      # percorre todos os membros e pega quem tem a tag do servidor habilitada
+      for member in interaction.guild.members:
+        if member.primary_guild and member.primary_guild.identity_enabled:
+          if member.primary_guild.id == interaction.guild.id:
+            # tag desse servidor
+            tag_nome = member.primary_guild.tag
+            linha = f"{member.mention} - ID: `{member.id}`"
+            lista.append(linha)
+            count_mesma_tag += 1
+          else:
+            # tag de outro servidor
+            count_outras_tags += 1
+      if not lista:
+          return await interaction.edit_original_response( content= Res.trad(interaction= interaction, str='servidor_tag_lista_sem_membros'))
+      
+      total_membros = len(interaction.guild.members)
+      # calcula porcentagens
+      perc_mesma = (count_mesma_tag / total_membros * 100) if total_membros > 0 else 0
+      perc_outras = (count_outras_tags / total_membros * 100) if total_membros > 0 else 0
+
+      
+      descrição=Res.trad(interaction= interaction, str='servidor_tag_lista_membros_title').format(count_mesma_tag,perc_mesma,count_outras_tags,perc_outras,total_membros, tag_nome)
+      blocos = [lista[i:i + 10] for i in range(0, len(lista), 10)] 
+      await Paginador_Global(self, interaction, blocos, pagina=0, originaluser=interaction.user,descrição=descrição, thumbnail_url=interaction.guild.icon.url if interaction.guild.icon else None)
+
+    except Exception as e:
+      await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="servidor_tag_listar")
+
+
+
 
 
 

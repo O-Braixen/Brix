@@ -194,7 +194,7 @@ class cogvip(commands.Cog):
             valor = int(dados["valor"])
             tempo = formatar_tempo(dados["tempo"], interaction)
 
-            lista += f"<@&{cargo_id}> - **{valor:,}** <:BraixenCoin:1272655353108103220> ({tempo})\n".replace(",", ".")
+            lista += f"<@&{cargo_id}> ({tempo}) - **{valor:,}** <:BraixenCoin:1272655353108103220>\n".replace(",", ".")
 
         embed = discord.Embed(
             colour=discord.Color.gold(),
