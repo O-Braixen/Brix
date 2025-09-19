@@ -26,9 +26,7 @@ canal_vote_topgg = os.getenv("canal_vote_topgg")
 class BotoesBuscarServidor(discord.ui.View):
     def __init__(self,interaction ,menu, client,server):
         super().__init__(timeout=300)
-        # Cache para contar erros de cada registro: chave = ID do servidor, valor = contador
-        self.tag_error_count =[]
-
+        
         self.interaction = interaction
         self.menu = menu
         self.client = client
@@ -162,6 +160,8 @@ async def splashserver(self,interaction):
 class servers(commands.Cog):
   def __init__(self, client: commands.Bot) -> None:
     self.client = client
+    # Cache para contar erros de cada registro: chave = ID do servidor, valor = contador
+    self.tag_error_count =[]
         
 
 
@@ -768,7 +768,7 @@ class servers(commands.Cog):
           if member.primary_guild.id == interaction.guild.id:
             # tag desse servidor
             tag_nome = member.primary_guild.tag
-            linha = f"{member.mention} - ID: `{member.id}`"
+            linha = f"{count_mesma_tag+1} - {member.mention} - ID: `{member.id}`"
             lista.append(linha)
             count_mesma_tag += 1
           else:
