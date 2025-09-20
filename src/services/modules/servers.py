@@ -544,7 +544,7 @@ class servers(commands.Cog):
                   dados_do_membro = BancoUsuarios.insert_document(member)
                   if dados_do_membro["dm-notification"] is True:
                     try:
-                      await member.send( Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(cargo.name, guild.name) )
+                      await member.send( Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name) )
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
