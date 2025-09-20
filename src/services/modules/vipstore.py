@@ -1,4 +1,4 @@
-import discord, random , asyncio
+import discord, random , asyncio , datetime
 from discord.ext import commands
 from discord import app_commands
 from typing import List
@@ -268,6 +268,14 @@ class cogvip(commands.Cog):
         # se não foi informado tempo → perm
         if tempo is None:
             tempo = "perm"
+        else:
+            # transforma em horas, caso precise (ajuste conforme sua unidade)
+            tempo_final = datetime.datetime.now() + datetime.timedelta(seconds=tempo)
+            # limite de 5 meses (aprox. 3650 horas)
+            limite = datetime.datetime.now() + datetime.timedelta(hours=3650)
+            if tempo_final > limite:
+                await interaction.followup.send( Res.trad(interaction=interaction, str='cargo_temporario_limit'), ephemeral=True )
+                return
         # atualiza no banco
         BancoServidores.update_document(interaction.guild.id, {f"lojavip.{gerar_id_unica()}": {"cargo": cargo.id, "valor": valor, "tempo": tempo , "registrado": interaction.user.id}})
         await interaction.followup.send(Res.trad(interaction=interaction, str="viploja_item_adicionado").format(cargo.name,valor,formatar_tempo(tempo, interaction)) , ephemeral=True)
