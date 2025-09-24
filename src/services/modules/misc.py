@@ -53,18 +53,16 @@ async def buscarbanner(self, interaction,membro,menu):
         return
    if membro == None:
         membro = interaction.user
-   membro = await self.client.fetch_user(membro.id)
-   if membro.banner:
+   fetch_user = await self.client.fetch_user(membro.id)
+   if fetch_user.banner:
       resposta = discord.Embed(
-        title=f"🦊┃Banner de {membro.name}",
+        title=Res.trad(interaction=interaction, str="banner_global"),
+        description=Res.trad(interaction=interaction, str="banner_global_description").format(membro.name),
         colour=discord.Color.yellow()
       )
-      resposta.set_image(url=f"{membro.banner.url}")
-      view = discord.ui.View()
-      item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url=f"{membro.banner.url}")
-      view.add_item(item=item)
-      await interaction.response.send_message(embed = resposta , view = view , ephemeral = menu )
-   else:await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_banner").format(membro.mention),delete_after=10, ephemeral=True)
+      resposta.set_image(url=f"{fetch_user.banner.url}")
+      await interaction.response.send_message(embed = resposta , view = ViewBannerServidor(interaction=interaction,user=membro, fetch_user = fetch_user ,menu=menu) , ephemeral = menu )
+   else:await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_banner").format(fetch_user.mention),delete_after=10, ephemeral=True)
 
 
 
@@ -199,6 +197,51 @@ class  ViewAvatarServidor(discord.ui.View):
         resposta.set_image(url=f"{membro.guild_avatar}")
         view = discord.ui.View()
         item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url=f"{membro.guild_avatar.url}")
+        view.add_item(item=item)
+        await interaction.response.send_message(embed=resposta,view=view,ephemeral=self.menu)
+      except:await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_avatar").format(membro.mention,"Local"),delete_after=5, ephemeral=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #BOTÃO EXIBIR O BANNER DO USUARIO LOCAL NA COMUNIDADE
+class  ViewBannerServidor(discord.ui.View):
+    def __init__(self,interaction,user,menu , fetch_user):
+        super().__init__(timeout=300)
+        self.user = user
+        self.fetch_user = fetch_user
+        self.menu = menu
+        self.interaction = interaction
+        self.value=None
+        item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=self.interaction,str="botão_abrir_navegador"),url=f"{fetch_user.banner.url}")
+        self.add_item(item=item)
+
+    @discord.ui.button(label="Banner Local",style=discord.ButtonStyle.blurple,emoji="🎨")
+    async def bannerlocalservidor(self,interaction: discord.Interaction, button: discord.ui.Button):
+      membro = self.user
+      self.value = True
+      self.stop()
+      if await Res.print_brix(comando="Botão Banner Local",interaction=interaction):
+        return
+      try:
+        resposta = discord.Embed(
+          title=Res.trad(interaction=interaction, str="banner_local"),
+          description=Res.trad(interaction=interaction, str="banner_local_description").format(membro.name,membro.guild.name),
+          colour=discord.Color.yellow()
+        )
+        resposta.set_image(url=f"{membro.guild_banner}")
+        view = discord.ui.View()
+        item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url=f"{membro.guild_banner.url}")
         view.add_item(item=item)
         await interaction.response.send_message(embed=resposta,view=view,ephemeral=self.menu)
       except:await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_avatar").format(membro.mention,"Local"),delete_after=5, ephemeral=True)

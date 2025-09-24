@@ -150,7 +150,7 @@ class financeiro(commands.Cog):
 
 
   async def mostrar_transações(self,interaction,  moeda): 
-    await interaction.response.send_message("https://cdn.discordapp.com/emojis/1370974233588404304.gif")
+    await interaction.response.defer()
     try:
         transacoes = BancoFinanceiro.buscar_historico(interaction.user.id, limite=1000,moeda=moeda)
         lista = []

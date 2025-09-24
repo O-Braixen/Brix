@@ -10,6 +10,7 @@ from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck , verificar_cooldown
 from src.services.essential.gasmii import generate_response_with_text
 from src.services.essential.imagem import pegar_imagem
+from src.services.essential.diversos import container_media_button_url
 from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGEM
 Image.MAX_IMAGE_PIXELS = None
 
@@ -53,7 +54,6 @@ async def buscae621slash(interaction,quantidade,item):
         return
     try:
         await interaction.response.defer()
-        #await asyncio.sleep(0.1)
         if quantidade == None:
             quantidade = 1
         else:
@@ -84,10 +84,10 @@ async def buscae621slash(interaction,quantidade,item):
             while (i< len(r) ):
                 post = r[i]
                 i=i+1
-                view = discord.ui.View()
-                button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url=f"https://e621.net/posts/{post['id']}")
-                view.add_item(item=button)
-                await interaction.followup.send(f"[{item} - {post['tags']['artist'][0] if post['tags']['artist'] else '-'}]({post['file']['url']})\n-# {messagefooter}",view=view)
+                descrição = Res.trad(interaction=interaction,str="artista").format(post['tags']['artist'][0] if post['tags']['artist'] else '-')
+                view = container_media_button_url(titulo= item, descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer=messagefooter)
+                await interaction.followup.send(view=view)
+
         else:await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_E621_limit").format(quantidade),ephemeral = True)    
     except Exception as e:
         print(e)
@@ -111,7 +111,7 @@ async def buscae621slash(interaction,quantidade,item):
 
 
 #API ANIMAL RANDOMICO VIA SLASH
-async def animalrandomico(interaction, quantidade, apirandom):
+async def animalrandomico(interaction, quantidade, apirandom , getter):
     try:
         await interaction.response.defer()
         if quantidade is None:
@@ -120,14 +120,15 @@ async def animalrandomico(interaction, quantidade, apirandom):
             for _ in range(quantidade):
                 r = requests.get(apirandom)
                 res_list = r.json()
+                # Se a resposta for um dict, transforme em lista para iterar uniformemente
+                if isinstance(res_list, dict):
+                    res_list = [res_list]
+
                 for res in res_list:
-                    if 'url' in res:
-                        image_url = res['url']
-                        if quantidade > 1:
-                            await asyncio.sleep(1)
-                            await interaction.followup.send(image_url)
-                        else:
-                            await interaction.followup.send(image_url)
+                    if getter in res:
+                        image_url = res[getter]
+                        view = container_media_button_url(titulo= Res.trad(interaction=interaction,str="message_titulo_apirandomica"),galeria = image_url, buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador") , buttonURL=image_url)
+                        await interaction.followup.send(view = view)
                     else:
                         await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apirandomica_url"), ephemeral=True)
         else:
@@ -248,11 +249,15 @@ class diversao(commands.Cog):
             try:
                 servidor = await self.client.fetch_guild(linha['_id'])
                 canal = await self.client.fetch_channel(linha['autophox'])
-                print(f"enviando autophox em {servidor.name}") 
-                view = discord.ui.View()
-                button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(guild=servidor.id,str="botão_abrir_navegador"),url=f"https://e621.net/posts/{post['id']}")
-                view.add_item(item=button)
-                await canal.send(f"[{post['tags']['artist'][0]}]({post['file']['url']})\n-# {Res.trad(guild=servidor.id,str='message_autophox_footer')}",view=view)
+                #view = discord.ui.View()
+                #button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(guild=servidor.id,str="botão_abrir_navegador"),url=f"https://e621.net/posts/{post['id']}")
+                #view.add_item(item=button)
+                
+                #await canal.send(f"[{post['tags']['artist'][0]}]({post['file']['url']})\n-# {Res.trad(guild=servidor.id,str='message_autophox_footer')}",view=view)
+
+                descrição = Res.trad(guild=servidor.id,str="artista").format(post['tags']['artist'][0] if post['tags']['artist'] else '-')
+                view = container_media_button_url(titulo= Res.trad(guild=servidor.id,str="message_autophox_titulo").format(item), descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(guild=servidor.id,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer= Res.trad(guild=servidor.id,str='message_autophox_footer') )
+                await canal.send(view=view)
 
                 # Se o envio foi bem-sucedido, podemos resetar o contador para esse servidor, se houver
                 if linha['_id'] in self.autophox_error_count:
@@ -494,23 +499,32 @@ class diversao(commands.Cog):
      
 
   @buscae621.autocomplete("tag")
-  async def valor_autocomplete(self, interaction: discord.Interaction, current: str ) -> List[app_commands.Choice[int]]:
-    #FAZ O REQUESTS DA PESQUISA DO USUARIO
-    r = requests.get(        "https://e621.net/tags/autocomplete.json",        params={"search[name_matches]": current},        headers={"User-Agent": "DiscordBot/1.0 (by YourUsername on e621)"}    , timeout=1).json()
-    if "error" in r: #CASO APRESENTE ERRO RETORNA UMA LISTA GENERICA
-      r =  e621api.tags.search(current)
-    sugestao = [] #MONTADOR DE SUGESTÔES
-    try:
-      for tag in r:
-        sugestao.append(
-            app_commands.Choice(
-                name=f"{tag['name']} ({tag['post_count']})",  # Acessando o nome da tag
-                value=tag['name'],   # Acessando o ID da tag
-            )
-        )
-    except:
-        sugestao = [] #MONTADOR DE SUGESTÔES
-    return sugestao [:25]
+  async def valor_autocomplete(self, interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
+      sugestao: List[app_commands.Choice[str]] = []
+
+      try:
+          # tenta buscar no e621
+          r = requests.get( "https://e621.net/tags/autocomplete.json", params={"search[name_matches]": current}, headers={"User-Agent": "DiscordBot/1.0 (by YourUsername on e621)"}, timeout=2 )
+          r.raise_for_status()  # se retornar erro HTTP, levanta exceção
+          data = r.json()
+      except requests.exceptions.ReadTimeout:
+          data = e621api.tags.search(current)
+      except:
+          data = []
+
+      # monta sugestões
+      for tag in data:
+          try:
+              sugestao.append(
+                  app_commands.Choice(
+                      name=f"{tag['name']} ({tag['post_count']})",
+                      value=tag['name']
+                  )
+              )
+          except Exception:
+              continue
+
+      return sugestao[:25]  # Discord só aceita até 25 opções
 
 
 
@@ -632,7 +646,8 @@ class diversao(commands.Cog):
             title="🎱┃8Ball",
             description=Res.trad(interaction=interaction,str="message_8ball_description").format(pergunta,msg)
             )
-    await interaction.followup.send(embed=resposta)
+    view = container_media_button_url( descricao_thumbnail="https://www.clipartmax.com/png/full/103-1034729_pokemon-braixen-fire-fox-ask-vixen-the-braixen-january-17.png", descricao=Res.trad(interaction=interaction,str="message_8ball_description").format(pergunta,msg) )
+    await interaction.followup.send(view=view)
 
 
 
@@ -657,8 +672,10 @@ class diversao(commands.Cog):
     if await Res.print_brix(comando="sabedoriabrix",interaction=interaction):
         return
     await interaction.response.defer()
-    resposta = discord.Embed( colour=discord.Color.yellow(),description=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')))
-    await interaction.followup.send(embed=resposta)
+    #resposta = discord.Embed( colour=discord.Color.yellow(),description=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')))
+    #await interaction.followup.send(embed=resposta)
+    view = container_media_button_url(descricao=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')) , descricao_thumbnail="https://www.clipartmax.com/png/full/103-1034729_pokemon-braixen-fire-fox-ask-vixen-the-braixen-january-17.png")
+    await interaction.followup.send(view=view)
 
 
 
@@ -680,9 +697,8 @@ class diversao(commands.Cog):
         return
     await interaction.response.defer()
     diario = random.choice(Res.trad( interaction=interaction, str='message_diversao_diariobrix'))
-    resposta = discord.Embed( colour=discord.Color.yellow(),description=Res.trad( interaction=interaction, str='message_diversao_diariobrix_descricao').format(diario))
-    resposta.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/3238/3238016.png")
-    await interaction.followup.send(embed=resposta)
+    view = container_media_button_url(descricao=Res.trad( interaction=interaction, str='message_diversao_diariobrix_descricao').format(diario), descricao_thumbnail="https://i.imgur.com/eUJJ5BA.png")
+    await interaction.followup.send(view=view)
 
 
 
@@ -800,29 +816,13 @@ class diversao(commands.Cog):
 
 #COMANDO RAPOSA RANDOMICA SLASH
   @gruporand.command(name="raposa",description='🎨⠂imagem aleatoria de uma raposa.')
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 6)])
   @app_commands.describe(quantidade="quantidade de imagens, limite 5")
   async def randraposa(self,interaction: discord.Interaction,quantidade:int=None):
     if await Res.print_brix(comando="randraposa",interaction=interaction):
         return
-    try:
-        if quantidade == None:
-            quantidade = 1
-        if quantidade <= 5:
-            i = 0
-            while (i<quantidade):
-                r= requests.get("https://randomfox.ca/floof/")
-                res = r.json()
-                i=i+1
-                if i >1:
-                    await asyncio.sleep(1)
-                    await interaction.followup.send(res['image'])
-                else:await interaction.response.send_message(res['image'])
-        else:await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_apirandomica_limit").format(quantidade),delete_after=10,ephemeral = True)    
-    except:
-        await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_apirandomica"),delete_after=10,ephemeral = True)
-
-
-
+    apirandom = "https://randomfox.ca/floof/"
+    await animalrandomico(interaction,quantidade,apirandom,'image')
 
 
 
@@ -837,12 +837,13 @@ class diversao(commands.Cog):
 
 #COMANDO GATO RANDOMICO SLASH
   @gruporand.command(name="gato",description='🎨⠂imagem aleatoria de um gato.')
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 6)])
   @app_commands.describe(quantidade="quantidade de imagens, limite 5")
   async def randgato(self,interaction: discord.Interaction,quantidade:int=None):
     if await Res.print_brix(comando="randgato",interaction=interaction):
         return
     apirandom = "https://api.thecatapi.com/v1/images/search"
-    await animalrandomico(interaction,quantidade,apirandom)
+    await animalrandomico(interaction,quantidade,apirandom,'url')
 
 
 
@@ -858,12 +859,13 @@ class diversao(commands.Cog):
 
 #COMANDO CACHORRO RANDOMICO SLASH
   @gruporand.command(name="cachorro",description='🎨⠂imagem aleatoria de um cachorro.')
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 6)])
   @app_commands.describe(quantidade="quantidade de imagens, limite 5")
   async def randcachorro(self,interaction: discord.Interaction,quantidade:int=None):
     if await Res.print_brix(comando="randcachorro",interaction=interaction):
         return
     apirandom = "https://api.thedogapi.com/v1/images/search"
-    await animalrandomico(interaction,quantidade,apirandom)
+    await animalrandomico(interaction,quantidade,apirandom,'url')
 
 
 

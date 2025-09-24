@@ -7,6 +7,7 @@ from typing import List
 from src.services.connection.database import BancoServidores,BancoUsuarios
 from src.services.essential.respostas import Res
 from src.services.essential.diversos import Paginador_Global , gerar_id_unica
+from discord import ui
 
 
 
@@ -426,6 +427,7 @@ class admin(commands.Cog):
     resposta.add_field(name=Res.trad(interaction=interaction,str='slow_text'), value=f"```{slow}```", inline=True)    
     resposta.add_field(name=Res.trad(interaction=interaction,str='nome'), value=f"```{chat.name}```", inline=True)    
     resposta.add_field(name=Res.trad(interaction=interaction,str='criação'), value=f"```{datetime.strftime(chat.created_at, Res.trad(interaction=interaction, str='padrao_data')+' - %H:%M')}```", inline=True)    
+        
     await interaction.edit_original_response(embed=resposta)
 # Checador de erro caso o bot não tenha permissão de acessar os dados de um chat
   @infochat.error
@@ -904,7 +906,7 @@ class admin(commands.Cog):
       if interaction.user.guild_permissions.manage_roles is not True :
         await interaction.response.send_message(Res.trad(interaction=interaction,str='message_erro_permissao_cargo_consulta'),delete_after=10, ephemeral=True)
         return
-      await interaction.response.send_message("https://cdn.discordapp.com/emojis/1370974233588404304.gif")
+      await interaction.response.defer()
 
       consulta = BancoServidores.insert_document(interaction.guild.id)
         # Verifica se 'temprole' existe e não está vazio

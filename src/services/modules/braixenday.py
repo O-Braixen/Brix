@@ -77,15 +77,9 @@ class braixenday(commands.Cog):
         elif message.author != self.client.user and not message.author.bot:
             conteudo = message.content.strip().lower()
 
-            # Caso seja só "brix"
-            if conteudo == "brix":
+            # Caso seja só "brix" ou variantes "-brix !brix"
+            if re.search(r"^[\W_]?brix(?:\W.*)?$", conteudo.strip(), re.IGNORECASE):
                 await message.reply(Res.trad(user=message.author,str="onwer_help_apresentação"))
-
-            # Caso tenha +brix, -brix ou brix no meio do texto
-            elif re.search(r"(?:^|\s).*?brix(?:\s|$)", conteudo):
-
-                await message.reply(Res.trad(user=message.author,str="onwer_help_apresentação"))
-
 
 
 

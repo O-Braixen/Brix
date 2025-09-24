@@ -52,7 +52,7 @@ async def appname(nome):
             aplicativos = busca.json().get("response", {}).get("applications", [])
             # Filtrar e retornar apenas os IDs dos aplicativos com nome igual ou similar ao fornecido
             for app in aplicativos:
-                if nome.lower() in app.get("name", "").lower():
+                if app.get("name", "").lower().startswith(nome):
                     appid = app["id"]
                     return app["id"]
         if host == "discloud":
@@ -60,7 +60,7 @@ async def appname(nome):
             aplicativos = busca.json().get("user", {}).get("apps", [])
             for app in aplicativos:
                 app =  requests.get(f"https://api.discloud.app/v2/app/{app}", headers={"api-token": discloud_token})
-                if nome.lower() in app.json().get("apps", {}).get("name", "").lower():
+                if app.json().get("apps", {}).get("name", "").lower().startswith(nome):
                     appid = app.json().get("apps", {}).get("id", "")
                     return appid
     else:

@@ -1,7 +1,7 @@
 from typing import Union
 import discord,os,asyncio,time,requests , re ,aiohttp , datetime,json
 from discord.ext import commands
-from discord import app_commands
+from discord import app_commands, ui
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck, verificar_cooldown
 from src.services.essential.gasmii import generate_response_with_text,generate_response_with_image_and_text,generate_response_with_transcribe_audio,generate_response_with_video_and_text , generate_image_by_text
@@ -74,7 +74,7 @@ class bard(commands.Cog):
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
     res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
     await interaction.response.send_message(embed=res , ephemeral=True)
-    await self.resumoai(interaction,message)
+    await self.resumoai(interaction,message,ephemeral=True)
 
 
 
@@ -187,7 +187,7 @@ class bard(commands.Cog):
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
     res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
     await interaction.response.send_message(embed=res)
-    await self.resumoai(interaction,item=chat)
+    await self.resumoai(interaction,item=chat , ephemeral=False)
 
   
   @resumoaislash.error
@@ -670,7 +670,7 @@ class bard(commands.Cog):
 # ======================================================================
 
   # COMANDO DE RESUMO AI COM SUPORTE A MENSAGEM OU TEXTCHANNEL
-  async def resumoai(self, interaction: discord.Interaction, item: Union[discord.Message, discord.TextChannel]):
+  async def resumoai(self, interaction: discord.Interaction, item: Union[discord.Message, discord.TextChannel], ephemeral):
     if await Res.print_brix(comando="resumoai", interaction=interaction):
       return
     # Verifica se o usuário tem premium
@@ -712,8 +712,20 @@ class bard(commands.Cog):
       colour=discord.Color.yellow(), 
       description=Res.trad(interaction=interaction, str='message_ia_resumoai_text').format(ans[:1900])
     )
-    await interaction.edit_original_response(embed=resposta, content=None)
+    
+    if ephemeral:
+      
+      async def enviar_callback(button_interaction: discord.Interaction):
+        resposta = discord.Embed(      colour=discord.Color.yellow(),       description=Res.trad(interaction=interaction, str='message_ia_resumoai_text').format(ans[:1900])    )
+        await channel.send(embed= resposta)
+        await button_interaction.response.edit_message(content=Res.trad(interaction=interaction, str='message_say'), embed=None, view=None)
+      view = ui.View()
+      botão = ui.Button(label=Res.trad(interaction=interaction,str="botão_compartilhar_chat") ,style=discord.ButtonStyle.gray,emoji="🦊")
+      botão.callback = enviar_callback
+      view.add_item( botão )
 
+      await interaction.edit_original_response(view=view,embed=resposta, content=None)
+    await interaction.edit_original_response( embed=resposta, content=None)
 
 
 

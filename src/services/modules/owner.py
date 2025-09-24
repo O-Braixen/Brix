@@ -313,7 +313,7 @@ class ModalUserextrato(discord.ui.Modal,title = "Consulte o extrato de alguém!"
 
     async def on_submit(self, interaction: discord.Interaction):
       membro = await self.client.fetch_user(self.userid.value)
-      await interaction.response.send_message("https://cdn.discordapp.com/emojis/1370974233588404304.gif",ephemeral=True)
+      await interaction.response.defer(ephemeral=True)
       try:
         transacoes = BancoFinanceiro.buscar_historico(membro.id, limite=1000,moeda=None)
         lista = []
@@ -460,7 +460,7 @@ class Botoesdash(discord.ui.View):
     @discord.ui.button(label="Logs",style=discord.ButtonStyle.red,emoji="📓",row=0)
     async def logsbrix (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
-        await interaction.response.send_message("https://cdn.discordapp.com/emojis/1370974233588404304.gif",ephemeral=True)
+        await interaction.response.defer(ephemeral=True)
         logs = BancoLogs.listar_logs(limite=1000)  # pega últimos 1000 comandos
         lista = []
         for log in logs:

@@ -1,11 +1,13 @@
 import discord,os,random,asyncio,re,requests , aiohttp
+from discord import ui
 from discord.ext import commands, tasks
 from discord import app_commands
 from datetime import datetime, timedelta
 from src.services.essential.respostas import Res
 from src.services.connection.database import BancoServidores,BancoUsuarios,BancoLoja , BancoFinanceiro
 from src.services.modules.premium import liberarpremium
-from src.services.essential.diversos import Paginador_Global
+from src.services.essential.diversos import Paginador_Global , container_media_button_url
+from functools import partial
 from dotenv import load_dotenv
 
 
@@ -22,72 +24,16 @@ canal_vote_topgg = os.getenv("canal_vote_topgg")
 
 
 
-#          CLASSE DE BOTÔES DE INFORMAÇÔES DO SERVIDOR
-class BotoesBuscarServidor(discord.ui.View):
-    def __init__(self,interaction ,menu, client,server):
-        super().__init__(timeout=300)
-        
-        self.interaction = interaction
-        self.menu = menu
-        self.client = client
-        self.servidor = server
-        self.value=None
-
-        self.sicone = discord.ui.Button(label=Res.trad(interaction=self.interaction,str="botão_ver_icone"),style=discord.ButtonStyle.blurple,emoji="🎨")
-        self.add_item(item=self.sicone)
-        self.sicone.callback = self.botaoiconeservidor
-
-        self.sbanner = discord.ui.Button(label=Res.trad(interaction=self.interaction,str="botão_ver_banner"),style=discord.ButtonStyle.blurple,emoji="🖼️")
-        self.add_item(item=self.sbanner)
-        self.sbanner.callback = self.botaobannerservidor
-
-        self.splash = discord.ui.Button(label=Res.trad(interaction=self.interaction,str="botão_ver_splash"),style=discord.ButtonStyle.blurple,emoji="🎪")
-        self.add_item(item=self.splash)
-        self.splash.callback = self.botaosplashservidor
-
-    def __call__(self):
-        return self
-
-    #@discord.ui.button(label="Ver icone",style=discord.ButtonStyle.blurple,emoji="🎨")
-    async def botaoiconeservidor(self,interaction: discord.Interaction):
-      self.value = True
-      await iconeserver(self,interaction)
-
-    
-    #@discord.ui.button(label="Ver Banner",style=discord.ButtonStyle.blurple,emoji="🖼️")
-    async def botaobannerservidor(self,interaction: discord.Interaction):
-      self.value = True
-      await bannerserver(self,interaction)
-
-    #@discord.ui.button(label="Ver Splash",style=discord.ButtonStyle.blurple,emoji="🎪")
-    async def botaosplashservidor(self,interaction: discord.Interaction):
-      self.value = True
-      await splashserver(self,interaction)
-      
-
-
-
-
 
 
 # FUNÇÂO CONSULTAR ICONE DO SERVIDOR
-async def iconeserver(self,interaction):
-    #await interaction.response.defer()
+async def iconeserver(self,interaction : discord.Interaction ,servidor):
     if await Res.print_brix(comando="iconeserver",interaction=interaction):
         return
-    servidor = self.servidor
     icone_url = servidor.icon.url if servidor.icon else None
     if icone_url:
-      resposta = discord.Embed(
-        title=Res.trad(interaction=interaction,str="icone_guild"),
-        description=Res.trad(interaction=interaction,str="icone_guild_description").format(servidor.name),
-        colour=discord.Color.yellow()
-      )
-      resposta.set_image(url=icone_url)
-      view = discord.ui.View()
-      item = discord.ui.Button(style=discord.ButtonStyle.blurple, label=Res.trad(interaction=interaction,str="botão_abrir_navegador"), url=icone_url)
-      view.add_item(item=item)
-      await interaction.response.send_message(embed=resposta, view=view, delete_after=60)
+      view = container_media_button_url(titulo=Res.trad(interaction=interaction,str="icone_guild"),descricao=Res.trad(interaction=interaction,str="icone_guild_description").format(servidor.name) ,buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador"),buttonURL = icone_url, galeria = icone_url)
+      await interaction.response.send_message(view=view, delete_after=60)
     else:
       await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_server_icon"),ephemeral = True)
 
@@ -98,23 +44,13 @@ async def iconeserver(self,interaction):
 
 
 # FUNÇÂO CONSULTAR BANNER DO SERVIDOR
-async def bannerserver(self,interaction):
-    #await interaction.response.defer()
+async def bannerserver(self,interaction: discord.Interaction ,servidor):
     if await Res.print_brix(comando="bannerserver",interaction=interaction):
         return
-    servidor = self.servidor
     banner_url = servidor.banner.url if servidor.banner else None
     if banner_url:
-      resposta = discord.Embed(
-        title=Res.trad(interaction=interaction,str="banner_guild"),
-        description=Res.trad(interaction=interaction,str="banner_guild_description").format(servidor.name),
-        colour=discord.Color.yellow()
-      )
-      resposta.set_image(url=banner_url)
-      view = discord.ui.View()
-      item = discord.ui.Button(style=discord.ButtonStyle.blurple, label=Res.trad(interaction=interaction,str="botão_abrir_navegador"), url=banner_url)
-      view.add_item(item=item)
-      await interaction.response.send_message(embed=resposta, view=view , delete_after = 60 )
+      view = container_media_button_url(titulo=Res.trad(interaction=interaction,str="banner_guild"),descricao=Res.trad(interaction=interaction,str="banner_guild_description").format(servidor.name) ,buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador"),buttonURL = banner_url, galeria = banner_url)
+      await interaction.response.send_message( view=view , delete_after = 60 )
     else:
       await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_server_banner"),ephemeral = True)
 
@@ -125,24 +61,13 @@ async def bannerserver(self,interaction):
 
 
 # FUNÇÂO CONSULTAR SPLASH DO SERVIDOR
-async def splashserver(self,interaction):
-    #await interaction.response.defer()
+async def splashserver(self,interaction: discord.Interaction ,servidor):
     if await Res.print_brix(comando="splashserver",interaction=interaction):
         return
-    servidor = self.servidor
-    splash_id = servidor.splash
-    if splash_id:
-        splash_url = f"{splash_id}"
-        resposta = discord.Embed(
-            title=Res.trad(interaction=interaction,str="splash_guild"),
-            description=Res.trad(interaction=interaction,str="splash_guild_description").format(servidor.name),
-            colour=discord.Color.yellow()
-        )
-        resposta.set_image(url=splash_url)
-        view = discord.ui.View()
-        item = discord.ui.Button(style=discord.ButtonStyle.blurple, label=Res.trad(interaction=interaction,str="botão_abrir_navegador"), url=splash_url)
-        view.add_item(item=item)
-        await interaction.response.send_message(embed=resposta, view=view )
+    splash_url = f"{servidor.splash}" if servidor.splash else None
+    if splash_url:        
+        view = container_media_button_url(titulo=Res.trad(interaction=interaction,str="splash_guild"),descricao=Res.trad(interaction=interaction,str="splash_guild_description").format(servidor.name) ,buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador"),buttonURL = splash_url, galeria = splash_url)
+        await interaction.response.send_message(view=view, delete_after = 60 )
     else:
         await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_server_splash"),ephemeral = True)
 
@@ -199,6 +124,10 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
   @commands.Cog.listener()
   async def on_message(self,message):
     #await asyncio.sleep(1)  # Delay para evitar spam
@@ -216,6 +145,9 @@ class servers(commands.Cog):
         await asyncio.sleep(15)
         await msgenviada.delete()
         
+
+
+
 
 
 
@@ -269,17 +201,24 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
   #Comando VOTE TOP.GG 
   @app_commands.command(name="vote", description="🦊⠂Vote no melhor Braixen bot.")
   async def votebrix(self, interaction: discord.Interaction):
     if await Res.print_brix(comando="votebrix",interaction=interaction):
       return
-    resposta = discord.Embed(       colour=discord.Color.yellow(),      description=Res.trad(interaction=interaction,str="message_votetopgg")  )
-    resposta.set_thumbnail(url=f"https://cdn.discordapp.com/emojis/1154338634011521054.png")
-    view = discord.ui.View()
-    item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://top.gg/bot/983000989894336592/vote")
-    view.add_item(item=item)
-    await interaction.response.send_message(embed=resposta , view=view)
+    #resposta = discord.Embed(       colour=discord.Color.yellow(),      description=Res.trad(interaction=interaction,str="message_votetopgg")  )
+    #resposta.set_thumbnail(url=f"https://cdn.discordapp.com/emojis/1154338634011521054.png")
+    #view = discord.ui.View()
+    #item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://top.gg/bot/983000989894336592/vote")
+    #view.add_item(item=item)
+    
+    view = container_media_button_url(descricao=Res.trad(interaction=interaction,str="message_votetopgg") , descricao_thumbnail= "https://cdn.discordapp.com/emojis/1154338634011521054.png" ,buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador"),buttonURL = "https://top.gg/bot/983000989894336592/vote" )
+
+    await interaction.response.send_message(view=view)
 
 
 
@@ -382,7 +321,7 @@ class servers(commands.Cog):
       proximos.sort()
       ts_proximo, _ = proximos[0]
       espera = max(ts_proximo - agora.timestamp(), 5)
-      print(f"[bump] Próximo aviso em {espera:.0f}s")
+      print(f"⏰ - [bump] Próximo aviso em {espera:.0f}s")
       await asyncio.sleep(espera)
       # Verifica os que passaram do horário
       agora = datetime.now().replace(tzinfo=None).timestamp()
@@ -429,15 +368,17 @@ class servers(commands.Cog):
         
         if u["dm-notification"] is True:
           user = await self.client.fetch_user(u["_id"])
-          resposta = discord.Embed(
-            colour=discord.Color.yellow(),
-            description=Res.trad(user=user, str='message_votetopgg_lembrete_dm')
-          )
-          resposta.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/8957/8957077.png")
-          view = discord.ui.View()
-          item = discord.ui.Button( style=discord.ButtonStyle.blurple, label=Res.trad(user=user, str="botão_abrir_navegador"), url="https://top.gg/bot/983000989894336592/vote" )
-          view.add_item(item)
-          await user.send(embed=resposta, view=view)
+          #resposta = discord.Embed(
+          #  colour=discord.Color.yellow(),
+          #  description=Res.trad(user=user, str='message_votetopgg_lembrete_dm')
+          #)
+          #resposta.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/8957/8957077.png")
+          #view = discord.ui.View()
+          #item = discord.ui.Button( style=discord.ButtonStyle.blurple, label=Res.trad(user=user, str="botão_abrir_navegador"), url="https://top.gg/bot/983000989894336592/vote" )
+          #view.add_item(item)
+
+          view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://top.gg/bot/983000989894336592/vote" )
+          await user.send(view=view)
         else:
           print("🦊 - membro não recebe notificações via DM")
           
@@ -485,8 +426,6 @@ class servers(commands.Cog):
         guild = self.client.get_guild(guild_id)
         if not guild:
           continue
-        
-        print(f"verificando {guild.name} - {guild.id}")
 
         cargo = guild.get_role(cargo_id)
         if not cargo:
@@ -578,8 +517,7 @@ class servers(commands.Cog):
 #COMANDO ICONE DE SERVIDOR
   @servidor.command(name="icone", description='🗄️⠂Exibe o ícone do servidor.')
   async def icone(self, interaction: discord.Interaction):
-    self.servidor = interaction.guild
-    await iconeserver(self,interaction)
+    await iconeserver(self,interaction , interaction.guild)
    
 
 
@@ -596,8 +534,7 @@ class servers(commands.Cog):
 #COMANDO BANNER DE SERVIDOR
   @servidor.command(name="banner", description='🗄️⠂Exibe o banner do servidor.')
   async def banner(self, interaction: discord.Interaction):
-    self.servidor = interaction.guild
-    await bannerserver(self,interaction)
+    await bannerserver(self,interaction,interaction.guild)
         
 
 
@@ -614,8 +551,7 @@ class servers(commands.Cog):
 #COMANDO SPLASH DE SERVIDOR
   @servidor.command(name="splash", description='🗄️⠂Exibe a splash do servidor.')
   async def splash(self, interaction: discord.Interaction):
-    self.servidor = interaction.guild
-    await splashserver(self,interaction)
+    await splashserver(self,interaction , interaction.guild)
    
 
 
@@ -630,7 +566,6 @@ class servers(commands.Cog):
   @servidor.command(name="info", description='🗄️⠂Exibe informações sobre o servidor.')
   @app_commands.describe(id="informe uma id de um servidor")
   async def infoservidor(self, interaction: discord.Interaction, id: str=None):
-    #await interaction.response.defer()
     if await Res.print_brix(comando="infoservidor",interaction=interaction):
         return
     if id is None:
@@ -640,26 +575,94 @@ class servers(commands.Cog):
       if servidor is None:
         await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_server_notfound"),ephemeral=True , delete_after=30)
         return
-    icone_url = servidor.icon.url if servidor.icon else None
-    resposta = discord.Embed(
-        title=Res.trad(interaction=interaction,str="servidor_info").format(servidor.name),
-        description=servidor.description,
-        colour=discord.Color.yellow()
-    )
+    #for attr in dir(servidor):
+    #  if not attr.startswith("_"):  # ignora privados/mágicos
+    #    try:
+    #        value = getattr(servidor, attr)  # pega o valor do atributo
+    #        print(f"{attr}: {value}")
+    #    except Exception as e:
+    #        print(f"{attr}: <erro ao acessar> ({e})")
 
-    if icone_url: resposta.set_thumbnail(url=icone_url)
-    if servidor.members: resposta.add_field(name=Res.trad(interaction=interaction,str="servidor_usuario_name"), value=f"```Total: {servidor.member_count}\nPessoas: {sum(1 for member in servidor.members if not member.bot)}\nBots: {sum(1 for member in servidor.members if member.bot)}```")
+    await interaction.response.defer()
+    view = ui.LayoutView()
+    container = ui.Container()
+    container.accent_color = discord.Color.yellow()
+
+    # SE BANNER EXISTE NA COMUNIDADE
+    if servidor.banner:
+      galery = ui.MediaGallery( )
+      galery.add_item(media=servidor.banner.url)
+      container.add_item(galery)
+    else:
+      container.add_item(ui.TextDisplay( Res.trad(interaction=interaction,str="message_erro_server_banner") ))
+    container.add_item(ui.Separator())
+
+    # SE A COMUNIDADE TEM ICONE
+    if servidor.icon:
+      icone_url = ui.Thumbnail(servidor.icon.url)
+      container.add_item(ui.Section(ui.TextDisplay(f"# {Res.trad(interaction=interaction,str='servidor_info').format(servidor.name)}") , accessory = icone_url))
+    else:
+      container.add_item(ui.TextDisplay(f"# {Res.trad(interaction=interaction,str='servidor_info').format(servidor.name)}"))
+    
+    # SE TEM DESCRIÇÃO
+    if servidor.description: container.add_item(ui.TextDisplay(servidor.description))
+    container.add_item(ui.Separator())
+    container.add_item(ui.TextDisplay( Res.trad(interaction=interaction,str='servidor_usuario_name_total').format(servidor.member_count) ))
+    container.add_item(ui.TextDisplay( Res.trad(interaction=interaction,str='servidor_usuario_name').format(sum(1 for member in servidor.members if not member.bot) , sum(1 for member in servidor.members if member.bot)) ))
+    container.add_item(ui.Separator(visible=False))
+    
+    # PARTE DOS CANAIS
     if servidor.channels:
       voz = sum(1 for canal in servidor.channels if isinstance(canal, discord.VoiceChannel))
       texto = sum(1 for canal in servidor.channels if isinstance(canal, discord.TextChannel))
-      resposta.add_field(name=Res.trad(interaction=interaction,str="servidor_canais_name"), value=f"```Total: {voz+texto}\nTexto: {texto}\nVoz: {voz}```")
+      container.add_item(ui.TextDisplay( Res.trad(interaction=interaction,str='servidor_canais_name_total').format(voz+texto)  ))
+      container.add_item(ui.TextDisplay(Res.trad(interaction=interaction,str='servidor_canais_name').format(texto, voz) ))
+      container.add_item(ui.Separator())
+    container.add_item(ui.TextDisplay(Res.trad(interaction=interaction,str="servidor_owner_name").format(servidor.owner.mention)))
+    container.add_item(ui.TextDisplay( f"🆔 ⠂ID: **{servidor.id}**" ))
+    container.add_item(ui.TextDisplay( Res.trad(interaction=interaction,str="servidor_emoji_name").format( len(servidor.emojis) ) ))
+    container.add_item(ui.TextDisplay( Res.trad(interaction=interaction,str="servidor_figurinha_name").format( len(servidor.stickers) ) ))
+    container.add_item(ui.TextDisplay( f"{Res.trad(interaction=interaction,str='servidor_criadoem_name')}: <t:{int(servidor.created_at.timestamp())}:d>  **-**  <t:{int(servidor.created_at.timestamp())}:R>"  ))
+    # URL ELEGANTE DA COMUNIDADE SE TIVER
+    if servidor.vanity_url : container.add_item(ui.TextDisplay( f"🔗 ⠂URL: **discord.gg/{servidor.vanity_url_code}**"  ))
 
-    if servidor.owner: resposta.add_field(name=Res.trad(interaction=interaction,str="servidor_owner_name"), value=servidor.owner.mention)
-    if servidor.id: resposta.add_field(name="🆔 ⠂ID", value=f"```{servidor.id}```")                                      
-    if servidor.emojis: resposta.add_field(name=Res.trad(interaction=interaction,str="servidor_emoji_name"), value=f"```Total: {len(servidor.emojis)}```")
-    if servidor.created_at: resposta.add_field(name=Res.trad(interaction=interaction,str="servidor_criadoem_name"), value=f"**<t:{int(servidor.created_at.timestamp())}:d>-<t:{int(servidor.created_at.timestamp())}:R>**")
+    # CARGO E ASSINANTES PREMIUM BOOSTER SE TIVER
+    if servidor.premium_subscribers:
+      container.add_item(ui.Separator())
+      container.add_item(ui.TextDisplay( Res.trad(interaction=interaction,str='servidor_premium_name').format( servidor.premium_subscriber_role.name , len( servidor.premium_subscribers) )  ))
+  
+    #Botões
+    botão_icone = ui.Button(label=Res.trad(interaction=interaction,str="botão_ver_icone"),style=discord.ButtonStyle.blurple,emoji="🎨")
+    botão_icone.callback = partial(iconeserver,self, servidor = servidor)
 
-    await interaction.response.send_message(embed=resposta , view=BotoesBuscarServidor(client=self,interaction=interaction,menu=False,server=servidor))
+    botão_banner = ui.Button(label=Res.trad(interaction=interaction,str="botão_ver_banner"),style=discord.ButtonStyle.blurple,emoji="🖼️")
+    botão_banner.callback = partial(bannerserver,self, servidor = servidor)
+
+    botão_plash = ui.Button(label=Res.trad(interaction=interaction,str="botão_ver_splash"),style=discord.ButtonStyle.blurple,emoji="🎪")
+    botão_plash.callback = partial(splashserver,self, servidor = servidor)
+    
+    botões = ui.ActionRow( botão_icone , botão_banner , botão_plash )
+
+    container.add_item(ui.Separator(spacing=discord.SeparatorSpacing.small))
+    container.add_item( botões )
+
+    view.add_item(container)
+    await interaction.followup.send(view=view)
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -756,7 +759,7 @@ class servers(commands.Cog):
       if interaction.guild is None:
         await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyservers"),delete_after=10,ephemeral=True)
         return
-      await interaction.response.send_message("https://cdn.discordapp.com/emojis/1370974233588404304.gif")
+      await interaction.response.defer()
 
       lista = []
       count_mesma_tag = 0
