@@ -49,7 +49,7 @@ except:
 
 
 #API E621 VIA SLASH
-async def buscae621slash(interaction,quantidade,item):
+async def buscae621slash(interaction,quantidade,item, MOD_NSFW):
     if await Res.print_brix(comando="buscare621slash",interaction=interaction,condicao=item):
         return
     try:
@@ -71,9 +71,15 @@ async def buscae621slash(interaction,quantidade,item):
                     filtro = "rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper"
                     messagefooter = Res.trad(interaction=interaction,str='message_APIE926_footer')
             except:
-                busca = f"{item} rating:s"
-                filtro = "rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper"
-                messagefooter = Res.trad(interaction=interaction,str='message_APIE926_footer')
+                MOD_NSFW = MOD_NSFW.value if MOD_NSFW else False
+                if MOD_NSFW:
+                    busca = item
+                    filtro = "rating:s,urine,gore,feces,diaper"
+                    messagefooter = Res.trad(interaction=interaction,str='message_APIE621_footer')
+                else:
+                    busca = f"{item} rating:s"
+                    filtro = "rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper"
+                    messagefooter = Res.trad(interaction=interaction,str='message_APIE926_footer')
 
             r=e621api.posts.search(busca, filtro ,50 ,page,ignorepage=True)
             if r == []:
@@ -431,11 +437,11 @@ class diversao(commands.Cog):
 
 #COMANDO BRAIXEN SLASH
   @img.command(name="braixen",description='🎨⠂imagem de Braixen.')
-  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
-  @app_commands.describe(quantidade="quantidade de imagens, limite 15")
-  async def braixen(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None):
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)] , filtro=[app_commands.Choice(name="SFW", value=False), app_commands.Choice(name="NSFW", value=True)])
+  @app_commands.describe(quantidade="quantidade de imagens, limite 15", filtro = "Opção valida somente para canais privados ou DM")
+  async def braixen(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None , filtro: app_commands.Choice[int] = None):
     item = "braixen"
-    await buscae621slash(interaction,quantidade,item)
+    await buscae621slash(interaction,quantidade,item,filtro)
 
 
 
@@ -451,11 +457,11 @@ class diversao(commands.Cog):
 
 #COMANDO FENNEKIN SLASH
   @img.command(name="fennekin",description='🎨⠂imagem de Fennekin.')
-  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
-  @app_commands.describe(quantidade="quantidade de imagens, limite 15")
-  async def fennekin(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None):
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)] , filtro=[app_commands.Choice(name="SFW", value=False), app_commands.Choice(name="NSFW", value=True)])
+  @app_commands.describe(quantidade="quantidade de imagens, limite 15", filtro = "Opção valida somente para canais privados ou DM")
+  async def fennekin(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None , filtro: app_commands.Choice[int] = None):
     item = "fennekin"
-    await buscae621slash(interaction,quantidade,item)
+    await buscae621slash(interaction,quantidade,item,filtro)
 
 
 
@@ -471,11 +477,11 @@ class diversao(commands.Cog):
 
 #COMANDO DELPHOX SLASH
   @img.command(name="delphox",description='🎨⠂imagem de Delphox.')
-  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
-  @app_commands.describe(quantidade="quantidade de imagens, limite 15")
-  async def delphox(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None):
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)] , filtro=[app_commands.Choice(name="SFW", value=False), app_commands.Choice(name="NSFW", value=True)])
+  @app_commands.describe(quantidade="quantidade de imagens, limite 15", filtro = "Opção valida somente para canais privados ou DM")
+  async def delphox(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None , filtro: app_commands.Choice[int] = None):
     item = "delphox"
-    await buscae621slash(interaction,quantidade,item)
+    await buscae621slash(interaction,quantidade,item,filtro)
   
 
 
@@ -491,11 +497,11 @@ class diversao(commands.Cog):
 
 
   #COMANDO PRIMARINA SLASH
-  @img.command(name="busca",description='🎨⠂Procure algo no e621.')
-  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)])
-  @app_commands.describe(tag="indique uma tag",quantidade="quantidade de imagens, limite 15")
-  async def buscae621(self,interaction: discord.Interaction,tag:str,quantidade:app_commands.Choice[int]=None):
-    await buscae621slash(interaction,quantidade,tag)
+  @img.command(name="busca",description='🎨⠂Procure algo no e621 ou e926.')
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)] , filtro=[app_commands.Choice(name="SFW", value=False), app_commands.Choice(name="NSFW", value=True)])
+  @app_commands.describe(tag="indique uma tag",quantidade="quantidade de imagens, limite 15", filtro = "Opção valida somente para canais privados ou DM")
+  async def buscae621(self,interaction: discord.Interaction,tag:str,quantidade:app_commands.Choice[int]=None , filtro: app_commands.Choice[int] = None):
+    await buscae621slash(interaction,quantidade,tag,filtro)
      
 
   @buscae621.autocomplete("tag")
@@ -529,6 +535,19 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+#COMANDO PRIMARINA SLASH
+  @img.command(name="ajuda",description='🎨⠂Ajuda sobre o meu modulo de imagens.')
+  async def img_help(self,interaction: discord.Interaction):
+    if await Res.print_brix(comando="img_help",interaction=interaction):
+      return
+    view = container_media_button_url(descricao= Res.trad(interaction=interaction,str="message_APIE621_E926_help") )
+
+    await interaction.response.send_message(view=view)
+     
 
 
 

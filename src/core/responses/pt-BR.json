@@ -256,6 +256,8 @@
     "message_erro_E621_limit" : "<:Braix_Blank:1272661806858371196>┃ Você pediu **{}** imagens, mas não consigo enviar tudo isso, kyu! Minha API só permite **no máximo 15 imagens** <:Braix_Cry:1272664044318359655>.",
     "message_APIE621_footer" : "Gerado por E621.net (NSFW)",
     "message_APIE926_footer" : "Gerado por E926.net (SFW)",
+    "message_APIE621_E926_help": "### <:Braix:1272653348306419824>┃ Ajuda sobre o Comando de Imagem!\n<:Braix_HappyKyu:1272666265957302353>┃ Ei, raposa! Eu uso a **API do E621.net** pra trazer imagens rapidinho pra você, kyu~! Dá pra escolher se quer em **SFW** ou **NSFW**, além de definir quantas imagens quer ver de uma vez (até 15).\n\n<:Braix_uwu:1287443559074500691>┃ **Usabilidade:** Você pode usar o comando em qualquer lugar: servidor, DM ou privado. Mas tem um detalhe importante: em **servidores**, eu sempre respeito a configuração do canal! Ou seja, se o canal não for marcado como adulto, eu só envio **SFW**. Agora, em DMs e outros lugares fora de servidor, eu sigo o filtro que você escolher. Se não escolher nada, eu uso **SFW como padrão**.\n\n-# <:Braix_Tongue:1272662386590879795> **Dica de raposa:** Pode relaxar, kyu~! Mesmo que alguém tente pedir algo NSFW num canal normal, eu nunca vou burlar as regras do servidor. Sempre sigo direitinho a classificação do canal!",
+
 
     "message_erro_aniversario_registro" :"<:Braix_Blank:1272661806858371196>┃ Ei, raposa! Não dá pra ficar mudando o aniversário toda hora, kyu~!",
     "message_erro_aniversario_data_invalida" : "<:Braix_Blank:1272661806858371196>┃ Eii~ kyu! A data que você me passou não existe ou não parece ser uma data de nascimento válida. Me envia uma certinha pra eu registrar direitinho, tá bem?",

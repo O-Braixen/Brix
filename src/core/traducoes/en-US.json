@@ -535,5 +535,11 @@
     "🗄️⠂Exibe informações do sistema de tag do servidor.": "🗄️⠂displays server tag system information.",
     "🗄️⠂Ative a entrega de cargos para membros que usam a tag do seu servidor.": "🗄️⠂enable role delivery for members who use your server's tag.",
     "🗄️⠂desative a entrega de cargos para membros que usam a tag do seu servidor.": "🗄️⠂disable role delivery to members who use your server's tag.",
-    "🗄️⠂Veja todos os membros que usam a tag do seu servidor.": "🗄️⠂see all members who use your server's tag."
+    "🗄️⠂Veja todos os membros que usam a tag do seu servidor.": "🗄️⠂see all members who use your server's tag.",
+    "filtro": "filter",
+    "Opção valida somente para canais privados ou DM": "option valid only for private channels or dm",
+    "SFW": "sfw",
+    "NSFW": "nsfw",
+    "🎨⠂Procure algo no e621 ou e926.": "🎨⠂look for something on e621 or e926.",
+    "🎨⠂Ajuda sobre o meu modulo de imagens.": "🎨⠂help with my image module."
 }
