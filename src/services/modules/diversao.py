@@ -188,7 +188,7 @@ class diversao(commands.Cog):
     print("🎲  -  Modúlo Diversao carregado.")
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
     if not self.autophox.is_running():
-        await asyncio.sleep(1800) #1800
+        await asyncio.sleep(1200) #1200
         self.autophox.start()
   
 
@@ -243,12 +243,15 @@ class diversao(commands.Cog):
   async def autophox(self):
     print("🦊 - rodando Auto Phox")
     try:
-        pesquisa = ['fennekin','braixen','delphox']
+        pesquisa = ['fennekin','braixen','delphox','mega_delphox']
         item = random.choice(pesquisa)
-        page = random.randint(1,5)
-        r=e621api.posts.search(tags=f"{item} rating:s -breasts -genitals -butt -diaper",blacklist="rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper" ,limit=200 ,page=page,ignorepage=True)
-        #post = r[random.randint(1,20)] #default 1,20
-        post = random.choice(r)
+        retorno = []
+        page = random.randint(1,45)
+        while not retorno:
+            retorno=e621api.posts.search(tags=f"{item} rating:s -breasts -genitals -butt -diaper",blacklist="rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper" ,limit=200 ,page=page,ignorepage=True)
+            await asyncio.sleep(1)
+            page = random.randint(1,page)
+        post = random.choice(retorno)
         filtro = {"autophox": {"$exists":True}}
         canais = BancoServidores.select_many_document(filtro)
         for linha in canais:
@@ -262,7 +265,7 @@ class diversao(commands.Cog):
                 #await canal.send(f"[{post['tags']['artist'][0]}]({post['file']['url']})\n-# {Res.trad(guild=servidor.id,str='message_autophox_footer')}",view=view)
 
                 descrição = Res.trad(guild=servidor.id,str="artista").format(post['tags']['artist'][0] if post['tags']['artist'] else '-')
-                view = container_media_button_url(titulo= Res.trad(guild=servidor.id,str="message_autophox_titulo").format(item), descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(guild=servidor.id,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer= Res.trad(guild=servidor.id,str='message_autophox_footer') )
+                view = container_media_button_url(titulo= Res.trad(guild=servidor.id,str="message_autophox_titulo").format(item.replace("_", " ").title()), descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(guild=servidor.id,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer= Res.trad(guild=servidor.id,str='message_autophox_footer') )
                 await canal.send(view=view)
 
                 # Se o envio foi bem-sucedido, podemos resetar o contador para esse servidor, se houver
@@ -484,6 +487,21 @@ class diversao(commands.Cog):
     await buscae621slash(interaction,quantidade,item,filtro)
   
 
+
+
+
+
+
+
+
+
+#COMANDO DELPHOX SLASH
+  @img.command(name="mega-delphox",description='🎨⠂imagem de Mega Delphox.')
+  @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)] , filtro=[app_commands.Choice(name="SFW", value=False), app_commands.Choice(name="NSFW", value=True)])
+  @app_commands.describe(quantidade="quantidade de imagens, limite 15", filtro = "Opção valida somente para canais privados ou DM")
+  async def megadelphox(self,interaction: discord.Interaction,quantidade:app_commands.Choice[int]=None , filtro: app_commands.Choice[int] = None):
+    item = "mega_delphox"
+    await buscae621slash(interaction,quantidade,item,filtro)
 
 
 
