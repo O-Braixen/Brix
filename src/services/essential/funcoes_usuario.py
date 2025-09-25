@@ -84,9 +84,18 @@ async def aniversariodefinir(interaction: discord.Interaction, dia, mes, ano):
             await interaction.edit_original_response(content=Res.trad(interaction=interaction, str="message_erro_aniversario_registro"))
             return
 
-    # Tenta criar a data para validar se ela é real
+    # Tenta validar ano, mês e dia
     try:
-        data_nascimento = datetime.datetime(year=int(ano), month=int(mes), day=int(dia))
+        ano_int = int(ano)
+        mes_int = int(mes)
+        dia_int = int(dia)
+
+        # regra extra: impedir anos menores que 1900 e maiores que o atual
+        ano_atual = datetime.datetime.now().year
+        if ano_int < 1900 or ano_int > ano_atual:
+            raise ValueError("Ano fora do intervalo permitido.")
+
+        data_nascimento = datetime.datetime(year=ano_int, month=mes_int, day=dia_int)
     except ValueError:
         await interaction.edit_original_response(content=Res.trad(interaction=interaction, str="message_erro_aniversario_data_invalida"))
         return

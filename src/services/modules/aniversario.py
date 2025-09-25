@@ -202,7 +202,7 @@ class aniversario(commands.Cog):
     @app_commands.describe(dia="2 digitos para o dia",mes="2 digitos para o mês",ano="4 digitos para o ano")
     async def aniversariodefinir(self,interaction: discord.Interaction,dia: str, mes:str, ano:str):
         await interaction.response.defer(ephemeral=True) 
-        await aniversariodefinir(interaction, int(dia), int(mes), int(ano))
+        await aniversariodefinir(interaction, dia, mes, ano)
 
 
 
@@ -408,7 +408,7 @@ class aniversario(commands.Cog):
 
 
 # ======================================================================
-    #Comando Aniversario servidor definir
+    #Comando Aniversario servidor exibir aniversariantes
     @aniversarioservidor.command(name="aniversáriantes", description="🎂⠂Consulte os proximos aniversáriantes da comunidade.")
     async def aniversarioserverconsultaraniversariantes(self, interaction: discord.Interaction):
         if await Res.print_brix(comando="aniversarioserverconsultaraniversariantes",interaction=interaction):
@@ -432,7 +432,11 @@ class aniversario(commands.Cog):
         proximos_aniversariantes = []
         # Iterar sobre os aniversariantes
         for usuario in aniversariantes:
-            aniversario = datetime.datetime.strptime(usuario.get("nascimento"), "%d/%m/%Y").replace(tzinfo=self.fusohorario)
+            try:
+                aniversario = datetime.datetime.strptime(usuario.get("nascimento"), "%d/%m/%Y").replace(tzinfo=self.fusohorario)
+            except Exception as e:
+                print(f"❌  -  Erro ao listar o aniversario {e}")
+                continue
             proximo_aniversario = aniversario.replace(year=hoje.year)
             # Caso o aniversário já tenha passado este ano, ajustar para o próximo ano
             if proximo_aniversario < hoje:
