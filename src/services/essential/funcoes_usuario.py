@@ -92,7 +92,7 @@ async def aniversariodefinir(interaction: discord.Interaction, dia, mes, ano):
 
         # regra extra: impedir anos menores que 1900 e maiores que o atual
         ano_atual = datetime.datetime.now().year
-        if ano_int < 1900 or ano_int > ano_atual:
+        if ano_int < 1900 or ano_int > (ano_atual - 8):
             raise ValueError("Ano fora do intervalo permitido.")
 
         data_nascimento = datetime.datetime(year=ano_int, month=mes_int, day=dia_int)

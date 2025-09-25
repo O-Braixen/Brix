@@ -234,6 +234,7 @@ class aniversario(commands.Cog):
     @aniversariodefinir.autocomplete("ano")
     async def autocomplete_ano(self, interaction: discord.Interaction, current: str):
         ano_atual = datetime.datetime.now().year
+        ano_atual = ano_atual-8
         return [app_commands.Choice(name=str(ano), value=str(ano))            for ano in range(ano_atual, ano_atual - 100, -1)            if current in str(ano)        ][:25]
     
 
