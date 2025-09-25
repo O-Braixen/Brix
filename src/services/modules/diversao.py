@@ -674,7 +674,7 @@ class diversao(commands.Cog):
     await interaction.response.defer()
     #resposta = discord.Embed( colour=discord.Color.yellow(),description=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')))
     #await interaction.followup.send(embed=resposta)
-    view = container_media_button_url(descricao=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')) , descricao_thumbnail="https://www.clipartmax.com/png/full/103-1034729_pokemon-braixen-fire-fox-ask-vixen-the-braixen-january-17.png")
+    view = container_media_button_url(descricao=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')) , descricao_thumbnail="https://i.imgur.com/OEgfv4K.png")
     await interaction.followup.send(view=view)
 
 
