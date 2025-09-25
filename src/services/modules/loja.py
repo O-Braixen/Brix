@@ -745,7 +745,7 @@ class loja(commands.Cog):
     await interaction.response.defer() #defer como resposta
     await chamarlojadiaria(self,interaction,0)
     await asyncio.sleep(240)
-    await interaction.edit_original_response(content=Res.trad(interaction=interaction, str='message_erro_interacaoexpirada'), embed = None,attachments=None, view = None)
+    await interaction.edit_original_response(content=Res.trad(interaction=interaction, str='message_erro_interacaoexpirada'), embed = None,attachments=[], view = None)
   
 
 
