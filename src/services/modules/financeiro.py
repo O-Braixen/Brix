@@ -109,7 +109,7 @@ class financeiro(commands.Cog):
         try:
             #CUSTO APARTAMENTO DO BRIX
             brix = BancoUsuarios.insert_document(self.client.user)
-            custobrix = brix['braixencoin'] * 0.05
+            custobrix = brix['braixencoin'] * 0.02
             apartamento = brix['braixencoin'] - int(custobrix)
             updates.append({"_id": brix['_id'],"update": {"$set": {"braixencoin": apartamento , "date-daily": datetime.datetime.now().strftime("%d/%m/%Y") }}})
             transacoes.append({    "user_id": str(brix['_id']),    "tipo": "gasto",    "origem": "Aluguel Ap",    "valor": custobrix,    "moeda": "braixencoin",    "descricao": "Taxa apartamento do Brix.",    "timestamp": datetime.datetime.now()})
@@ -647,8 +647,8 @@ class financeiro(commands.Cog):
         # TEMPO SUFICIENTE: ENTREGAR RECOMPENSA
         await interaction.response.defer()
 
-        moedas_ganhas = random.randint(1500, 5000)
-        gravetos_ganhos = random.randint(120, 400)
+        moedas_ganhas = random.randint(0, 5000)
+        gravetos_ganhos = random.randint(0, 400)
 
         try:
             BancoUsuarios.update_document(membro, { "braixencoin": dados_do_membro.get('braixencoin', 0) + moedas_ganhas, "graveto": dados_do_membro.get('graveto', 0) + gravetos_ganhos })

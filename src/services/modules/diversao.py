@@ -91,7 +91,7 @@ async def buscae621slash(interaction,quantidade,item, MOD_NSFW):
                 post = r[i]
                 i=i+1
                 descrição = Res.trad(interaction=interaction,str="artista").format(post['tags']['artist'][0] if post['tags']['artist'] else '-')
-                view = container_media_button_url(titulo= item, descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer=messagefooter)
+                view = container_media_button_url(titulo= item.replace("_", " ").title(), descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer=messagefooter)
                 await interaction.followup.send(view=view)
 
         else:await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_E621_limit").format(quantidade),ephemeral = True)    
