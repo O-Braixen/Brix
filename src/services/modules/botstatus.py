@@ -144,7 +144,7 @@ class BotStatus(commands.Cog):
             try:
                 res_information, host = await informação(self.client.user.name)
                 if host == "squarecloud":
-                    status_list.append((discord.CustomActivity(name=f"🖥️ Squarecloud - {res_information['response']['cluster']}"), discord.Status.online))
+                    status_list.append((discord.CustomActivity(name=f"🖥️ Square Cloud - {res_information['response']['cluster']}"), discord.Status.online))
                 elif host == "discloud":
                     status_list.append((discord.CustomActivity(name=f"🖥️ Discloud - CLUSTER {res_information['apps']['clusterName']}"), discord.Status.online))
             except:

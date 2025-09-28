@@ -75,11 +75,11 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
 
 ## 🛠️ Instalação
 
-### ☁️ Hospedando na Squarecloud
+### ☁️ Hospedando na Square Cloud
 1. Edite o arquivo `exemplo.env` com suas configurações  
 2. Renomeie para `.env`  
 3. Edite o arquivo squarecloud.app
-4. Compacte tudo e envie para a Squarecloud  
+4. Compacte tudo e envie para a Square Cloud  
 
 ### 💻 Rodando localmente
 1. Instale [Python 3.11+](https://www.python.org/downloads/)  

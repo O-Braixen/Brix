@@ -51,7 +51,7 @@ async def botstatus(self,interaction):
             description=f"{res_information['response']['desc']}"
         )
         resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
-        resposta.add_field(name="🖥️⠂squarecloud", value=f"```{res_information['response']['cluster']}```", inline=True)
+        resposta.add_field(name="🖥️⠂Square Cloud", value=f"```{res_information['response']['cluster']}```", inline=True)
         resposta.add_field(name="📊⠂Ram", value=f"```{(res_status['response']['ram'])} / {res_information['response']['ram']} MB```", inline=True)
         resposta.add_field(name="🌡⠂CPU", value=f"```{res_status['response']['cpu']}```", inline=True)
         resposta.add_field(name="👨‍💻⠂Linguagem", value=f"```{res_information['response']['language']}```", inline=True)
