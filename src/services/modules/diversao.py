@@ -1446,7 +1446,7 @@ class diversao(commands.Cog):
         if ia is not None:
             Check = await userpremiumcheck(interaction)
             if Check == False:
-                permitido, tempo_restantante = await verificar_cooldown(interaction, "braixencitacao", 120)
+                permitido, tempo_restantante = await verificar_cooldown(interaction, "braixencitacao", 600)
                 if not permitido:
                     await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
                     return
@@ -1533,7 +1533,7 @@ class diversao(commands.Cog):
             ignoreimage = True
             Check = await userpremiumcheck(interaction)
             if Check == False:
-                permitido, tempo_restantante = await verificar_cooldown(interaction, "braixensays", 120)
+                permitido, tempo_restantante = await verificar_cooldown(interaction, "braixensays", 600)
                 if not permitido:
                     await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
                     return

@@ -54,7 +54,6 @@ async def appname(nome):
             for app in aplicativos:
                 nome_app = app.get("name", "").lower()
                 if nome_app.startswith(nome.lower()):
-                #if nome.lower() in app.get("name", "").lower():
                     appid = app["id"]
                     return app["id"]
         if host == "discloud":

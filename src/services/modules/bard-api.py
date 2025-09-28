@@ -137,7 +137,7 @@ class bard(commands.Cog):
 
     # Checagem premium e cooldown
     if not await userpremiumcheck(interaction):
-      permitido, _ = await verificar_cooldown(interaction, "gpt", 120)
+      permitido, _ = await verificar_cooldown(interaction, "gpt", 600)
       if not permitido:
         return await interaction.edit_original_response( embed=None, content=Res.trad(interaction=interaction, str='message_ia_cooldown_premium') )
 
@@ -278,7 +278,7 @@ class bard(commands.Cog):
   #  await interaction.response.send_message(embed=res)
   #  check = await userpremiumcheck(interaction)
   #  if check == False:
-  #    permitido, tempo_restantante = await verificar_cooldown(interaction, "generate_image", 120)
+  #    permitido, tempo_restantante = await verificar_cooldown(interaction, "generate_image", 600)
   #    if not permitido:
   #      await interaction.edit_original_response(embed=None , content=Res.trad(interaction=interaction,str='message_ia_cooldown_premium'))
   #      return
@@ -321,7 +321,7 @@ class bard(commands.Cog):
       await interaction.response.send_message(embed=res)
       check = await userpremiumcheck(interaction)
       if check == False:
-        permitido, tempo_restantante = await verificar_cooldown(interaction, "fanfic_gerador", 120)
+        permitido, tempo_restantante = await verificar_cooldown(interaction, "fanfic_gerador", 600)
         if not permitido:
           await interaction.edit_original_response(embed=None , content=Res.trad(interaction=interaction,str='message_ia_cooldown_premium'))
           return
@@ -373,7 +373,7 @@ class bard(commands.Cog):
     await interaction.response.defer()
     check = await userpremiumcheck(interaction)
     if check == False:
-      permitido, tempo_restantante = await verificar_cooldown(interaction, "servercreate", 120)
+      permitido, tempo_restantante = await verificar_cooldown(interaction, "servercreate", 600)
       if not permitido:
         await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
         return
@@ -524,7 +524,7 @@ class bard(commands.Cog):
     
     check = await userpremiumcheck(interaction)
     if check == False:
-      permitido, tempo_restantante = await verificar_cooldown(interaction, "midiaask", 120)
+      permitido, tempo_restantante = await verificar_cooldown(interaction, "midiaask", 600)
       if not permitido:
         await interaction.edit_original_response(embed=None , content=Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
         return
@@ -676,7 +676,7 @@ class bard(commands.Cog):
     # Verifica se o usuário tem premium
     check = await userpremiumcheck(interaction)
     if check == False:
-      permitido, tempo_restantante = await verificar_cooldown(interaction, "resumoai", 120)
+      permitido, tempo_restantante = await verificar_cooldown(interaction, "resumoai", 600)
       if not permitido:
         await interaction.edit_original_response(embed=None , content=Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
         return

@@ -68,19 +68,12 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
 ---
 
 ### 🌐 Site oficial
-- Conheça mais sobre Brix e explore recursos exclusivos:  
-👉 [brixbot.xyz](https://brixbot.xyz/)
+- Conheça mais sobre Brix e explore recursos exclusivos:  👉 [brixbot.xyz](https://brixbot.xyz/)
 - Sabia que o site também é publico? segue o repositorio dele https://github.com/O-Braixen/website-brix
 
 ---
 
 ## 🛠️ Instalação
-
-### ☁️ Hospedando na Discloud
-1. Edite o arquivo `exemplo.env` com suas configurações  
-2. Renomeie para `.env`  
-3. Edite o arquivo discloud.config
-4. Compacte tudo e envie para a Discloud  
 
 ### ☁️ Hospedando na Squarecloud
 1. Edite o arquivo `exemplo.env` com suas configurações  
@@ -102,3 +95,15 @@ Brix combina **diversão, utilidade, economia e inteligência artificial** em um
 <a href="https://top.gg/bot/983000989894336592">
   <img src="https://top.gg/api/widget/983000989894336592.svg">
 </a>
+
+
+---
+
+### 🗄️ Parceiro oficial Square Cloud
+
+<a href="https://squarecloud.app/">
+  <img src="https://cdn.squarecloud.app/assets/github-readme.png">
+</a>
+
+
+

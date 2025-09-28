@@ -92,6 +92,8 @@ async def botstatus(self,interaction):
       view = discord.ui.View()
       button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brixbot.xyz/")
       view.add_item(item=button)
+      buttonsquare = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_square"),url="https://squarecloud.app/")
+      view.add_item(item=buttonsquare)
 
       await interaction.followup.send(embed=resposta, view=view)
 
@@ -109,6 +111,8 @@ async def botstatus(self,interaction):
       view = discord.ui.View()
       button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brixbot.xyz/")
       view.add_item(item=button)
+      buttonsquare = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_square"),url="https://squarecloud.app/")
+      view.add_item(item=buttonsquare)
       
       await interaction.followup.send(embed=resposta, view=view)
   except Exception as e:
@@ -1057,7 +1061,7 @@ class owner(commands.Cog):
     if ia:
       Check = await userpremiumcheck(interaction)
       if Check == False:
-        permitido, tempo_restantante = await verificar_cooldown(interaction, "say", 120)
+        permitido, tempo_restantante = await verificar_cooldown(interaction, "say", 600)
         if not permitido:
           await interaction.followup.send(Res.trad(interaction=interaction, str='message_ia_cooldown_premium'))
           return
@@ -1179,6 +1183,8 @@ class owner(commands.Cog):
     view = discord.ui.View()
     button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brixbot.xyz/")
     view.add_item(item=button)
+    buttonsquare = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_square"),url="https://squarecloud.app/")
+    view.add_item(item=buttonsquare)
     await interaction.response.send_message(embed=resposta , view= view)
 
 
@@ -1205,6 +1211,8 @@ class owner(commands.Cog):
     view = discord.ui.View()
     button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_brix"),url="https://brixbot.xyz/")
     view.add_item(item=button)
+    buttonsquare = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_square"),url="https://squarecloud.app/")
+    view.add_item(item=buttonsquare)
     await interaction.response.send_message(embed=resposta , view= view)
 
 

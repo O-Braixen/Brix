@@ -66,7 +66,7 @@ def criar_link_pagamento(user_id , quant_meses , preco , texto):
             "id": "1",
             "title": f"Brix Premium ({texto})",
             "description": "Assinatura Brix Premium.",
-            "picture_url": "https://cdn.discordapp.com/emojis/1318962131567378432",
+            "picture_url": "https://i.imgur.com/7AGtKq2.png",
             "quantity": 1,
             "unit_price": float(preco*quant_meses)
         }]
