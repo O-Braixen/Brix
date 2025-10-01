@@ -1,13 +1,13 @@
-import discord,os,asyncio,time,datetime,pytz,random , requests , io
+import discord,os,asyncio,time,datetime,pytz,random , requests , io , math
 from discord.ext import commands,tasks
 from functools import partial
 from discord import app_commands
 from typing import List
-from src.services.connection.database import BancoUsuarios , BancoFinanceiro
+from src.services.connection.database import BancoUsuarios , BancoFinanceiro , BancoApostasPokemon
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import exibirtops , userpremiumcheck, verificar_cooldown
-from src.services.essential.diversos import calcular_saldo, Paginador_Global
-from src.services.essential.pokemon_module import get_all_pokemon , get_pokemon , get_pokemon_sprite
+from src.services.essential.diversos import calcular_saldo, Paginador_Global , container_media_button_url
+from src.services.essential.pokemon_module import get_all_pokemon , get_pokemon , get_pokemon_sprite , pokemon_autocomplete
 from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGEM
 from dotenv import load_dotenv
 
@@ -48,6 +48,8 @@ class financeiro(commands.Cog):
         self.verificar_daily.start()
     if not self.lembretes_cacar.is_running():
         self.lembretes_cacar.start()
+    if not self.sorteio_pokemon.is_running():
+        self.sorteio_pokemon.start()
 
 
 
@@ -1056,6 +1058,202 @@ class financeiro(commands.Cog):
 
 
 
+#FUNÇÂO DE VERIFICAÇÃO DE SORTEIO POKÈMON hour=20, minute= 0,
+  @tasks.loop(time=datetime.time(hour=20, minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
+  async def sorteio_pokemon(self):
+    doc = BancoApostasPokemon.get_document()
+    if not doc:
+        BancoApostasPokemon.insert_document()
+        doc = BancoApostasPokemon.get_document()
+
+    apostas = doc.get("apostas", [])
+    valor_total = doc.get("valor_acumulado", 0)
+
+    if not apostas:
+        print("Nenhuma aposta registrada hoje, a recompensa permanece acumulada:", valor_total)
+        return
+
+    # Lista dos Pokémon apostados
+    pokemons_apostados = list({a["pokemon"] for a in apostas})
+
+    # Lista de todos os Pokémon disponíveis
+    todos_pokemon = await get_all_pokemon()
+    # todos_pokemon contém dicionários com dados dos Pokémon
+    todos_pokemon_nomes = [p["name"] for p in todos_pokemon]
+
+    # agora filtra os que não foram apostados
+    pokemons_nao_apostados = [p for p in todos_pokemon_nomes if p not in pokemons_apostados]
+
+    # Adicionar 25% de Pokémon “falsos” (não apostados)
+    qtd_extra = math.ceil(len(pokemons_apostados) * 0.25)
+    print(qtd_extra)
+    pokemons_falsos = random.sample(pokemons_nao_apostados, min(qtd_extra, len(pokemons_nao_apostados)))
+    # Lista final para o sorteio
+    pokemons_rolagem = pokemons_apostados + pokemons_falsos
+    print(F"lista de pokémons: {pokemons_rolagem}")
+
+    # Sortear
+    pokemon_sorteado = random.choice(pokemons_rolagem)
+
+    # Determinar vencedores (apenas se o Pokémon sorteado tiver apostas)
+    vencedores = [a for a in apostas if a["pokemon"] == pokemon_sorteado]
+    dex = await get_pokemon(pokemon_sorteado)
+    if vencedores:
+        premio_por_vencedor = valor_total // len(vencedores)
+        for v in vencedores:
+            BancoUsuarios.update_inc(v["user_id"], {"braixencoin": premio_por_vencedor})
+            BancoFinanceiro.registrar_transacao( user_id=v["user_id"], tipo="ganho", origem="aposta pokemon", valor=premio_por_vencedor, moeda="braixencoin", descricao=f"Prêmio por apostar no Pokémon {pokemon_sorteado}" )
+
+            #
+            try:
+                user = await self.client.fetch_user(v["user_id"])
+
+                view = container_media_button_url(descricao= Res.trad(user=user, str='message_financeiro_pokemon_vitoria_dm').format(pokemon_sorteado , valor_total , len(vencedores) , premio_por_vencedor ) ,descricao_thumbnail=dex['front_default'] )
+                await user.send(view=view)
+                print(f"✉️  -  notificando: {user.id} - {user.name}")
+            except:
+                print(f"❌  -  dm do usuario {user.name} está fechada ou não foi encontrado")
+
+        print(f"Pokémon sorteado: {pokemon_sorteado}, distribuído: {valor_total}")
+        # Resetar valor acumulado
+        BancoApostasPokemon.update_valor_acumulado(-valor_total)
+    else:
+        # Ninguém ganhou, valor permanece acumulado
+        print(f"Ninguém apostou no Pokémon sorteado: {pokemon_sorteado}, valor acumula para o próximo dia")
+
+    # Atualizar último Pokémon sorteado e limpar apostas
+    BancoApostasPokemon.set_ultimo_sorteado(pokemon_sorteado)
+    BancoApostasPokemon.limpar_apostas()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #   COMANDO PARA EXIBIR O STATUA ATUAL DO SORTEIO
+  async def status_sorteio_pokemon(self, interaction: discord.Interaction):
+    doc = BancoApostasPokemon.get_document()
+    if not doc or not doc.get("apostas"):
+        await interaction.edit_original_response(content = Res.trad(interaction=interaction, str='message_financeiro_pokemon_sem_apostas') , view=None)
+        return
+
+    ultimo_sorteado = doc.get("ultimo_sorteado") or "—"
+    valor_total = doc.get("valor_acumulado", 0)
+    apostas = doc.get("apostas", [])
+
+    if apostas:
+        # contar quantos apostadores por Pokémon
+        contador_pokemon = {}
+        for a in apostas:
+            pkm = a["pokemon"].capitalize()
+            contador_pokemon[pkm] = contador_pokemon.get(pkm, 0) + 1
+
+        # transformar em lista ordenada (opcional: por quantidade de apostadores)
+        lista_contador = list(contador_pokemon.items())
+        # se quiser, ordenar por quantidade de apostadores descendente
+        lista_contador.sort(key=lambda x: x[1], reverse=True)
+
+        # limitar a 10 pokémon
+        max_exibir = 10
+        lista_formatada = [
+            f" - **{pkm}** — {qtd} {Res.trad(interaction=interaction, str='apostador')}"
+            for pkm, qtd in lista_contador[:max_exibir]
+        ]
+        # se houver mais que 30, adicionar linha informativa
+        if len(lista_contador) > max_exibir:
+            lista_formatada.append(Res.trad(interaction=interaction, str='message_financeiro_pokemon_apostas_limite_total').format ( len(lista_contador) - max_exibir ))
+
+        lista_pokemon = "\n".join(lista_formatada)
+    else:
+        lista_pokemon = Res.trad(interaction=interaction, str='message_financeiro_pokemon_sem_apostas')
+
+    view = container_media_button_url(descricao= Res.trad(interaction=interaction, str='message_financeiro_pokemon_exibir_apostas').format(ultimo_sorteado, valor_total,lista_pokemon) , descricao_thumbnail="https://i.imgur.com/VuVoeFj.png")
+
+    await interaction.edit_original_response(view=view)
+
+
+
+
+
+
+
+
+
+
+
+  @aposta.command(name="pokémon", description="💰⠂Aposte sua sorte em um Pokémon!")
+  @app_commands.autocomplete(pokemon=pokemon_autocomplete)
+  @app_commands.describe( pokemon="Informe o nome de um pokémon...")
+  async def jogo_do_pokemon(self, interaction: discord.Interaction, pokemon:str = None):
+    if await Res.print_brix(comando="jogo-do-pokemon",interaction=interaction,condicao=f"Selecionado o pokémon: {pokemon}"):
+            return
+    
+    if pokemon is None:
+        await interaction.response.send_message(Res.trad(interaction=interaction, str='message_financeiro_pokemon_ajuda'))
+        return
+
+    await interaction.response.defer()
+    valor = 10000
+    dados_do_membro = BancoUsuarios.insert_document(interaction.user)
+    saldo = dados_do_membro['braixencoin']
+
+    if saldo < valor:
+        await interaction.followup.send(Res.trad(interaction=interaction, str='message_financeiro_saldo_insuficiente'))
+        return
+    if valor <= 0:
+        await interaction.followup.send(Res.trad(interaction=interaction, str='message_financeiro_zero'))
+        return
+
+    aposta_existente = BancoApostasPokemon.add_aposta(interaction.user.id, pokemon, valor)
+
+    if aposta_existente:
+        # Já tem aposta → retorna a aposta antiga em vez de cadastrar
+        await interaction.followup.send(Res.trad(interaction=interaction, str='message_financeiro_pokemon_aposta_existente').format (aposta_existente['pokemon'], aposta_existente['valor']) )
+        return
+
+    # Se chegou aqui é pq a aposta foi registrada
+    BancoApostasPokemon.update_valor_acumulado(valor)
+    BancoFinanceiro.registrar_transacao( user_id=interaction.user.id, tipo="gasto", origem="aposta pokemon", valor=valor, moeda="braixencoin", descricao=f"Aposta em {pokemon} no jogo do bicho Brix" )
+    BancoUsuarios.update_inc(interaction.user, {"braixencoin": -valor})
+    dex = await get_pokemon(pokemon)
+    view = container_media_button_url(descricao= Res.trad(interaction=interaction, str='message_financeiro_pokemon_aposta_feita').format(pokemon, valor),descricao_thumbnail=dex['front_default'] )
+
+    await interaction.followup.send(view=view)
+    await asyncio.sleep(5)
+    await self.status_sorteio_pokemon(interaction)
+
+
+
+
+
+
+
+
+
+
+
+
+  @aposta.command(name="pokémon-status", description="💰⠂Mostra o andamento da aposta de Pokémon do dia")
+  async def jogo_do_pokemon_status(self, interaction: discord.Interaction):
+    if await Res.print_brix(comando="pokémon-status", interaction=interaction):
+        return
+    await interaction.response.defer()
+    await self.status_sorteio_pokemon(interaction)
+
+   
 
 
 

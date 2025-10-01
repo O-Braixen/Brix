@@ -517,6 +517,97 @@ class BancoPagamentos:
 
 
 
+# ======================================================================
+# ============= COLEÇÃO PARA O SISTEMA DE APOSTAS DE POKÉMON ===========
+apostascollection = botconfigcollection
+
+class BancoApostasPokemon:
+
+    @staticmethod
+    def insert_document():
+        """Garante que exista o documento base para apostas"""
+        if apostascollection.find_one({"_id": "aposta_pokemon"}) is None:
+            document = {
+                "_id": "aposta_pokemon",
+                "valor_acumulado": 0,
+                "ultimo_sorteado": None
+            }
+            apostascollection.insert_one(document)
+        else:
+            document = apostascollection.find_one({"_id": "aposta_pokemon"})
+        return document
+    
+    
+    
+    @staticmethod
+    def get_document():
+        """Retorna o documento completo"""
+        BancoApostasPokemon.insert_document()
+        return apostascollection.find_one({"_id": "aposta_pokemon"})
+
+
+
+    @staticmethod
+    def get_aposta_usuario(user_id:int):
+        """Retorna a aposta do usuário (ou None se não apostou)"""
+        BancoApostasPokemon.insert_document()
+        doc = BancoApostasPokemon.get_document()
+        for aposta in doc.get("apostas", []):
+            if aposta["user_id"] == user_id:
+                return aposta
+        return None
+    
+
+
+    @staticmethod
+    def add_aposta(user_id:int, pokemon:str, valor:int):
+        """Adiciona uma aposta para o usuário"""
+        BancoApostasPokemon.insert_document()
+        aposta_existente = BancoApostasPokemon.get_aposta_usuario(user_id)
+        if aposta_existente:
+            return aposta_existente  # já existe → retorna aposta atual
+
+        apostascollection.update_one(
+            {"_id": "aposta_pokemon"},
+            {"$push": {"apostas": {
+                "user_id": user_id,
+                "pokemon": pokemon,
+                "valor": valor
+            }}}
+        )
+        return None  # None indica que foi inserida com sucesso
+
+    @staticmethod
+    def update_valor_acumulado(valor:int):
+        """Atualiza o valor acumulado do pote"""
+        apostascollection.update_one(
+            {"_id": "aposta_pokemon"},
+            {"$inc": {"valor_acumulado": valor}}
+        )
+
+    @staticmethod
+    def set_ultimo_sorteado(pokemon:str):
+        """Define o último pokémon sorteado"""
+        apostascollection.update_one(
+            {"_id": "aposta_pokemon"},
+            {"$set": {"ultimo_sorteado": pokemon}}
+        )
+
+    @staticmethod
+    def limpar_apostas():
+        """Limpa as apostas (após o sorteio)"""
+        BancoApostasPokemon.insert_document()
+        apostascollection.update_one( {"_id": "aposta_pokemon"}, {"$unset": {"apostas": ""}} )
+
+   
+
+
+
+
+
+
+
+
 
 # ======================================================================
 # =========================== COLEÇÃO DE EVENTOS ==========================
