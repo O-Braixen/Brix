@@ -738,6 +738,7 @@ class owner(commands.Cog):
 
     await inicializar_caches_se_preciso()
     if not self.verificar_guilds.is_running():
+      await asyncio.sleep(10)
       self.verificar_guilds.start()
       await asyncio.sleep(900)
       await baixaritensloja()
@@ -941,8 +942,18 @@ class owner(commands.Cog):
   @tasks.loop(time=datetime.time(hour=2, minute=0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
   async def verificar_guilds(self): 
     print(f"🦊 - Iniciando Verificação de Servidores onde o bot está")
-    dados = list(BancoServidores.select_many_document({}))
 
+    # PASSO EXTRA: Adicionar os servidores que o bot está mas não estão no banco
+    # ---------------------------
+    dados = list(BancoServidores.select_many_document({}))
+    ids_no_banco = {str(server["_id"]) for server in dados}
+    for guild in self.client.guilds:
+      if str(guild.id) not in ids_no_banco:
+        print(f"➕ Registrando novo servidor no banco: {guild.name} ({guild.id})")
+        await asyncio.to_thread( BancoServidores.bot_in_guild , guild.id , True)
+    
+    # Função normal de verificação
+    # ---------------------------
     async def verificar(server, i):
       servidor = self.client.get_guild(int(server['_id']))
       if servidor is None:
@@ -952,12 +963,15 @@ class owner(commands.Cog):
           await asyncio.to_thread(BancoServidores.delete_document, server['_id'])
         else:
           print(f"{i}: 🚨 Incrementando falhas ({falhas}/30) para o ID {server['_id']}")
-          await asyncio.to_thread(BancoServidores.update_document, server['_id'], {"check_falhas": falhas})
+          await asyncio.to_thread(BancoServidores.update_document, server['_id'], {"check_falhas": falhas, "bot_in_guild": False})
       else:
         #print(f"{i}: ✔️ Servidor válido: {servidor.name} (ID: {servidor.id})")
         if "check_falhas" in server:
           await asyncio.to_thread(BancoServidores.delete_field, server['_id'], {"check_falhas": 0})
+        await asyncio.to_thread( BancoServidores.update_document, server['_id'], {"bot_in_guild": True} )
 
+    # PROCESSAMENTO EM LOTES
+    # ---------------------------
     async def processar_em_lotes(dados, tamanho_lote=50):
       for i in range(0, len(dados), tamanho_lote):
         lote = dados[i:i + tamanho_lote]
@@ -1245,7 +1259,7 @@ class owner(commands.Cog):
   #LINGUAGEM BOT
   @bot.command(name="idioma",description='🦊⠂altere o idioma de brix na comunidade.')
   @app_commands.describe(idioma="Selecione um idioma padrão para sua comunidade...")
-  @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US"),app_commands.Choice(name="Spanish", value="es-ES")])
+  @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US")]) #,app_commands.Choice(name="Spanish", value="es-ES")])
   async def chargelanguage(self,interaction: discord.Interaction,idioma:app_commands.Choice[str]):
     if await Res.print_brix(comando="chargelanguage",interaction=interaction):
       return

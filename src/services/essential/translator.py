@@ -1,6 +1,7 @@
 import discord,os,json,asyncio,re
 from discord import app_commands
 from google import genai
+from deep_translator import GoogleTranslator
 from dotenv import load_dotenv
 
 
@@ -160,7 +161,7 @@ class BrixTradutor(app_commands.Translator):
 
 # ======================================================================
     # TRADUTOR DAS RESPOSTAS DO BOT COM BASE NO ARQUIVO PRINCIPAL pt-BR
-    async def translate_responses(self):
+    """async def translate_responses(self):
         # Lê o arquivo pt-BR.json em response/ e gera as traduções para os outros idiomas.
         pt_br_file = os.path.join(self.response_dir, "pt-BR.json")
 
@@ -207,11 +208,10 @@ class BrixTradutor(app_commands.Translator):
                     # Remove e armazena emojis personalizados
                     cleaned_message, emoji_positions = self.remove_custom_emojis(msg)
                     # Tradução
-                    await asyncio.sleep(2)  # Evitar limites de taxa
-                    response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"Você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji e formatação. Se a mensagem já estiver em {target_lang}, mantenha o texto original. Traduza para {target_lang}: {cleaned_message}")
-                    #response = text_model.generate_content( f"Você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji e formatação. Se a mensagem já estiver em {target_lang}, mantenha o texto original. Traduza para {target_lang}: {cleaned_message}")
-                    translated_text =  response.text.rstrip("\n") 
-
+                    await asyncio.sleep(0.5)  # Evitar limites de taxa
+                    #response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"Você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji e formatação. Se a mensagem já estiver em {target_lang}, mantenha o texto original. Traduza para {target_lang}: {cleaned_message}")
+                    #translated_text =  response.text.rstrip("\n") 
+                    translated_text = GoogleTranslator(source='pt', target=target_lang).translate(cleaned_message)
                     # Restaurar emojis
                     final_translated_text = self.restore_emojis(translated_text, emoji_positions)
 
@@ -225,6 +225,75 @@ class BrixTradutor(app_commands.Translator):
                     print(f"Traduzido {key} para {file_name}")
 
                 # Salvar o arquivo atualizado
+                with open(response_file, 'w', encoding='utf-8') as f:
+                    json.dump(translated_messages_dict, f, ensure_ascii=False, indent=4)
+
+        print("🌐  -  Traduções concluídas!")"""
+
+
+
+    # ======================================================================
+    # TRADUTOR DAS RESPOSTAS DO BOT COM BASE NO ARQUIVO PRINCIPAL pt-BR
+    async def translate_responses(self):
+        pt_br_file = os.path.join(self.response_dir, "pt-BR.json")
+
+        if not os.path.exists(pt_br_file):
+            print("Arquivo pt-BR.json não encontrado em response/.")
+            return
+
+        with open(pt_br_file, 'r', encoding='utf-8') as f:
+            pt_br_messages = json.load(f)
+
+        # Função auxiliar para processar string/lista/dict
+        def process_message(msg, target_lang):
+            """Processa mensagens que podem ser string, lista ou dicionário."""
+            if isinstance(msg, str):
+                cleaned_message, emoji_positions = self.remove_custom_emojis(msg)
+                #response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"Você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji e formatação. Se a mensagem já estiver em {target_lang}, mantenha o texto original. Traduza para {target_lang}: {cleaned_message}")
+                #translated_text =  response.text.rstrip("\n") 
+                translated_text = GoogleTranslator(source='pt', target=target_lang).translate(cleaned_message)
+                return self.restore_emojis(translated_text, emoji_positions)
+
+            elif isinstance(msg, list):
+                return [process_message(item, target_lang) for item in msg]
+
+            elif isinstance(msg, dict):
+                return {k: process_message(v, target_lang) for k, v in msg.items()}
+
+            else:
+                return msg  # qualquer outro tipo, retorna sem mexer
+
+        # Itera sobre cada chave do pt-BR.json
+        for key, message in pt_br_messages.items():
+            for locale, file_name in self.allowed_locales.items():
+                target_lang = file_name.split('-')[0]
+                response_file = os.path.join(self.response_dir, f"{file_name}.json")
+
+                # Carrega traduções existentes, se houver
+                if os.path.exists(response_file):
+                    with open(response_file, 'r', encoding='utf-8') as f:
+                        translated_messages_dict = json.load(f)
+                else:
+                    translated_messages_dict = {}
+
+                # Se a chave já existe e tem conteúdo, pula
+                if key in translated_messages_dict and translated_messages_dict[key]:
+                    continue
+
+                # Traduz a mensagem (string/list/dict)
+                translated_result = process_message(message, target_lang)
+
+                # Garante consistência no tipo de saída
+                if isinstance(message, list):
+                    translated_messages_dict[key] = translated_result
+                elif isinstance(message, str):
+                    translated_messages_dict[key] = translated_result
+                elif isinstance(message, dict):
+                    translated_messages_dict[key] = translated_result
+
+                print(f"Traduzido {key} para {file_name}")
+
+                # Salva o arquivo atualizado
                 with open(response_file, 'w', encoding='utf-8') as f:
                     json.dump(translated_messages_dict, f, ensure_ascii=False, indent=4)
 
@@ -243,9 +312,9 @@ class BrixTradutor(app_commands.Translator):
 
 # ======================================================================
     def remove_custom_emojis(self, message):
-        """Remove emojis personalizados da mensagem e retorna o texto limpo e as posições dos emojis encontrados."""
-        # Regex para identificar emojis personalizados
-        emoji_pattern = r'(<:[a-zA-Z0-9_]+:[0-9]+>)'
+        """Remove emojis personalizados (estáticos e animados) da mensagem e retorna o texto limpo e as posições."""
+        # Regex para identificar emojis personalizados (estáticos <:...:...> e animados <a:...:...>)
+        emoji_pattern = r'(<a?:[a-zA-Z0-9_]+:[0-9]+>)'
         
         # Encontrar todos os emojis personalizados e suas posições
         emojis = re.findall(emoji_pattern, message)
@@ -253,8 +322,8 @@ class BrixTradutor(app_commands.Translator):
 
         # Substituir os emojis por um marcador temporário e manter o emoji original (nome e ID)
         for i, emoji in enumerate(emojis):
-            emoji_positions.append((i, emoji, message.find(emoji)))  # Armazenar o emoji e sua posição
-            message = message.replace(emoji, f"E{i}", 1)  # Substitui o emoji por um marcador único
+            emoji_positions.append((i, emoji, message.find(emoji)))  # (índice, emoji, posição no texto)
+            message = message.replace(emoji, f"%{i}", 1)  # Substitui por marcador único
         
         return message, emoji_positions
 
@@ -271,13 +340,19 @@ class BrixTradutor(app_commands.Translator):
 
 
 # ======================================================================
-    def restore_emojis(self, translated_text, emoji_positions):
-        """Restaurar os emojis personalizados nas posições corretas da tradução."""
+    """def restore_emojis(self, translated_text, emoji_positions):
         # Restaurar os emojis nas posições corretas
         for i, emoji, position in reversed(emoji_positions):  # Coloca os emojis na posição original
             translated_text = translated_text[:position] + emoji + translated_text[position:]
 
         # Agora removemos os marcadores temporários
-        translated_text = re.sub(r'[Ee]\d+', '', translated_text)  # Remove qualquer marcador EMOJI{i}
+        translated_text = re.sub(r'[%]\d+', '', translated_text)  # Remove qualquer marcador EMOJI{i}
+        return translated_text"""
+    
+# ======================================================================
+    def restore_emojis(self, translated_text, emoji_positions):
+        """Restaura os emojis personalizados substituindo os marcadores %i pelos emojis originais."""
+        for i, emoji, _ in emoji_positions:  # posição original não é mais necessária
+            translated_text = translated_text.replace(f"%{i}", emoji)
 
         return translated_text

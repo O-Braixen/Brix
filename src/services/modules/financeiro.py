@@ -44,6 +44,7 @@ class financeiro(commands.Cog):
   async def on_ready(self):
     print("💲  -  Modúlo Financeiro carregado.")
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
+    await asyncio.sleep(20)
     if not self.verificar_daily.is_running():
         self.verificar_daily.start()
     if not self.lembretes_cacar.is_running():
@@ -1070,6 +1071,7 @@ class financeiro(commands.Cog):
     valor_total = doc.get("valor_acumulado", 0)
 
     if not apostas:
+        BancoApostasPokemon.update_valor_acumulado(valor_total)
         print("Nenhuma aposta registrada hoje, a recompensa permanece acumulada:", valor_total)
         return
 
@@ -1084,8 +1086,8 @@ class financeiro(commands.Cog):
     # agora filtra os que não foram apostados
     pokemons_nao_apostados = [p for p in todos_pokemon_nomes if p not in pokemons_apostados]
 
-    # Adicionar 25% de Pokémon “falsos” (não apostados)
-    qtd_extra = math.ceil(len(pokemons_apostados) * 0.25)
+    # Adicionar 50% de Pokémon “falsos” (não apostados)
+    qtd_extra = math.ceil(len(pokemons_apostados) * 0.50)
     print(qtd_extra)
     pokemons_falsos = random.sample(pokemons_nao_apostados, min(qtd_extra, len(pokemons_nao_apostados)))
     # Lista final para o sorteio
@@ -1097,6 +1099,8 @@ class financeiro(commands.Cog):
 
     # Determinar vencedores (apenas se o Pokémon sorteado tiver apostas)
     vencedores = [a for a in apostas if a["pokemon"] == pokemon_sorteado]
+    vencedores_name_list = []
+
     dex = await get_pokemon(pokemon_sorteado)
     if vencedores:
         premio_por_vencedor = valor_total // len(vencedores)
@@ -1104,9 +1108,9 @@ class financeiro(commands.Cog):
             BancoUsuarios.update_inc(v["user_id"], {"braixencoin": premio_por_vencedor})
             BancoFinanceiro.registrar_transacao( user_id=v["user_id"], tipo="ganho", origem="aposta pokemon", valor=premio_por_vencedor, moeda="braixencoin", descricao=f"Prêmio por apostar no Pokémon {pokemon_sorteado}" )
 
-            #
             try:
                 user = await self.client.fetch_user(v["user_id"])
+                vencedores_name_list.append(user.name)
 
                 view = container_media_button_url(descricao= Res.trad(user=user, str='message_financeiro_pokemon_vitoria_dm').format(pokemon_sorteado , valor_total , len(vencedores) , premio_por_vencedor ) ,descricao_thumbnail=dex['front_default'] )
                 await user.send(view=view)
@@ -1120,9 +1124,11 @@ class financeiro(commands.Cog):
     else:
         # Ninguém ganhou, valor permanece acumulado
         print(f"Ninguém apostou no Pokémon sorteado: {pokemon_sorteado}, valor acumula para o próximo dia")
+        BancoApostasPokemon.update_valor_acumulado(valor_total)
 
+    vencedores_name = " / ".join(vencedores_name_list)
     # Atualizar último Pokémon sorteado e limpar apostas
-    BancoApostasPokemon.set_ultimo_sorteado(pokemon_sorteado)
+    BancoApostasPokemon.set_ultimo_sorteado(f"{pokemon_sorteado} ({vencedores_name})")
     BancoApostasPokemon.limpar_apostas()
 
 

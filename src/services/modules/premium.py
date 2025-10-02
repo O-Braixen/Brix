@@ -347,7 +347,7 @@ class premium(commands.Cog):
 
   
 #FUNÇÂO DE VERIFICAÇÃO DE PAGAMENTOS PREMIUM
-  @tasks.loop(minutes=5)
+  @tasks.loop(minutes=2)
   async def TASK_VERIFICAR_PAGAMENTOS(self): 
     await self.VERIFICAR_PAGAMENTOS()
 

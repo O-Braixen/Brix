@@ -44,12 +44,13 @@ class Res:
                 
                 # Cache para o idioma do usuário
                 if user_id in Res.idioma_cache:
-                  if interaction.locale.value == Res.idioma_cache[user_id]:
-                    idioma = Res.idioma_cache[user_id]
-                  else:
-                    idioma = interaction.locale.value
-                    Res.idioma_cache[user_id] = idioma
-                    BancoUsuarios.update_document(user_id, {"language": idioma})
+                  idioma = Res.idioma_cache[user_id]
+                  #if interaction.locale.value == Res.idioma_cache[user_id]:
+                    #idioma = Res.idioma_cache[user_id]
+                  #else:
+                  #  idioma = interaction.locale.value
+                  #  Res.idioma_cache[user_id] = idioma
+                  #  BancoUsuarios.update_document(user_id, {"language": idioma})
                 else:
                     # Detecta idioma do usuário no interaction
                     if interaction.locale.value in respostas:

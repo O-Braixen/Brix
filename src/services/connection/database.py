@@ -151,6 +151,12 @@ class BancoServidores: # Classe da coleção de servidores
     def delete_document(id): #deletando um item a partir de um deteminado item
         document = serverscollection.delete_one({"_id": id})
         return document
+    
+    def bot_in_guild (id , status):
+        BancoServidores.insert_document(id)
+        document = serverscollection.update_one({"_id" : id},{"$set": {"bot_in_guild" : status} })
+        return document
+
 
 
 
