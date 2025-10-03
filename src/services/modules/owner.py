@@ -3,9 +3,10 @@ from discord.ext import commands , tasks
 from discord import app_commands
 from os import listdir
 from typing import List
-from src.services.connection.database import BancoUsuarios,BancoServidores,BancoBot,BancoLoja , BancoFinanceiro , BancoLogs
+from src.services.connection.database import BancoUsuarios,BancoServidores,BancoBot,BancoLoja , BancoFinanceiro , BancoLogs , BancoCodigosResgate
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck , verificar_cooldown
+from src.services.modules.premium import liberarpremium
 from src.services.essential.host import informação,status,restart 
 from src.services.essential.gasmii import generate_response_with_text
 from src.services.essential.diversos import Paginador_Global
@@ -16,9 +17,28 @@ from dotenv import load_dotenv
 
 
 
+
+
+
+
+
+
 #CARREGA E LE O ARQUIVO .env na raiz
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env')) #load .env da raiz
 donoid = int(os.getenv("DONO_ID")) #acessa e define o id do dono
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -126,6 +146,29 @@ async def botstatus(self,interaction):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Função Bot Version
 async def botversion(self,interaction):
     if await Res.print_brix(comando="botversion",interaction=interaction):
@@ -159,6 +202,22 @@ async def botversion(self,interaction):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #------------------------------------------------MODAIS--------------------------------------------
 
 #Classe do MODAL SAIR SERVIDOR
@@ -173,6 +232,19 @@ class ModalSairServidor(discord.ui.Modal,title = "Saindo de um Servidor!"):
       guild = self.client.get_guild (int (self.serverid.value)) # Obtém o objeto guilda pelo ID
       await guild.leave () # Faz o bot sair da guilda
       await interaction.response.send_message(Res.trad(interaction=interaction,str="message_servidor_sair").format(guild.name),delete_after=10)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -196,6 +268,17 @@ class ModalNomeBot(discord.ui.Modal,title = "Renomeando o bot!"):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 #Classe do MODAL ALTERAR AVATAR DO BOT
 class ModalavatarBot(discord.ui.Modal,title = "Alterar Avatar do Bot!"):
     newavatar = discord.ui.TextInput(label="Indique o Link da imagem?",style=discord.TextStyle.long,min_length=1,placeholder="http:algumacoisalinkdireto")
@@ -208,6 +291,15 @@ class ModalavatarBot(discord.ui.Modal,title = "Alterar Avatar do Bot!"):
       avatar = requests.get(self.newavatar.value).content
       await self.client.user.edit(avatar=avatar)
       await interaction.response.send_message(Res.trad(interaction=interaction,str="message_botavatar"),delete_after=10, ephemeral=True)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -272,6 +364,23 @@ class ModalUserAward(discord.ui.Modal,title = "Premie um Membro!"):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Classe do MODAL USER TAKE
 class ModalUserTake(discord.ui.Modal,title = "Tirar Moeda de Membro!"):
     userid = discord.ui.TextInput(label="ID do Usuario",style=discord.TextStyle.short,min_length=1,placeholder="0123456789")
@@ -300,6 +409,22 @@ class ModalUserTake(discord.ui.Modal,title = "Tirar Moeda de Membro!"):
 
         await interaction.followup.send(Res.trad(interaction=interaction,str="message_financeiro_pagamento_take").format(membro.mention,saldo,self.emoji)) 
       except: await interaction.followup.send(Res.trad(interaction=interaction,str='message_erro_mongodb').format(interaction.user.id),ephemeral=True)  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -350,6 +475,12 @@ class ModalUserextrato(discord.ui.Modal,title = "Consulte o extrato de alguém!"
 
 
 
+
+
+
+
+
+
 #Classe do MODAL USER DESCRICAO
 class ModalUserdescricao(discord.ui.Modal,title = "Mude a descrição de alguém!"):
     userid = discord.ui.TextInput(label="ID do Usuario",style=discord.TextStyle.short,min_length=1,placeholder="0123456789")
@@ -366,6 +497,18 @@ class ModalUserdescricao(discord.ui.Modal,title = "Mude a descrição de alguém
         BancoUsuarios.update_document(membro,{'descricao': self.descricao.value})
         await interaction.followup.send(Res.trad(interaction=interaction,str="message_sobremim").format(self.descricao.value)) 
       except: await interaction.followup.send(Res.trad(interaction=interaction,str='message_erro_mongodb').format(interaction.user.id),ephemeral=True)  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -399,6 +542,19 @@ class ModalBanUSER(discord.ui.Modal,title = "Banir um Usuario no meu sistema Bri
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Classe do MODAL UNBAN USER
 class ModalUnBanUSER(discord.ui.Modal,title = "Desbanir um Usuario no meu sistema Brix!"):
     userid = discord.ui.TextInput(label="ID do Usuario",style=discord.TextStyle.short,min_length=1,placeholder="0123456789")
@@ -422,6 +578,169 @@ class ModalUnBanUSER(discord.ui.Modal,title = "Desbanir um Usuario no meu sistem
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ModalDeletarCodigo(discord.ui.Modal, title="Deletar Código"):
+    codigo = discord.ui.TextInput(label="Código", placeholder="Digite o código exato", max_length=50)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        codigo = self.codigo.value.strip()
+        doc = BancoCodigosResgate.get_codigo( codigo )
+
+        if not doc:
+            return await interaction.response.send_message(    f"<:Braix_Shocked:1272663500115935264>┃ Kyu~! O código **{codigo}** não existe ou já foi usado. Dá uma olhadinha certinho antes de tentar de novo!",    ephemeral=True)
+
+        BancoCodigosResgate.delete_codigo( codigo )
+        await interaction.response.send_message(    f"<:Braix_uwu:1287443559074500691>┃ Código **{codigo}** deletado com sucesso, kyu~! Tudo limpo e organizado do jeitinho que eu gosto!",ephemeral=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ModalAddCodigo(discord.ui.Modal):
+    def __init__(self, client, tipo_selecionado: str):
+        super().__init__(title="Cadastrar Código de Resgate")
+        self.client = client
+        self.tipo = tipo_selecionado  # recebido do dropdown
+        self.codigo = discord.ui.TextInput(label="Código", placeholder="Ex: BraixenDay", max_length=50)
+        self.add_item(self.codigo)
+
+        self.valor = discord.ui.TextInput(label=f"Valor ({self.tipo})", placeholder="Ex: valor / dias ou nome da arte", max_length=250)
+        self.add_item(self.valor)
+
+        self.max_usos = discord.ui.TextInput(label="Máx. usos (0 = ilimitado)", placeholder="Ex: 10 ou 0", required=False, max_length=10)
+        self.add_item(self.max_usos)
+
+        self.dias_validade = discord.ui.TextInput(label="Dias de validade", placeholder="Ex: 7", required=False, max_length=5)
+        self.add_item(self.dias_validade)
+
+        self.dia_ativacao = discord.ui.TextInput(label="Dia de ativação (YYYY-MM-DD)", placeholder="Ex: 2025-10-07", required=False, max_length=10)
+        self.add_item(self.dia_ativacao)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        codigo = self.codigo.value.strip()
+        valor = int(self.valor.value) if self.tipo in ["braixencoin", "gravetos", "premium"] else self.valor.value.strip()
+        max_usos = int(self.max_usos.value) if self.max_usos.value else None
+        dias_validade = int(self.dias_validade.value) if self.dias_validade.value else None
+        dia_ativacao = self.dia_ativacao.value if self.dia_ativacao.value else None
+
+        # validações
+        if BancoCodigosResgate.get_codigo(codigo):
+          return  await interaction.response.send_message(    f"<:Braix_Shocked:1272663500115935264>┃ Kyu~! O código **{codigo}** já existe. Tente usar um diferente, tá bem?",    ephemeral=True)
+  
+
+        # datas
+        ativa_em_iso = None
+        if dia_ativacao:
+            try:
+                ativa_em_iso = datetime.datetime.fromisoformat(dia_ativacao).isoformat()
+            except:
+              return await interaction.response.send_message(    "<:Braix_Shocked:1272663500115935264>┃ Data de ativação inválida, kyu~! Use o formato correto: **YYYY-MM-DD** (ano-mês-dia).",    ephemeral=True)
+
+        expira_em = None
+        if dias_validade:
+            if ativa_em_iso:
+                expira_em = (datetime.datetime.fromisoformat(dia_ativacao) + datetime.timedelta(days=dias_validade)).isoformat()
+            else:
+                expira_em = (datetime.datetime.now() + datetime.timedelta(days=dias_validade)).isoformat()
+
+        BancoCodigosResgate.insert_document( codigo=codigo, recompensa={"tipo": self.tipo, "valor": valor}, max_usos=max_usos if max_usos != 0 else None, expira_em=expira_em, ativa_em=ativa_em_iso )
+        await interaction.response.send_message(    f"### <:Braix_uwu:1287443559074500691>┃ Código registrado com sucesso, kyu~!\n"    f"**Código:** `{codigo}`\n"    f"**Tipo:** `{self.tipo}`\n"    f"**Valor:** `{valor}`\n"    f"**Máx. usos:** `{max_usos or 'ilimitado'}`\n"    f"**Ativo a partir de:** `{ativa_em_iso or 'imediatamente'}`\n"    f"**Expira em:** `{expira_em or 'sem prazo'}`\n\n"    f"<:Braix_Tongue:1272662386590879795>┃ Agora é só usar direitinho, tá pronto pra funcionar, kyuuu~!",    ephemeral=True)
+
+
+
+
+
+
+
+
+
+
+class SelectTipo(discord.ui.Select):
+    def __init__(self, client):
+        options = [
+            discord.SelectOption(label="Braixencoin", value="braixencoin", emoji= "<:BraixenCoin:1272655353108103220>"),
+            discord.SelectOption(label="Graveto", value="graveto", emoji= "<:Graveto:1318962131567378432>"),
+            discord.SelectOption(label="Premium", value="premium", emoji= "💎"),
+            discord.SelectOption(label="Arte", value="arte", emoji= "🎨")
+        ]
+        super().__init__(placeholder="Selecione o tipo de recompensa", min_values=1, max_values=1, options=options)
+        self.client = client
+
+    async def callback(self, interaction: discord.Interaction):
+        tipo = self.values[0]
+        await interaction.response.send_modal(ModalAddCodigo(self.client, tipo_selecionado=tipo))
+
+
+
+
+
+
+
+
+class ViewSelectTipo(discord.ui.View):
+    def __init__(self, client):
+        super().__init__()
+        self.add_item(SelectTipo(client))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Botões dashboard
 class Botoesdash(discord.ui.View):
     def __init__(self,client):
@@ -429,7 +748,7 @@ class Botoesdash(discord.ui.View):
         self.client = client
         self.value=None
 
-    @discord.ui.button(label="Listar Server",style=discord.ButtonStyle.red,emoji="📄",row=0)
+    @discord.ui.button(label="Server",style=discord.ButtonStyle.red,emoji="📄",row=0)
     async def listservers (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid: # Verifica se o usuário é o dono do bot
         await interaction.response.defer(ephemeral=True) # Envia uma resposta de interação para indicar que o comando está sendo processado
@@ -453,7 +772,7 @@ class Botoesdash(discord.ui.View):
       else:
         await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10, ephemeral=True) # Envia uma resposta de interação que só é visível para o usuário
 
-    @discord.ui.button(label="Sair Server",style=discord.ButtonStyle.red,emoji="🔚",row=0)
+    @discord.ui.button(label="Server",style=discord.ButtonStyle.red,emoji="🔚",row=0)
     async def leave (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalSairServidor(self.client))
@@ -484,14 +803,14 @@ class Botoesdash(discord.ui.View):
 
 
     
-    @discord.ui.button(label="Nome Bot",style=discord.ButtonStyle.green,emoji="🤖",row=1)
+    @discord.ui.button(label="Nome",style=discord.ButtonStyle.green,emoji="🤖",row=0)
     async def botname (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalNomeBot(self.client))
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10)
     
-    @discord.ui.button(label="Avatar Bot",style=discord.ButtonStyle.green,emoji="🖼️",row=1)
+    @discord.ui.button(label="Avatar",style=discord.ButtonStyle.green,emoji="🖼️",row=0)
     async def botavatar (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalavatarBot(self.client))
@@ -511,28 +830,28 @@ class Botoesdash(discord.ui.View):
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10)
     
-    @discord.ui.button(label="+",style=discord.ButtonStyle.green,emoji="<:BraixenCoin:1272655353108103220>",row=2)
+    @discord.ui.button(label="+",style=discord.ButtonStyle.green,emoji="<:BraixenCoin:1272655353108103220>",row=1)
     async def awardcoin (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalUserAward(self.client,moeda='braixencoin',emoji="<:BraixenCoin:1272655353108103220>"))
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
     
-    @discord.ui.button(label="-",style=discord.ButtonStyle.green,emoji="<:BraixenCoin:1272655353108103220>",row=2) #row=0
+    @discord.ui.button(label="-",style=discord.ButtonStyle.green,emoji="<:BraixenCoin:1272655353108103220>",row=1) #row=0
     async def takecoin (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalUserTake(self.client,moeda='braixencoin',emoji='<:BH_BraixenCoin:1182695452731265126>'))
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
     
-    @discord.ui.button(label="+",style=discord.ButtonStyle.green,emoji="<:Graveto:1318962131567378432>",row=2)
+    @discord.ui.button(label="+",style=discord.ButtonStyle.green,emoji="<:Graveto:1318962131567378432>",row=1)
     async def awardstick (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalUserAward(self.client,moeda='graveto',emoji='<:Graveto:1318962131567378432>'))
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
     
-    @discord.ui.button(label="-",style=discord.ButtonStyle.green,emoji="<:Graveto:1318962131567378432>",row=2) #row=0
+    @discord.ui.button(label="-",style=discord.ButtonStyle.green,emoji="<:Graveto:1318962131567378432>",row=1) #row=0
     async def takestick (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalUserTake(self.client,moeda='graveto',emoji='<:Graveto:1318962131567378432>'))
@@ -546,14 +865,14 @@ class Botoesdash(discord.ui.View):
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
     
-    @discord.ui.button(label="bio user",style=discord.ButtonStyle.green,emoji="🙍",row=3) #row=0
+    @discord.ui.button(label="bio user",style=discord.ButtonStyle.green,emoji="🙍",row=2) #row=0
     async def chargedescricao (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_modal(ModalUserdescricao(self.client))
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
     
-    @discord.ui.button(label="Loja Download Local",style=discord.ButtonStyle.grey,emoji="⬇️",row=3) #row=0
+    @discord.ui.button(label="Loja D",style=discord.ButtonStyle.grey,emoji="⬇️",row=2) #row=0
     async def lojadonwload (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_message("<:Braix_Hmph:1272666561244561429>┃ Okay Kyuu, vou atualizar os arquivos locais")
@@ -561,7 +880,7 @@ class Botoesdash(discord.ui.View):
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner",),delete_after=10,ephemeral=True)
 
-    @discord.ui.button(label="Loja rotação",style=discord.ButtonStyle.grey,emoji="🔀",row=3) #row=0
+    @discord.ui.button(label="Loja R",style=discord.ButtonStyle.grey,emoji="🔀",row=2) #row=0
     async def lojarotação (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
         dadosbot = BancoBot.insert_document()
@@ -575,7 +894,7 @@ class Botoesdash(discord.ui.View):
         await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10)
       
 
-    @discord.ui.button(label="Reiniciar Bot",style=discord.ButtonStyle.red,emoji="⚡",row=4) #row=0
+    @discord.ui.button(label="Reiniciar Bot",style=discord.ButtonStyle.red,emoji="⚡",row=2) #row=0
     async def buttonshutdown (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
           await interaction.response.send_message(f"<:Braix_Shocked:1272663500115935264>┃ Enviando solicitação a Host...",delete_after=10)
@@ -584,21 +903,21 @@ class Botoesdash(discord.ui.View):
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
 
     
-    @discord.ui.button(label="Banir",style=discord.ButtonStyle.red,emoji="🔨",row=4) #row=0
+    @discord.ui.button(label="Banir",style=discord.ButtonStyle.red,emoji="🔨",row=3) #row=0
     async def buttonbanuser(self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
         await interaction.response.send_modal(ModalBanUSER(self.client))
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
     
-    @discord.ui.button(label="Desbanir",style=discord.ButtonStyle.red,emoji="🔨",row=4) #row=0
+    @discord.ui.button(label="Desbanir",style=discord.ButtonStyle.red,emoji="🔨",row=3) #row=0
     async def buttonUnbanuser(self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
         await interaction.response.send_modal(ModalUnBanUSER(self.client))
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
     
-    @discord.ui.button(label="listar Banidos",style=discord.ButtonStyle.red,emoji="📃",row=4) #row=0
+    @discord.ui.button(label="listar Banidos",style=discord.ButtonStyle.red,emoji="📃",row=3) #row=0
     async def buttonlistbanuser(self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
         await interaction.response.defer(ephemeral=True)
@@ -625,6 +944,66 @@ class Botoesdash(discord.ui.View):
         
       else:
           await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
+
+
+    @discord.ui.button(label="Cadastrar Código", style=discord.ButtonStyle.green, emoji="📝", row=3)
+    async def addcodigo_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != donoid:
+            await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_onlyowner"),delete_after=10,ephemeral=True)
+            return
+        await interaction.response.send_message(view=ViewSelectTipo(self) ,ephemeral =True)
+
+
+    @discord.ui.button(label="Códigos", style=discord.ButtonStyle.green, emoji="🎟️", row=3)
+    async def listar_codigos(self, interaction: discord.Interaction, button: discord.ui.Button):
+      if interaction.user.id != donoid:
+          return await interaction.response.send_message( Res.trad(interaction=interaction, str="message_erro_onlyowner"), delete_after=10 )
+      await interaction.response.defer(ephemeral=True)
+
+      codigos = list(BancoCodigosResgate.get_all_codigo().sort("criado_em", -1))  # ordena por criação
+      lista = []
+
+      for doc in codigos:
+          criado_em = doc.get("criado_em")
+          expira_em = doc.get("expira_em")
+          ativa_em = doc.get("ativa_em")
+          recompensa = doc.get("recompensa", {})
+
+          linha = (
+              f"**{doc['_id']}** | {recompensa.get('tipo')} → {recompensa.get('valor')}\n"
+              f"Usos: {len(doc.get('usados_por', []))}/{doc.get('max_usos') or '∞'} | \n"
+              f"Ativa em: {ativa_em or 'imediato'} | Expira em: {expira_em or 'sem prazo'} | \n"
+              f"{'✅ ativo' if doc.get('ativo', True) else '❌ inativo'}"
+          )
+          lista.append(linha)
+
+      if not lista:
+          lista = ["Nenhum código registrado."]
+
+      blocos = [lista[i:i + 5] for i in range(0, len(lista), 5)]
+      descrição = f"## 🎟️ Lista de Códigos de Resgate (total: {len(lista)})\n\n"
+
+      await Paginador_Global( self, interaction, blocos, pagina=0, originaluser=interaction.user, descrição=descrição, thumbnail_url=None      )
+
+
+    @discord.ui.button(label="Deletar Código", style=discord.ButtonStyle.danger, emoji="🗑️", row=4)
+    async def deletar_codigo(self, interaction: discord.Interaction, button: discord.ui.Button):
+      if interaction.user.id != donoid:
+        return await interaction.response.send_message( Res.trad(interaction=interaction, str="message_erro_onlyowner"), delete_after=10 )
+
+      await interaction.response.send_modal(ModalDeletarCodigo())
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -666,6 +1045,25 @@ class Botoesdash(discord.ui.View):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #--------------- COMANDO PARA BAIXAR ITENS DA LOJA PARA OS ARQUIVOS LOCAIS -----------
 async def baixaritensloja(baixe_tudo: bool = False):
     filtro = {"_id": {"$ne": "diaria"}}
@@ -673,42 +1071,66 @@ async def baixaritensloja(baixe_tudo: bool = False):
     IMAGE_SAVE_PATH = r"src/assets/imagens/backgroud/all-itens"
 
     if not os.path.exists(IMAGE_SAVE_PATH):
-        os.makedirs(IMAGE_SAVE_PATH)
+      os.makedirs(IMAGE_SAVE_PATH)
 
     print('🦊 - Iniciando Download dos itens da loja...')
 
     async with aiohttp.ClientSession() as session:
-        async def baixar_imagem(item, idx):
-            file_name = f"{item['_id']}.png"
-            file_path = os.path.join(IMAGE_SAVE_PATH, file_name)
+      async def baixar_imagem(item, idx):
+        file_name = f"{item['_id']}.png"
+        file_path = os.path.join(IMAGE_SAVE_PATH, file_name)
 
-            # Checagem individual por arquivo
-            if os.path.exists(file_path) and not baixe_tudo:
-                if os.path.getsize(file_path) > 0:
-                    print(f"⏭️ - Pulando {idx:02d} - {file_name} (já existe e está OK)")
-                    return
-                else:
-                    print(f"⚠️ - Rebaixando {idx:02d} - {file_name} (arquivo vazio/corrompido)")
+        # Checagem individual por arquivo
+        if os.path.exists(file_path) and not baixe_tudo:
+          if os.path.getsize(file_path) > 0:
+            print(f"⏭️ - Pulando {idx:02d} - {file_name} (já existe e está OK)")
+            return
+          else:
+            print(f"⚠️ - Rebaixando {idx:02d} - {file_name} (arquivo vazio/corrompido)")
 
-            try:
-                async with session.get(item['url']) as response:
-                    if response.status == 200:
-                        content = await response.read()
-                        if content:  # só salva se realmente veio algo
-                            with open(file_path, 'wb') as f:
-                                f.write(content)
-                            print(f"🖼️ - Imagem Salva {idx:02d} - {file_name}")
-                        else:
-                            print(f"⚠️ - Resposta vazia para {item['url']}")
-                    else:
-                        print(f'❌ - Falha ao baixar: {item["url"]} ({response.status})')
-            except Exception as e:
-                print(f'❌ - Erro ao baixar {item["url"]}: {e}')
+        try:
+          async with session.get(item['url']) as response:
+            if response.status == 200:
+              content = await response.read()
+              if content:  # só salva se realmente veio algo
+                with open(file_path, 'wb') as f:
+                  f.write(content)
+                print(f"🖼️ - Imagem Salva {idx:02d} - {file_name}")
+              else:
+                print(f"⚠️ - Resposta vazia para {item['url']}")
+            else:
+              print(f'❌ - Falha ao baixar: {item["url"]} ({response.status})')
+        except Exception as e:
+          print(f'❌ - Erro ao baixar {item["url"]}: {e}')
 
-        tarefas = [baixar_imagem(item, idx + 1) for idx, item in enumerate(itens)]
-        await asyncio.gather(*tarefas)
+      tarefas = [baixar_imagem(item, idx + 1) for idx, item in enumerate(itens)]
+      await asyncio.gather(*tarefas)
 
     print('✅ - Download concluído!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -722,9 +1144,29 @@ class owner(commands.Cog):
     self.client = client
 
 
+
+
     # no __init__ da classe (ou onde você inicializa os menus)
     self.menu_exportar_embed = app_commands.ContextMenu( name="Copiar JSON do Embed", callback=self.exportar_embed_json, type=discord.AppCommandType.message, allowed_installs=app_commands.AppInstallationType(guild=True, user=True), allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True) )
     self.client.tree.add_command(self.menu_exportar_embed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -752,6 +1194,17 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 # ======================================================================
 #  TRATAMENTO DE ERRO CONTRA ERRO 429 DO DISCORD
   @commands.Cog.listener()
@@ -760,12 +1213,35 @@ class owner(commands.Cog):
         print(f"Rate limit detectado no comando: {ctx.command}")
         await restart(self.client.user.name)
 
+
+
+
+
+
+
+
+
+
+
+
 #  TRATAMENTO DE ERRO CONTRA ERRO 429 DO DISCORD
   @commands.Cog.listener()
   async def on_app_command_error(self, interaction: discord.Interaction, error):
     if isinstance(error, discord.errors.HTTPException) and error.status == 429:
         print(f"Rate limit detectado no comando slash: {interaction.command}")
         await restart(self.client.user.name)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -791,6 +1267,18 @@ class owner(commands.Cog):
       await asyncio.sleep(20)
       await msg.delete()
       return
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -846,6 +1334,22 @@ class owner(commands.Cog):
       await asyncio.sleep(20)
       await msg.delete()
       return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -911,6 +1415,16 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
   #BUMP TEST COMANDO DEBUG
   @commands.command(name="bumptest", description='Envia uma mensagem de teste de bump.')
   async def bumptest(self,ctx):
@@ -929,6 +1443,16 @@ class owner(commands.Cog):
       await asyncio.sleep(20)
       await msg.delete()
       return
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -980,6 +1504,7 @@ class owner(commands.Cog):
 
     await processar_em_lotes(dados)
     print(f"🦊 - Verificação de Servidores Concluída")
+
 
 
 
@@ -1037,8 +1562,28 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
                   #GRUPO BOT 
   bot=app_commands.Group(name="brix",description="Comandos de gestão do sistema Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1094,6 +1639,21 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @bot.command(name="embed", description="🦊⠂Envie um embed como Brix.")
   async def embed(self, interaction: discord.Interaction):
     """Embed Generator With Default Embed"""
@@ -1110,6 +1670,21 @@ class owner(commands.Cog):
     if await Res.print_brix(comando="exportar_embed_json",interaction=interaction):
       return
     await CriadorDeEmbed.context_exportar_embed(self,interaction,mensagem)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1157,6 +1732,20 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   #COMANDO STATUS BOT
   @bot.command(name="status",description='🦊⠂Exibe informações sobre o status de Brix.')
   async def botstatusslash(self, interaction: discord.Interaction):
@@ -1170,10 +1759,29 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
                   #COMANDO VERSION BOT
   @bot.command(name="version",description='🦊⠂Exibe a versão atual do bot.')
   async def botversionslash(self, interaction: discord.Interaction):
     await botversion(self,interaction)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1200,6 +1808,22 @@ class owner(commands.Cog):
     buttonsquare = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_site_square"),url="https://squarecloud.app/")
     view.add_item(item=buttonsquare)
     await interaction.response.send_message(embed=resposta , view= view)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1237,6 +1861,21 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   #COMANDO PARA LIMPAR A DM DO USUARIO DELETANDO TUDO QUE O BRIX ENVIOU
   @bot.command(name="limpar-dm",description='🦊⠂Limpe todas as mensagens de brix em sua DM.')
   async def cleardm(self,interaction: discord.Interaction):
@@ -1256,8 +1895,25 @@ class owner(commands.Cog):
 
 
 
-  #LINGUAGEM BOT
-  @bot.command(name="idioma",description='🦊⠂altere o idioma de brix na comunidade.')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #LINGUAGEM BOT SERVIDOR
+  @bot.command(name="idioma-servidor",description='🦊⠂altere o idioma de brix na comunidade.')
   @app_commands.describe(idioma="Selecione um idioma padrão para sua comunidade...")
   @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US")]) #,app_commands.Choice(name="Spanish", value="es-ES")])
   async def chargelanguage(self,interaction: discord.Interaction,idioma:app_commands.Choice[str]):
@@ -1274,6 +1930,42 @@ class owner(commands.Cog):
     else:
       await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro"),ephemeral=False)
   
+
+
+
+
+
+
+
+
+  #LINGUAGEM BOT SERVIDOR
+  @bot.command(name="idioma-usuario",description='🦊⠂altere o idioma de brix com você.')
+  @app_commands.describe(idioma="Selecione um idioma padrão para sua comunidade...")
+  @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US")]) #,app_commands.Choice(name="Spanish", value="es-ES")])
+  async def chargelanguageuser(self,interaction: discord.Interaction,idioma:app_commands.Choice[str]):
+    if await Res.print_brix(comando="chargelanguageuser",interaction=interaction):
+      return
+    await interaction.response.defer(ephemeral=False)
+    item = {"language": idioma.value}
+    BancoUsuarios.update_document(interaction.user,item)
+    await interaction.followup.send(Res.trad(interaction=interaction,str="message_language").format(idioma.name))
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1309,6 +2001,24 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Comando Ativar/Desativar Notificação em DM
   @bot.command(name="bump",description='🦊⠂Personalize a mensagem de bump de brix.')
   @app_commands.describe(mensagem="Escreva como deve ser a mensagem de aviso de bump, use \q para quebrar a linha.")
@@ -1327,6 +2037,26 @@ class owner(commands.Cog):
     
     else:
       await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro"),ephemeral=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1352,6 +2082,27 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 #COMANDO PARA ACESSAR A DASHBOARD DO BOT NO SITE
   @bot.command(name="dashboard",description='🦊⠂Acesse minha dashboard e personalize tudo.')
@@ -1368,6 +2119,127 @@ class owner(commands.Cog):
     button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://brixbot.xyz/dashboard")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @bot.command(name="resgatar", description="🦊⠂Resgate um código de recompensa do Brix.")
+  @app_commands.describe(codigo="O código de resgate que você recebeu.")
+  async def resgatar(self, interaction: discord.Interaction, codigo: str):
+    await interaction.response.defer(ephemeral=False)
+
+    codigo_doc = BancoCodigosResgate.get_codigo(codigo)
+
+    if not codigo_doc:
+      return await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_codigo_invalido"), ephemeral=True)
+
+    # Verifica se está ativo
+    if not codigo_doc.get("ativo", True):
+      return await interaction.followup.send( Res.trad(interaction=interaction,str="message_erro_codigo_desativado") , ephemeral=True)
+
+    # Verifica validade por data (se tiver expiração)
+    expira_em = codigo_doc.get("expira_em")
+    if expira_em:
+      try:
+        data_expira = datetime.datetime.fromisoformat(expira_em)
+        if datetime.datetime.now() > data_expira:
+          return await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_codigo_expirado"), ephemeral=True)
+      except Exception:
+          pass  # se expira_em não estiver em ISO válido
+    
+    ativa_em = codigo_doc.get("ativa_em")
+    if ativa_em:
+        data_ativa = datetime.datetime.fromisoformat(ativa_em)
+        if datetime.datetime.now() < data_ativa:
+            return await interaction.followup.send( Res.trad(interaction=interaction,str="message_erro_codigo_indisponivel").format(data_ativa.strftime(Res.trad(interaction=interaction,str="padrao_data"))) , ephemeral=True )
+
+    # Verifica se usuário já usou esse código
+    if interaction.user.id in codigo_doc.get("usados_por", []):
+        return await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_codigo_ja_resgatado"), ephemeral=True)
+
+    # Verifica limite de usos
+    max_usos = codigo_doc.get("max_usos")
+    if max_usos is not None and len(codigo_doc.get("usados_por", [])) >= max_usos:
+        return await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_codigo_limite_uso"), ephemeral=True)
+
+    recompensa = codigo_doc.get("recompensa", {})
+    recompensa_msg = "nenhuma recompensa encontrada"
+
+    # --- entrega da recompensa ---
+    if recompensa.get("tipo") == "premium":
+      dias = int(recompensa.get("valor", 7))
+      await liberarpremium(self,interaction,interaction.user,dias,False)
+      recompensa_msg = f"**{dias} dias de Premium**"
+
+    elif recompensa.get("tipo") == "braixencoin":
+      valor = int(recompensa.get("valor", 0))
+      BancoUsuarios.update_inc(interaction.user, {"braixencoin": valor})
+      BancoFinanceiro.registrar_transacao( user_id=interaction.user.id, tipo="ganho", origem="resgate de código", valor=valor, moeda="braixencoin", descricao=f"resgate do código {codigo}" )
+      recompensa_msg = f"**{valor} Braixencoin**"
+
+    elif recompensa.get("tipo") == "graveto":
+      valor = int(recompensa.get("valor", 0))
+      BancoUsuarios.update_inc(interaction.user, {"graveto": valor})
+      BancoFinanceiro.registrar_transacao( user_id=interaction.user.id, tipo="ganho", origem="resgate de código", valor=valor, moeda="graveto", descricao=f"resgate do código {codigo}" )
+      recompensa_msg = f"**{valor} Gravetos**"
+
+    elif recompensa.get("tipo") == "arte":
+      banner_name = recompensa.get("valor", "")
+      if banner_name:
+        insert = {"backgroud": banner_name, f"backgrouds.{banner_name}": banner_name}
+        BancoUsuarios.update_document(interaction.user, insert)
+        recompensa_msg = Res.trad(interaction=interaction,str="message_erro_codigo_msg_arte").format(banner_name) 
+
+    # --- atualizar usos ---
+    BancoCodigosResgate.add_uso(codigo, interaction.user.id)
+
+    await interaction.followup.send( Res.trad(interaction=interaction,str="message_erro_codigo_msg_aviso").format(interaction.user.mention , codigo , recompensa_msg) , ephemeral=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

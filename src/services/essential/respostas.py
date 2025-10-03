@@ -41,29 +41,66 @@ class Res:
             if interaction is not None:
                 user_id = interaction.user.id
                 guild_id = interaction.guild.id if interaction.guild else None
-                
-                # Cache para o idioma do usuário
-                if user_id in Res.idioma_cache:
-                  idioma = Res.idioma_cache[user_id]
-                  if interaction.locale.value == Res.idioma_cache[user_id]:
-                    idioma = Res.idioma_cache[user_id]
-                  else:
-                    idioma = interaction.locale.value
+
+                # Primeiro tenta buscar no banco de usuários
+                user_doc = BancoUsuarios.insert_document(user_id)  # exemplo de função
+                if user_doc and "language" in user_doc:
+                    idioma = user_doc["language"]
                     Res.idioma_cache[user_id] = idioma
-                    BancoUsuarios.update_document(user_id, {"language": idioma})
-                else:
-                    # Detecta idioma do usuário no interaction
-                    if interaction.locale.value in respostas:
-                        idioma = interaction.locale.value
-                        Res.idioma_cache[user_id] = idioma
-                        BancoUsuarios.update_document(user_id, {"language": idioma})
+
+                # Se não achou no usuário, tenta no servidor
+                elif guild_id:
+                    guild_doc = BancoServidores.insert_document(guild_id)
+                    if guild_doc and "language" in guild_doc:
+                        idioma = guild_doc["language"]
+                        Res.idioma_cache[guild_id] = idioma
+
+                    # Se não tem no banco da guilda, usa o locale do Discord
                     elif interaction.guild_locale.value in respostas:
                         idioma = interaction.guild_locale.value
                         Res.idioma_cache[guild_id] = idioma
                         BancoServidores.update_document(guild_id, {"language": idioma})
+
+                    else:
+                        idioma = 'pt-BR'
+                        Res.idioma_cache[guild_id or user_id] = idioma
+
+                # Se não tem nada no banco (nem usuário nem guilda), usa o locale do usuário
+                else:
+                    if interaction.locale.value in respostas:
+                        idioma = interaction.locale.value
+                        Res.idioma_cache[user_id] = idioma
+                        BancoUsuarios.update_document(user_id, {"language": idioma})
                     else:
                         idioma = 'pt-BR'
                         Res.idioma_cache[user_id] = idioma
+
+            #if interaction is not None:
+            #    user_id = interaction.user.id
+            #    guild_id = interaction.guild.id if interaction.guild else None
+                
+                # Cache para o idioma do usuário
+             #   if user_id in Res.idioma_cache:
+            #      idioma = Res.idioma_cache[user_id]
+             #     if interaction.locale.value == Res.idioma_cache[user_id]:
+            #        idioma = Res.idioma_cache[user_id]
+             #     else:
+             #       idioma = interaction.locale.value
+             #       Res.idioma_cache[user_id] = idioma
+             #       BancoUsuarios.update_document(user_id, {"language": idioma})
+              #  else:
+                    # Detecta idioma do usuário no interaction
+             #       if interaction.locale.value in respostas:
+             #           idioma = interaction.locale.value
+             #           Res.idioma_cache[user_id] = idioma
+             #           BancoUsuarios.update_document(user_id, {"language": idioma})
+              #      elif interaction.guild_locale.value in respostas:
+              #          idioma = interaction.guild_locale.value
+              #          Res.idioma_cache[guild_id] = idioma
+              #          BancoServidores.update_document(guild_id, {"language": idioma})
+              #      else:
+              #          idioma = 'pt-BR'
+              #          Res.idioma_cache[user_id] = idioma
 
             elif user:
                 # Verificação no cache para o idioma do usuário

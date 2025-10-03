@@ -322,7 +322,7 @@ class admin(commands.Cog):
     try:
       status_msg = await interaction.response.send_message(Res.trad(interaction=interaction,str='chat_prune').format(f"0/{quantidade}"),ephemeral=True)
       status_msg = await interaction.original_response()
-    
+      
       total_deletadas = 0
 
       # Tenta com purge Modo rápido: nenhuma filtragem
@@ -338,7 +338,7 @@ class admin(commands.Cog):
           await asyncio.sleep(3)
       else:
         mensagens_para_apagar = []
-        async for msg in interaction.channel.history(limit=500):
+        async for msg in interaction.channel.history(limit=300):
           if len(mensagens_para_apagar) >= quantidade:
             break
           if deletar and msg.author == deletar:
@@ -351,7 +351,7 @@ class admin(commands.Cog):
             await msg.delete()
             total_deletadas += 1
             await status_msg.edit(content=Res.trad(interaction=interaction,str='chat_prune').format(f"{total_deletadas}/{len(mensagens_para_apagar)}"))
-            await asyncio.sleep(1.5)
+            await asyncio.sleep(2)
           except:
               pass
 

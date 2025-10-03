@@ -122,8 +122,8 @@ class braixenday(commands.Cog):
         embed = discord.Embed(
                     colour=discord.Color.yellow(),
                     title="Dia do Braixen!!!",
-                    description=f"Eiii, **Humanos e Raposas!!** \nEu sou o **Brix o Braixen** e hoje é o meu dia!\n**O dia do Braixen!!!** e eu quero **celebrar** com todos vocês esse **dia incrível** então me **tratem como um rei** 👑 que eu mereço ser ~~kyuuuu\n\nDica, mande 'feliz dia do braixen brix' e veja oque acontece kyuuu."
-                )
+                    description ="Eiii, **Humanos e Raposas!!** 🦊🔥\n Eu sou o **Brix, o Braixen**, e hoje é um dia muito especial...\n**O Dia do Braixen!!!** 🎉\n\nQuero **celebrar** com todos vocês esse momento incrível, então me **tratem como um rei** 👑 porque eu mereço, kyuuu~!\n\n💡 **Surpresa de raposa:** Deseje *'feliz dia do braixen brix'* e descubra o que eu preparei pra você! Kyuuuu~"
+        )
         embed.set_image(url="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6864594f-c529-49c2-9678-777a37591fc1/de6hy2q-b5edf92d-1e6c-47e3-8a62-68d179934d89.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzY4NjQ1OTRmLWM1MjktNDljMi05Njc4LTc3N2EzNzU5MWZjMVwvZGU2aHkycS1iNWVkZjkyZC0xZTZjLTQ3ZTMtOGE2Mi02OGQxNzk5MzRkODkucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.BoD1eu1dCBdSTpd0iU3CYXpX9Van8kYnBJ3ZSCoclXU")
         mensagem = f"<:BH_Braix_Happy2:1154418208925823067> - Dia Do Braixen!!!! ||Ping: <@&1081023728206495804>||"
         await channel.send(mensagem,embed=embed)

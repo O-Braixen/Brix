@@ -14,6 +14,9 @@ from dotenv import load_dotenv
 
 #importação
 BH_id = int(os.getenv('id_servidor_bh'))
+mes = int(os.getenv("mes_Braixen_day"))
+dia = int(os.getenv("dia_Braixen_day"))
+
 
 
 
@@ -232,6 +235,12 @@ class financeiro(commands.Cog):
         await interaction.response.send_message(Res.trad(interaction=interaction,str="message_daily_errodm"),delete_after=20)
         return
     else:
+        #verificador Braixenday para multiplicar as recompensas
+        multibraiday = 1
+        now = datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo'))
+        databraixenday = datetime.date(now.year , mes , dia) # sequencia Ano , Mes , Dia
+        if now.date() == databraixenday:
+            multibraiday = 20
         membro = interaction.user
         await interaction.response.defer()
         fuso = pytz.timezone('America/Sao_Paulo')
@@ -253,10 +262,10 @@ class financeiro(commands.Cog):
             premium = False
         if daily is None or daily != datahoje:
             saldo = dados_do_membro['braixencoin']
-            saldoganho = random.randint(700,2200)
+            saldoganho = random.randint(700,2200) * multibraiday
             if premium != False:
-                saldoganho = saldoganho *4
-                gravetoganho = random.randint(120,350)
+                saldoganho = saldoganho *4 
+                gravetoganho = random.randint(120,350) * multibraiday
                 graveto = gravetoganho + gravetosaldo
                 messagepremium = Res.trad(interaction= interaction, str='message_premium_daily').format(gravetoganho,graveto)
             else:

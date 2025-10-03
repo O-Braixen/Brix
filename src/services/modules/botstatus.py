@@ -116,6 +116,7 @@ class BotStatus(commands.Cog):
                 (discord.CustomActivity(name="🦊 Braixen Day!!!"), discord.Status.online),
                 (discord.CustomActivity(name="🔥 Celebrando Braixen Day!"), discord.Status.online),
                 (discord.Activity(type=discord.ActivityType.watching, name="Braixen's em Kalos TV"), discord.Status.do_not_disturb),
+                (discord.CustomActivity(name="Feliz Braixen Day para mim!"), discord.Status.online),
             ]
 
         elif self.isnatalday:  # Natal

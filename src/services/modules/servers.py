@@ -11,10 +11,29 @@ from functools import partial
 from dotenv import load_dotenv
 
 
+
+
+
+
+
 load_dotenv()
 botlist_token = os.getenv("botlist_token")
 topgg_api = os.getenv("topgg_token")
 canal_vote_topgg = os.getenv("canal_vote_topgg")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -43,6 +62,17 @@ async def iconeserver(self,interaction : discord.Interaction ,servidor):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 # FUNÇÂO CONSULTAR BANNER DO SERVIDOR
 async def bannerserver(self,interaction: discord.Interaction ,servidor):
     if await Res.print_brix(comando="bannerserver",interaction=interaction):
@@ -53,6 +83,19 @@ async def bannerserver(self,interaction: discord.Interaction ,servidor):
       await interaction.response.send_message( view=view , delete_after = 60 )
     else:
       await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_server_banner"),ephemeral = True)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -81,6 +124,22 @@ async def splashserver(self,interaction: discord.Interaction ,servidor):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #INICIO DA CLASSE
 class servers(commands.Cog):
   def __init__(self, client: commands.Bot) -> None:
@@ -88,6 +147,14 @@ class servers(commands.Cog):
     # Cache para contar erros de cada registro: chave = ID do servidor, valor = contador
     self.tag_error_count =[]
         
+
+
+
+
+
+
+
+
 
 
 
@@ -128,6 +195,16 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
   @commands.Cog.listener()
   async def on_message(self,message):
     #await asyncio.sleep(1)  # Delay para evitar spam
@@ -145,6 +222,19 @@ class servers(commands.Cog):
         await asyncio.sleep(15)
         await msgenviada.delete()
         
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -205,17 +295,17 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
   #Comando VOTE TOP.GG 
   @app_commands.command(name="vote", description="🦊⠂Vote no melhor Braixen bot.")
   async def votebrix(self, interaction: discord.Interaction):
     if await Res.print_brix(comando="votebrix",interaction=interaction):
       return
-    #resposta = discord.Embed(       colour=discord.Color.yellow(),      description=Res.trad(interaction=interaction,str="message_votetopgg")  )
-    #resposta.set_thumbnail(url=f"https://cdn.discordapp.com/emojis/1154338634011521054.png")
-    #view = discord.ui.View()
-    #item = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://top.gg/bot/983000989894336592/vote")
-    #view.add_item(item=item)
-    
     view = container_media_button_url(descricao=Res.trad(interaction=interaction,str="message_votetopgg") , descricao_thumbnail= "https://cdn.discordapp.com/emojis/1154338634011521054.png" ,buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador"),buttonURL = "https://top.gg/bot/983000989894336592/vote" )
 
     await interaction.response.send_message(view=view)
@@ -229,10 +319,27 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
+
   @commands.Cog.listener()
-  async def on_guild_join(self,guild):
+  async def on_guild_join(self,guild: discord.Guild):
     print(f'🍕🍕🍕 - Fui adicionado ao servidor: {guild.name} (ID: {guild.id})')
     BancoServidores.bot_in_guild(guild.id,True)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -248,6 +355,12 @@ class servers(commands.Cog):
   async def on_guild_remove(self,guild):
     print(f'❌❌❌ - Fui removido do servidor: {guild.name} (ID: {guild.id})')
     BancoServidores.bot_in_guild(guild.id,False)
+
+
+
+
+
+
 
 
 
@@ -360,6 +473,13 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
+
   @tasks.loop(minutes=10)
   async def lembretes_topgg(self):
     await asyncio.sleep(5)  # Delay para evitar spam
@@ -371,15 +491,6 @@ class servers(commands.Cog):
         
         if u["dm-notification"] is True:
           user = await self.client.fetch_user(u["_id"])
-          #resposta = discord.Embed(
-          #  colour=discord.Color.yellow(),
-          #  description=Res.trad(user=user, str='message_votetopgg_lembrete_dm')
-          #)
-          #resposta.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/8957/8957077.png")
-          #view = discord.ui.View()
-          #item = discord.ui.Button( style=discord.ButtonStyle.blurple, label=Res.trad(user=user, str="botão_abrir_navegador"), url="https://top.gg/bot/983000989894336592/vote" )
-          #view.add_item(item)
-
           view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://top.gg/bot/983000989894336592/vote" )
           await user.send(view=view)
         else:
@@ -506,9 +617,20 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
   
 #GRUPO SERVIDOR 
   servidor=app_commands.Group(name="servidor",description="Comandos de servidores do bot.",allowed_installs=app_commands.AppInstallationType(guild=True,user=False),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=False, private_channel=False))
+
+
 
 
 
@@ -522,6 +644,15 @@ class servers(commands.Cog):
   async def icone(self, interaction: discord.Interaction):
     await iconeserver(self,interaction , interaction.guild)
    
+
+
+
+
+
+
+
+
+
 
 
 
@@ -551,11 +682,39 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 #COMANDO SPLASH DE SERVIDOR
   @servidor.command(name="splash", description='🗄️⠂Exibe a splash do servidor.')
   async def splash(self, interaction: discord.Interaction):
     await splashserver(self,interaction , interaction.guild)
    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -578,13 +737,6 @@ class servers(commands.Cog):
       if servidor is None:
         await interaction.response.send_message(Res.trad(interaction= interaction, str="message_erro_server_notfound"),ephemeral=True , delete_after=30)
         return
-    #for attr in dir(servidor):
-    #  if not attr.startswith("_"):  # ignora privados/mágicos
-    #    try:
-    #        value = getattr(servidor, attr)  # pega o valor do atributo
-    #        print(f"{attr}: {value}")
-    #    except Exception as e:
-    #        print(f"{attr}: <erro ao acessar> ({e})")
 
     await interaction.response.defer()
     view = ui.LayoutView()
@@ -674,6 +826,7 @@ class servers(commands.Cog):
 
 
 
+
   servidortag=app_commands.Group(name="tag",description="Comandos de tag do servidor do bot.", parent=servidor)
 
 
@@ -687,6 +840,20 @@ class servers(commands.Cog):
     )
     await interaction.response.send_message(embed=resposta)
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -723,6 +890,18 @@ class servers(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   #COMANDO DE DESATIVAR A ENTREGA DE CARGOS DO SISTEMA DE TAG DO SERVIDOR 
   @servidortag.command(name="desativar", description='🗄️⠂desative a entrega de cargos para membros que usam a tag do seu servidor.')
   async def servidor_tag_desativar (self, interaction: discord.Interaction):
@@ -743,6 +922,20 @@ class servers(commands.Cog):
       await interaction.followup.send(Res.trad(interaction=interaction, str="servidor_tag_desativado"))
     except Exception as e:
       await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="servidor_tag_desativar")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -795,6 +988,19 @@ class servers(commands.Cog):
 
     except Exception as e:
       await Res.erro_brix_embed(interaction=interaction, str="message_erro_permissao", e=e,comando="servidor_tag_listar")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

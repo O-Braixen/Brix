@@ -548,5 +548,12 @@
     "💰⠂Aposte sua sorte em um Pokémon!": "💰• bet your luck on a pokémon!",
     "pokemon-status": "pokemon-status",
     "💰⠂Mostra o andamento da aposta de Pokémon do dia": "💰 show the progress of today's pokémon bet.",
-    "pokémon-status": "pokémon-status"
+    "pokémon-status": "pokémon-status",
+    "resgatar": "rescue",
+    "🦊⠂Resgate um código de recompensa do Brix.": "🦊⠂redeem a brix reward code.",
+    "codigo": "code",
+    "O código de resgate que você recebeu.": "the rescue code you received.",
+    "idioma-servidor": "language-server",
+    "idioma-usuario": "user-language",
+    "🦊⠂altere o idioma de brix com você.": "🦊⠂change brix's language with you."
 }

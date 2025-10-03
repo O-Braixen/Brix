@@ -615,6 +615,85 @@ class BancoApostasPokemon:
 
 
 
+
+
+
+
+
+
+# ======================================================================
+# =================== COLEÇÃO DE CÓDIGOS DE RESGATE =====================
+# ======================================================================
+
+codigoscollection = db_connection.get_collection("codigos_resgate")
+
+class BancoCodigosResgate:
+    
+    @staticmethod
+    def insert_document(codigo: str, recompensa: dict, max_usos: int = None,  expira_em: str = None, ativa_em: str = None):
+        """Cria um novo código de resgate"""
+        if codigoscollection.find_one({"_id": codigo}):
+            return None  # já existe
+
+        doc = {
+            "_id": codigo.lower().strip(),
+            "recompensa": recompensa,     # Ex: {"tipo": "premium", "valor": 30} ou {"tipo": "braixencoin", "valor": 500}
+            "usados_por": [],             # lista de user_ids que já usaram
+            "max_usos": max_usos,         # limite global de usos (None = ilimitado)
+            "ativo": True,
+            "criado_em": datetime.datetime.now(),
+            "expira_em": expira_em,       # data limite em ISO (ou None)
+            "ativa_em": ativa_em,          # data que o código se torna ativo (ou None)
+        }
+        codigoscollection.insert_one(doc)
+        return doc
+
+    @staticmethod
+    def get_codigo(codigo: str):
+        """Busca um código"""
+        codigo = codigo.lower().strip()
+        return codigoscollection.find_one({"_id": codigo})
+    
+    @staticmethod
+    def get_all_codigo():
+        """Busca todos os código"""
+        return codigoscollection.find({})
+
+    @staticmethod
+    def set_inativo(codigo: str, ativo: bool):
+        """Ativa/desativa um código"""
+        codigo = codigo.lower().strip()
+        return codigoscollection.update_one({"_id": codigo}, {"$set": {"ativo": ativo}})
+    
+    @staticmethod
+    def add_uso(codigo: str, user_id: int):
+        """Registra o uso de um código"""
+        codigo = codigo.lower().strip()
+        return codigoscollection.update_one(
+            {"_id": codigo},
+            {"$addToSet": {"usados_por": user_id}}
+        )
+
+
+    @staticmethod
+    def delete_codigo(codigo: str):
+        """Remove um código do sistema"""
+        codigo = codigo.lower().strip()
+        return codigoscollection.delete_one({"_id": codigo})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ======================================================================
 # =========================== COLEÇÃO DE EVENTOS ==========================
 
