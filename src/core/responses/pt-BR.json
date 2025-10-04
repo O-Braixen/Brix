@@ -465,9 +465,9 @@
     "message_erro_codigo_indisponivel" : "<:Braix_uwu:1287443559074500691>┃ Kyu~! Esse código só poderá ser usado a partir de **{}**. Segura a ansiedade, raposinha!",
     "message_erro_codigo_ja_resgatado" : "<:Braix_Tongue:1272662386590879795>┃ Você já usou esse código antes, kyu~! Não dá pra resgatar duas vezes.",
     "message_erro_codigo_limite_uso" : "<:Braix_Shocked:1272663500115935264>┃ Esse código já atingiu o limite de usos, kyu... Chegou tarde dessa vez!",
-    "message_erro_codigo_expirado" : "<:Braix_Sad:1272664201732180061>┃ Poxa... Esse código já expirou, kyu~. Não dá mais pra resgatar.",
+    "message_erro_codigo_expirado" : "<:Braix_Cry2:1272667164637401250>┃ Poxa... Esse código já expirou, kyu~. Não dá mais pra resgatar.",
     "message_erro_codigo_msg_arte" : "a arte de perfil **{}**",
-    "message_erro_codigo_msg_aviso" : "<:Braix_Happy:1272663339155193927>┃ Parabéns, {}! Você resgatou o código **{}** e ganhou {}! Kyu~!",
+    "message_erro_codigo_msg_aviso" : "<:Braix_Happy:1272664784814342204>┃ Parabéns, {}! Você resgatou o código **{}** e ganhou {}! Kyu~!",
 
 
 
