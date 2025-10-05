@@ -319,6 +319,7 @@ class aniversario(commands.Cog):
         if not interaction.permissions.manage_guild:
             await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"),delete_after=30,ephemeral=True)
             return
+        await interaction.response.defer()
         try:
             if cargodestaque is not None:
                 item = {"aniversario.canal": canal.id,"aniversario.cargo":cargoping.id,"aniversario.destaque" : cargodestaque.id}
@@ -328,11 +329,11 @@ class aniversario(commands.Cog):
             embed = discord.Embed( colour=discord.Color.yellow(),  title=Res.trad(interaction=interaction,str="message_aniversario_server_title"),  description=Res.trad(interaction=interaction,str="message_aniversario_server_description") )
             embed.set_thumbnail(url="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg")
             mensagemteste = await canal.send(embed=embed)
-            await interaction.response.send_message(Res.trad(interaction=interaction,str="message_aniversario_notificacao_ativo"))
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_aniversario_notificacao_ativo"))
             await asyncio.sleep(10)
             await mensagemteste.delete()
         except:
-            await interaction.response.send_message(Res.trad(interaction=interaction,str="message_aniversario_notificacao_erro"),delete_after=30,ephemeral=True)
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_aniversario_notificacao_erro"),delete_after=30,ephemeral=True)
             
 
 
