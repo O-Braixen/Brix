@@ -16,6 +16,8 @@ from dotenv import load_dotenv
 # LOAD DOS DADOS DO .ENV
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env')) #load .env da raiz
 DONOID = int(os.getenv("DONO_ID")) #acessa e define o id do dono
+mes = int(os.getenv("mes_Braixen_day"))
+dia = int(os.getenv("dia_Braixen_day"))
 
 # ID fixo do canal de loja
 CHANNEL_LOJA_ID = 1384179152315224234
@@ -43,15 +45,38 @@ CHANNEL_LOJA_ID = 1384179152315224234
 async def chamarlojadiaria(self,interaction:discord.Interaction,item):
     await interaction.original_response()
     try:
-      #consulta no banco de dados para saber quais são os itens disponiveis na loja de hoje
-      filtro = {"_id": "diaria"}
-      diaria = list(BancoLoja.select_loja(filtro))  # transforma cursor em lista
-      lista = []
-      #ordena os itens na loja de hoje em uma nova lista
-      
-      for id,art in diaria[0].items():
-        if id.startswith('item'):
-          lista.append(art)
+      now = datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo'))
+      databraixenday = datetime.date(now.year , mes , dia) # sequencia Ano , Mes , Dia
+      # === DIA DO BRAIXEN ===
+      if now.date() == databraixenday:
+        filtro = {"graveto": {"$ne": 0}, "_id": {"$ne": "diaria"}}
+        itens = list(BancoLoja.select_many_document(filtro))
+
+        # escolhe 10 itens aleatórios
+        lista = [item['_id'] for item in random.sample(itens, min(10, len(itens)))]
+        dados = [item for item in itens if item['_id'] in lista]
+
+        # --- Mensagem especial ---
+        embed_braixen = discord.Embed(
+            description=Res.trad(interaction=interaction,str="loja_diaria_braixenday"),
+            color=discord.Color.orange()
+        )
+        embed_braixen.set_thumbnail(url="https://brixbot.xyz/cdn/braixen-king.png")  # emoji BraixenCoin
+
+        await interaction.followup.send(embed=embed_braixen)
+        await asyncio.sleep(5)
+
+      # === DIA NORMAL ===
+      else:
+        #consulta no banco de dados para saber quais são os itens disponiveis na loja de hoje
+        filtro = {"_id": "diaria"}
+        diaria = list(BancoLoja.select_loja(filtro))  # transforma cursor em lista
+        lista = []
+        #ordena os itens na loja de hoje em uma nova lista
+        
+        for id,art in diaria[0].items():
+          if id.startswith('item'):
+            lista.append(art)
 
       if lista == []:
         await interaction.followup.send(content=Res.trad(interaction=interaction,str="loja_diaria_sem_item").format(interaction.user.id))
@@ -186,7 +211,7 @@ async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanhol
 
   fuso = pytz.timezone('America/Sao_Paulo')
   data_coleta_daily = datetime.datetime.now().astimezone(fuso).replace(hour=0, minute=0, second=0) + datetime.timedelta(days=1)
-  await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="loja_diaria_reseta").format(int(data_coleta_daily.timestamp())),attachments=[discord.File(fp=buffer,filename="loja.png")],view=view)
+  await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="loja_diaria_reseta").format(int(data_coleta_daily.timestamp())),attachments=[discord.File(fp=buffer,filename="loja.png")],view=view , embed = None)
 
 
 
@@ -220,7 +245,7 @@ async def confirmacao_comprar(self,interaction:discord.Interaction, item, tamanh
 
   botãoconfirmação = discord.ui.Button(label=Res.trad(interaction=interaction, str='botão_confirmartransacao'),style=discord.ButtonStyle.green,emoji="<:Braix_Glass:1272664403296260126>")
   botão.add_item(item=botãoconfirmação)
-  botãoconfirmação.callback = partial(comprar_moeda,self,item=item,loja=loja, moeda = moeda , novosaldo = novosaldo , originaluser=originaluser)
+  botãoconfirmação.callback = partial(comprar_moeda,self,item=item,loja=loja,tamanholoja=tamanholoja, moeda = moeda , novosaldo = novosaldo , originaluser=originaluser)
 
   await interaction.edit_original_response(content = Res.trad(interaction=interaction, str='loja_diaria_Comprar_item').format(loja[item]['name'],emoji),view=botão)#, attachments=[])
 
@@ -233,7 +258,7 @@ async def confirmacao_comprar(self,interaction:discord.Interaction, item, tamanh
 
 # COMANDO PARA USUARIO COMPRAR UM ITEM, SUPORTA TANTO GRAVETOS QUANTO BRAIXENCOIN DIRETO
 @commands.Cog.listener()
-async def comprar_moeda(self,interaction, item, loja, moeda , novosaldo, originaluser):
+async def comprar_moeda(self,interaction, item, loja, tamanholoja, moeda , novosaldo, originaluser):
   if interaction.user != originaluser:
     await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_interacaoalheia"),delete_after=10,ephemeral=True)
   else:
@@ -281,7 +306,8 @@ async def comprar_moeda(self,interaction, item, loja, moeda , novosaldo, origina
       except Exception as e:
         print(f"Não foi possível enviar DM para {id_usuario}: {str(e)}")
 
-    await chamarlojadiaria(self,interaction,item)
+    #await chamarlojadiaria(self,interaction,item)
+    await exibiritemloja(self,interaction,item=item,loja=loja,tamanholoja=tamanholoja,originaluser = interaction.user)
 
 
 
@@ -460,6 +486,24 @@ class loja(commands.Cog):
   async def lojadiariatrocaitens(self):
     print("🔄️ - Rodando Troca de itens da loja diária")
     try:
+      now = datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo'))
+      databraixenday = datetime.date(now.year , mes , dia) # sequencia Ano , Mes , Dia
+      # === DIA DO BRAIXEN ===
+      if now.date() == databraixenday:
+        print("🦊 - Loja especial de dia do Braixen")
+        channel = self.client.get_channel(CHANNEL_LOJA_ID)
+        if channel:
+          await channel.purge(limit=50)
+          await channel.send(
+              content=(
+                  f"## <:Braix_uwu:1287443559074500691>┃ Loja Especial de {datetime.datetime.now().strftime('%d/%m/%Y')}\n\n"
+                  "🔥 Hoje é o **Dia do Braixen**, kyu~! E eu quero que todo mundo comemore comigo!\n\n"
+                  "Pra deixar a festa mais divertida, a loja ficou **totalmente doida** — nada de itens fixos hoje!\n"
+                  "Cada visita traz uma nova surpresa mágica, então aproveita e vem celebrar comigo, treinador(a)! ✨"
+              )
+          )
+        return
+      else:
         itens_para_banco = {}
         lojaativo = BancoBot.insert_document()
 

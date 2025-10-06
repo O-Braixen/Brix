@@ -225,6 +225,7 @@
     "loja_diaria_reseta" : "Loja reseta: <t:{}:R>",
     "loja_diaria_Comprar_item" : "<:Braix:1272653348306419824>┃ Ahh, você está quase lá, raposa! Está prestes a adquirir o item **{}** por {}.\nSe quiser seguir em frente, basta confirmar abaixo, kyu~\n-# Dica de raposa: Depois de comprado, não tem volta, sem reembolso ~kyuuuu!",
     "loja_diaria_sem_item" : "<:Braix_Shocked:1272663500115935264>┃ Kyu~! Não existe Loja diária pois não tem nenhum item registrado, o dono do bot precisa registrar itens",
+    "loja_diaria_braixenday" : "## <:Braix_uwu:1287443559074500691>┃ **Loja do Dia do Braixen, kyu~!**\n\nHoje a magia Pokémon tá no ar! ✨\nA loja ficou uma bagunça mágica, e eu tô sorteando os itens pra você, kyu~!\nAguarde um pouquinho enquanto vejo o que o destino reservou pra hoje!",
 
     "botão_confirmartransacao" : "Confirmar Transação",
     "botão_item_adquirido" : "Usar item já adquirido",

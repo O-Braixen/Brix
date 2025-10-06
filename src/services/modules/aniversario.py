@@ -308,9 +308,8 @@ class aniversario(commands.Cog):
 
     #Comando Aniversario servidor definir
     @aniversarioservidor.command(name="ativar", description="🎂⠂Defina um canal para lembretes de aniversários.")
-    @app_commands.describe(canal="Selecione um canal...",cargoping="Selecione um cargo que será pingado...",cargodestaque = "Selecione um cargo de destaque dos aniversáriantes...")#,idioma = "Selecione um idioma")
-    #@app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US")])
-    async def aniversarioserveranuncioativar(self, interaction: discord.Interaction,canal:discord.TextChannel,cargoping:discord.Role,cargodestaque:discord.Role = None):#,idioma:app_commands.Choice[str]):
+    @app_commands.describe(canal="Selecione um canal...",cargoping="Selecione um cargo que será pingado...",cargodestaque = "Selecione um cargo de destaque dos aniversáriantes...")
+    async def aniversarioserveranuncioativar(self, interaction: discord.Interaction,canal:discord.TextChannel,cargoping:discord.Role,cargodestaque:discord.Role = None):
         if await Res.print_brix(comando="aniversarioserveranuncioativar",interaction=interaction):
             return
         if interaction.guild is None:
