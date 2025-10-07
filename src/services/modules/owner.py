@@ -1915,7 +1915,7 @@ class owner(commands.Cog):
   #LINGUAGEM BOT SERVIDOR
   @bot.command(name="idioma-servidor",description='🦊⠂altere o idioma de brix na comunidade.')
   @app_commands.describe(idioma="Selecione um idioma padrão para sua comunidade...")
-  @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US")]) #,app_commands.Choice(name="Spanish", value="es-ES")])
+  @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US"),app_commands.Choice(name="Spanish", value="es-ES")])# ,app_commands.Choice(name="polish", value="pl")])
   async def chargelanguage(self,interaction: discord.Interaction,idioma:app_commands.Choice[str]):
     if await Res.print_brix(comando="chargelanguage",interaction=interaction):
       return
@@ -1941,7 +1941,7 @@ class owner(commands.Cog):
   #LINGUAGEM BOT SERVIDOR
   @bot.command(name="idioma-usuario",description='🦊⠂altere o idioma de brix com você.')
   @app_commands.describe(idioma="Selecione um idioma padrão para sua comunidade...")
-  @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US")]) #,app_commands.Choice(name="Spanish", value="es-ES")])
+  @app_commands.choices(idioma=[app_commands.Choice(name="Portugues", value="pt-BR"),app_commands.Choice(name="English", value="en-US"),app_commands.Choice(name="Spanish", value="es-ES")])# ,app_commands.Choice(name="polish", value="pl")])
   async def chargelanguageuser(self,interaction: discord.Interaction,idioma:app_commands.Choice[str]):
     if await Res.print_brix(comando="chargelanguageuser",interaction=interaction):
       return

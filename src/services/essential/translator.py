@@ -12,6 +12,14 @@ GOOGLE_AI_KEY = os.getenv("GOOGLE_AI_KEY")
 genaitradutor = None
 
 
+#Lista de idiomas compartiveis
+# "Portuguese": "pt", "English": "en", "Spanish": "es", "French": "fr", "German": "de", "Italian": "it",
+# "Russian": "ru", "Japanese": "ja", "Korean": "ko", "Arabic": "ar", "Hindi": "hi",
+# "Bengali": "bn", "Urdu": "ur", "Turkish": "tr", "Dutch": "nl", "Swedish": "sv", "Polish": "pl",
+# "Romanian": "ro", "Hungarian": "hu", "Greek": "el", "Czech": "cs", "Danish": "da", "Finnish": "fi",
+# "Norwegian": "no"
+    
+
 
 # ======================================================================
 # CARREGANDO A API DO GEMINI PARA TRADUZIR AS COISAS
@@ -52,7 +60,8 @@ class BrixTradutor(app_commands.Translator):
         # Lista de idiomas suportados e nomes dos arquivos JSON
         self.allowed_locales = {
             discord.Locale.american_english: 'en-US',
-            #discord.Locale.spain_spanish: 'es-ES',
+            discord.Locale.spain_spanish: 'es-ES',
+            #discord.Locale.polish :'pl',
             #discord.Locale.japanese: 'ja',
             #discord.Locale.french: 'fr',
         }
@@ -62,8 +71,6 @@ class BrixTradutor(app_commands.Translator):
 
         # Carregar mensagens de resposta da pasta response/
         self.response_translations = self.load_translations(self.response_dir)
-
-
 
 
 
@@ -104,9 +111,24 @@ class BrixTradutor(app_commands.Translator):
 
 
 
+
+
+
 # ======================================================================
     async def translate(self, string: app_commands.locale_str, locale: discord.Locale, context: app_commands.TranslationContext):
         message_str = string.message
+
+        # Garante que sempre vai ter pt-BR salvo também
+        file_path_ptbr = os.path.join(self.dir_name, "pt-BR.json")
+        if "pt-BR" not in self.translations:
+            self.translations["pt-BR"] = {}
+
+        # Salva o texto original em pt-BR.json se ainda não estiver lá
+        if message_str not in self.translations["pt-BR"]:
+            self.translations["pt-BR"][message_str] = message_str
+            with open(file_path_ptbr, 'w', encoding='utf-8') as f:
+                json.dump(self.translations["pt-BR"], f, ensure_ascii=False, indent=4)
+
 
         # Se for português, retorna o texto original
         if locale == discord.Locale.brazil_portuguese:
@@ -129,6 +151,7 @@ class BrixTradutor(app_commands.Translator):
         target_lang = file_name.split('-')[0]    
         response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji junto com seu ponto de separação caso tenha e qualquer indicação em seu respectivo lugar, caso a mensagem já esteja no respectivo idioma mantem oque foi enviado, faça isso em {target_lang} para a seguinte mensagem: {message_str}") 
         translated_text = response.text
+        #translated_text = GoogleTranslator(source='pt', target=target_lang).translate(message_str)
 
         # Ajustar formatação da tradução (se for nome de comando)
         if " " in message_str:
@@ -249,9 +272,8 @@ class BrixTradutor(app_commands.Translator):
             """Processa mensagens que podem ser string, lista ou dicionário."""
             if isinstance(msg, str):
                 cleaned_message, emoji_positions = self.remove_custom_emojis(msg)
-                #response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"Você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji e formatação. Se a mensagem já estiver em {target_lang}, mantenha o texto original. Traduza para {target_lang}: {cleaned_message}")
-                #translated_text =  response.text.rstrip("\n") 
-                translated_text = GoogleTranslator(source='pt', target=target_lang).translate(cleaned_message)
+                response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"Você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji e formatação. Se a mensagem já estiver em {target_lang}, mantenha o texto original. Traduza para {target_lang}: {cleaned_message}")
+                translated_text =  response.text.rstrip("\n") 
                 return self.restore_emojis(translated_text, emoji_positions)
 
             elif isinstance(msg, list):
