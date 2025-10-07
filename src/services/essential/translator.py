@@ -60,8 +60,8 @@ class BrixTradutor(app_commands.Translator):
         # Lista de idiomas suportados e nomes dos arquivos JSON
         self.allowed_locales = {
             discord.Locale.american_english: 'en-US',
-            discord.Locale.spain_spanish: 'es-ES',
-            #discord.Locale.polish :'pl',
+            #discord.Locale.spain_spanish: 'es-ES',
+            discord.Locale.polish :'pl',
             #discord.Locale.japanese: 'ja',
             #discord.Locale.french: 'fr',
         }
