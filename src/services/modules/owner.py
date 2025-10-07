@@ -1948,7 +1948,7 @@ class owner(commands.Cog):
     await interaction.response.defer(ephemeral=False)
     item = {"language": idioma.value}
     BancoUsuarios.update_document(interaction.user,item)
-    await interaction.followup.send(Res.trad(interaction=interaction,str="message_language").format(idioma.name))
+    await interaction.followup.send(Res.trad(interaction=interaction,str="message_language", force_refresh = True).format(idioma.name))
     
   
 
