@@ -43,7 +43,7 @@ class braixenday(commands.Cog):
 # ======================================================================
 
     @commands.Cog.listener()
-    async def on_message(self,message):
+    async def on_message(self,message:discord.Message):
 
         if message.author == self.client.user or message.author.bot:
             return
@@ -79,7 +79,7 @@ class braixenday(commands.Cog):
 
             # Caso seja só "brix" ou variantes "-brix !brix"
             if re.search(r"^[\W_]?brix(?:\W.*)?$", conteudo.strip(), re.IGNORECASE):
-                await message.reply(Res.trad(user=message.author,str="onwer_help_apresentação"))
+                await message.reply(Res.trad(user=message.author,str="onwer_help_apresentação") , delete_after = 60)
 
 
 

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from typing import List
 from src.services.connection.database import BancoServidores,BancoUsuarios
 from src.services.essential.respostas import Res
-from src.services.essential.diversos import Paginador_Global , gerar_id_unica
+from src.services.essential.diversos import Paginador_Global , gerar_id_unica , container_media_button_url
 from discord import ui
 
 
@@ -62,11 +62,13 @@ async def addtemproleusuario(self, interaction, membro, cargo, tempo):
             try:
               if interaction:
                 if dadosmembro['dm-notification'] is True:
-                  resposta_dm = discord.Embed(
-                      color=discord.Color.yellow(),
-                      description=Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )
-                  )
-                  await membro.send(embed=resposta_dm)
+                  await membro.send(view= container_media_button_url(descricao= Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
+
+                  #resposta_dm = discord.Embed(
+                  #    color=discord.Color.yellow(),
+                  #    description=Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )
+                  #)
+                  #await membro.send(embed=resposta_dm)
                 else:
                   print("🦊 - membro não recebe notificações via DM")
             except:
@@ -105,7 +107,7 @@ class admin(commands.Cog):
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
      #Ligando tasks
     if not self.verificar_temproles.is_running():
-      await asyncio.sleep(240)
+      await asyncio.sleep(120)
       self.verificar_temproles.start()
   
 
@@ -785,8 +787,8 @@ class admin(commands.Cog):
 
 
 # ======================================================================
-#FUNÇÂO DE VERIFICAÇÃO DE ASSINANTES PREMIUM
-  @tasks.loop(minutes=5) #5*60
+#FUNÇÂO DE VERIFICAÇÃO DE CARGOS TEMPORARIOS
+  @tasks.loop(minutes=2) #5*60
   async def verificar_temproles(self): 
     filtro = {"temprole": {"$exists":True}}
     try:
@@ -798,10 +800,18 @@ class admin(commands.Cog):
             item = {f"temprole.{registro}": 0}
             BancoServidores.delete_field(servidor['_id'],item)
             try:
-              server = self.client.get_guild(servidor['_id'])
-              cargo = server.get_role(info['cargo'])
-              member = server.get_member(int(info['usuario']))
+              guild = self.client.get_guild(servidor['_id'])
+              cargo = guild.get_role(info['cargo'])
+              member = guild.get_member(int(info['usuario']))
               await member.remove_roles(cargo)
+              #Enviar Notificação ao usuario
+              dados_do_membro = BancoUsuarios.insert_document(member)
+              if dados_do_membro["dm-notification"] is True:
+                try:
+                  await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='cargo_temporario_rem_indm').format(cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
+                except:
+                  print(f"📪 Falha ao enviar DM para {member}")
+
               print(f"😿 - usuario: {info['usuario']} teve o {cargo} removido")
             except:
               print(f"🙀 - falha ao remover cargo de usuario: {info['usuario']}")

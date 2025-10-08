@@ -182,6 +182,8 @@
     "cargo_temporario_title" : "### <:Braix:1272653348306419824>┃ Cargos Temporários no Servidor\n\n",
     "cargo_temporario_add_inguild" : "### <:Braix:1272653348306419824>┃ Cargo Temporário Adicionado\n\n**Usuario:** {}\n**Cargo:** {}\n**Duração:** <t:{}:R>",
     "cargo_temporario_add_indm" : "### <:Braix:1272653348306419824>┃ Cargo Temporário Adicionado\n\nVocê recebeu do servidor {}\n**Cargo:** {}\n**Duração:** <t:{}:R>",
+    "cargo_temporario_rem_indm":"### <:Braix_Cry2:1272667164637401250>┃ Cargo Temporário Removido\nEi, raposa! Kyu~ Vim te avisar que o cargo **{}** foi removido do seu perfil na comunidade **{}**.\nIsso aconteceu porque ele era temporário. Se esse cargo fazia parte de alguma assinatura, você pode voltar na comunidade e adquiri-lo novamente, tá bem? Kyuuu~!\n\n-# **Dica de Raposa:** se não quiser mais receber minhas mensagens diretas, use o comando </brix notificacao:1345864402846482484>. Mas aí eu não vou poder te avisar de nada depois, kyu~!",
+
     "cargo_temporario_notlist" : "Sem cargos temporários na comunidade...",
     "cargo_temporario_limit" : "<:Braix_Blank:1272661806858371196>┃ Hmm... desculpe, raposa, mas não consigo agendar datas maiores que 5 meses. Isso é tempo demais para uma raposa lembrar, kyu! Eu com certeza acabaria esquecendo~",
     "cargo_temporario_duplicado" : "<:Braix_Blank:1272661806858371196>┃ Ops, raposa! Já existe um registro para esse cargo, kyu! Se precisar fazer alguma alteração, é só deletar o registro **{}** antes, tá bom? ~kyuuu",
@@ -392,7 +394,8 @@
     "message_servidor_sair" : "<:Braix:1272653348306419824>┃ Eu sai do servidor {}",
     "message_botname" : "<:Braix:1272653348306419824>┃ O meu nome foi definido para {}",
     "message_botavatar" : "<:Braix:1272653348306419824>┃ Meu Avatar foi redefinido kyuuu",
-    "message_language" : "<:Braix:1272653348306419824>┃ o idioma de respostas agora é {}.",
+    "message_language" : "<:Braix:1272653348306419824>┃ Kyu~! Agora vou responder em **{}**, meu idioma nativo 🦊💫. Ufa, eu já tava cansado de ficar mudando de idioma toda hora, kyu~! 😅",
+    "message_bot_join_guild" : "<:Braix_Hi:1272656479500894292>✨ Olá, treinadores! Obrigado por me adicionarem em **{}**, kyu~!\n\nEu sou o **Brix**, um Braixen pronto para ajudar 🦊🔥. Sou nativo em português do Brasil, mas também posso falar inglês! Para trocar o idioma do servidor, use `/brix idioma-servidor` 🌍.\n\nEu não uso prefixo, então é só digitar `/` para conferir todos os meus comandos e descobrir tudo o que posso fazer por vocês 💫.\n\nVocê também pode configurar minhas funções e módulos diretamente no site: https://brixbot.xyz/dashboard \nVamos deixar este servidor ainda mais organizado e divertido, kyu~!",
     "message_bot_notificacao" : "<:Braix:1272653348306419824>┃ Confirmando que você **{}** suas notificações do meu sistema em **sua DM** ~kyuuuu",
     "message_autophox_notificacao" : "<:Braix_Blep:1290453783045738629>┃ Confirmando você **{}** o **envio automático** do sistema Autophox de **imagens para essa comunidade** ~kyuuuu",
     "message_autophox_footer" : "Gerado por AutoPhox",

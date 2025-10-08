@@ -215,12 +215,11 @@ class servers(commands.Cog):
           await message.add_reaction('<:BH_Braix_Me:1154340918757949501>')
         except:
           print(f"falha ao colocar reação em {message.guild.id}")
-        msgenviada = await message.channel.send(Res.trad(guild=message.guild.id, str="message_bump_notification"))
+        await message.channel.send(Res.trad(guild=message.guild.id, str="message_bump_notification") , delete_after = 20)
         proximo_bump = datetime.now().replace(tzinfo=None) + timedelta(seconds=7200)
         item = { "bump.proximo_aviso": proximo_bump , "bump.canal_id": message.channel.id}
         BancoServidores.update_document(message.guild.id,item )
-        await asyncio.sleep(15)
-        await msgenviada.delete()
+        
         
 
 
@@ -327,12 +326,25 @@ class servers(commands.Cog):
 
 
   @commands.Cog.listener()
-  async def on_guild_join(self,guild: discord.Guild):
+  async def on_guild_join(self, guild: discord.Guild):
     print(f'🍕🍕🍕 - Fui adicionado ao servidor: {guild.name} (ID: {guild.id})')
-    BancoServidores.bot_in_guild(guild.id,True)
+    BancoServidores.bot_in_guild(guild.id, True)
+    # tenta achar o primeiro canal onde o bot pode mandar mensagem
+    channel = None
+    for c in guild.text_channels:
+      if c.permissions_for(guild.me).send_messages:
+        channel = c
+        break
+
+    if channel:
+      try:
+        await channel.send( Res.trad(guild=guild.id, str="message_bot_join_guild").format (guild.name) , delete_after = 300 , suppress_embeds = True)
+      except Exception as e:
+        print(f"❌ Erro ao enviar mensagem de boas-vindas em {guild.name}: {e}")
 
 
 
+  
 
 
 
@@ -576,7 +588,8 @@ class servers(commands.Cog):
                   dados_do_membro = BancoUsuarios.insert_document(member)
                   if dados_do_membro["dm-notification"] is True:
                     try:
-                      await member.send( Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name) )
+                      await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
+                      #await member.send( Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name) )
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
@@ -597,7 +610,8 @@ class servers(commands.Cog):
                   dados_do_membro = BancoUsuarios.insert_document(member)
                   if dados_do_membro["dm-notification"] is True:
                     try:
-                      await member.send( Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name) )
+                      await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
+                      #await member.send( Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name) )
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:

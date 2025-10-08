@@ -205,7 +205,7 @@ class caracterai(commands.Cog):
 
 
     # RETORNO DO BRIX AI CAI EM QUALQUER MENSAGEM QUE ELE SEJA MENCIONADO
-    elif message.guild and message.author != self.client.user and message.content.startswith(f"<@{self.client.user.id}> "):
+    elif message.guild and message.author != self.client.user and not message.author.bot and message.content.startswith(f"<@{self.client.user.id}> "):
       async with message.channel.typing():
         try:
           if not await userpremiumcheck(message.author):
@@ -233,7 +233,7 @@ class caracterai(commands.Cog):
 
 
     # RETORNO DO BRIX CASO ALGUEM MENCIONE ELE SEM MAIS NENHUMA PALAVRA ADICIONAL
-    elif f"<@{self.client.user.id}>" in message.content and message.author != self.client.user:
+    elif f"<@{self.client.user.id}>" in message.content and not message.author.bot and message.author != self.client.user:
       try:
         resposta = discord.Embed( 
           colour=discord.Color.yellow(),
