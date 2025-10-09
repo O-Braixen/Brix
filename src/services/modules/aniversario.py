@@ -200,7 +200,7 @@ class aniversario(commands.Cog):
      #COMANDO DEFINIR ANIVERSARIO
     @aniversario.command(name="definir",description='🎂⠂Defina seu aniversário.')
     @app_commands.describe(dia="2 digitos para o dia",mes="2 digitos para o mês",ano="4 digitos para o ano")
-    async def aniversariodefinir(self,interaction: discord.Interaction,dia: str, mes:str, ano:str):
+    async def aniversariodefinir(self,interaction: discord.Interaction,dia: int, mes:int, ano:int):
         await interaction.response.defer(ephemeral=True) 
         await aniversariodefinir(interaction, dia, mes, ano)
 
@@ -208,34 +208,34 @@ class aniversario(commands.Cog):
 
 
     # --- Autocomplete do dia ---
-    @aniversariodefinir.autocomplete("dia")
-    async def autocomplete_dia(self, interaction: discord.Interaction, current: str):
-        return [ app_commands.Choice(name=str(i).zfill(2), value=str(i).zfill(2)) for i in range(1, 32) if current in str(i).zfill(2) ][:25]
+    #@aniversariodefinir.autocomplete("dia")
+    #async def autocomplete_dia(self, interaction: discord.Interaction, current: str):
+    #    return [ app_commands.Choice(name=str(i).zfill(2), value=str(i).zfill(2)) for i in range(1, 32) if current in str(i).zfill(2) ][:25]
 
 
 
 
     # --- Autocomplete do mês ---
-    @aniversariodefinir.autocomplete("mes")
-    async def autocomplete_mes(self, interaction: discord.Interaction, current: str):
-        opcoes = []
-        for i in range(1, 13):
-            num = str(i).zfill(2)
-            nome = Res.trad(interaction=interaction, str=f"mes_{num}")
-            label = f"{num} - {nome}"
-            if current.lower() in nome.lower() or current in num:
-                opcoes.append(app_commands.Choice(name=label, value=num))
-        return opcoes
+    #@aniversariodefinir.autocomplete("mes")
+    #async def autocomplete_mes(self, interaction: discord.Interaction, current: str):
+    #    opcoes = []
+    #    for i in range(1, 13):
+    #        num = str(i).zfill(2)
+    #        nome = Res.trad(interaction=interaction, str=f"mes_{num}")
+    #        label = f"{num} - {nome}"
+    #        if current.lower() in nome.lower() or current in num:
+    #            opcoes.append(app_commands.Choice(name=label, value=num))
+    #    return opcoes
 
 
 
 
     # --- Autocomplete do ano ---
-    @aniversariodefinir.autocomplete("ano")
-    async def autocomplete_ano(self, interaction: discord.Interaction, current: str):
-        ano_atual = datetime.datetime.now().year
-        ano_atual = ano_atual-8
-        return [app_commands.Choice(name=str(ano), value=str(ano))            for ano in range(ano_atual, ano_atual - 100, -1)            if current in str(ano)        ][:25]
+    #@aniversariodefinir.autocomplete("ano")
+    #async def autocomplete_ano(self, interaction: discord.Interaction, current: str):
+    #    ano_atual = datetime.datetime.now().year
+    #    ano_atual = ano_atual-8
+    #    return [app_commands.Choice(name=str(ano), value=str(ano))            for ano in range(ano_atual, ano_atual - 100, -1)            if current in str(ano)        ][:25]
     
 
 
