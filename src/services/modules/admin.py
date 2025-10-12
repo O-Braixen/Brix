@@ -62,13 +62,7 @@ async def addtemproleusuario(self, interaction, membro, cargo, tempo):
             try:
               if interaction:
                 if dadosmembro['dm-notification'] is True:
-                  await membro.send(view= container_media_button_url(descricao= Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
-
-                  #resposta_dm = discord.Embed(
-                  #    color=discord.Color.yellow(),
-                  #    description=Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )
-                  #)
-                  #await membro.send(embed=resposta_dm)
+                  await membro.send(view= container_media_button_url(descricao= Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))           
                 else:
                   print("🦊 - membro não recebe notificações via DM")
             except:

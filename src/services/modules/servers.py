@@ -250,7 +250,7 @@ class servers(commands.Cog):
       if resultado:
         user_id = resultado.group(1)  # Captura a ID do usuário
         usuario = await self.client.fetch_user(int(user_id)) # Procuro pelo usuario
-        recompensa = 2000  # Defino a recompensa por cada voto
+        recompensa = 5000  # Defino a recompensa por cada voto
         dados_do_membro = BancoUsuarios.insert_document(usuario)  # Procuro pelo usuario no banco de dados
         total_votos = dados_do_membro.get('topgg-vote' , 0) + 1  # pego o total de votos é já acrescento + 1 
         BancoUsuarios.update_inc(usuario, {"topgg-vote": 1 , "braixencoin" : recompensa }) # Incremento o valor de moeda e do voto
@@ -269,7 +269,7 @@ class servers(commands.Cog):
           await message.add_reaction('❌')
         
         if total_votos % 20 == 0: # a cada 20 votos libera 5 dias de premium
-          await liberarpremium(self,None,usuario,5,False)
+          await liberarpremium(self,None,usuario,7,False)
           print(f"liberado premium para {usuario.name} - {usuario.id}")
 
         if contagem: # se eu acho o usuario dentro do discord entro na logica e mando mensagem a ele 

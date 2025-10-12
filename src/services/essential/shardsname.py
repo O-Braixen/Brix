@@ -3,7 +3,7 @@
 # ======================================================================
 # shards.py
 NOME_DOS_SHARDS = {
-    0: "🌐⠂SHARD ORBIT",
+    0: "<:orbit_icon:1426691114785833221>⠂SHARD ORBIT",
     1: "🦊⠂SHARD RAPOSA",
     2: "🪵⠂SHARD GRAVETO",
     3: "<:s_:1421683611777892403>⠂SHARD SQUARE CLOUD",
