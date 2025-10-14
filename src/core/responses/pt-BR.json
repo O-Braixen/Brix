@@ -477,7 +477,10 @@
     "message_erro_apimemes" : "<:Braix_Shocked:1272663500115935264>┃ **E... erro** kyu~\n**Estou com problemas no meu comando de meme**, por favor entre em contato com o braixen e envie esse erro a ele \n\n```{}```",
     "message_erro_apimemes_notmidia" : "<:Braix_Shocked:1272663500115935264>┃ Você não mandou nenhuma imagem, nem passou usuario e o pior ainda não tem imagem por aqui então não deu para fazer nada kyuu\n<:Braix_You:1272670440652935289>┃ Tente denovo com alguma coisa por favor",
     "message_erro_apimemes_notavatar" : "<:Braix_Blank:1272661806858371196>┃ Durante as minhas buscas parece que algum usuario não tem um avatar, então não consegui montar o seu meme kyuu...",
-    
+    "message_erro_apimemes_limit_characteres" : "<:Braix_Blank:1272661806858371196>┃ Kyu~! Você passou do limite de caracteres, raposa! Foram **{}**, mas o máximo permitido é **72**. Tenta deixar mais curtinho, tá bem? Kyuuu~",
+    "message_erro_apimemes_citacao_sem_texto" : "<:Braix_Blank:1272661806858371196>┃ Kyu~! Você precisa me mandar pelo menos uma mensagem de texto pra eu conseguir escrever sua citação. Se não souber o que colocar, posso criar uma pra você com a minha IA, kyuuu~!",
+
+
     "message_erro_embed" : "<:Braix_Blank:1272661806858371196>┃ Não foi possivel enviar seu embed kyu~~\nLembre-se você precisa gerar o codigo json no site https://eb.nadeko.bot/ e copiar o codigo json do site e enviar ele para mim gerar seu embed kyuuu.",
     "message_erro_avatar" : "<:Braix_Blank:1272661806858371196>┃ Parece que o {} **não possui um avatar {}** kyu~~.",
     "message_erro_interacaoalheia" : "<:Braix_Blank:1272661806858371196>┃ Desculpe, mas você não pode mexer nas opções de outra pessoa...",
@@ -818,10 +821,10 @@
 
     "message_correioelegante_consulta_inexistente" : "<:Braix_derp:1272663053875417219>┃ Não achei esse registro que você me passou, por favor verifique se digitou corretamente ~kyu..",
     
-    "message_pokequiz" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\nTeste agora mesmo suas Habilidades no meu quiz e veremos se você sabe tudo sobre o mundo pokémon.\n### {}",
-    "message_pokequiz_correta" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_Happy:1272664784814342204>┃ Kyuuuuuu não é que você acertou mesmo, parabéns",
-    "message_pokequiz_errada" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_derp:1272663053875417219>┃ Eita, de onde você tirou isso ai?\na resposta correta era: **{}**",
-
+    "message_pokequiz" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\nKyu~! Que tal testar seus conhecimentos sobre o mundo Pokémon comigo? Vamos ver o quanto você realmente sabe, hein?\n### {}",
+    "message_pokequiz_correta" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_Happy:1272664784814342204>┃ Kyuuuu~! Você acertou, parabéns! Tá mandando bem, hein?",
+    "message_pokequiz_errada" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_derp:1272663053875417219>┃ Eita, kyu~... dessa vez não deu!\nA resposta certa era: **{}**\n-# Você acertou **{}** perguntas parabéns!",
+    
     "pokequiz": [
     {
     "pergunta": "Qual é o tipo do Pikachu?",

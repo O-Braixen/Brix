@@ -753,8 +753,77 @@ class diversao(commands.Cog):
 
 
 
-
   @modulodiversao.command(name="pokequiz", description="🎮⠂Teste seus conhecimentos de Pokémon!")
+  async def pokequiz(self, interaction: discord.Interaction):
+    if await Res.print_brix(comando="pokequiz", interaction=interaction):
+        return
+    await interaction.response.defer()
+
+    await self.enviar_pergunta(interaction, interaction.user)
+
+
+  async def enviar_pergunta(self, interaction: discord.Interaction, user: discord.User, message: discord.Message | None = None, acertos: int = 0):
+      quiz_list = Res.trad(interaction=interaction, str='pokequiz')
+      pergunta = random.choice(quiz_list)
+      alternativas = pergunta["alternativas"]
+      random.shuffle(alternativas)
+      correta = pergunta["correta"]
+
+      view = discord.ui.View(timeout=120)
+      for alt in alternativas:
+          botao = discord.ui.Button(label=alt, style=discord.ButtonStyle.secondary)
+          botao.callback = partial( self.verificar_quiz, correta=correta, original_user=user, resposta_usuario=alt, acertos=acertos)
+          view.add_item(botao)
+
+      embed = discord.Embed( colour=discord.Color.yellow(), description=Res.trad(interaction=interaction, str='message_pokequiz').format(pergunta['pergunta']) )
+      embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/1196968606269976596.png")
+
+      if message is None:
+          msg = await interaction.followup.send(embed=embed, view=view)
+      else:
+          await message.edit(embed=embed, view=view)
+          msg = message
+
+      return msg
+
+  async def verificar_quiz(self, interaction: discord.Interaction, correta: str, original_user: discord.User, resposta_usuario: str, acertos: int):
+      if interaction.user != original_user:
+          await interaction.response.send_message(
+              content=Res.trad(interaction=interaction, str='message_erro_interacaoalheia'),
+              ephemeral=True
+          )
+          return
+
+      view = discord.ui.View(timeout=None)
+      for child in interaction.message.components[0].children:
+          btn = discord.ui.Button(label=child.label)
+          btn.disabled = True
+          if child.label == correta:
+              btn.style = discord.ButtonStyle.success
+          elif child.label == resposta_usuario:
+              btn.style = discord.ButtonStyle.danger
+          else:
+              btn.style = discord.ButtonStyle.secondary
+          view.add_item(btn)
+
+      acertou = resposta_usuario == correta
+      if acertou:
+          acertos += 1
+          msg = Res.trad(interaction=interaction, str='message_pokequiz_correta')
+      else:
+          msg = Res.trad(interaction=interaction, str='message_pokequiz_errada').format(correta, acertos)
+
+      embed = discord.Embed( colour=discord.Color.yellow(), description=msg )
+      embed.set_thumbnail(url="https://cdn.discordapp.com/emojis/1196968606269976596.png")
+
+      await interaction.response.edit_message(embed=embed, view=view)
+
+      if acertou:
+          await asyncio.sleep(2)
+          await self.enviar_pergunta(interaction, original_user, interaction.message, acertos)
+
+
+  """@modulodiversao.command(name="pokequiz", description="🎮⠂Teste seus conhecimentos de Pokémon!")
   async def pokequiz(self, interaction: discord.Interaction):
     if await Res.print_brix(comando="pokequiz",interaction=interaction):
         return
@@ -801,7 +870,7 @@ class diversao(commands.Cog):
         msg = Res.trad(interaction=interaction, str='message_pokequiz_errada').format(correta)
     resposta = discord.Embed( colour=discord.Color.yellow(),description=msg)
     resposta.set_thumbnail(url="https://cdn.discordapp.com/emojis/1196968606269976596.png")
-    await interaction.response.edit_message(embed=resposta, view=view)
+    await interaction.response.edit_message(embed=resposta, view=view)"""
 
 
 
@@ -1438,9 +1507,12 @@ class diversao(commands.Cog):
     
     try:
         await interaction.response.defer()
+        if frase is None and ia is None:
+            return await interaction.followup.send( Res.trad(interaction=interaction, str='message_erro_apimemes_citacao_sem_texto'), ephemeral = True)
+                
         if frase is not None:
             if len(frase) > 72:
-                await interaction.followup.send(f"Limite de caracteres atingido, você enviou {len(frase)} caracteres", ephemeral = True)
+                await interaction.followup.send( Res.trad(interaction=interaction, str='message_erro_apimemes_limit_characteres').format(len(frase)) , ephemeral = True)
                 return
             
         if ia is not None:
