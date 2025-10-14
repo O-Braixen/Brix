@@ -758,7 +758,6 @@ class diversao(commands.Cog):
     if await Res.print_brix(comando="pokequiz", interaction=interaction):
         return
     await interaction.response.defer()
-
     await self.enviar_pergunta(interaction, interaction.user)
 
 
@@ -819,58 +818,13 @@ class diversao(commands.Cog):
       await interaction.response.edit_message(embed=embed, view=view)
 
       if acertou:
-          await asyncio.sleep(2)
-          await self.enviar_pergunta(interaction, original_user, interaction.message, acertos)
+        await asyncio.sleep(2)
+        try:
+            msg = await interaction.original_response()
+            await self.enviar_pergunta(interaction, original_user, msg, acertos)
+        except:
+            pass  # evita crash se a mensagem original não for acessível
 
-
-  """@modulodiversao.command(name="pokequiz", description="🎮⠂Teste seus conhecimentos de Pokémon!")
-  async def pokequiz(self, interaction: discord.Interaction):
-    if await Res.print_brix(comando="pokequiz",interaction=interaction):
-        return
-    await interaction.response.defer()
-
-    # Puxa direto do teu JSON carregado (ex: Res.trad)
-    quiz_list = Res.trad(interaction=interaction, str='pokequiz')
-
-    pergunta = random.choice(quiz_list)
-    alternativas = pergunta["alternativas"]
-    random.shuffle(alternativas)
-    correta = pergunta["correta"]
-
-    view = discord.ui.View(timeout=120)
-    for alt in alternativas:
-        botao = discord.ui.Button(label=alt, style=discord.ButtonStyle.secondary)
-        botao.callback = partial(self.verificar_quiz, correta=correta, original_user=interaction.user, resposta_usuario=alt)
-        view.add_item(botao)
-
-    resposta = discord.Embed( colour=discord.Color.yellow(),description=Res.trad( interaction=interaction, str='message_pokequiz').format(pergunta['pergunta']))
-    resposta.set_thumbnail(url="https://cdn.discordapp.com/emojis/1196968606269976596.png")
-    await interaction.followup.send(embed=resposta, view=view)
-
-  async def verificar_quiz(self, interaction: discord.Interaction, correta: str, original_user: discord.User, resposta_usuario: str):
-    if interaction.user != original_user:
-        await interaction.response.send_message(content=Res.trad(interaction=interaction, str='message_erro_interacaoalheia'), ephemeral=True)
-        return
-
-    view = discord.ui.View(timeout=None)
-    for child in interaction.message.components[0].children:
-        btn = discord.ui.Button(label=child.label)
-        btn.disabled = True
-        if child.label == correta:
-            btn.style = discord.ButtonStyle.success
-        elif child.label == resposta_usuario:
-            btn.style = discord.ButtonStyle.danger
-        else:
-            btn.style = discord.ButtonStyle.secondary
-        view.add_item(btn)
-
-    if resposta_usuario == correta:
-        msg = Res.trad(interaction=interaction, str='message_pokequiz_correta')
-    else:
-        msg = Res.trad(interaction=interaction, str='message_pokequiz_errada').format(correta)
-    resposta = discord.Embed( colour=discord.Color.yellow(),description=msg)
-    resposta.set_thumbnail(url="https://cdn.discordapp.com/emojis/1196968606269976596.png")
-    await interaction.response.edit_message(embed=resposta, view=view)"""
 
 
 
