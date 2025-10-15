@@ -33,7 +33,7 @@ clientcai = Client()
   
 
 
-# COMANDO PARA CONECTAR O BOT AO CHARACTER.AI
+"""# COMANDO PARA CONECTAR O BOT AO CHARACTER.AI
 async def enviar_mensagem_para_character_ai(self, membro, mensagem):
   tentativas = 10
   for tentativa in range(tentativas):
@@ -58,8 +58,46 @@ async def enviar_mensagem_para_character_ai(self, membro, mensagem):
       if tentativa == tentativas - 1:
         await clientcai.close_session()
         return f"{Res.trad(user=membro, str='message_cai_erro')}"
-      #await asyncio.sleep(1)
+      #await asyncio.sleep(1)"""
 
+# COMANDO PARA CONECTAR O BOT AO CHARACTER.AI
+async def enviar_mensagem_para_character_ai(self, membro, mensagem):
+    tentativas = 5
+    message = (        mensagem.replace(f"<@{self.client.user.id}>", "")        .replace("@everyone", "todo mundo")        .replace("@here", "todo mundo online")    )
+    mensagem_formatada = f"author: {membro}\n{message}"
+
+    try:
+        # Autentica só uma vez
+        await clientcai.authenticate(char_token)
+
+        # Puxa ou cria documento do usuário
+        dado = BancoUsuarios.insert_document(membro)
+        chat_id = str(dado.get("cai-idchat"))
+
+        # Se não existir histórico, reseta antes
+        if not chat_id or chat_id == "None":
+            await reset_character_ai(membro)
+            await asyncio.sleep(0.2)
+            dado = BancoUsuarios.insert_document(membro)
+            chat_id = str(dado.get("cai-idchat"))
+
+        # Loop de tentativas só para o envio da mensagem
+        for tentativa in range(tentativas):
+            try:
+                data = await clientcai.chat.send_message(char_id, str(dado['cai-idchat']), mensagem_formatada)
+                return data.get_primary_candidate().text
+            except Exception as e:
+                print(f"Tentativa {tentativa+1}/{tentativas} falhou: {e}")
+                await asyncio.sleep(1)
+
+        # Se todas as tentativas falharem
+        return f"{Res.trad(user=membro, str='message_cai_erro')}"
+
+    except Exception as e:
+        print(f"CHARACTER.AI ERROR: {e}")
+        return f"{Res.trad(user=membro, str='message_cai_erro')}"
+    finally:
+        await clientcai.close_session()
 
 
 
