@@ -235,7 +235,7 @@ def container_media_button_url( titulo: str = None , titulo_thumbnail: str = Non
 
 
 
-async def Paginador_Global(self, interaction, blocos, pagina, originaluser, descrição, thumbnail_url: str = None):
+async def Paginador_Global(self, interaction : discord.Interaction, blocos, pagina, originaluser, descrição, thumbnail_url: str = None):
     await interaction.original_response()
     try:
         view = ui.LayoutView()
@@ -280,13 +280,13 @@ async def Paginador_Global(self, interaction, blocos, pagina, originaluser, desc
         # adiciona a linha de botões à view
         view.add_item(container)
 
-        await interaction.edit_original_response(view=view)
+        await interaction.edit_original_response(view=view, allowed_mentions = discord.AllowedMentions(users=False))
 
     except Exception as e:
         await Res.erro_brix_embed(interaction, str="message_erro_brixsystem", e=e, comando="Paginador")
 
 
-async def trocar_pagina(self, interaction, blocos, pagina, originaluser, descrição, thumb):
+async def trocar_pagina(self, interaction : discord.Interaction, blocos, pagina, originaluser, descrição, thumb):
     if interaction.user != originaluser:
         await interaction.response.send_message( Res.trad(interaction=interaction, str="message_erro_interacaoalheia"), delete_after=10, ephemeral=True )
         return
@@ -297,5 +297,5 @@ async def trocar_pagina(self, interaction, blocos, pagina, originaluser, descri�
         for button in row.children:
             button.disabled = True
 
-    await interaction.response.edit_message(view=view)
+    await interaction.response.edit_message(view=view , allowed_mentions = discord.AllowedMentions(users=False))
     await Paginador_Global(self, interaction, blocos, pagina, originaluser, descrição, thumb)
