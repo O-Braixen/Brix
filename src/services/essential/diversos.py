@@ -280,7 +280,7 @@ async def Paginador_Global(self, interaction : discord.Interaction, blocos, pagi
         # adiciona a linha de botões à view
         view.add_item(container)
 
-        await interaction.edit_original_response(view=view, allowed_mentions = discord.AllowedMentions(users=False))
+        await interaction.edit_original_response(view=view, allowed_mentions = discord.AllowedMentions(users=False , roles = False))
 
     except Exception as e:
         await Res.erro_brix_embed(interaction, str="message_erro_brixsystem", e=e, comando="Paginador")
@@ -297,5 +297,5 @@ async def trocar_pagina(self, interaction : discord.Interaction, blocos, pagina,
         for button in row.children:
             button.disabled = True
 
-    await interaction.response.edit_message(view=view , allowed_mentions = discord.AllowedMentions(users=False))
+    await interaction.response.edit_message(view=view , allowed_mentions = discord.AllowedMentions(users=False , roles = False))
     await Paginador_Global(self, interaction, blocos, pagina, originaluser, descrição, thumb)

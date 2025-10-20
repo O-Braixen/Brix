@@ -529,11 +529,7 @@
     "message_aniversario_notificacao_desativado" : "<:Braix:1272653348306419824>┃ Confirmado, has **desactivado** los mensajes de notificación de cumpleaños para esta comunidad ~kyuuuu",
     "message_aniversario_server_title" : "<:Braix:1272653348306419824>┃ **Prueba de permiso del canal**",
     "message_aniversario_server_description": "<:Braix:1272653348306419824>┃ Esta es una prueba de envío de mensaje, este mensaje será eliminado en breve...",
-    "message_aniversario_mensagem_random_server": [
-      "**¡¡¡Feliz Cumpleaños** {}!!!! ~~kyuu\n**¡Felicidades** por tu día especial!, **te estás haciendo viejito** jejejeje\n\n**¡Invito** a todos a desear un **feliz cumpleaños también!!!** ¡En el chat general, claro ~kyuuu!",
-      "**¡Feliz Cumpleaños**, {}!\n¡Felicidades por tu día especial!, ¡que sigas siempre **joven** y **feliz**!\n\nTe deseo un día **lleno de alegría**, con mucho **amor y cariño**.\n\n¡Que este año esté **lleno de logros**, y que realices todos tus sueños. kyuuuu!",
-      "**¡Feliz Cumpleaños**, {}!\n¡Felicidades por tu día especial, que sigas siempre **feliz** y **cumpliendo sueños**!\n\nTe deseo un **día lleno de amor, con mucha alegría y diversión**.\n\n¡Que este año esté lleno de sorpresas, y que **vivas** cada momento **intensamente**.\n\n¡Felicidades de tu amigo **Brix!**"
-    ],
+
     "message_aniversario_message_ping":"Feliz cumpleaños {} ||Ping: {}||",
     "message_aniversario_mensagem_footer_server":"¿Qué tal si registras tu cumpleaños también, Kyu? 🎂 ¡Usa `/aniversário definir` y regístrate ahora mismo! ~kyuuu",
     "message_aniversario_server_consulta":"## <:Braix_bolo_cake:1290452116208357436>┃ Próximos Cumpleañeros",

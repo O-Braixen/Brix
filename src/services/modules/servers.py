@@ -338,7 +338,7 @@ class servers(commands.Cog):
 
     if channel:
       try:
-        await channel.send( Res.trad(guild=guild.id, str="message_bot_join_guild").format (guild.name) , delete_after = 300 , suppress_embeds = True)
+        await channel.send( Res.trad(guild=guild.id, str="message_bot_join_guild").format (guild.name) , delete_after = 120 , suppress_embeds = True)
       except Exception as e:
         print(f"❌ Erro ao enviar mensagem de boas-vindas em {guild.name}: {e}")
 
@@ -816,7 +816,7 @@ class servers(commands.Cog):
     container.add_item( botões )
 
     view.add_item(container)
-    await interaction.followup.send(view=view)
+    await interaction.followup.send(view=view , allowed_mentions = discord.AllowedMentions(users=False , roles = False))
 
 
     

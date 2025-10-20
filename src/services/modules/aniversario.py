@@ -5,6 +5,8 @@ from src.services.connection.database import BancoUsuarios,BancoServidores , Ban
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import useraniversario,aniversariodefinir
 from src.services.modules.admin import addtemproleusuario
+from src.services.essential.diversos import Paginador_Global , container_media_button_url
+
 
 
 
@@ -53,7 +55,7 @@ class aniversario(commands.Cog):
 
 
 
-    #@tasks.loop(hours=24)
+    # 9h da manhã roda a verificação de aniversariantes
     @tasks.loop(time=datetime.time(hour=9 , minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
     async def verificar_aniversariantes(self):
         # Obtenha a data atual e o ano
@@ -92,12 +94,11 @@ class aniversario(commands.Cog):
                 
                 # Enviar mensagens de parabéns na DM
                 mensagem_completa = (Res.trad(user=user, str='message_aniversario_anuncio_dm').format(idade) + "\n\n" + Res.trad(user=user, str='message_aniversario_recompensa_dm').format(saldodado, saldo))
-                embed = discord.Embed(
-                    colour=discord.Color.yellow(),
-                    description=mensagem_completa
-                )
-                embed.set_thumbnail(url="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg")
-                await user.send(embed=embed)
+                view = container_media_button_url(
+                    descricao= mensagem_completa ,
+                    descricao_thumbnail="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg"
+                    )
+                await user.send(view=view)
                 print(f"🎂 - Enviando DM para: {aniversariante_id}")
 
             except Exception as e:
@@ -133,24 +134,21 @@ class aniversario(commands.Cog):
                 # Se houver aniversariantes no servidor, envia uma mensagem acumulada
                 if aniversariantes_servidor:
                     try:
-                        descricao = ", ".join(f"<@{aniversariante}>" for aniversariante in aniversariantes_servidor)
+                        lista_aniversariantes = ", ".join(f"<@{aniversariante}>" for aniversariante in aniversariantes_servidor)
 
-                        embed = discord.Embed(
-                            colour=discord.Color.yellow(),
-                            description=random.choice(Res.trad(guild=servidor.id, str='message_aniversario_mensagem_random_server')).format(descricao)
-                        )
-                        embed.set_thumbnail(url="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg")
-                        embed.set_footer(text=Res.trad(guild=servidor.id, str='message_aniversario_mensagem_footer_server'))
                         cargoping = servidor.get_role(servidor_info['aniversario']['cargo'])
                         if cargoping == servidor.default_role:  # Verifica se é @everyone
                             cargo_ping_str = '@everyone'
                         else:
                             cargo_ping_str = cargoping.mention
 
+                        view = container_media_button_url(
+                            descricao=random.choice(Res.trad(guild=servidor.id, str='message_aniversario_mensagem_random_server')).format(lista_aniversariantes, cargo_ping_str) ,
+                            descricao_thumbnail="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg",
+                            footer=Res.trad(guild=servidor.id, str='message_aniversario_mensagem_footer_server')
+                            )
                         # Enviar a mensagem no canal com os aniversariantes acumulados
-                        mensagem_servidor = await canal.send(Res.trad(guild=servidor.id,str='message_aniversario_message_ping').format(descricao,cargo_ping_str),#.format(len(aniversariantes_servidor)),
-                            embed=embed
-                        )
+                        mensagem_servidor = await canal.send(view=view)
                         await mensagem_servidor.add_reaction('🎂')
 
                         # Adicionar cargo temporário, se aplicável, para cada aniversariante

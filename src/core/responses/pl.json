@@ -506,11 +506,6 @@
     "message_aniversario_notificacao_desativado": "<:Braix:1272653348306419824>┃ Potwierdzam, **dezaktywowałeś** wiadomości z powiadomieniami o urodzinach dla tej społeczności ~kyuuuu",
     "message_aniversario_server_title": "<:Braix:1272653348306419824>┃ **Test uprawnień kanału**",
     "message_aniversario_server_description": "<:Braix:1272653348306419824>┃ To jest test wysyłania wiadomości, ta wiadomość zostanie usunięta za chwilę...",
-    "message_aniversario_mensagem_random_server": [
-        "**Wszystkiego Najlepszego** {}!!!! ~~kyuu\n**Gratulacje** z okazji Twojego wyjątkowego dnia!, **starzejesz się** lolololo\n\n**Zapraszam** wszystkich do życzenia **wszystkiego najlepszego również!!!** oczywiście na czacie ogólnym ~kyuuu!",
-        "**Wszystkiego Najlepszego**, {}!\nGratulacje z okazji Twojego wyjątkowego dnia!, obyś zawsze był **młody** i **szczęśliwy**!\n\nŻyczę Ci dnia **pełnego radości**, z mnóstwem **miłości i czułości**.\n\nNiech ten rok będzie **pełen osiągnięć**, a Ty spełnisz wszystkie swoje marzenia. kyuuuu!",
-        "**Wszystkiego Najlepszego**, {}!\nGratulacje z okazji Twojego wyjątkowego dnia, obyś zawsze był **szczęśliwy** i **spełniał marzenia**!\n\nŻyczę Ci **dnia pełnego miłości, z mnóstwem radości i zabawy**.\n\nNiech ten rok będzie pełen niespodzianek, a **Ty żyj** każdą chwilą **intensywnie**.\n\nGratulacje od Twojego przyjaciela **Brixa!**"
-    ],
     "message_aniversario_message_ping": "Wszystkiego najlepszego {} ||Ping: {}||",
     "message_aniversario_mensagem_footer_server": "Co powiesz na zarejestrowanie swoich urodzin, Kyu? 🎂 Użyj `/aniversário definir` i zarejestruj się już teraz! ~kyuuu",
     "message_aniversario_server_consulta": "## <:Braix_bolo_cake:1290452116208357436>┃ Nadchodzący Solenizanci",
@@ -1763,5 +1758,12 @@
     "message_pokequiz_correta": "### <:Braix_Happy:1272664784814342204>┃ Quiz Brixa!!!\n\n<:Braix_Happy:1272664784814342204>┃ Kyuuuu~! Trafiłeś/-aś, gratulacje! Świetnie ci idzie, co?",
     "message_pokequiz_errada": "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_derp:1272663053875417219>┃ Eita, kyu~... tym razem się nie udało!\nPrawidłowa odpowiedź to: **{}**\n-# Odpowiedziałeś poprawnie na **{}** pytań, gratulacje!",
     "message_erro_apimemes_limit_characteres": "<:Braix_Blank:1272661806858371196>┃ Kyu~! Przekroczyłeś limit znaków, lisku! Jest ich **{}**, a maksymalna dozwolona liczba to **72**. Spróbuj to skrócić, okej? Kyuuu~",
-    "message_erro_apimemes_citacao_sem_texto": "<:Braix_Blank:1272661806858371196>┃ Kyu~! Musisz mi wysłać przynajmniej jedną wiadomość tekstową, żebym mógł napisać twój cytat. Jeśli nie wiesz, co wpisać, mogę go dla ciebie stworzyć za pomocą mojej sztucznej inteligencji, kyuuu~!"
+    "message_erro_apimemes_citacao_sem_texto": "<:Braix_Blank:1272661806858371196>┃ Kyu~! Musisz mi wysłać przynajmniej jedną wiadomość tekstową, żebym mógł napisać twój cytat. Jeśli nie wiesz, co wpisać, mogę go dla ciebie stworzyć za pomocą mojej sztucznej inteligencji, kyuuu~!",
+    "message_aniversario_mensagem_random_server": [
+        "# :Braix_bolo_cake:1290452116208357436>┃Wszystkiego najlepszego!\nDziś jest dzień świętowania z {}! 🦊💛\nGratulacje z okazji Twojego wyjątkowego dnia! 🦊✨ Niech nie brakuje uśmiechów, czułości i dobrych chwil dzisiaj.\n\nWszyscy, chodźmy świętować na czacie ogólnym i rozsiewać dobrą energię dla tego szczęśliwego lisa! 💛\n||ping: {}||",
+        "🎂✨# :Braix_bolo_cake:1290452116208357436>┃Wszystkiego Najlepszego z okazji Urodzin!\nGratulacje dla {}! 🎂✨\nKolejny rok historii i śmiechu do zapamiętania, kyu~! 🎉 Niech ten nowy cykl będzie pełen szczęścia i spełnienia.\n\nCiesz się każdą sekundą swojego dnia — zasługujesz na to! 🌟\n||ping: {}||",
+        "# :Braix_bolo_cake:1290452116208357436>┃Wszystkiego Najlepszego!\nDziś jest dzień świętowania z {}! 🦊💛\nDziś jest dzień świętowania osoby, która rozświetla serwer dobrymi wibracjami! 🦊💫\nNiech Twoja droga będzie pełna miłości, sukcesów i dużo radości.\n\nGratulacje od Twojego przyjaciela Brixa! 💛\n||ping: {}||",
+        "# :Braix_bolo_cake:1290452116208357436>┃Wszystkiego najlepszego z okazji urodzin!\nDziś jest dzień {}! 🎉💫\nKyu~! Niech ten nowy rok Twojego życia przyniesie wiele światła, osiągnięć i niezapomnianych chwil. 🎂✨\n\nŻyczmy wszyscy szczęścia i sprawmy, by ta impreza się udała! 🎉\n||ping: {}||",
+        "# :Braix_bolo_cake:1290452116208357436>┃Wszystkiego najlepszego z okazji urodzin!\nGratulacje dla {}! 🎂✨\nDziś jest Twój dzień! 🎈 Niech przyniesie wszystko, co Cię uszczęśliwia – miłość, przyjaźń i dobry humor. 🦊💛\n\nWypełnijmy serwer pięknymi wiadomościami, aby wspólnie świętować, kyu~!\n||ping: {}||"
+    ]
 }

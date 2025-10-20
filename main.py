@@ -21,7 +21,7 @@ class Client(commands.AutoShardedBot):
         intents.message_content = True
         intents.members = True
 
-        super().__init__(command_prefix='-', intents=intents, shard_count=4)
+        super().__init__(command_prefix='-', intents=intents, shard_count=2)
         self.synced = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
         self.cogslist = []
         for cog in listdir("src/services/modules"):

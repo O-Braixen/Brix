@@ -546,11 +546,15 @@
     "message_aniversario_notificacao_desativado" : "<:Braix:1272653348306419824>┃ Confirmando você **desativou** as mensagens de notificação de aniversariantes para essa comunidade ~kyuuuu",
     "message_aniversario_server_title" : "<:Braix:1272653348306419824>┃ **Teste de permissão do canal**",
     "message_aniversario_server_description": "<:Braix:1272653348306419824>┃ Este é um teste de envio de mensagem, essa mensagem será deletada em instantes...",
+    
     "message_aniversario_mensagem_random_server": [
-      "**Feliz Aniversário** {}!!!! ~~kyuu\n**Parabéns**  pelo seu dia especial!, **tá ficando velinho** rsrsrsrs\n\n**Convido** todos a desejar um **feliz aniversario também!!!** lá no chat geral é claro ~kyuuu!",
-      "**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial!, que você continue sempre **jovem** e **feliz**!\n\nDesejo a você um dia **repleto de alegria**,com muito **amor e carinho**.\n\nQue esse ano seja **repleto de conquistas**,e que você realize todos os seus sonhos. kyuuuu!",
-      "**Feliz Aniversário**, {}!\nParabéns pelo seu dia especial, que você continue sempre **feliz** e **realizando sonhos**!\n\nDesejo a você um **dia repleto de amor,com muita alegria e diversão**.\n\nQue esse ano seja cheio de surpresas, e que **você viva** cada momento **intensamente**.\n\nParabéns do seu amigo **Brix!**"
+      "# :Braix_bolo_cake:1290452116208357436>┃Feliz Aniversário! ~kyuuu\nHoje é dia de comemorar com {}! 🦊💛\nParabéns pelo seu dia especial! 🦊✨ Que não faltem sorrisos, carinho e bons momentos hoje.\n\nTodo mundo, bora comemorar no chat geral e espalhar boas energias pra essa raposa sortuda! 💛\n||ping: {}||",
+      "# :Braix_bolo_cake:1290452116208357436>┃Feliz Aniversário! ~kyuuu\nParabéns para {}! 🎂✨\nMais um ano de histórias e risadas pra guardar, kyu~! 🎉 Que este novo ciclo venha cheio de felicidade e realizações.\n\nAproveita cada segundo do seu dia — você merece! 🌟\n||ping: {}||",
+      "# :Braix_bolo_cake:1290452116208357436>┃Feliz Aniversário!\nHoje é dia de comemorar com {}! 🦊💛\nHoje é dia de celebrar quem ilumina o servidor com boas vibrações! 🦊💫\nQue o seu caminho seja repleto de amor, sucesso e muita alegria.\n\nParabéns do seu amigo Brix! 💛\n||ping: {}||", 
+      "# :Braix_bolo_cake:1290452116208357436>┃Feliz Aniversário! kyu\nHoje o dia é todo de {}! 🎉💫\nKyu~! Que esse novo ano da sua vida traga muita luz, conquistas e momentos inesquecíveis. 🎂✨\n\nVamos todos desejar felicidades no geral e fazer essa festa acontecer! 🎉\n||ping: {}||", 
+      "# :Braix_bolo_cake:1290452116208357436>┃Feliz Aniversário!\nParabéns para {}! 🎂✨\nHoje o dia é todo seu! 🎈 Que ele venha com tudo que te faz feliz — amor, amizade e boas risadas. 🦊💛\n\nBora encher o servidor de mensagens bonitas pra celebrar juntos, kyu~!\n||ping: {}||"
     ],
+
     "message_aniversario_message_ping":"Feliz aniversário {} ||Ping: {}||",
     "message_aniversario_mensagem_footer_server":"Que tal cadastrar seu aniversário também, Kyu? 🎂 Use `/aniversário definir` e se cadastre agora mesmo! ~kyuuu",
     "message_aniversario_server_consulta":"## <:Braix_bolo_cake:1290452116208357436>┃ Próximos Aniversariantes",

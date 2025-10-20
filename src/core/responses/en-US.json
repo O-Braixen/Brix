@@ -506,11 +506,6 @@
     "message_aniversario_notificacao_desativado": "<:Braix:1272653348306419824>┃ Confirming you **deactivated** birthday notification messages for this community ~kyuuuu",
     "message_aniversario_server_title": "<:Braix:1272653348306419824>┃ **Channel Permission Test**",
     "message_aniversario_server_description": "<:Braix:1272653348306419824>┃ This is a message sending test, this message will be deleted shortly...",
-    "message_aniversario_mensagem_random_server": [
-        "**Happy Birthday** {}!!!! ~~kyuu\n**Congratulations** on your special day!, **you're getting old** lololol\n\n**I invite** everyone to wish a **happy birthday too!!!** in the general chat, of course ~kyuuu!",
-        "**Happy Birthday**, {}!\nCongratulations on your special day!, may you always remain **young** and **happy**!\n\nI wish you a day **full of joy**, with lots of **love and affection**.\n\nMay this year be **full of achievements**, and may you fulfill all your dreams. kyuuuu!",
-        "**Happy Birthday**, {}!\nCongratulations on your special day, may you always be **happy** and **fulfilling dreams**!\n\nI wish you a **day full of love, with lots of joy and fun**.\n\nMay this year be full of surprises, and may **you live** every moment **intensely**.\n\nCongratulations from your friend **Brix!**"
-    ],
     "message_aniversario_message_ping": "Happy birthday {} ||Ping: {}||",
     "message_aniversario_mensagem_footer_server": "How about registering your birthday too, Kyu? 🎂 Use `/aniversário definir` and sign up right now! ~kyuuu",
     "message_aniversario_server_consulta": "## <:Braix_bolo_cake:1290452116208357436>┃ Upcoming Birthdays",
@@ -1763,5 +1758,12 @@
     "message_pokequiz_correta": "### <:Braix_Happy:1272664784814342204>┃ Brix's Quiz!!!\n\n<:Braix_Happy:1272664784814342204>┃ Kyuuuu~! You got it right, congrats! You're doing great, huh?",
     "message_pokequiz_errada": "### <:Braix_Happy:1272664784814342204>┃ Brix's Quiz!!!\n\n<:Braix_derp:1272663053875417219>┃ Oops, kyu~... not this time!\nThe correct answer was: **{}**\n-# You got **{}** questions right, congratulations!",
     "message_erro_apimemes_limit_characteres": "<:Braix_Blank:1272661806858371196>┃ Kyu~! You've exceeded the character limit, fox! There were **{}**, but the maximum allowed is **72**. Try to make it shorter, okay? Kyuuu~",
-    "message_erro_apimemes_citacao_sem_texto": "<:Braix_Blank:1272661806858371196>┃ Kyu~! You need to send me at least one text message so I can write your quote. If you don't know what to put, I can create one for you with my AI, kyuuu~!"
+    "message_erro_apimemes_citacao_sem_texto": "<:Braix_Blank:1272661806858371196>┃ Kyu~! You need to send me at least one text message so I can write your quote. If you don't know what to put, I can create one for you with my AI, kyuuu~!",
+    "message_aniversario_mensagem_random_server": [
+        "# :Braix_bolo_cake:1290452116208357436>┃Happy Birthday!\nToday is the day to celebrate with {}! 🦊💛\nHappy Birthday on your special day! 🦊✨ May there be plenty of smiles, affection, and good times today.\n\nEveryone, let's celebrate in the general chat and spread good vibes to this lucky fox! 💛\n||ping: {}||",
+        "#:Braix_bolo_cake:1290452116208357436>┃Happy Birthday!\nHappy birthday to {}! 🎂✨\nAnother year of stories and laughter to cherish, kyu~! 🎉 May this new cycle be full of happiness and achievements.\n\nEnjoy every second of your day — you deserve it! 🌟\n||ping: {}||",
+        "#:Braix_bolo_cake:1290452116208357436>┃Happy Birthday!\nToday is a day to celebrate with {}! 🦊💛\nToday is a day to celebrate who lights up the server with good vibes! 🦊💫\nMay your path be filled with love, success, and lots of joy.\n\nCongratulations from your friend Brix! 💛\n||ping: {}||",
+        "#:Braix_bolo_cake:1290452116208357436>┃Happy Birthday!\nToday is {}'s day! 🎉💫\nKyu~! May this new year of your life bring lots of light, achievements, and unforgettable moments. 🎂✨\n\nLet's all wish happiness in general and make this party happen! 🎉\n||ping: {}||",
+        "#:Braix_bolo_cake:1290452116208357436>┃Happy Birthday!\nCongratulations to {}! 🎂✨\nToday is your day! 🎈 May it come with everything that makes you happy — love, friendship, and good laughs. 🦊💛\n\nLet's fill the server with beautiful messages to celebrate together, kyu~!\n||ping: {}||"
+    ]
 }

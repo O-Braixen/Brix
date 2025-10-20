@@ -90,7 +90,7 @@ class bard(commands.Cog):
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
     res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
     await interaction.response.send_message(embed=res , ephemeral=True)
-    await self.midiaask(interaction,message)
+    await self.midiaask(interaction,message,ephemeral=True)
 
 
 
@@ -239,11 +239,10 @@ class bard(commands.Cog):
   @app_commands.checks.cooldown(4,120)
   @app_commands.describe(midia="Anexe uma midia para saber sobre ela...")
   async def imgask(self, interaction: discord.Interaction, midia: discord.Attachment):
-    #await interaction.response.defer()
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
     res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
     await interaction.response.send_message(embed=res)
-    await self.midiaask(interaction,midia)
+    await self.midiaask(interaction,midia,ephemeral=False)
 
   @imgask.error
   async def on_test_error(self, interaction:discord.Interaction, error: app_commands.AppCommandError):
@@ -518,7 +517,7 @@ class bard(commands.Cog):
 
 # ------------------FUNÇÔES--------------------------
 #------MIDIA ASK----------
-  async def midiaask(self, interaction: discord.Interaction, midia: Union[discord.Message, discord.Attachment]):
+  async def midiaask(self, interaction: discord.Interaction, midia: Union[discord.Message, discord.Attachment], ephemeral):
     if await Res.print_brix(comando="midiaask", interaction=interaction):
       return
     
@@ -614,7 +613,17 @@ class bard(commands.Cog):
         if midia_url: resposta.set_image(url=midia_url)
       else:
         resposta = discord.Embed(colour=discord.Color.yellow(), description=Res.trad(interaction=interaction, str='message_ia_text_outrasmidias'))
-      await interaction.edit_original_response(embed=resposta, content=None)
+      
+      view = None
+      if ephemeral:
+        async def enviar_callback(button_interaction: discord.Interaction):
+          await interaction.channel.send(embed= resposta)
+          await button_interaction.response.edit_message(content=Res.trad(interaction=interaction, str='message_say'), embed=None, view=None)
+        view = ui.View()
+        botão = ui.Button(label=Res.trad(interaction=interaction,str="botão_compartilhar_chat") ,style=discord.ButtonStyle.gray,emoji="🦊")
+        botão.callback = enviar_callback
+        view.add_item( botão )
+      await interaction.edit_original_response(embed=resposta , view=view, content=None)
 
     except Exception as e:
       await Res.erro_brix_embed(interaction, str="message_ia_erro", e=e,comando="midia GPT")
@@ -708,24 +717,21 @@ class bard(commands.Cog):
       return
 
     # Envia o resumo como embed
-    resposta = discord.Embed(
+    res_user  = discord.Embed(
       colour=discord.Color.yellow(), 
       description=Res.trad(interaction=interaction, str='message_ia_resumoai_text').format(ans[:1900])
     )
-    
+    view = None
     if ephemeral:
-      
       async def enviar_callback(button_interaction: discord.Interaction):
-        resposta = discord.Embed(      colour=discord.Color.yellow(),       description=Res.trad(interaction=interaction, str='message_ia_resumoai_text').format(ans[:1900])    )
-        await channel.send(embed= resposta)
+        await interaction.channel.send(embed= res_user)
         await button_interaction.response.edit_message(content=Res.trad(interaction=interaction, str='message_say'), embed=None, view=None)
       view = ui.View()
       botão = ui.Button(label=Res.trad(interaction=interaction,str="botão_compartilhar_chat") ,style=discord.ButtonStyle.gray,emoji="🦊")
       botão.callback = enviar_callback
       view.add_item( botão )
 
-      await interaction.edit_original_response(view=view,embed=resposta, content=None)
-    await interaction.edit_original_response( embed=resposta, content=None)
+    await interaction.edit_original_response(view=view,embed=res_user, content=None)
 
 
 
