@@ -255,7 +255,7 @@ class servers(commands.Cog):
         total_votos = dados_do_membro.get('topgg-vote' , 0) + 1  # pego o total de votos é já acrescento + 1 
         BancoUsuarios.update_inc(usuario, {"topgg-vote": 1 , "braixencoin" : recompensa }) # Incremento o valor de moeda e do voto
         BancoFinanceiro.registrar_transacao(user_id=usuario.id,tipo="ganho",origem="Top.gg Voto",valor=recompensa,moeda="braixencoin",descricao=f"Recompensa por votar em mim no top.gg")
-
+        contagem = False
 
         try:
           resposta = discord.Embed(colour=discord.Color.yellow(),description=Res.trad(user=usuario, str='message_votetopgg_dm').format(total_votos, recompensa))
