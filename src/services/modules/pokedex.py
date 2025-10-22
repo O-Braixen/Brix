@@ -7,8 +7,9 @@ from discord import app_commands,Locale
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck 
 from src.services.connection.database import BancoTrocas
-from src.services.essential.pokemon_module import verificar_calendario_pokemon , encontrar_cor_tipo, pokemon_autocomplete , get_pokemon , get_pokemon_sprite
+from src.services.essential.pokemon_module import verificar_calendario_pokemon , encontrar_cor_tipo, pokemon_autocomplete , get_pokemon , get_pokemon_sprite , get_all_pokemon
 from discord.app_commands import locale_str as _T
+from difflib import get_close_matches
 
 
 tradutor = GoogleTranslator(source="auto",target="pt")
@@ -481,6 +482,15 @@ class pokedex(commands.Cog):
   async def pokedex(self, interaction: discord.Interaction,pokemon:str):
     if await Res.print_brix(comando="pokedex",interaction=interaction):
         return
+     # Busca a lista de Pokémon do autocomplete
+    lista_pokemon = [p["name"] for p in await get_all_pokemon()]
+    # Verifica se o digitado é próximo de algum nome válido
+    match = get_close_matches(pokemon.lower(), [p.lower() for p in lista_pokemon], n=1, cutoff=0.8)
+    if not match:
+       return await interaction.response.send_message( Res.trad(interaction=interaction, str='message_pokemon_autocomplete_error').format(pokemon), ephemeral=True )
+    
+    pokemon = match[0].capitalize()  # normaliza o nome
+
     await interaction.response.defer()
     await montarpokedex(self=self , interaction= interaction , pokemon=pokemon , brilhante= False, pagina=0,originaluser = interaction.user)
     

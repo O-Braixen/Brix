@@ -10,6 +10,7 @@ from src.services.essential.diversos import calcular_saldo, Paginador_Global , c
 from src.services.essential.pokemon_module import get_all_pokemon , get_pokemon , get_pokemon_sprite , pokemon_autocomplete
 from PIL import Image, ImageFont, ImageDraw, ImageOps #IMPORTAÇÂO Py PIL IMAGEM
 from dotenv import load_dotenv
+from difflib import get_close_matches
 
 
 #importação
@@ -1219,6 +1220,15 @@ class financeiro(commands.Cog):
     if pokemon is None:
         await interaction.response.send_message(Res.trad(interaction=interaction, str='message_financeiro_pokemon_ajuda'))
         return
+    
+    # Busca a lista de Pokémon do autocomplete
+    lista_pokemon = [p["name"] for p in await get_all_pokemon()]
+    # Verifica se o digitado é próximo de algum nome válido
+    match = get_close_matches(pokemon.lower(), [p.lower() for p in lista_pokemon], n=1, cutoff=0.8)
+    if not match:
+       return await interaction.response.send_message( Res.trad(interaction=interaction, str='message_pokemon_autocomplete_error').format(pokemon), ephemeral=True )
+    
+    pokemon = match[0].capitalize()  # normaliza o nome
 
     await interaction.response.defer()
     valor = 10000

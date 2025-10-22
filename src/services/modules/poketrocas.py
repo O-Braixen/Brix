@@ -6,8 +6,9 @@ from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck 
 from src.services.essential.diversos import gerar_id_unica
 from src.services.connection.database import BancoTrocas , BancoServidores
-from src.services.essential.pokemon_module import pokemon_autocomplete , jogos_autocomplete , encontrar_cor_tipo , get_jogo_nome, get_pokemon , get_pokemon_sprite
+from src.services.essential.pokemon_module import pokemon_autocomplete , jogos_autocomplete , encontrar_cor_tipo , get_jogo_nome, get_pokemon , get_pokemon_sprite , get_all_pokemon
 from PIL import Image, ImageDraw, ImageFont , ImageOps
+from difflib import get_close_matches
 
 
 
@@ -397,6 +398,35 @@ class trocaspokemon(commands.Cog):
   async def troca_adicionar(self, interaction: discord.Interaction, pokemon: str, jogo: str, shiny: bool):
     if await Res.print_brix(comando="troca_adicionar",interaction=interaction,condicao=f"Pokémon:{pokemon} - Jogo:{jogo} - Shiny: {shiny}"):
       return
+    
+    # Busca a lista de Pokémon do autocomplete
+    lista_pokemon = [p["name"] for p in await get_all_pokemon()]
+    # Verifica se o digitado é próximo de algum nome válido
+    match = get_close_matches(pokemon.lower(), [p.lower() for p in lista_pokemon], n=1, cutoff=0.8)
+    if not match:
+       return await interaction.response.send_message( Res.trad(interaction=interaction, str='message_pokemon_autocomplete_error').format(pokemon), ephemeral=True )
+    
+    pokemon = match[0].capitalize()  # normaliza o nome
+
+    lista_jogos = await jogos_autocomplete(interaction, jogo)
+    nomes_jogos = [c.name for c in lista_jogos]
+
+    match = get_close_matches(jogo.lower(), [p.lower() for p in nomes_jogos], n=1, cutoff=0.8)
+
+    # Proteção extra — se não achou nada, encerra aqui
+    if not match or len(match) == 0:
+        return await interaction.response.send_message( Res.trad(interaction=interaction, str='message_jogopokemon_autocomplete_error').format(jogo), ephemeral=True )
+
+    # Agora é seguro acessar match[0]
+    alvo = match[0]
+
+    jogo_correspondente = next((c for c in lista_jogos if c.name.lower() == alvo.lower()), None)
+    if not jogo_correspondente:
+        return await interaction.response.send_message( Res.trad(interaction=interaction, str='message_jogopokemon_autocomplete_error').format(jogo), ephemeral=True )
+
+    # Usa o value (id do jogo)
+    jogo = jogo_correspondente.value
+
     await interaction.response.defer()
     user_id = interaction.user.id
     username = str(interaction.user)
