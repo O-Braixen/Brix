@@ -548,6 +548,7 @@ class servers(commands.Cog):
         guild_id = servidor["_id"]
         cargo_id = servidor["tag_server"]["cargo"]
         notificar = servidor["tag_server"]["aviso_dm"]
+        owner_dm_aviso = False
 
         guild = self.client.get_guild(guild_id)
         if not guild:
@@ -589,11 +590,25 @@ class servers(commands.Cog):
                   if dados_do_membro["dm-notification"] is True:
                     try:
                       await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
-                      #await member.send( Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name) )
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
-                  print(f"❌ Erro ao adicionar cargo em {member}: {e}")
+                print(f"❌ Erro ao adicionar cargo em {member}: {e}")
+                try:
+                  if not owner_dm_aviso:
+                    owner_dm_aviso = True
+                    aviso_expira_em = servidor.get("owner_aviso",None)
+                    agora = datetime.now()
+                    # Só avisa se não houver aviso válido
+                    if not aviso_expira_em or agora >= aviso_expira_em:
+                        await guild.owner.send( Res.trad(user=guild.owner, str='servidor_tag_erro_owner_aviso').format(guild.name) )
+                        print(f"🦊 - Dono do servidor {guild.name} avisado do problema de permissão")
+                        # Atualiza no banco a data de expiração do aviso (15 dias à frente)
+                        item = { "owner_aviso": agora + timedelta(days=15) }
+                        BancoServidores.update_document(guild_id, item)
+
+                except Exception as aviso_erro:
+                    print(f"📪 Falha ao avisar o dono do servidor: {aviso_erro}")
 
         # ================================
         # ETAPA 2: Remover cargo de quem deixou de usar a tag
@@ -611,11 +626,26 @@ class servers(commands.Cog):
                   if dados_do_membro["dm-notification"] is True:
                     try:
                       await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
-                      #await member.send( Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name) )
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
                 print(f"❌ Erro ao remover cargo de {member}: {e}")
+                try:
+                  if not owner_dm_aviso:
+                    owner_dm_aviso = True
+                    aviso_expira_em = servidor.get("owner_aviso",None)
+                    agora = datetime.now()
+                    # Só avisa se não houver aviso válido
+                    if not aviso_expira_em or agora >= aviso_expira_em:
+                      await guild.owner.send( Res.trad(user=guild.owner, str='servidor_tag_erro_owner_aviso').format(guild.name) )
+                      print(f"🦊 - Dono do servidor {guild.name} avisado do problema de permissão")
+                      # Atualiza no banco a data de expiração do aviso (15 dias à frente)
+                      item = { "owner_aviso": agora + timedelta(days=15) }
+                      BancoServidores.update_document(guild_id, item)
+
+                except Exception as aviso_erro:
+                    print(f"📪 Falha ao avisar o dono do servidor: {aviso_erro}")
+
 
     except Exception as e:
       print(f"🔴 - erro na verificação de tags, tentando mais tarde\n{e}")
