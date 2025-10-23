@@ -67,9 +67,6 @@ async def enviar_mensagem_para_character_ai(self, membro, mensagem):
     mensagem_formatada = f"author: {membro}\n{message}"
 
     try:
-        # Autentica só uma vez
-        await clientcai.authenticate(char_token)
-
         # Puxa ou cria documento do usuário
         dado = BancoUsuarios.insert_document(membro)
         chat_id = str(dado.get("cai-idchat"))
@@ -96,8 +93,6 @@ async def enviar_mensagem_para_character_ai(self, membro, mensagem):
     except Exception as e:
         print(f"CHARACTER.AI ERROR: {e}")
         return f"{Res.trad(user=membro, str='message_cai_erro')}"
-    finally:
-        await clientcai.close_session()
 
 
 
@@ -118,7 +113,7 @@ async def reset_character_ai(membro):
     #client = await PyCharacterAI.get_client(char_token)
     print("🔄️ - reset conversa")
     # AUTENTICANDO CLIENTECAI PARA ACESSAR AS COISAS NO CAI
-    await clientcai.authenticate(char_token)
+    #await clientcai.authenticate(char_token)
     chat, greeting_message = await clientcai.chat.create_chat(char_id)
     item = {"cai-idchat": str(chat.chat_id)}
     BancoUsuarios.update_document(membro,item)
@@ -149,7 +144,7 @@ async def reset_character_ai_BH():
 
     print("🔄️ - reset conversa")
     # AUTENTICANDO CLIENTECAI PARA ACESSAR AS COISAS NO CAI
-    await clientcai.authenticate(char_token)
+    #await clientcai.authenticate(char_token)
     chat, greeting_message = await clientcai.chat.create_chat(char_id)
     item = {"cai-idchat": str(chat.chat_id)}
     BancoBot.update_one(item)
@@ -188,6 +183,8 @@ class caracterai(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🤖  -  Modúlo Characterai carregado.")
+    # Autentica só uma vez
+    await clientcai.authenticate(char_token)
     
   
 
@@ -210,7 +207,7 @@ class caracterai(commands.Cog):
     if message.channel.id == id_chatBH and message.author != self.client.user and not message.author.bot and message.content != "-resetchatbrix":
       async with message.channel.typing():
         # AUTENTICANDO CLIENTECAI PARA ACESSAR AS COISAS NO CAI
-        await clientcai.authenticate(char_token)
+        #await clientcai.authenticate(char_token)
         tentativas = 10
         for tentativa in range(tentativas):
           try:

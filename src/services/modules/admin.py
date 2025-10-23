@@ -101,7 +101,7 @@ class admin(commands.Cog):
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
      #Ligando tasks
     if not self.verificar_temproles.is_running():
-      await asyncio.sleep(120)
+      #await asyncio.sleep(120)
       self.verificar_temproles.start()
   
 

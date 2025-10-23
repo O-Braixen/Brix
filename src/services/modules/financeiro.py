@@ -48,7 +48,6 @@ class financeiro(commands.Cog):
   async def on_ready(self):
     print("💲  -  Modúlo Financeiro carregado.")
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
-    await asyncio.sleep(20)
     if not self.verificar_daily.is_running():
         self.verificar_daily.start()
     if not self.lembretes_cacar.is_running():
@@ -532,16 +531,10 @@ class financeiro(commands.Cog):
             return
         await interaction.response.defer()
         filtro = {  "braixencoin": {"$exists": True, "$gt": 0}, "ban": {"$exists": False} }
-        dados_ordenados = BancoUsuarios.select_many_document(filtro).sort('braixencoin',-1)[:500]
+        dados_ordenados = BancoUsuarios.select_many_document(filtro).sort('braixencoin',-1)
         classificacao_dados = [(index + 1, int(dados['_id']), int(dados['braixencoin'])) for index, dados in enumerate(dados_ordenados)]
         blocos_classificacao = [classificacao_dados[i:i + 5] for i in range(0, len(classificacao_dados), 5)]
         await exibirtops(self,interaction,blocos_classificacao,1,originaluser=interaction.user,background=self.bccoin_tops_background)
-
-
-
-
-
-
 
 
 

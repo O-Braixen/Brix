@@ -1,4 +1,4 @@
-import discord,os,random,asyncio,re,requests , aiohttp
+import discord,os, pytz ,asyncio,re,requests , aiohttp
 from discord import ui
 from discord.ext import commands, tasks
 from discord import app_commands
@@ -24,7 +24,7 @@ canal_vote_topgg = os.getenv("canal_vote_topgg")
 
 
 
-
+FUSOHORARIO = pytz.timezone('America/Sao_Paulo')
 
 
 
@@ -166,22 +166,18 @@ class servers(commands.Cog):
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
     #LIGANDO TASKS
     if not self.update_api_servidores.is_running():
-      await asyncio.sleep(20)
       print("🍕  -  Iniciando update de dados dos servidores em API's externas")
       self.update_api_servidores.start()
 
     if not self.loop_bumps.is_running():
-      await asyncio.sleep(20)
       print("🍕  -  Iniciando Verificação de bumps nas comunidades")
       self.loop_bumps.start()
     
     if not self.lembretes_topgg.is_running():
-      await asyncio.sleep(20)
       print("🍕  -  Iniciando Verificação de lembretes do top.gg")
       self.lembretes_topgg.start()
     
     if not self.verificar_tags.is_running():
-      await asyncio.sleep(20)
       print("🍕  -  Iniciando verificação de tags nas comunidades")
       self.verificar_tags.start()
 
@@ -216,7 +212,7 @@ class servers(commands.Cog):
         except:
           print(f"falha ao colocar reação em {message.guild.id}")
         await message.channel.send(Res.trad(guild=message.guild.id, str="message_bump_notification") , delete_after = 20)
-        proximo_bump = datetime.now().replace(tzinfo=None) + timedelta(seconds=7200)
+        proximo_bump = datetime.now().replace(tzinfo=None).astimezone(FUSOHORARIO) + timedelta(seconds=7200)
         item = { "bump.proximo_aviso": proximo_bump , "bump.canal_id": message.channel.id}
         BancoServidores.update_document(message.guild.id,item )
         
@@ -273,7 +269,7 @@ class servers(commands.Cog):
           print(f"liberado premium para {usuario.name} - {usuario.id}")
 
         if contagem: # se eu acho o usuario dentro do discord entro na logica e mando mensagem a ele 
-          proximo_lembrete = datetime.now().replace(tzinfo=None) + timedelta(hours=12)
+          proximo_lembrete = datetime.now().replace(tzinfo=None).astimezone(FUSOHORARIO) + timedelta(hours=12)
           BancoUsuarios.update_document( usuario.id,{"topgg_lembrete": proximo_lembrete})
 
     return
@@ -427,7 +423,7 @@ class servers(commands.Cog):
   @tasks.loop(minutes=15)
   async def loop_bumps(self):
     while True:
-      agora = datetime.now().replace(tzinfo=None)
+      agora = datetime.now().replace(tzinfo=None).astimezone(FUSOHORARIO)
       # Pega todos os servidores com bump configurado
       servidores = BancoServidores.select_many_document({"bump": {"$exists": True}})
       if not servidores:
@@ -452,7 +448,7 @@ class servers(commands.Cog):
       print(f"⏰ - [bump] Próximo aviso em {espera:.0f}s")
       await asyncio.sleep(espera)
       # Verifica os que passaram do horário
-      agora = datetime.now().replace(tzinfo=None).timestamp()
+      agora = datetime.now().replace(tzinfo=None).astimezone(FUSOHORARIO).timestamp()
       for ts, servidor in proximos:
         if ts > agora:
           continue  # ainda não
@@ -495,7 +491,7 @@ class servers(commands.Cog):
   @tasks.loop(minutes=10)
   async def lembretes_topgg(self):
     await asyncio.sleep(5)  # Delay para evitar spam
-    agora = datetime.now().replace(tzinfo=None)
+    agora = datetime.now().replace(tzinfo=None).astimezone(FUSOHORARIO)
     usuarios = BancoUsuarios.select_many_document({"topgg_lembrete": {"$lte": agora}})
 
     for u in usuarios:
@@ -593,12 +589,12 @@ class servers(commands.Cog):
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
-                print(f"❌ Erro ao adicionar cargo em {member}: {e}")
+                print(f"❌ Erro ao adicionar cargo em {member} em {guild_id}: {e}")
                 try:
                   if not owner_dm_aviso:
                     owner_dm_aviso = True
                     aviso_expira_em = servidor.get("owner_aviso",None)
-                    agora = datetime.now()
+                    agora = datetime.now().astimezone(FUSOHORARIO)
                     # Só avisa se não houver aviso válido
                     if not aviso_expira_em or agora >= aviso_expira_em:
                         await guild.owner.send( Res.trad(user=guild.owner, str='servidor_tag_erro_owner_aviso').format(guild.name) )
@@ -629,12 +625,12 @@ class servers(commands.Cog):
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
-                print(f"❌ Erro ao remover cargo de {member}: {e}")
+                print(f"❌ Erro ao remover cargo de {member} em {guild_id}: {e}")
                 try:
                   if not owner_dm_aviso:
                     owner_dm_aviso = True
                     aviso_expira_em = servidor.get("owner_aviso",None)
-                    agora = datetime.now()
+                    agora = datetime.now().astimezone(FUSOHORARIO)
                     # Só avisa se não houver aviso válido
                     if not aviso_expira_em or agora >= aviso_expira_em:
                       await guild.owner.send( Res.trad(user=guild.owner, str='servidor_tag_erro_owner_aviso').format(guild.name) )

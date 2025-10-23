@@ -1180,9 +1180,8 @@ class owner(commands.Cog):
 
     await inicializar_caches_se_preciso()
     if not self.verificar_guilds.is_running():
-      await asyncio.sleep(10)
       self.verificar_guilds.start()
-      await asyncio.sleep(900)
+      await asyncio.sleep(300)
       await baixaritensloja()
 
 

@@ -93,7 +93,7 @@ class braixenday(commands.Cog):
         print("🦊  -  Modúlo Braixen Day carregado.")
         await self.client.wait_until_ready() #Aguardando o bot ficar pronto
         if not self.diadobraixen.is_running():
-            await asyncio.sleep(20)
+            #await asyncio.sleep(20)
             self.diadobraixen.start()
 
 

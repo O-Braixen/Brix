@@ -273,11 +273,9 @@ class premium(commands.Cog):
 
     #criar_link_pagamento(197071176810364928 , 1 , 1 , "texto")
     if not self.TASK_VERIFICAR_PAGAMENTOS.is_running():
-      await asyncio.sleep(120) #120
       self.TASK_VERIFICAR_PAGAMENTOS.start()
 
     if not self.verificar_premium.is_running():
-      await asyncio.sleep(600) #1800
       self.verificar_premium.start()
     
     
