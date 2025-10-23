@@ -33,66 +33,85 @@ clientcai = Client()
   
 
 
-"""# COMANDO PARA CONECTAR O BOT AO CHARACTER.AI
-async def enviar_mensagem_para_character_ai(self, membro, mensagem):
-  tentativas = 10
-  for tentativa in range(tentativas):
+
+
+
+# Fila global para processar mensagens
+fila_global_brix = asyncio.Queue()
+
+
+# Worker que processa mensagens uma a uma
+async def worker_brix(self):
+  while True:
+    message = await fila_global_brix.get()  # pega a próxima mensagem da fila
     try:
-      message = mensagem.replace(f"<@{self.client.user.id}>", "").replace("@everyone", "todo mundo").replace("@here", "todo mundo online")
-      mensagem_formatada = f"author: {membro}\n{message}"
-      # AUTENTICANDO CLIENTECAI PARA ACESSAR AS COISAS NO CAI
-      await clientcai.authenticate(char_token)
-      dado = BancoUsuarios.insert_document(membro)
-      # Validação de historico de usuario
-      if 'cai-idchat' in dado:
-        data = await clientcai.chat.send_message(char_id, str(dado['cai-idchat']), mensagem_formatada)
-      else:
-        await reset_character_ai(membro)
-        await asyncio.sleep(0.2)
-        dado = BancoUsuarios.insert_document(membro)
-        data = await clientcai.chat.send_message(char_id, str(dado['cai-idchat']), mensagem_formatada)
-      # Retorno da variavel
-      return data.get_primary_candidate().text
+      async with message.channel.typing():
+        if not await userpremiumcheck(message.author):
+            await message.reply(Res.trad(user=message.author, str="message_cai_only_premium"))
+            continue
+
+        try:
+            await message.add_reaction('<:BH_Badge_PequenoMago:1154180154076176466>')
+        except:
+            await message.reply(Res.trad(user=message.author, str='message_cai_erro_reacao'))
+
+        response = await enviar_mensagem_para_character_ai(self, message.author, message.content)
+        print(f"🦊 - brix respondeu para {message.author.name} {message.author.id}: {response}")
+
+        if random.randint(1, 100) <= 20:
+            response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
+
+        await message.reply(response, allowed_mentions=discord.AllowedMentions(everyone=False))
     except Exception as e:
-      print(f"CHARACTER.AI ERROR: {e}")
-      if tentativa == tentativas - 1:
-        await clientcai.close_session()
-        return f"{Res.trad(user=membro, str='message_cai_erro')}"
-      #await asyncio.sleep(1)"""
+      print(e)
+      await message.channel.send(Res.trad(user=message.author, str="message_cai_erro"))
+    finally:
+      fila_global_brix.task_done()  # marca como processada
+
+
+
+
+
+
+
+
+
 
 # COMANDO PARA CONECTAR O BOT AO CHARACTER.AI
 async def enviar_mensagem_para_character_ai(self, membro, mensagem):
-    tentativas = 5
-    message = (        mensagem.replace(f"<@{self.client.user.id}>", "")        .replace("@everyone", "todo mundo")        .replace("@here", "todo mundo online")    )
-    mensagem_formatada = f"author: {membro}\n{message}"
+  tentativas = 5
+  message = ( mensagem.replace(f"<@{self.client.user.id}>", "") .replace("@everyone", "todo mundo") .replace("@here", "todo mundo online")    )
+  mensagem_formatada = f"author: {membro}\n{message}"
 
-    try:
-        # Puxa ou cria documento do usuário
-        dado = BancoUsuarios.insert_document(membro)
-        chat_id = str(dado.get("cai-idchat"))
+  try:
+    # Puxa ou cria documento do usuário
+    dado = BancoUsuarios.insert_document(membro)
+    chat_id = str(dado.get("cai-idchat"))
 
-        # Se não existir histórico, reseta antes
-        if not chat_id or chat_id == "None":
-            await reset_character_ai(membro)
-            await asyncio.sleep(0.2)
-            dado = BancoUsuarios.insert_document(membro)
-            chat_id = str(dado.get("cai-idchat"))
+    # Se não existir histórico, reseta antes
+    if not chat_id or chat_id == "None":
+      await reset_character_ai(membro)
+      await asyncio.sleep(0.2)
+      dado = BancoUsuarios.insert_document(membro)
+      chat_id = str(dado.get("cai-idchat"))
 
-        # Loop de tentativas só para o envio da mensagem
-        for tentativa in range(tentativas):
-            try:
-                data = await clientcai.chat.send_message(char_id, str(dado['cai-idchat']), mensagem_formatada)
-                return data.get_primary_candidate().text
-            except Exception as e:
-                print(f"Tentativa {tentativa+1}/{tentativas} falhou: {e}")
-                await asyncio.sleep(1)
+    # Loop de tentativas só para o envio da mensagem
+    for tentativa in range(tentativas):
+      try:
+        data = await clientcai.chat.send_message(char_id, str(dado['cai-idchat']), mensagem_formatada)
+        return data.get_primary_candidate().text
+      except Exception as e:
+        print(f"Tentativa {tentativa+1}/{tentativas} falhou: {e}")
+        await clientcai.close_session()
+        await asyncio.sleep(1)
+        await clientcai.authenticate(char_token)
 
-        # Se todas as tentativas falharem
-        return f"{Res.trad(user=membro, str='message_cai_erro')}"
+    # Se todas as tentativas falharem
+    return f"{Res.trad(user=membro, str='message_cai_erro')}"
 
-    except Exception as e:
-        print(f"CHARACTER.AI ERROR: {e}")
-        return f"{Res.trad(user=membro, str='message_cai_erro')}"
+  except Exception as e:
+      print(f"CHARACTER.AI ERROR: {e}")
+      return f"{Res.trad(user=membro, str='message_cai_erro')}"
 
 
 
@@ -113,7 +132,6 @@ async def reset_character_ai(membro):
     #client = await PyCharacterAI.get_client(char_token)
     print("🔄️ - reset conversa")
     # AUTENTICANDO CLIENTECAI PARA ACESSAR AS COISAS NO CAI
-    #await clientcai.authenticate(char_token)
     chat, greeting_message = await clientcai.chat.create_chat(char_id)
     item = {"cai-idchat": str(chat.chat_id)}
     BancoUsuarios.update_document(membro,item)
@@ -121,7 +139,6 @@ async def reset_character_ai(membro):
 
     return f"{text}"
   except Exception as e:
-    await clientcai.close_session()
     return f"{Res.trad(user=membro,str='message_cai_erro')}"
   
 
@@ -140,18 +157,14 @@ async def reset_character_ai(membro):
 #FUNÇAO PARA CRIAR UMA NOVA CONVERSA INDIVIDUAL NA BRAIXEN'S HOUSE
 async def reset_character_ai_BH():
   try:
-    #client = await PyCharacterAI.get_client(char_token)
-
     print("🔄️ - reset conversa")
     # AUTENTICANDO CLIENTECAI PARA ACESSAR AS COISAS NO CAI
-    #await clientcai.authenticate(char_token)
     chat, greeting_message = await clientcai.chat.create_chat(char_id)
     item = {"cai-idchat": str(chat.chat_id)}
     BancoBot.update_one(item)
     text = greeting_message.get_primary_candidate().text
     return f"{text}"
   except Exception as e:
-    await clientcai.close_session()
     return f"{Res.trad(str='message_cai_erro')}"
 
 
@@ -185,6 +198,8 @@ class caracterai(commands.Cog):
     print("🤖  -  Modúlo Characterai carregado.")
     # Autentica só uma vez
     await clientcai.authenticate(char_token)
+    self.client.loop.create_task(worker_brix(self))
+
     
   
 
@@ -197,6 +212,7 @@ class caracterai(commands.Cog):
 
   @commands.Cog.listener()
   async def on_message(self,message):
+    
 
 
 
@@ -230,39 +246,21 @@ class caracterai(commands.Cog):
             if tentativa == tentativas - 1:
                 # última tentativa, manda msg de erro
               try:
-                await clientcai.close_session()
                 return await message.channel.send(Res.trad(user=message.author, str="message_cai_erro"))
               except:return
             else:
               await asyncio.sleep(0.2)  # espera antes de tentar de novo
-
+              
 
 
 
     # RETORNO DO BRIX AI CAI EM QUALQUER MENSAGEM QUE ELE SEJA MENCIONADO
     elif message.guild and message.author != self.client.user and not message.author.bot and message.content.startswith(f"<@{self.client.user.id}> "):
-      async with message.channel.typing():
-        try:
-          if not await userpremiumcheck(message.author):
-            return await message.reply(Res.trad(user=message.author, str="message_cai_only_premium"))
+      await fila_global_brix.put(message)
+      
 
-          try:
-            await message.add_reaction('<:BH_Badge_PequenoMago:1154180154076176466>')
-          except:
-            await message.reply(Res.trad(user=message.author, str='message_cai_erro_reacao'))
 
-          response = await enviar_mensagem_para_character_ai(self, message.author, message.content)
-          print(f"🦊 - brix respondeu para {message.author.name} {message.author.id}: {response}")
 
-          if random.randint(1, 100) <= 20:
-            response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
-
-          return await message.reply(response, allowed_mentions=discord.AllowedMentions(everyone=False))
-
-        except Exception as e:
-          print(e)
-          return await message.channel.send(Res.trad(user=message.author, str="message_cai_erro"))
-            
 
 
 

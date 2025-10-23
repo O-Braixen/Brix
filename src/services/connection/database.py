@@ -88,6 +88,7 @@ class BancoUsuarios: # Classe da coleção de usuarios
         document = usercollection.delete_one({"_id": membro_id})
         return document
 
+       
 
     #CODIGO NOVO PARA ATUALIZAÇÂO EM LOTE
     @staticmethod
