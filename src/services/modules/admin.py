@@ -100,8 +100,8 @@ class admin(commands.Cog):
     print("💼  -  Modúlo Admin carregado.")
     await self.client.wait_until_ready() #Aguardando o bot ficar pronto
      #Ligando tasks
+    await asyncio.sleep(10)
     if not self.verificar_temproles.is_running():
-      #await asyncio.sleep(120)
       self.verificar_temproles.start()
   
 

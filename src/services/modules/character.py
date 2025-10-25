@@ -197,6 +197,7 @@ class caracterai(commands.Cog):
   async def on_ready(self):
     print("🤖  -  Modúlo Characterai carregado.")
     # Autentica só uma vez
+    await asyncio.sleep(10)
     await clientcai.authenticate(char_token)
     self.client.loop.create_task(worker_brix(self))
 

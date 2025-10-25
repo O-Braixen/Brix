@@ -84,6 +84,7 @@ class BotStatus(commands.Cog):
         print("🤖  -  Modúlo BotStatus carregado.")
         await self.client.wait_until_ready() #Aguardando o bot ficar pronto
         #Ligando tasks
+        await asyncio.sleep(30)
         if not self.atualizar_status_cache.is_running():
             #await asyncio.sleep(20)
             self.atualizar_status_cache.start()

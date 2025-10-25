@@ -49,7 +49,6 @@ class aniversario(commands.Cog):
         await self.client.wait_until_ready() #Aguardando o bot ficar pronto
          #Ligando tasks
         if not self.verificar_aniversariantes.is_running():
-            #await asyncio.sleep(240)
             self.verificar_aniversariantes.start()
 
 
