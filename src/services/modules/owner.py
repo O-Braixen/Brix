@@ -1457,6 +1457,114 @@ class owner(commands.Cog):
 
 
 
+    # COMANDO PARA REGISTRAR PARCEIROS
+  @commands.command(name="addparceiro", description="Registra um servidor como parceiro no banco de dados.")
+  async def registrarparceiro(self, ctx, guild: int = None):
+    if ctx.author.id != donoid:
+      msg = await ctx.send(Res.trad(user=ctx.author, str="message_erro_onlyowner"))
+      await asyncio.sleep(20)
+      await msg.delete()
+      return
+
+    async with ctx.typing():
+      try:
+        # Usa o ID passado ou o do servidor atual
+        guild_id = guild if guild is not None else ctx.guild.id
+
+        # Atualiza o campo partner para True
+        BancoServidores.update_document(guild_id, {"partner": True})
+
+        # Monta mensagem de confirmação
+        embed = discord.Embed(
+          title="🤝┃Servidor Registrado como Parceiro",
+          description=f"O servidor **{ctx.guild.name if guild is None else guild_id}** foi registrado como parceiro com sucesso!",
+          color=discord.Color.yellow()
+        )
+        embed.set_thumbnail(url="https://brixbot.xyz/cdn/path_to_braixen_image.png")
+        await ctx.send(embed=embed)
+
+      except Exception as e:
+        print(f"[ERRO] Falha ao registrar parceiro: {e}")
+        await ctx.send(f"<:Braix_Cry2:1272667164637401250>┃ Ocorreu um erro ao registrar o parceiro: `{e}`")
+
+
+
+
+
+
+
+
+
+
+
+    # COMANDO PARA LISTAR SERVIDORES PARCEIROS
+  @commands.command(name="lsparceiro", description="Lista todos os servidores parceiros registrados no banco de dados.")
+  async def listaparceiros(self, ctx):
+    if ctx.author.id != donoid:
+      msg = await ctx.send(Res.trad(user=ctx.author, str="message_erro_onlyowner"))
+      await asyncio.sleep(20)
+      await msg.delete()
+      return
+
+    async with ctx.typing():
+      try:
+        parceiros = BancoServidores.select_many_document({"partner": True})
+        if not parceiros:
+          await ctx.send("<:Braix_Cry2:1272667164637401250>┃ Nenhum servidor parceiro encontrado.")
+          return
+
+        embed = discord.Embed(
+          title="🤝┃Servidores Parceiros Registrados",
+          color=discord.Color.yellow()
+        )
+
+        for srv in parceiros[:25]:  # limite pra não estourar embed
+          servidor = self.client.get_guild(int(srv['_id']))
+          nome = servidor.name if servidor else srv['_id']
+          embed.add_field(name=nome, value=f"ID: `{srv['_id']}`", inline=False)
+
+        await ctx.send(embed=embed)
+
+      except Exception as e:
+        print(f"[ERRO] Falha ao listar parceiros: {e}")
+        await ctx.send(f"<:Braix_Cry2:1272667164637401250>┃ Erro ao listar parceiros: `{e}`")
+  # ======================================================================
+
+  # COMANDO PARA REMOVER UM SERVIDOR PARCEIRO
+  @commands.command(name="remparceiro", description="Remove o status de parceiro de um servidor.")
+  async def removerparceiro(self, ctx, guild: int = None):
+    if ctx.author.id != donoid:
+      msg = await ctx.send(Res.trad(user=ctx.author, str="message_erro_onlyowner"))
+      await asyncio.sleep(20)
+      await msg.delete()
+      return
+
+    async with ctx.typing():
+      try:
+        guild_id = guild if guild is not None else ctx.guild.id
+
+        # Remove o campo partner
+        BancoServidores.delete_field(guild_id, {"partner": True})
+
+        embed = discord.Embed(
+          title="🗑️┃Servidor Removido da Lista de Parceiros",
+          description=f"O servidor **{ctx.guild.name if guild is None else guild_id}** foi removido da lista de parceiros.",
+          color=discord.Color.red()
+        )
+        embed.set_thumbnail(url="https://brixbot.xyz/cdn/braixen%20deitado.png")
+        await ctx.send(embed=embed)
+
+      except Exception as e:
+        print(f"[ERRO] Falha ao remover parceiro: {e}")
+        await ctx.send(f"<:Braix_Cry2:1272667164637401250>┃ Erro ao remover parceiro: `{e}`")
+
+
+
+
+
+
+
+
 
 
 
