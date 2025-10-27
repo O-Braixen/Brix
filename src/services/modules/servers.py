@@ -301,7 +301,7 @@ class servers(commands.Cog):
   async def votebrix(self, interaction: discord.Interaction):
     if await Res.print_brix(comando="votebrix",interaction=interaction):
       return
-    view = container_media_button_url(descricao=Res.trad(interaction=interaction,str="message_votetopgg") , descricao_thumbnail= "https://cdn.discordapp.com/emojis/1154338634011521054.png" ,buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador"),buttonURL = "https://top.gg/bot/983000989894336592/vote" )
+    view = container_media_button_url(descricao=Res.trad(interaction=interaction,str="message_votetopgg") , descricao_thumbnail= "https://cdn.discordapp.com/emojis/1154338634011521054.png" ,buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador"),buttonURL = "https://brixbot.xyz/vote" )
 
     await interaction.response.send_message(view=view)
 
@@ -499,7 +499,7 @@ class servers(commands.Cog):
         
         if u["dm-notification"] is True:
           user = await self.client.fetch_user(u["_id"])
-          view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://top.gg/bot/983000989894336592/vote" )
+          view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://brixbot.xyz/vote" )
           await user.send(view=view)
         else:
           print("🦊 - membro não recebe notificações via DM")

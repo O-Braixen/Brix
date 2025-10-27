@@ -2181,7 +2181,7 @@ class owner(commands.Cog):
 
     resposta.set_thumbnail(url=self.client.user.avatar.url)
     view = discord.ui.View()
-    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://discord.com/oauth2/authorize?client_id=983000989894336592&permissions=1514245844182&integration_type=0&scope=bot+applications.commands")
+    button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(interaction=interaction,str="botão_abrir_navegador"),url="https://brixbot.xyz/invite")
     view.add_item(item=button)
     await interaction.response.send_message(embed=resposta , view= view)
 
