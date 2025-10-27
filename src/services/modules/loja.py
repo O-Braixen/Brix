@@ -455,7 +455,6 @@ class loja(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🍕  -  Modúlo Loja carregado.")
-    await self.client.wait_until_ready() #Aguardando o bot ficar pronto
     if not self.lojadiariatrocaitens.is_running():
       self.lojadiariatrocaitens.start()
   

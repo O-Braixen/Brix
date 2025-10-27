@@ -1,4 +1,4 @@
-import discord,os,requests,json,aiohttp,datetime,pytz,asyncio 
+import discord,os,requests,json,aiohttp,datetime,pytz,asyncio ,random
 from discord.ext import commands , tasks
 from discord import app_commands
 from os import listdir
@@ -1083,7 +1083,6 @@ async def baixaritensloja(baixe_tudo: bool = False):
         # Checagem individual por arquivo
         if os.path.exists(file_path) and not baixe_tudo:
           if os.path.getsize(file_path) > 0:
-            print(f"⏭️ - Pulando {idx:02d} - {file_name} (já existe e está OK)")
             return
           else:
             print(f"⚠️ - Rebaixando {idx:02d} - {file_name} (arquivo vazio/corrompido)")
@@ -1176,7 +1175,6 @@ class owner(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🦊  -  Modúlo Owner carregado.")
-    await self.client.wait_until_ready() #Aguardando o bot ficar pronto
 
     await inicializar_caches_se_preciso()
     if not self.verificar_guilds.is_running():
@@ -2228,6 +2226,35 @@ class owner(commands.Cog):
     await interaction.response.send_message(embed=resposta , view= view)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#COMANDO PARA ACESSAR A DASHBOARD DO BOT NO SITE
+  @bot.command(name="kyu",description='🦊⠂Mande um kyu.')
+  async def brixkyu(self,interaction:discord.Interaction ):
+    if await Res.print_brix(comando="kyu",interaction=interaction):
+      return
+    await interaction.response.send_message(random.choice(Res.trad(interaction=interaction,str='responsekyu')))
 
 
 

@@ -171,7 +171,7 @@ class PokemonCache:
                     }
                     nova_lista.append(novo_poke)
                     novos_count += 1
-                    await asyncio.sleep(0.1)
+                    #await asyncio.sleep(0.1)
 
                     # salva a cada 20 novos pokémon
                     if novos_count % 40 == 0:
@@ -341,17 +341,37 @@ async def jogos_autocomplete(interaction, current):
 
 # ======================================================================
 #SISTEMA QUE INICIA O SISTEMA DE CACHE LOCAL
+#async def inicializar_caches_se_preciso():
+#    global pokemon_cache, jogos_cache
+#    if pokemon_cache is None:
+#        pokemon_cache = PokemonCache()
+#        await pokemon_cache.load_pokemon_data()
+#    if jogos_cache is None:
+#        jogos_cache = JogosCache()
+#        await jogos_cache.load_jogos_data()
+
+
+
+# ======================================================================
+# SISTEMA QUE INICIA O SISTEMA DE CACHE LOCAL (OTIMIZADO)
 async def inicializar_caches_se_preciso():
     global pokemon_cache, jogos_cache
+    # Evita recriar se já estiver inicializado
+    if pokemon_cache and jogos_cache:
+        return
+    tasks = []
+
     if pokemon_cache is None:
         pokemon_cache = PokemonCache()
-        await pokemon_cache.load_pokemon_data()
+        tasks.append(pokemon_cache.load_pokemon_data())
+
     if jogos_cache is None:
         jogos_cache = JogosCache()
-        await jogos_cache.load_jogos_data()
+        tasks.append(jogos_cache.load_jogos_data())
 
-
-
+    if tasks:
+        # Executa carregamentos em paralelo
+        await asyncio.gather(*tasks)
 
 
 

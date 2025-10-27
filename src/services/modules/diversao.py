@@ -186,7 +186,6 @@ class diversao(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🎲  -  Modúlo Diversao carregado.")
-    await self.client.wait_until_ready() #Aguardando o bot ficar pronto
     if not self.autophox.is_running():
         await asyncio.sleep(1200) #1200
         self.autophox.start()

@@ -269,9 +269,7 @@ class premium(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("💎  -  Modúlo Premium carregado.")
-    await self.client.wait_until_ready() #Aguardando o bot ficar pronto
-    await asyncio.sleep(15)
-    #criar_link_pagamento(197071176810364928 , 1 , 1 , "texto")
+    await asyncio.sleep(45)
     if not self.TASK_VERIFICAR_PAGAMENTOS.is_running():
       self.TASK_VERIFICAR_PAGAMENTOS.start()
 

@@ -163,9 +163,8 @@ class servers(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("💚  -  Modúlo Servers carregado.")
-    await self.client.wait_until_ready() #Aguardando o bot ficar pronto
     #LIGANDO TASKS
-    await asyncio.sleep(120)
+    await asyncio.sleep(240)
     if not self.update_api_servidores.is_running():
       print("🍕  -  Iniciando update de dados dos servidores em API's externas")
       self.update_api_servidores.start()

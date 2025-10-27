@@ -46,7 +46,6 @@ class aniversario(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("🎂  -  Modúlo Aniversário carregado.")
-        await self.client.wait_until_ready() #Aguardando o bot ficar pronto
          #Ligando tasks
         if not self.verificar_aniversariantes.is_running():
             self.verificar_aniversariantes.start()

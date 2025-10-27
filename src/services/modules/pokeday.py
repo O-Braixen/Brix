@@ -31,7 +31,6 @@ class Pokeday(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("⚽  -  Modúlo Pokeday carregado.")
-        await self.client.wait_until_ready() #Aguardando o bot ficar pronto
         if not self.postagempokeday.is_running():
             downloadcalendario.start()
             self.postagempokeday.start()

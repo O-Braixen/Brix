@@ -47,8 +47,7 @@ class financeiro(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("💲  -  Modúlo Financeiro carregado.")
-    await self.client.wait_until_ready() #Aguardando o bot ficar pronto
-    await asyncio.sleep(20)
+    await asyncio.sleep(240)
     if not self.verificar_daily.is_running():
         self.verificar_daily.start()
     if not self.lembretes_cacar.is_running():
