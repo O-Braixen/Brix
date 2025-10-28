@@ -554,6 +554,11 @@ async def userperfil(interaction:discord.Interaction,membro, banner_temporario =
         try:
             if dado['ban']:  #SE O USUARIO ESTIVER BANIDO IMPRIME UM BAN GIGANTE
                 ban = True
+                # Cria uma camada preta semitransparente do mesmo tamanho do fundo
+                overlay = Image.new("RGBA", fundo.size, (0, 0, 0, 100))  # 150 = opacidade
+                fundo = Image.alpha_composite(fundo.convert("RGBA"), overlay)
+
+                # Carrega e cola a marca de banido
                 artebanido = Image.open(f"src/assets/imagens/icons/Artbanned.png")
                 fundo.paste(artebanido,(0,0),artebanido) 
         except:

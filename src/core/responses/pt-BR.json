@@ -387,6 +387,17 @@
       "Dia 583 - Final de semana na Braixen's House. Penny me chamou pra revisar funções de moderação enquanto Yoko animava a sala de música com batidas novas. Passei o dia correndo entre os dois canais, sorrindo, ajudando e recebendo olhares e sorrisos que me deixavam todo arrepiado, kyu~. Anotei que essas disputas silenciosas são cansativas… mas muito, muito divertidas, kyuuu~."
     ],
     
+    "message_diversao_nivelbraixen_10" : "Hmm... seu graveto nem acendeu, kyu~! Parece que ainda tá aprendendo a sentir o calor da chama interior. 🪵",
+    "message_diversao_nivelbraixen_25" : "Uma faísca apareceu! É fraquinha, mas toda chama começa assim, kyu~. Continue treinando! ✨",
+    "message_diversao_nivelbraixen_40" : "Olha só! Já dá pra sentir o calor de um verdadeiro aprendiz Braixen. Um marshmallow sobreviveria por pouco, kyu~! 🔥",
+    "message_diversao_nivelbraixen_55" : "Kyu~! Seu graveto já queima com firmeza. Tá dominando o fogo com o foco de um Braixen em treinamento! 🔥🦊",
+    "message_diversao_nivelbraixen_70" : "Que espetáculo! Suas chamas dançam com confiança, como um Braixen pronto pra mostrar sua magia ao mundo! 🔮",
+    "message_diversao_nivelbraixen_85" : "Uau, kyu~! Você carrega o fogo de um verdadeiro Braixen — quente, confiante e cheio de energia mística! 🌟",
+    "message_diversao_nivelbraixen_95" : "🔥 As chamas de Kalos reconhecem o seu poder! Você é quase uma tocha viva, kyu~!",
+    "message_diversao_nivelbraixen_100" : "⚠️ Kyu-kyaah! A energia Braixen tá transbordando! Nenhum graveto aguenta tanto poder mágico! 🦊🔥",
+    "message_diversao_nivelbraixen_msg" : "### <:Braix:1272653348306419824>┃ Seu Nível Braixen, kyu~!\n\n**Vamos ver o quanto sua chama interior está brilhando, {}!**\nSeu nível é de **{}%** de energia Braixen!\n\n{}\n\n{}",
+
+    
     "message_clear_dm" : "<:Braix_Blep:1290453783045738629>┃ Okay, vou deletar minhas mensagens de Braixen da sua DM, kyu~\n<:Braix_Tongue:1272662386590879795>┃ Esse processo pode demorar um pouquinho, e lembre-se, suas mensagens enviadas a mim não serão deletadas, kyu~!",
     "message_erro":"<:Braix_ew:1272662715009208370>┃ Ué? Isso não funcionou como deveria... \nAcho que você tentou usar isso em um **canal errado** ou **não tem permissão para tal função**, kyu~ <:Braix_derp:1272663053875417219>",
     "message_banido":"<:BH_Braix_FuckUp:1321297765627859075>┃ Acesso negado, kyu! Você foi **banido** do meu sistema por comportamento inadequado ~fookyuu!\n\n**Data do Banimento:** <t:{}:f>\n**Motivo:** {}\n**Autor:** {}\n\nTodos os seus acessos aos meus comandos foram **revogados**, e não será possível utilizar nenhuma funcionalidade minha novamente.",

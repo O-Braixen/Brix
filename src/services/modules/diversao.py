@@ -677,11 +677,6 @@ class diversao(commands.Cog):
         return
     await interaction.response.defer()
     msg = random.choice(Res.trad( interaction=interaction, str='message_8ball'))
-    resposta = discord.Embed( 
-            colour=discord.Color.yellow(),
-            title="🎱┃8Ball",
-            description=Res.trad(interaction=interaction,str="message_8ball_description").format(pergunta,msg)
-            )
     view = container_media_button_url( descricao_thumbnail="https://www.clipartmax.com/png/full/103-1034729_pokemon-braixen-fire-fox-ask-vixen-the-braixen-january-17.png", descricao=Res.trad(interaction=interaction,str="message_8ball_description").format(pergunta,msg) )
     await interaction.followup.send(view=view)
 
@@ -708,8 +703,6 @@ class diversao(commands.Cog):
     if await Res.print_brix(comando="sabedoriabrix",interaction=interaction):
         return
     await interaction.response.defer()
-    #resposta = discord.Embed( colour=discord.Color.yellow(),description=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')))
-    #await interaction.followup.send(embed=resposta)
     view = container_media_button_url(descricao=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')) , descricao_thumbnail="https://i.imgur.com/OEgfv4K.png")
     await interaction.followup.send(view=view)
 
@@ -829,6 +822,56 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+# COMANDO NIVEL BRAIXEN
+  @modulodiversao.command(name='braixen', description='🔥⠂Descubra o quanto alguém é Braixen por dentro.')
+  @app_commands.describe(membro='Escolha um usuário para medir o nível Braixen.')
+  async def nivel_braixen(self, interaction: discord.Interaction, membro: discord.User = None):
+    if await Res.print_brix(comando="nivel-braixen", interaction=interaction):
+        return
+    await interaction.response.defer()
+
+    if membro is None:
+        membro = interaction.user
+
+    nivel = random.randint(0, 100)
+
+    # Barrinha de progresso (10 blocos)
+    blocos_preenchidos = nivel // 10
+    barra = "<:Braix:1272653348306419824>" * blocos_preenchidos + "🟨" * (10 - blocos_preenchidos)
+    # Frases com tom mais divertido e personalizado
+    if nivel <= 10:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_10')
+    elif nivel <= 25:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_25')
+    elif nivel <= 40:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_40')
+    elif nivel <= 55:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_55')
+    elif nivel <= 70:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_70')
+    elif nivel <= 85:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_85')
+    elif nivel < 100:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_95')
+    else:
+        frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_100')
+
+    view = container_media_button_url(
+        descricao_thumbnail="https://i.pinimg.com/736x/16/a8/5f/16a85fcca2474466a7ed3be3bcfe34f9.jpg",
+        descricao=Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_msg').format(membro.mention , nivel , barra , frase)
+    )
+
+    await interaction.followup.send(view=view)
 
 
 
@@ -972,7 +1015,7 @@ class diversao(commands.Cog):
   
 
 #GRUPO DE COMANDOS DE MEMES DO BOT 
-  meme=app_commands.Group(name="meme",description="Comandos de geração de imangens do Brix.",parent=modulodiversao)
+  meme=app_commands.Group(name="meme",description="Comandos de geração de imangens do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
 
 
@@ -986,8 +1029,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes Braixen REAL
-  @meme.command(name="braixen-real",description='🤡⠂Oque Vinicius está segurando?')
-  @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
+  @meme.command(    name="braixen-real",    description="🤔⠂O que será que o Vinicius está segurando, kyuuu~?")
+  @app_commands.describe(    imagem="Anexe uma imagem para virar meme",    url_imagem="Coloque a URL de uma imagem",    avatar_usuario="Use o avatar de algum usuário")
   async def braixenrealmeme(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixenrealmeme",interaction=interaction):
         return    
@@ -1029,8 +1072,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes Braixen INTERNET
-  @meme.command(name="braixen-internet",description='🤡⠂Oque assustou Braixen?')
-  @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
+  @meme.command(    name="braixen-internet",    description="😱⠂O que será que assustou a Braixen na internet, kyuuu~?")
+  @app_commands.describe(    imagem="Anexe uma imagem para virar meme",    url_imagem="Coloque a URL de uma imagem",    avatar_usuario="Use o avatar de algum usuário")
   async def braixenmonitor(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixenmonitor",interaction=interaction):
         return
@@ -1072,8 +1115,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes MINHA Braixen
-  @meme.command(name="my-braixen",description='🤡⠂garanta a braixen para você.')
-  @app_commands.describe(rival="Indique um rival")
+  @meme.command(    name="minha-braixen",    description="😳⠂Garanta a Braixen só pra você, kyuuu~")
+  @app_commands.describe(    rival="Indique quem é seu rival, kyu~")
   async def mybraixen(self,interaction: discord.Interaction, rival:discord.User):
     if await Res.print_brix(comando="mybraixen",interaction=interaction):
         return
@@ -1135,8 +1178,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes NOSSA Braixen
-  @meme.command(name="nossa-braixen",description='🤡⠂3 caras e uma Braixen.')
-  @app_commands.describe(cara1="Indique o cara 1",cara2="Indique o cara 2",cara3="Indique o cara 3",braixen="Indique alguem para ficar no lugar da braixen")
+  @meme.command(    name="nossa-braixen",    description="😳⠂Três caras e uma Braixen… o que vai rolar, kyuuu~?")
+  @app_commands.describe(    cara1="Escolha o primeiro cara",    cara2="Escolha o segundo cara",    cara3="Escolha o terceiro cara",    braixen="Quem vai ficar no lugar da Braixen? Pode ser você, kyu~")
   async def nossabraixen(self,interaction: discord.Interaction, cara1:discord.User, cara2:discord.User, cara3:discord.User, braixen:discord.User=None):
     if await Res.print_brix(comando="nossabraixen",interaction=interaction):
         return
@@ -1166,12 +1209,11 @@ class diversao(commands.Cog):
         meme = Image.open("src/assets/imagens/memes/3-caras-e-uma-braixen.png")
 
         mascaraavatar = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
-        mascaraavatar = mascaraavatar.resize((90,90))
 
         fundo.paste(meme,(0,0))
-        fundo.paste(avatar1,(37,110),mascaraavatar)
-        fundo.paste(avatar2,(195,95),mascaraavatar)
-        fundo.paste(avatar3,(375,105),mascaraavatar)
+        fundo.paste(avatar1,(37,110),mascaraavatar.resize((90,90)))
+        fundo.paste(avatar2,(195,95),mascaraavatar.resize((90,90)))
+        fundo.paste(avatar3,(375,105),mascaraavatar.resize((90,90)))
         if braixen is None:
             buffer = io.BytesIO()
             fundo.save(buffer,format="PNG")
@@ -1185,9 +1227,7 @@ class diversao(commands.Cog):
             membro_bytesio = io.BytesIO(membro_image_data)
             avatar4 = Image.open(membro_bytesio)
             avatar4 = avatar4.resize((80,80))
-            mascara4 = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
-            mascara4 = mascara4.resize((80,80))
-            fundo.paste(avatar4,(220,234),mascara4)
+            fundo.paste(avatar4,(220,234),mascaraavatar.resize((80,80)))
             buffer = io.BytesIO()
             fundo.save(buffer,format="PNG")
             buffer.seek(0)
@@ -1214,8 +1254,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes Braixen ABRAÇO
-  @meme.command(name="braixen-hug",description='🤡⠂Seja abraçado por uma braixen.')
-  @app_commands.describe(membro="Indique alguem para ser abraçado")
+  @meme.command(    name="braixen-hug",    description="🤗⠂Receba um abraço fofinho da Braixen, kyuuu~")
+  @app_commands.describe(    membro="Escolha quem vai ganhar o abraço da Braixen, kyu~")
   async def braixenhug(self,interaction: discord.Interaction, membro:discord.User):
     if await Res.print_brix(comando="braixenhug",interaction=interaction):
         return
@@ -1260,8 +1300,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes Braixen TABLET
-  @meme.command(name="braixen-tablet",description='🤡⠂Oque Braixen viu em seu tablet?')
-  @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
+  @meme.command(    name="braixen-tablet",    description="📱⠂O que será que a Braixen viu no seu tablet, kyu~?")
+  @app_commands.describe(    imagem="Anexe uma imagem para virar meme",    url_imagem="Coloque a URL de uma imagem",    avatar_usuario="Use o avatar de algum usuário")
   async def braixentablet(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixentablet",interaction=interaction):
         return
@@ -1307,8 +1347,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes Braixen TRISTE
-  @meme.command(name="braixen-triste",description='🤡⠂Oque deixou Braixen triste?')
-  @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
+  @meme.command(    name="braixen-triste",    description="😢⠂O que será que deixou a Braixen triste, kyu~?")
+  @app_commands.describe(    imagem="Anexe uma imagem para virar meme",    url_imagem="Coloque a URL de uma imagem",    avatar_usuario="Use o avatar de algum usuário")
   async def braixentriste(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixentriste",interaction=interaction):
         return
@@ -1352,8 +1392,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes Braixen SMASH
-  @meme.command(name="braixen-smash",description='🤡⠂desça a porrada em alguém com raiva.')
-  @app_commands.describe(membro="Indique alguem para ser socado")
+  @meme.command(    name="braixen-smash",    description="💥⠂Hora da raiva! Desça a porrada em alguém (kyu~)")
+  @app_commands.describe(    membro="Escolha quem vai levar um soco do Braixen, kyuuu~")
   async def braixensmash(self,interaction: discord.Interaction, membro:discord.User):
     if await Res.print_brix(comando="braixensmash",interaction=interaction):
         return
@@ -1401,8 +1441,8 @@ class diversao(commands.Cog):
 
 
 #criador de memes Braixen Sleep
-  @meme.command(name="braixen-sleep",description='🤡⠂Oque Braixen está sonhando?')
-  @app_commands.describe(imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
+  @meme.command(    name="braixen-sleep",    description="😴⠂O que será que a Braixen está sonhando, kyu~?")
+  @app_commands.describe(    imagem="Anexe uma imagem para virar meme",    url_imagem="Coloque a URL de uma imagem",    avatar_usuario="Use o avatar de algum usuário")
   async def braixensleep(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixensleep",interaction=interaction):
         return
@@ -1451,9 +1491,9 @@ class diversao(commands.Cog):
 
 
 #Criador de memes Braixen citação famosa
-  @meme.command(name="braixen-citacao-famosa",description='🤡⠂Uma citação que Braixen diria.')
-  @app_commands.describe(variante="Selecione uma variante...",imagem="envie uma imagem que será anexada",frase="Frase marcante de no Máximo 72 caracteres",ia = "Peça algo gerado por Inteligencia artificial")
-  @app_commands.choices(variante=[app_commands.Choice(name="armado olho fechado", value="gun"),app_commands.Choice(name="armado olho aberto", value="gun2")])
+  @meme.command(    name="braixen-citacao-famosa",    description="😳⠂Uma citação que só a Braixen diria, com muito charme e kyuuu~")
+  @app_commands.describe(    variante="Escolha a versão da citação, kyu~",    imagem="Envie uma imagem para anexar ao meme",    frase="Escreva uma frase marcante (máx. 72 caracteres), kyuuu~",    ia="Quer algo gerado pela minha inteligência artificial? Peça aqui!")
+  @app_commands.choices(    variante=[        app_commands.Choice(name="armado olho fechado", value="gun"),        app_commands.Choice(name="armado olho aberto", value="gun2")    ])
   async def braixencitacao(self,interaction: discord.Interaction,variante:app_commands.Choice[str], imagem: discord.Attachment=None, frase: str = None ,ia: str=None):
     if await Res.print_brix(comando="braixencitacao",interaction=interaction):
         return
@@ -1540,8 +1580,8 @@ class diversao(commands.Cog):
 
 
 #Criador de memes Braixen citação famosa
-  @meme.command(name="braixen-placa",description='🤡⠂Braixen e sua placa coloque algo nela.')
-  @app_commands.describe(frase="Frase marcante de no Máximo 72 caracteres",ia = "Peça algo gerado por Inteligencia artificial",imagem="Anexe uma imagem para virar meme", url_imagem="URL de uma imagem", avatar_usuario="Use o avatar de um usuário")
+  @meme.command(    name="braixen-placa",    description="😳⠂Braixen com sua plaquinha! Coloque algo divertido ou marcante, kyu~")
+  @app_commands.describe(    frase="Escreva uma frase marcante (máx. 72 caracteres), kyuuu~",    ia="Quer algo gerado pela minha inteligência artificial? Peça aqui!",    imagem="Anexe uma imagem para virar meme",    url_imagem="Coloque a URL de uma imagem",    avatar_usuario="Use o avatar de algum usuário")
   async def braixensays(self,interaction: discord.Interaction, frase: str=None, ia:str=None, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
     if await Res.print_brix(comando="braixensays",interaction=interaction):
         return
@@ -1628,9 +1668,9 @@ class diversao(commands.Cog):
 
 
 
-#criador de memes Braixen Sleep
-  @meme.command(name="braixen-drake",description='🤡⠂Braixen ao melhor estilo drake')
-  @app_commands.describe(img_1="Anexe uma imagem para virar meme", img_2="Anexe uma imagem para virar meme",url_1="URL de uma imagem", avatar_1="Use o avatar de um usuário",url_2="URL de uma imagem", avatar_2="Use o avatar de um usuário")
+#criador de memes Braixen drake
+  @meme.command(    name="braixen-drake",    description="🤭⠂Braixen no estilo Drake, mostrando suas preferências com charme e humor, kyu~")
+  @app_commands.describe(    img_1="Anexe uma imagem para o meme (lado rejeitado, kyu~)",    img_2="Anexe outra imagem para o meme (lado aprovado, kyuuu~)",    url_1="URL de uma imagem para o lado rejeitado",    avatar_1="Use o avatar de alguém para o lado rejeitado",    url_2="URL de uma imagem para o lado aprovado",    avatar_2="Use o avatar de alguém para o lado aprovado")
   async def braixendrake(self,interaction: discord.Interaction, img_1: discord.Attachment = None, url_1: str = None, avatar_1: discord.User = None,img_2: discord.Attachment = None, url_2: str = None, avatar_2: discord.User = None):
     if await Res.print_brix(comando="braixensleep",interaction=interaction):
         return
@@ -1659,6 +1699,120 @@ class diversao(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#criador de memes braixen distraido
+  @meme.command(    name="braixen-distraido",    description="😳⠂Ops! O Brix parece ter se distraído com alguém mais interessante, kyu~.")
+  @app_commands.describe(    atual="Quem é o parceiro atual?",    tentacao="E quem chamou mais atenção agora, kyu~?",    braixen="Quem vai ficar no lugar da Braixen? Pode ser você, se quiser~")
+  async def braixen_distraido(self,interaction: discord.Interaction, atual:discord.User, tentacao:discord.User, braixen:discord.User=None):
+    if await Res.print_brix(comando="braixen-distraido",interaction=interaction):
+        return
+    try:
+        await interaction.response.defer()
+
+        if not atual.avatar or not tentacao.avatar:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
+            return
+
+        mascaraavatar = Image.open(f"src/assets/imagens/icons/recorte-redondo.png")
+
+        membro_image_data = await atual.avatar.replace(size=512, format="png").read()
+        membro_bytesio = io.BytesIO(membro_image_data)
+        avatar1 = Image.open(membro_bytesio)
+        avatar1 = avatar1.resize((240,240))
+
+        membro_image_data = await tentacao.avatar.replace(size=512, format="png").read()
+        membro_bytesio = io.BytesIO(membro_image_data)
+        avatar2 = Image.open(membro_bytesio)
+        avatar2 = avatar2.resize((400,400))
+
+        fundo = Image.new("RGB",(1500,1000),"white")
+        meme = Image.open("src/assets/imagens/memes/braixen-distraido.png")
+
+        fundo.paste(meme,(0,0))
+        fundo.paste(avatar1,(1030,95),mascaraavatar.resize((240,240)))
+        fundo.paste(avatar2,(130,215),mascaraavatar.resize((400,400)))
+        if braixen is None:
+            buffer = io.BytesIO()
+            fundo.save(buffer,format="PNG")
+            buffer.seek(0)
+            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen distraido.png"))
+        else:
+            if not braixen.avatar:
+                await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notavatar")) 
+                return
+            membro_image_data = await braixen.avatar.replace(size=512, format="png").read()
+            membro_bytesio = io.BytesIO(membro_image_data)
+            avatarbraixen = Image.open(membro_bytesio)
+            avatarbraixen = avatarbraixen.resize((240,240))
+
+            fundo.paste(avatarbraixen,(688,350),mascaraavatar.resize((240,240)))
+            buffer = io.BytesIO()
+            fundo.save(buffer,format="PNG")
+            buffer.seek(0)
+            await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen distraido.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixen-distraido")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#criador de memes Braixen FACEPALM
+  @meme.command(    name="braixen-facepalm",    description="🤦⠂Quando o Brix simplesmente não aguenta mais, kyu~")
+  @app_commands.describe(    imagem="Anexe uma imagem para virar meme",    url_imagem="Coloque a URL de uma imagem",    avatar_usuario="Use o avatar de algum usuário")
+  async def braixen_facepalm(self,interaction: discord.Interaction, imagem: discord.Attachment = None, url_imagem: str = None, avatar_usuario: discord.User = None):
+    if await Res.print_brix(comando="braixen_facepalm",interaction=interaction):
+        return
+    
+    try:
+        await interaction.response.defer()
+        fundo = Image.new("RGB",(2050,1024),"white")
+        imagem_pil = await pegar_imagem(interaction, imagem, url_imagem, avatar_usuario)
+        if not imagem_pil:
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_apimemes_notmidia"), ephemeral=True)
+            return
+        
+        imagem_pil = imagem_pil.resize((1026,1024))
+        meme = Image.open("src/assets/imagens/memes/braixen-facepalm.png")
+        fundo.paste(imagem_pil,(0,0))
+        fundo.paste(meme,(0,0),meme)
+        buffer = io.BytesIO()
+        fundo.save(buffer,format="PNG")
+        buffer.seek(0)
+        await interaction.followup.send(file=discord.File(fp=buffer,filename="braixen facepalm.png"))
+    except Exception as e:
+        await Res.erro_brix_embed(interaction,str="message_erro_apimemes",e=e,comando="braixen_facepalm")
 
 
 

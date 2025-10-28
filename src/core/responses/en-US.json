@@ -1768,5 +1768,14 @@
     ],
     "message_pokemon_autocomplete_error": "<:Braix_Shocked:1272663500115935264>┃ Kyu~! The name **{}** was not recognized... How about using autocomplete to choose the correct Pokémon? That way we avoid errors, kyuuu~!",
     "message_jogopokemon_autocomplete_error": "<:Braix_Shocked:1272663500115935264>┃ Kyu~! The name **{}** was not recognized... How about using autocomplete to choose a game correctly? This way we avoid errors, kyuuu~!",
-    "servidor_tag_erro_owner_aviso": "### <:Braix_Cry2:1272667164637401250>┃ Kyu~! I don't have permission for that...\nHey, **{}** owner fox! I came to your DM to let you know that I can't manage roles in your community. The function to give roles to those who use the server tag is activated, but for that I need the **Manage Roles** permission.\n\nPlease, give me a role with this permission or adjust my Integration role so that I can function properly, kyu~!\n\n-# **Fox Tip:** I'll keep warning you from time to time until I get permission or you disable this function, okay? Kyuuu~!"
+    "servidor_tag_erro_owner_aviso": "### <:Braix_Cry2:1272667164637401250>┃ Kyu~! I don't have permission for that...\nHey, **{}** owner fox! I came to your DM to let you know that I can't manage roles in your community. The function to give roles to those who use the server tag is activated, but for that I need the **Manage Roles** permission.\n\nPlease, give me a role with this permission or adjust my Integration role so that I can function properly, kyu~!\n\n-# **Fox Tip:** I'll keep warning you from time to time until I get permission or you disable this function, okay? Kyuuu~!",
+    "message_diversao_nivelbraixen_10": "Hmm... your stick didn't light up, kyu~! Looks like you're still learning to feel the warmth of the inner flame. 🪵",
+    "message_diversao_nivelbraixen_25": "A spark appeared! It's weak, but every flame starts like this, kyu~. Keep training! ✨",
+    "message_diversao_nivelbraixen_40": "Look at that! You can already feel the heat of a true Braixen apprentice. A marshmallow would barely survive, kyu~! 🔥",
+    "message_diversao_nivelbraixen_55": "Kyu~! Your stick burns steadily. You're mastering fire with the focus of a Braixen in training! 🔥🦊",
+    "message_diversao_nivelbraixen_70": "What a spectacle! Your flames dance with confidence, like a Braixen ready to show its magic to the world! 🔮",
+    "message_diversao_nivelbraixen_85": "Wow, kyu~! You carry the fire of a true Braixen—hot, confident, and brimming with mystical energy! 🌟",
+    "message_diversao_nivelbraixen_95": "🔥 The flames of Kalos recognize your power! You're practically a living torch, kyu~!",
+    "message_diversao_nivelbraixen_100": "⚠️ Kyu-kyaah! Braixen energy is overflowing! No stick can handle so much magic power! 🦊🔥",
+    "message_diversao_nivelbraixen_msg": "### <:Braix:1272653348306419824>┃ Your Braixen Level, kyu~!\n\n**Let's see how brightly your inner flame is burning, {}!**\nYour level is **{}%** Braixen energy!\n\n{}\n\n{}"
 }

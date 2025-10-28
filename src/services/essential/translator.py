@@ -305,6 +305,8 @@ class BrixTradutor(app_commands.Translator):
                 # Traduz a mensagem (string/list/dict)
                 translated_result = process_message(message, target_lang)
 
+                await asyncio.sleep(2)
+
                 # Garante consistência no tipo de saída
                 if isinstance(message, list):
                     translated_messages_dict[key] = translated_result
@@ -314,6 +316,7 @@ class BrixTradutor(app_commands.Translator):
                     translated_messages_dict[key] = translated_result
 
                 print(f"Traduzido {key} para {file_name}")
+                
 
                 # Salva o arquivo atualizado
                 with open(response_file, 'w', encoding='utf-8') as f:
