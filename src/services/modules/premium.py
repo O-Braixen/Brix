@@ -133,6 +133,20 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
 async def comprarpremium(self, interaction: discord.Interaction, quant, presente_para: discord.User = None):
   await interaction.original_response()
   valor = 4.99
+
+  # ======== DESCONTO POR QUANTIDADE ========
+  if quant == 12:
+    desconto = 0.15
+  elif quant >= 6:
+    desconto = 0.10
+  elif quant >= 3:
+    desconto = 0.05
+  else:
+    desconto = 0.0
+
+  valor_total = round(valor * quant * (1 - desconto), 2)
+    # =========================================
+
   if quant == 1:
       texto = f"{quant} {Res.trad(interaction=interaction,str='mes')}"
   else:
@@ -140,19 +154,22 @@ async def comprarpremium(self, interaction: discord.Interaction, quant, presente
 
   view = discord.ui.View()
 
-  if quant == 1:
-      menos = discord.ui.Button(label="",emoji="<:menos:1272649363168170176>",style=discord.ButtonStyle.gray, disabled=True)
-  else:
-      menos = discord.ui.Button(label="",emoji="<:menos:1272649363168170176>",style=discord.ButtonStyle.gray)
+  menos = discord.ui.Button(label="",emoji="<:menos:1272649363168170176>",style=discord.ButtonStyle.gray, disabled=(quant == 1))
   view.add_item(item=menos)
 
-  plano = discord.ui.Button(label=f"{texto} ({round(valor*quant , 2)})",style=discord.ButtonStyle.gray,  disabled=True)
-  view.add_item(item=plano)
-
-  if quant >= 12:
-      mais = discord.ui.Button(label="",emoji="<:mais:1272649351780372602>",style=discord.ButtonStyle.gray, disabled=True)
+  # Botão de exibição do plano (mostra preço total e desconto se tiver)
+  if desconto > 0:
+      plano_label = f"{texto} (R$: {f'{valor_total:.2f}'.replace('.', ',')} - {int(desconto * 100)}% off)"
   else:
-      mais = discord.ui.Button(label="",emoji="<:mais:1272649351780372602>",style=discord.ButtonStyle.gray)
+      plano_label = f"{texto} (R$: {f'{valor_total:.2f}'.replace('.', ',')})"
+
+  plano = discord.ui.Button(label=plano_label, style=discord.ButtonStyle.gray, disabled=True)
+  view.add_item(item=plano)
+  
+  #plano = discord.ui.Button(label=f"{texto} ({round(valor*quant , 2)})",style=discord.ButtonStyle.gray,  disabled=True)
+  #view.add_item(item=plano)
+
+  mais = discord.ui.Button(label="",emoji="<:mais:1272649351780372602>",style=discord.ButtonStyle.gray, disabled=(quant >= 12))
   view.add_item(item=mais)
 
   adquirir_assinatura = discord.ui.Button(label="Comprar",emoji="🦊",style=discord.ButtonStyle.green,row=2)
@@ -164,8 +181,8 @@ async def comprarpremium(self, interaction: discord.Interaction, quant, presente
       for item in view.children:
           item.disabled = True
       await interaction.response.edit_message(view=view)
-
       await comprarpremium(self, interaction=interaction, quant=quant, presente_para=presente_para)
+
 
   async def comprar_item(self, interaction: discord.Interaction , quant , valor , texto, presente_para=None):
       await interaction.response.defer(ephemeral=True)  
@@ -178,12 +195,12 @@ async def comprarpremium(self, interaction: discord.Interaction, quant, presente
       valido , existente , id , qrcodebase , link , plano , expira = criar_link_pagamento(interaction.user.id , quant , valor , texto)
       
       if valido is False:
-          await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="message_erro_brixsystem"))
-          return
+        await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="message_erro_brixsystem"))
+        return
 
       # se for presente, salvar quem recebe
       if presente_para:
-          BancoPagamentos.update_payment(id, {"destinatario_id": presente_para.id})
+        BancoPagamentos.update_payment(id, {"destinatario_id": presente_para.id})
 
       qr_bytes = base64.b64decode(qrcodebase)
       qr_file = io.BytesIO(qr_bytes)
@@ -220,7 +237,8 @@ async def comprarpremium(self, interaction: discord.Interaction, quant, presente
 
   menos.callback = partial(mover_item,self,quant=quant-1)
   mais.callback = partial(mover_item,self,quant=quant+1)
-  adquirir_assinatura.callback = partial(comprar_item,self,quant=quant, valor= valor , texto = texto, presente_para=presente_para)
+  adquirir_assinatura.callback = partial(comprar_item,self,quant=quant, valor= valor_total , texto = texto, presente_para=presente_para)
+  
   if presente_para is None:
     await interaction.edit_original_response(content="",attachments=[discord.File("src/assets/imagens/financeiro/banner premium.png")],view=view)
   else:

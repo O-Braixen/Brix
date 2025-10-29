@@ -51,7 +51,7 @@ def criar_link_pagamento(user_id , quant_meses , preco , texto):
     # PARTE DA PREFERENCIA DE PEDIDO, COM TODAS AS INFORMAÇÕES
     preference_data = { 
         "payment_method_id": "pix",
-        "transaction_amount": float(preco*quant_meses),
+        "transaction_amount": preco,
         "description": f"Brix Premium ({texto})",
         "external_reference": f"{user_id}-{quant_meses}", 
         "notification_url": "https://brixbot.xyz/comprapremium",
@@ -68,7 +68,7 @@ def criar_link_pagamento(user_id , quant_meses , preco , texto):
             "description": "Assinatura Brix Premium.",
             "picture_url": "https://i.imgur.com/7AGtKq2.png",
             "quantity": 1,
-            "unit_price": float(preco*quant_meses)
+            "unit_price": preco
         }]
         }
     }

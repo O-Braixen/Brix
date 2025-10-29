@@ -48,8 +48,7 @@ class boasvindas(commands.Cog):
 
   @commands.Cog.listener()
   async def on_member_join(self,member : discord.Member):
-    print(f"➡️ - membro {member.id} entrou na {member.guild.id} - {member.guild.name} ")
-    
+        
     # Respostas da BH
     membro = member.mention
     resp_macho = [ f"Oiii, bem-vindo, raposa {membro}! Espero que se divirta por aqui, kyu~",f"Salveee! Seja muito bem-vindo, {membro}, à minha casa mágica. Fique à vontade, kyu!",f"O {membro} aterrissou aqui com estilo! Seja bem-vindo, kyu!"]
