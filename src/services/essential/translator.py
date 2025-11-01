@@ -1,4 +1,4 @@
-import discord,os,json,asyncio,re
+import discord,os,json,asyncio,re,time
 from discord import app_commands
 from google import genai
 from deep_translator import GoogleTranslator
@@ -60,10 +60,7 @@ class BrixTradutor(app_commands.Translator):
         # Lista de idiomas suportados e nomes dos arquivos JSON
         self.allowed_locales = {
             discord.Locale.american_english: 'en-US',
-            #discord.Locale.spain_spanish: 'es-ES',
             discord.Locale.polish :'pl',
-            #discord.Locale.japanese: 'ja',
-            #discord.Locale.french: 'fr',
         }
 
         # Carregar traduções de comandos
@@ -146,7 +143,7 @@ class BrixTradutor(app_commands.Translator):
         if message_str in self.translations[locale]:
             return self.translations[locale][message_str]
 
-        await asyncio.sleep(2)
+        await asyncio.sleep(5)
         # Traduzir a mensagem e armazenar
         target_lang = file_name.split('-')[0]    
         response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji junto com seu ponto de separação caso tenha e qualquer indicação em seu respectivo lugar, caso a mensagem já esteja no respectivo idioma mantem oque foi enviado, faça isso em {target_lang} para a seguinte mensagem: {message_str}") 
@@ -273,6 +270,7 @@ class BrixTradutor(app_commands.Translator):
             if isinstance(msg, str):
                 cleaned_message, emoji_positions = self.remove_custom_emojis(msg)
                 response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"Você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji e formatação. Se a mensagem já estiver em {target_lang}, mantenha o texto original. Traduza para {target_lang}: {cleaned_message}")
+                time.sleep(5)
                 translated_text =  response.text.rstrip("\n") 
                 return self.restore_emojis(translated_text, emoji_positions)
 

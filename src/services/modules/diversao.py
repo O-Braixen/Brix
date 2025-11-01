@@ -257,12 +257,7 @@ class diversao(commands.Cog):
             try:
                 servidor = await self.client.fetch_guild(linha['_id'])
                 canal = await self.client.fetch_channel(linha['autophox'])
-                #view = discord.ui.View()
-                #button = discord.ui.Button(style=discord.ButtonStyle.blurple,label=Res.trad(guild=servidor.id,str="botão_abrir_navegador"),url=f"https://e621.net/posts/{post['id']}")
-                #view.add_item(item=button)
-                
-                #await canal.send(f"[{post['tags']['artist'][0]}]({post['file']['url']})\n-# {Res.trad(guild=servidor.id,str='message_autophox_footer')}",view=view)
-
+           
                 descrição = Res.trad(guild=servidor.id,str="artista").format(post['tags']['artist'][0] if post['tags']['artist'] else '-')
                 view = container_media_button_url(titulo= Res.trad(guild=servidor.id,str="message_autophox_titulo").format(item.replace("_", " ").title()), descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(guild=servidor.id,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer= Res.trad(guild=servidor.id,str='message_autophox_footer') )
                 await canal.send(view=view)
@@ -872,6 +867,115 @@ class diversao(commands.Cog):
     )
 
     await interaction.followup.send(view=view)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# COMANDO VERDADE OU DESAFIO
+  @modulodiversao.command(      name="verdade-ou-desafio",      description="🎭⠂Chame alguém para jogar Verdade ou Desafio, kyu~!")
+  @app_commands.describe(      usuario="Escolha quem vai encarar o desafio, kyu~")
+  async def verdade_ou_desafio(self, interaction: discord.Interaction, usuario: discord.User):
+    if await Res.print_brix(comando="verdade-ou-desafio", interaction=interaction):
+        return
+    
+    if usuario.id == interaction.user.id:
+        await interaction.response.send_message(Res.trad(interaction=interaction, str='message_erro_autojogar_verdadedesafio'), ephemeral=True)
+        return
+    
+    await interaction.response.defer()
+
+    # COMPONENTES V2
+    view = discord.ui.LayoutView(timeout=120)
+    container = discord.ui.Container()
+    container.accent_color = discord.Color.yellow()
+
+    texto_base = random.choice( Res.trad(interaction=interaction, str="message_verdadedesafio_envio") ).format(usuario.mention , interaction.user.mention )
+    texto_display = discord.ui.TextDisplay(texto_base)
+    container.add_item(discord.ui.Section( texto_display , accessory= discord.ui.Thumbnail(" https://brixbot.xyz/cdn/brix%20verdadedesafio.png ")))
+    container.add_item(discord.ui.Separator())
+
+    # CALLBACK DINÂMICO
+    async def callback_verdade_ou_desafio(inter: discord.Interaction, tipo: bool):
+        if inter.user.id != usuario.id:
+            await inter.response.send_message(Res.trad(interaction=interaction, str='message_erro_interacaoalheia'), ephemeral=True)
+            return
+        #se foi escolhido verdade
+        if tipo:
+            resposta = random.choice( Res.trad(interaction=interaction, str='message_verdadedesafio_verdades') )
+            tipo = Res.trad(interaction=interaction, str='verdade')
+        else: #foi escolhido desafio
+            resposta = random.choice( Res.trad(interaction=interaction, str='message_verdadedesafio_desafios') )
+            tipo = Res.trad(interaction=interaction, str='desafio')
+
+        # Atualiza o painel com o resultado
+        novo_texto = Res.trad(interaction=interaction, str="message_verdadedesafio_escolha").format(interaction.user.mention , usuario.mention , tipo , resposta)
+        novo_container = discord.ui.Container(accent_color=discord.Color.yellow())
+        novo_container.add_item(discord.ui.Section(  discord.ui.TextDisplay(novo_texto) , accessory= discord.ui.Thumbnail(" https://brixbot.xyz/cdn/brix%20verdadedesafio.png ")))
+
+        # remove botões após escolha
+        view.clear_items()
+        view.add_item(novo_container)
+
+        await inter.response.edit_message(view=view)
+
+    # Botão Verdade
+    botao_verdade = discord.ui.Button(label=Res.trad(interaction=interaction,str="verdade"), style=discord.ButtonStyle.green, emoji="💬")
+    botao_desafio = discord.ui.Button(label=Res.trad(interaction=interaction,str="desafio"), style=discord.ButtonStyle.red, emoji="🔥")
+
+    # Define callbacks
+    async def botao_verdade_callback(inter): await callback_verdade_ou_desafio(inter, True)
+    async def botao_desafio_callback(inter): await callback_verdade_ou_desafio(inter, False)
+
+    botao_verdade.callback = botao_verdade_callback
+    botao_desafio.callback = botao_desafio_callback
+
+    botoes = discord.ui.ActionRow(botao_verdade, botao_desafio)
+    container.add_item(botoes)
+    view.add_item(container)
+
+          # timeout handler
+    async def on_timeout():
+        # percorre todos os containers e seções
+        for child in view.children:
+            # verifica se é um Container
+            if isinstance(child, discord.ui.Container):
+                for sub in child.children:
+                    # verifica se é um ActionRow
+                    if isinstance(sub, discord.ui.ActionRow):
+                        for item in sub.children:
+                            if isinstance(item, discord.ui.Button):
+                                item.disabled = True
+        # tenta editar a mensagem se já tiver sido enviada
+        try:
+            await msg.edit(view=view)
+        except:
+            pass
+
+    view.on_timeout = on_timeout  # atribui a função
+
+    # envia a mensagem e guarda a referência
+    msg = await interaction.followup.send(view=view)
+
+
+
+
+
 
 
 
