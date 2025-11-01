@@ -146,9 +146,9 @@ class BrixTradutor(app_commands.Translator):
         await asyncio.sleep(5)
         # Traduzir a mensagem e armazenar
         target_lang = file_name.split('-')[0]    
-        response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji junto com seu ponto de separação caso tenha e qualquer indicação em seu respectivo lugar, caso a mensagem já esteja no respectivo idioma mantem oque foi enviado, faça isso em {target_lang} para a seguinte mensagem: {message_str}") 
-        translated_text = response.text
-        #translated_text = GoogleTranslator(source='pt', target=target_lang).translate(message_str)
+        #response = genaitradutor.models.generate_content(model="gemini-2.0-flash" , contents=f"você é um tradutor e deve retornar apenas a tradução do texto enviado, mantendo qualquer emoji junto com seu ponto de separação caso tenha e qualquer indicação em seu respectivo lugar, caso a mensagem já esteja no respectivo idioma mantem oque foi enviado, faça isso em {target_lang} para a seguinte mensagem: {message_str}") 
+        #translated_text = response.text
+        translated_text = GoogleTranslator(source='pt', target=target_lang).translate(message_str)
 
         # Ajustar formatação da tradução (se for nome de comando)
         if " " in message_str:
