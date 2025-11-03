@@ -479,6 +479,8 @@ class pokedex(commands.Cog):
   @app_commands.command(name="pokedex",description="🔍⠂Procure um Pokémon na Pokedex.")
   @app_commands.describe(pokemon="Informe o nome de um pokémon...")
   @app_commands.autocomplete(pokemon=pokemon_autocomplete)
+  @app_commands.allowed_installs(guilds=True, users=True)
+  @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
   async def pokedex(self, interaction: discord.Interaction,pokemon:str):
     if await Res.print_brix(comando="pokedex",interaction=interaction):
         return

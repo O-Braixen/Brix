@@ -298,6 +298,8 @@ class servers(commands.Cog):
 
   #Comando VOTE TOP.GG 
   @app_commands.command(name="vote", description="🦊⠂Vote no melhor Braixen bot.")
+  @app_commands.allowed_installs(guilds=True, users=True)
+  @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
   async def votebrix(self, interaction: discord.Interaction):
     if await Res.print_brix(comando="votebrix",interaction=interaction):
       return

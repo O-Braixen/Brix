@@ -348,10 +348,13 @@ class premium(commands.Cog):
             item = {"premium": datetime.datetime.now()}
             BancoUsuarios.delete_field(membro,item)
             print(f"o premium de {membro.name} acabou!")
-            try:
-              await membro.send(Res.trad(user=membro ,str="message_premium_encerrado"))
-            except:
-              print(f"DM de {membro.name} está fechada!")
+            if member.get('premiumeterno') is True:
+              await liberarpremium(self,None,membro,31,False)
+            else:
+              try:
+                await membro.send(Res.trad(user=membro ,str="message_premium_encerrado"))
+              except:
+                print(f"DM de {membro.name} está fechada!")
       return
     except Exception as e:
       print(f"erro na verificação de assinantes premium.\n{e}")
@@ -403,7 +406,117 @@ class premium(commands.Cog):
 
 
 
-#COMANDO DAR VIP
+
+
+
+
+#COMANDO DAR PREMIUM ETERNO
+  @commands.command(name="eternopremium", description='Ativa o premium eterno para um usuario...')
+  async def eternopremiumonwer(self,ctx,user:discord.User = None):
+    try:
+        await ctx.message.delete()
+    except:
+        print("falta de permissão na comunidade")
+    if ctx.author.id == donoid:
+      if user is None:
+        await ctx.send(Res.trad(guild=ctx.guild.id,str="message_erro_notargument").format("use ```-eternopremium @dousuario```"))
+        return
+      else:
+        BancoUsuarios.update_document(user, {"premiumeterno": True})
+        await liberarpremium(self,None,user,31,False)
+        # tentativa de enviar DM
+        try:
+          descricao_dm = Res.trad(str="message_premium_eterno_ativado")
+          embed_para_usuario = discord.Embed( colour=discord.Color.yellow(), description=descricao_dm ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+          await user.send(embed=embed_para_usuario)
+          await ctx.send("🦊 - Mensagem enviada com sucesso ~kyuuu.")
+        except:
+          await ctx.send("🦊 - Falha ao enviar mensagem para o usuario.")
+    else:
+      await ctx.send(Res.trad(guild=ctx.guild.id,str="message_erro_onlyowner"))
+      return
+
+
+
+
+
+
+
+
+#COMANDO REMOVER PREMIUM ETERNO
+  @commands.command(name="semeternopremium", description='Desativa o premium eterno para um usuario...')
+  async def semeternopremiumonwer(self,ctx,user:discord.User = None):
+    try:
+        await ctx.message.delete()
+    except:
+        print("falta de permissão na comunidade")
+    if ctx.author.id == donoid:
+      if user is None:
+        await ctx.send(Res.trad(guild=ctx.guild.id,str="message_erro_notargument").format("use ```-semeternopremium @dousuario```"))
+        return
+      else:
+        BancoUsuarios.delete_field(user,{"premiumeterno": True})
+        # tentativa de enviar DM
+        try:
+          descricao_dm = Res.trad(str="message_premium_eterno_desativado")
+          embed_para_usuario = discord.Embed( colour=discord.Color.red(), description=descricao_dm ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+          await user.send(embed=embed_para_usuario)
+          await ctx.send("🦊 - Mensagem enviada com sucesso ~kyuuu.")
+        except:
+          await ctx.send("🦊 - Falha ao enviar mensagem para o usuario.")
+    else:
+      await ctx.send(Res.trad(guild=ctx.guild.id,str="message_erro_onlyowner"))
+      return
+
+
+
+
+
+
+
+
+
+
+
+
+
+#COMANDO EXIBIR ASSINANTES PREMIUM ETERNO
+  @commands.command(name="showeternopremium", description='Exibe todos os assinantes eternos Premium...')
+  async def eternopremiumshow(self,ctx):
+    try:
+        await ctx.message.delete()
+    except:
+        print("falta de permissão na comunidade")
+    if ctx.author.id == donoid:
+      filtro = {"premiumeterno": {"$exists": True}}
+      dados = BancoUsuarios.select_many_document(filtro).sort('premium',-1)
+      lista_itens = []
+      lista_itens.extend([f"<@{item['_id']}> - {item['_id']}" for item in dados])
+
+      embed = discord.Embed(title="Membros Premium Eterno Atuais", color=discord.Color.yellow()) 
+
+      for i in range(0, len(lista_itens), 15):
+        mensagem = "\n".join(lista_itens[i:i + 15])
+        embed.add_field(name="\u200b", value=mensagem, inline=False) # Adicionando um campo ao embed
+
+      await ctx.send(embed=embed) # Enviando o embed
+    else:
+      await ctx.send(Res.trad(guild = ctx.guild.id,str="message_erro_onlyowner"))
+      return
+
+
+
+
+
+
+
+
+
+
+
+
+
+#COMANDO DAR PREMIUM POR ASSINATURA
   @commands.command(name="givepremium", description='Ativa o premium para um usuario...')
   async def premiumonwer(self,ctx,user:discord.User = None,*,args:int = None):
     try:
@@ -425,8 +538,13 @@ class premium(commands.Cog):
 
 
 
+
+
+
+
+
 #COMANDO EXIBIR ASSINANTES PREMIUM
-  @commands.command(name="showpremium", description='Ativa o premium para um usuario...')
+  @commands.command(name="showpremium", description='Exibe todos os assinantes Premium...')
   async def premiumshow(self,ctx):
     try:
         await ctx.message.delete()
@@ -436,9 +554,9 @@ class premium(commands.Cog):
       filtro = {"premium": {"$exists": True}}
       dados = BancoUsuarios.select_many_document(filtro).sort('premium',-1)
       lista_itens = []
-      lista_itens.extend([f"<@{item['_id']}> - termina <t:{int(item['premium'].timestamp())}:R>" for item in dados])
+      lista_itens.extend([f"<@{item['_id']}> - {item['_id']} - termina <t:{int(item['premium'].timestamp())}:R>" for item in dados])
 
-      embed = discord.Embed(title="Assinaturas Premium Atuais", color=discord.Color.yellow()) # Cor verde
+      embed = discord.Embed(title="Assinaturas Premium Atuais", color=discord.Color.yellow()) 
 
       for i in range(0, len(lista_itens), 15):
         mensagem = "\n".join(lista_itens[i:i + 15])
@@ -455,7 +573,7 @@ class premium(commands.Cog):
 
 
 #GRUPO Premium
-  premium = app_commands.Group(name="premium",description="Comandos premium do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=False))
+  premium = app_commands.Group(name="premium",description="Comandos premium do Brix.",allowed_installs=app_commands.AppInstallationType(guild=True,user=True),allowed_contexts=app_commands.AppCommandContext(guild=True, dm_channel=True, private_channel=True))
 
 
 

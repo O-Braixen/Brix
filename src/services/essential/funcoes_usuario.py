@@ -254,22 +254,25 @@ class ModalEditarSobremim(discord.ui.Modal):
 # ======================================================================
 # FUNÇÃO QUE VERIFICA SE O USUARIO É ASSINANTE PREMIUM
 async def userpremiumcheck(interaction):
-    try: 
+    try:
         usuario = interaction.user
     except:
         usuario = interaction
+
+    # Carrega os dados
     dado = BancoUsuarios.insert_document(usuario)
     premiumativo = BancoBot.insert_document()
-    if premiumativo['premiumsys'] is False:
+
+    # Se o sistema premium estiver desligado
+    if not premiumativo.get('premiumsys', True):
         print("💎  -  sistema premium desativado, comando liberado")
         return True
-    else:
-        try:
-          dado['premium']
-          return True 
-        except:
-          return False 
 
+    # Verifica se o usuário tem premium normal 
+    if 'premium' in dado:
+        return True
+
+    return False
 
 
 

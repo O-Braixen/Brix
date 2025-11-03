@@ -283,7 +283,7 @@ class ModalNomeBot(discord.ui.Modal,title = "Renomeando o bot!"):
 class ModalavatarBot(discord.ui.Modal,title = "Alterar Avatar do Bot!"):
     newavatar = discord.ui.TextInput(label="Indique o Link da imagem?",style=discord.TextStyle.long,min_length=1,placeholder="http:algumacoisalinkdireto")
 
-    def __init__(self, client):
+    def __init__(self, client: discord.Client):
         super().__init__()
         self.client = client
 
