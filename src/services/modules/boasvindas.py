@@ -1,4 +1,4 @@
-import discord,os,asyncio,time,random , datetime ,unicodedata , re
+import discord,os,asyncio,time,random , datetime ,unicodedata , re , pytz
 from discord.ext import commands
 from discord import app_commands
 from dotenv import load_dotenv
@@ -13,8 +13,6 @@ from src.services.essential.respostas import Res
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env')) #load .env da raiz
 idbh = int(os.getenv("id_servidor_bh"))
-
-
 
 
 
@@ -88,6 +86,21 @@ class boasvindas(commands.Cog):
               await member.ban(reason="Brix proteção Anti-Alt: Conta muito nova.")
           except:
             print(f"🔴 - falha ao aplicar penalidade em :{member.guild.id}")
+
+            #AVISO AO DONO DO PROBLEMA DE PERMISSÂO
+            try:
+              aviso_expira_em = dados_servidor.get("owner_aviso_antialt",None)
+              agora = datetime.datetime.now()
+              # Só avisa se não houver aviso válido
+              if not aviso_expira_em or agora >= aviso_expira_em:
+                  await member.guild.owner.send( Res.trad(user=member.guild.owner, str='message_segurança_erro_owner_aviso').format(member.guild.name) )
+                  print(f"🦊 - Dono do servidor {member.guild.name} avisado do problema de permissão")
+                  # Atualiza no banco a data de expiração do aviso (15 dias à frente)
+                  item = { "owner_aviso_antialt": agora + datetime.timedelta(days=15) }
+                  BancoServidores.update_document(member.guild.id, item)
+
+            except Exception as aviso_erro:
+                print(f"📪 Falha ao avisar o dono do servidor: {aviso_erro}")
           return
 
 

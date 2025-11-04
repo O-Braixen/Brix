@@ -1,4 +1,4 @@
-import discord,os,asyncio,requests,random,io,textwrap,time
+import discord,os,asyncio,requests,random,io,textwrap,time , json , aiohttp , datetime
 from discord.ext import commands,tasks
 from discord import app_commands
 from discord.voice_client import VoiceClient 
@@ -18,6 +18,8 @@ Image.MAX_IMAGE_PIXELS = None
 # ======================================================================
 
 id_chatBH = int(os.getenv('id_chatBH'))
+CACHE_PATH = "src/services/caches/e621_tags.json"
+e621_tags = {}
 
 
 
@@ -35,6 +37,44 @@ try:
     print("🦊  -  Login e621 bem-sucedido!")
 except:
     print(f"❌  -  Falha no login do e621")
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ======================================================
+# Função de carregamento inicial
+# ======================================================
+async def carregar_cache_e621():
+    global e621_tags
+    if e621_tags:
+        return
+    if os.path.exists(CACHE_PATH):
+        try:
+            with open(CACHE_PATH, "r", encoding="utf-8") as f:
+                e621_tags = json.load(f)
+            print(f"[e621] Cache carregado ({len(e621_tags['tags'])} tags)")
+        except Exception as e:
+            print(f"[e621] Erro ao carregar cache: {e}")
+            e621_tags = {}
+    else:
+        print("[e621] Nenhum cache encontrado, iniciando vazio.")
+        e621_tags = {}
+
+
+
+
+
+
+
 
 
 
@@ -186,6 +226,13 @@ class diversao(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🎲  -  Modúlo Diversao carregado.")
+    
+
+    if not self.atualizar_cache_e621.is_running():
+        self.atualizar_cache_e621.start()
+        await asyncio.sleep(20)
+        await carregar_cache_e621()
+        
     if not self.autophox.is_running():
         await asyncio.sleep(1200) #1200
         self.autophox.start()
@@ -219,6 +266,126 @@ class diversao(commands.Cog):
                 await message.reply(random.choice(Res.trad(guild=message.guild.id,str='responsekyu')))
             except:
                 print(f"falha ao enviar Kyu no servidor {message.guild.name} - {message.guild.id} para o {message.author.name} - {message.author.id}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    # ======================================================
+    # Função de atualização incremental
+    # ======================================================
+  @tasks.loop (time=datetime.time(hour=4 , minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
+  async def atualizar_cache_e621(self):
+    global e621_tags
+    print(f"[e621] Iniciando atualização incremental ({datetime.datetime.now().strftime('%H:%M:%S')})")
+
+    novos = 0
+    atualizados = 0
+    paginas_processadas = 0
+    page = 1
+    headers = {"User-Agent": "BrixBot/1.0 (by Breyksen)"}
+
+    # ==========================
+    # Carrega cache existente
+    # ==========================
+    cache_data = {"_meta": {"ultima_pagina": 1, "data_inicio": datetime.date.today().isoformat()}, "tags": {}}
+    if os.path.exists(CACHE_PATH):
+        try:
+            with open(CACHE_PATH, "r", encoding="utf-8") as f:
+                cache_data = json.load(f)
+            print(f"[e621] Cache existente carregado ({len(cache_data['tags'])} tags).")
+        except Exception as e:
+            print(f"[e621] Erro ao carregar cache: {e}")
+
+    e621_tags = cache_data.get("tags", {})
+    meta = cache_data.get("_meta", {})
+    page = meta.get("ultima_pagina", 1)
+    data_inicio = meta.get("data_inicio", datetime.date.today().isoformat())
+
+    # ==========================
+    # Reiniciar se cache tiver +15 dias
+    # ==========================
+    try:
+        data_inicio_dt = datetime.datetime.fromisoformat(data_inicio).date()
+        dias_passados = (datetime.date.today() - data_inicio_dt).days
+        if dias_passados >= 15:
+            print(f"[e621] Cache antigo ({dias_passados} dias). Reiniciando da página 1.")
+            page = 1
+            cache_data["_meta"]["data_inicio"] = datetime.date.today().isoformat()
+    except Exception as e:
+        print(f"[e621] Erro ao verificar data do cache: {e}")
+        cache_data["_meta"]["data_inicio"] = datetime.date.today().isoformat()
+
+    # ==========================
+    # Loop principal
+    # ==========================
+    async with aiohttp.ClientSession() as session:
+        while True:
+            url = "https://e621.net/tags.json"
+            params = {
+                "search[name_matches]": "*",
+                "search[order]": "count",
+                "limit": 320,
+                "page": page
+            }
+
+            try:
+                async with session.get(url, params=params, headers=headers, timeout=10) as r:
+                    if r.status != 200:
+                        print(f"[e621] Nenhuma página nova (HTTP {r.status}). Fim do cache.")
+                        cache_data["_meta"]["ultima_pagina"] = 1
+                        break
+
+                    data = await r.json()
+
+                    for tag in data:
+                        nome = tag["name"]
+                        count = tag["post_count"]
+                        if nome not in e621_tags:
+                            e621_tags[nome] = count
+                            novos += 1
+                        elif e621_tags[nome] != count:
+                            e621_tags[nome] = count
+                            atualizados += 1
+
+                    paginas_processadas += 1
+                    page = int(page) + 1
+                    cache_data["_meta"]["ultima_pagina"] = page
+                    #print(f"[e621] Página {paginas_processadas} → ({len(e621_tags)} tags)")
+
+                    # salva a cada 40 páginas
+                    if paginas_processadas % 40 == 0:
+                        cache_data["tags"] = e621_tags
+                        with open(CACHE_PATH, "w", encoding="utf-8") as f:
+                            json.dump(cache_data, f, indent=2)
+                    
+                    await asyncio.sleep(0.25)
+
+            except Exception as e:
+                print(f"[e621] Erro: {e}")
+                break
+
+    # salva no final
+    cache_data["tags"] = e621_tags
+    cache_data["_meta"]["ultima_pagina"] = page
+    with open(CACHE_PATH, "w", encoding="utf-8") as f:
+        json.dump(cache_data, f, indent=2)
+
+    print(f"[e621] Atualização parcial concluída. +{novos} novos, {atualizados} atualizados ({len(e621_tags)} total)")
+
+
 
 
 
@@ -510,40 +677,26 @@ class diversao(commands.Cog):
 
 
   #COMANDO PRIMARINA SLASH
-  @img.command(name="busca",description='🎨⠂Procure algo no e621 ou e926.')
+  @img.command(name="buscar",description='🎨⠂Procure algo no e621 ou e926.')
   @app_commands.choices(quantidade=[app_commands.Choice(name=f"{i}", value=i) for i in range(1, 16)] , filtro=[app_commands.Choice(name="SFW", value=False), app_commands.Choice(name="NSFW", value=True)])
   @app_commands.describe(tag="indique uma tag",quantidade="quantidade de imagens, limite 15", filtro = "Opção valida somente para canais privados ou DM")
-  async def buscae621(self,interaction: discord.Interaction,tag:str,quantidade:app_commands.Choice[int]=None , filtro: app_commands.Choice[int] = None):
+  async def buscare621(self,interaction: discord.Interaction,tag:str,quantidade:app_commands.Choice[int]=None , filtro: app_commands.Choice[int] = None):
     await buscae621slash(interaction,quantidade,tag,filtro)
-     
+    
 
-  @buscae621.autocomplete("tag")
-  async def valor_autocomplete(self, interaction: discord.Interaction, current: str) -> List[app_commands.Choice[str]]:
-      sugestao: List[app_commands.Choice[str]] = []
+  @buscare621.autocomplete("tag")
+  async def valor_autocomplete(self, interaction, current: str):
+    global e621_tags
+    if not e621_tags:
+        await carregar_cache_e621()
 
-      try:
-          # tenta buscar no e621
-          r = requests.get( "https://e621.net/tags/autocomplete.json", params={"search[name_matches]": current}, headers={"User-Agent": "DiscordBot/1.0 (by YourUsername on e621)"}, timeout=2 )
-          r.raise_for_status()  # se retornar erro HTTP, levanta exceção
-          data = r.json()
-      except requests.exceptions.ReadTimeout:
-          data = e621api.tags.search(current)
-      except:
-          data = []
+     # se o cache estiver no formato antigo (só o dicionário), adapta
+    tags_dict = e621_tags.get("tags", e621_tags)
 
-      # monta sugestões
-      for tag in data:
-          try:
-              sugestao.append(
-                  app_commands.Choice(
-                      name=f"{tag['name']} ({tag['post_count']})",
-                      value=tag['name']
-                  )
-              )
-          except Exception:
-              continue
-
-      return sugestao[:25]  # Discord só aceita até 25 opções
+    current = current.lower().replace(" ", "_")
+    resultados = [ (n, c) for n, c in tags_dict.items() if current in n.lower() ]
+    resultados.sort(key=lambda x: x[1], reverse=True)
+    return [ app_commands.Choice( name=f"{n.replace('_', ' ')} - ({c})", value=n ) for n, c in resultados[:25]]
 
 
 

@@ -5,6 +5,7 @@ from discord import app_commands
 from src.services.connection.database import BancoUsuarios , BancoFinanceiro , BancoPagamentos
 from src.services.essential.respostas import Res
 from src.services.essential.API_Mercadopago import criar_link_pagamento , update_pagamentos
+from src.services.essential.diversos import Paginador_Global
 from PIL import Image, ImageDraw, ImageFont , ImageOps
 from dotenv import load_dotenv
 
@@ -78,7 +79,7 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
     premium += datetime.timedelta(days=args)
     BancoUsuarios.update_document(user, {"premium": premium})
     
-    message = f"## 🦊 - Brix Premium\nUsuario: {user.mention}"
+    message = f"## 🦊 - Brix Premium\nUsuario: {user.mention}\n"
 
 
     # mensagem DM pro usuário
@@ -543,29 +544,48 @@ class premium(commands.Cog):
 
 
 
-#COMANDO EXIBIR ASSINANTES PREMIUM
+  # COMANDO EXIBIR ASSINANTES PREMIUM
   @commands.command(name="showpremium", description='Exibe todos os assinantes Premium...')
-  async def premiumshow(self,ctx):
+  async def premiumshow(self, ctx):
     try:
         await ctx.message.delete()
     except:
         print("falta de permissão na comunidade")
-    if ctx.author.id == donoid:
-      filtro = {"premium": {"$exists": True}}
-      dados = BancoUsuarios.select_many_document(filtro).sort('premium',-1)
-      lista_itens = []
-      lista_itens.extend([f"<@{item['_id']}> - {item['_id']} - termina <t:{int(item['premium'].timestamp())}:R>" for item in dados])
 
-      embed = discord.Embed(title="Assinaturas Premium Atuais", color=discord.Color.yellow()) 
+    if ctx.author.id != donoid:
+        await ctx.send(Res.trad(guild=ctx.guild.id, str="message_erro_onlyowner"))
+        return
 
-      for i in range(0, len(lista_itens), 15):
-        mensagem = "\n".join(lista_itens[i:i + 15])
-        embed.add_field(name="\u200b", value=mensagem, inline=False) # Adicionando um campo ao embed
+    filtro = {"premium": {"$exists": True}}
+    dados = BancoUsuarios.select_many_document(filtro).sort('premium', -1)
+    lista_itens = [
+        f"<@{item['_id']}> - {item['_id']} - termina <t:{int(item['premium'].timestamp())}:R>"
+        for item in dados
+    ]
 
-      await ctx.send(embed=embed) # Enviando o embed
-    else:
-      await ctx.send(Res.trad(guild = ctx.guild.id,str="message_erro_onlyowner"))
-      return
+    embeds = []
+    embed_atual = discord.Embed(title=f"Assinaturas Premium Atuais ({len(lista_itens)})", color=discord.Color.yellow())
+    field_count = 0
+
+    for i in range(0, len(lista_itens), 10):
+        mensagem = "\n".join(lista_itens[i:i + 10])
+        embed_atual.add_field(name="\u200b", value=mensagem, inline=False)
+        field_count += 1
+
+        # se o embed atingir 10 fields, envia e cria um novo
+        if field_count == 10:
+            embeds.append(embed_atual)
+            embed_atual = discord.Embed(color=discord.Color.yellow())
+            field_count = 0
+
+    # adiciona o último se ainda tiver campos
+    if field_count > 0:
+        embeds.append(embed_atual)
+
+    # envia tudo sequencialmente
+    for e in embeds:
+        await ctx.send(embed=e)
+
 
 
 

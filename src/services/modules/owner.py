@@ -789,7 +789,7 @@ class Botoesdash(discord.ui.View):
         for log in logs:
             timestamp = int(log["timestamp"].timestamp())
             guild = f"{log['guild_name']}" if log.get("guild_name") else "DM"
-            linha = f"`/{log['comando']}` por **{log['user_name']}** (<t:{timestamp}:R>) no servidor: *{guild}*"
+            linha = f"`/{log['comando']}` por **{log['user_name']}** {log['user_id']} (<t:{timestamp}:R>) no servidor: *{guild}*"
             lista.append(linha)
 
         if not lista:
@@ -1176,9 +1176,11 @@ class owner(commands.Cog):
   async def on_ready(self):
     print("🦊  -  Modúlo Owner carregado.")
 
-    await inicializar_caches_se_preciso()
+    
     if not self.verificar_guilds.is_running():
       self.verificar_guilds.start()
+      await asyncio.sleep(20)
+      await inicializar_caches_se_preciso()
       await asyncio.sleep(300)
       await baixaritensloja()
 

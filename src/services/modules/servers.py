@@ -596,7 +596,7 @@ class servers(commands.Cog):
                   if not owner_dm_aviso:
                     owner_dm_aviso = True
                     aviso_expira_em = servidor.get("owner_aviso",None)
-                    agora = datetime.now().astimezone(FUSOHORARIO)
+                    agora = datetime.now()
                     # Só avisa se não houver aviso válido
                     if not aviso_expira_em or agora >= aviso_expira_em:
                         await guild.owner.send( Res.trad(user=guild.owner, str='servidor_tag_erro_owner_aviso').format(guild.name) )
@@ -632,7 +632,7 @@ class servers(commands.Cog):
                   if not owner_dm_aviso:
                     owner_dm_aviso = True
                     aviso_expira_em = servidor.get("owner_aviso",None)
-                    agora = datetime.now().astimezone(FUSOHORARIO)
+                    agora = datetime.now()
                     # Só avisa se não houver aviso válido
                     if not aviso_expira_em or agora >= aviso_expira_em:
                       await guild.owner.send( Res.trad(user=guild.owner, str='servidor_tag_erro_owner_aviso').format(guild.name) )
