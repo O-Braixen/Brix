@@ -1706,6 +1706,11 @@ class owner(commands.Cog):
     if mensagem is None and ia is None:
       await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_notargument").format("Escreva uma mensagem ou peça algo pelo Brix IA."), delete_after=20,ephemeral=True)
       return
+    
+    if interaction.permissions.manage_messages is False:
+      await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"), delete_after=20,ephemeral=True)
+      return
+    
     await interaction.response.defer()
 
     if mensagem:
@@ -1762,6 +1767,9 @@ class owner(commands.Cog):
   @bot.command(name="embed", description="🦊⠂Envie um embed como Brix.")
   async def embed(self, interaction: discord.Interaction):
     """Embed Generator With Default Embed"""
+    if interaction.permissions.manage_messages is False:
+      await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"), delete_after=20,ephemeral=True)
+      return
     # Creates a instance of EmbedCreator class
     view = CriadorDeEmbed(interacao= interaction)
     await interaction.response.send_message(embed=view.get_default_embed, view=view)
