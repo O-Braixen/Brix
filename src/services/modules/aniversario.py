@@ -328,7 +328,7 @@ class aniversario(commands.Cog):
             await asyncio.sleep(10)
             await mensagemteste.delete()
         except:
-            await interaction.followup.send(Res.trad(interaction=interaction,str="message_aniversario_notificacao_erro"),delete_after=30,ephemeral=True)
+            await interaction.followup.send(Res.trad(interaction=interaction,str="message_aniversario_notificacao_erro"),ephemeral=True)
             
 
 

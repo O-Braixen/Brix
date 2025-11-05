@@ -87,57 +87,81 @@ async def carregar_cache_e621():
 
 
 
-
-#API E621 VIA SLASH
-async def buscae621slash(interaction,quantidade,item, MOD_NSFW):
-    if await Res.print_brix(comando="buscare621slash",interaction=interaction,condicao=f"{quantidade} / {item} / {MOD_NSFW}"):
+# API E621 VIA SLASH
+async def buscae621slash(interaction, quantidade, item, MOD_NSFW):
+    if await Res.print_brix(comando="buscare621slash", interaction=interaction, condicao=f"{quantidade} / {item} / {MOD_NSFW}"):
         return
     try:
         await interaction.response.defer()
-        if quantidade == None:
-            quantidade = 1
-        else:
-            quantidade = quantidade.value
-        if quantidade <= 15:
-            page = random.randint(1,15)
-            i = 0
+
+        quantidade = quantidade.value if quantidade else 1
+        if quantidade > 15:
+            return await interaction.followup.send(
+                Res.trad(interaction=interaction, str="message_erro_E621_limit").format(quantidade),
+                ephemeral=True
+            )
+
+        # Define busca e filtros
+        try:
+            if interaction.channel.is_nsfw():
+                busca = item
+                filtro = "rating:s,urine,gore,feces,diaper"
+                messagefooter = Res.trad(interaction=interaction, str='message_APIE621_footer')
+            else:
+                busca = f"{item} rating:s"
+                filtro = "rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper"
+                messagefooter = Res.trad(interaction=interaction, str='message_APIE926_footer')
+        except:
+            MOD_NSFW = MOD_NSFW.value if MOD_NSFW else False
+            if MOD_NSFW:
+                busca = item
+                filtro = "rating:s,urine,gore,feces,diaper"
+                messagefooter = Res.trad(interaction=interaction, str='message_APIE621_footer')
+            else:
+                busca = f"{item} rating:s"
+                filtro = "rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper"
+                messagefooter = Res.trad(interaction=interaction, str='message_APIE926_footer')
+
+        # Busca posts
+        page = random.randint(1, 15)
+        r = e621api.posts.search(busca, filtro, 50, page, ignorepage=True)
+        if not r:
+            r = e621api.posts.search(busca, filtro, 100, 1, ignorepage=True)
+        if len(r) < quantidade:
+            r = e621api.posts.search(busca, filtro, 50, page - 1, ignorepage=True)
+
+        r = random.sample(r, quantidade)
+
+        # Se estiver em DM, usa channel.send pra evitar o limite de followup
+        is_dm = isinstance(interaction.channel, discord.DMChannel)
+
+        for post in r:
+            descricao = Res.trad(interaction=interaction, str="artista").format(
+                post['tags']['artist'][0] if post['tags']['artist'] else '-'
+            )
+            view = container_media_button_url( titulo=item.replace("_", " ").title(), descricao=descricao, galeria=post['file']['url'], buttonLABEL=Res.trad(interaction=interaction, str="botão_abrir_navegador"), buttonURL=f"https://e621.net/posts/{post['id']}", footer=messagefooter )
+
+            # Envio seguro
             try:
-                if interaction.channel.is_nsfw():
-                    busca = item
-                    filtro = "rating:s,urine,gore,feces,diaper"
-                    messagefooter = Res.trad(interaction=interaction,str='message_APIE621_footer')
+                if is_dm:
+                    await interaction.channel.send(view=view)
                 else:
-                    busca = f"{item} rating:s"
-                    filtro = "rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper"
-                    messagefooter = Res.trad(interaction=interaction,str='message_APIE926_footer')
-            except:
-                MOD_NSFW = MOD_NSFW.value if MOD_NSFW else False
-                if MOD_NSFW:
-                    busca = item
-                    filtro = "rating:s,urine,gore,feces,diaper"
-                    messagefooter = Res.trad(interaction=interaction,str='message_APIE621_footer')
+                    await interaction.followup.send(view=view)
+            except discord.errors.HTTPException as err:
+                if err.code == 40094:  # Limite de followups
+                    await interaction.channel.send(view=view)
                 else:
-                    busca = f"{item} rating:s"
-                    filtro = "rating:e,rating:q,urine,gore,feces,breasts,genitals,butt,diaper"
-                    messagefooter = Res.trad(interaction=interaction,str='message_APIE926_footer')
+                    print(f"Erro ao enviar post: {err}")
 
-            r=e621api.posts.search(busca, filtro ,50 ,page,ignorepage=True)
-            if r == []:
-                r=e621api.posts.search(busca, filtro ,100 ,1,ignorepage=True)
-            if len(r) < quantidade: # caso quantidade seja inferior ao pedido
-                r=e621api.posts.search(busca, filtro ,50 ,page-1,ignorepage=True)
-            r = random.sample(r,quantidade)
-            while (i< len(r) ):
-                post = r[i]
-                i=i+1
-                descrição = Res.trad(interaction=interaction,str="artista").format(post['tags']['artist'][0] if post['tags']['artist'] else '-')
-                view = container_media_button_url(titulo= item.replace("_", " ").title(), descricao= descrição, galeria = post['file']['url'], buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador") , buttonURL=f"https://e621.net/posts/{post['id']}" , footer=messagefooter)
-                await interaction.followup.send(view=view)
-
-        else:await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_E621_limit").format(quantidade),ephemeral = True)    
     except Exception as e:
         print(e)
-        await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_APIE621"),ephemeral = True)
+        try:
+            await interaction.followup.send( Res.trad(interaction=interaction, str="message_erro_APIE621"), ephemeral=True )
+        except:
+            await interaction.channel.send( Res.trad(interaction=interaction, str="message_erro_APIE621") )
+
+
+
 
 
 
