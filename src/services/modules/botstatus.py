@@ -1,6 +1,6 @@
-import discord, os , asyncio , datetime , pytz , psutil
+import discord, os , asyncio , datetime , pytz
 from discord.ext import commands, tasks
-from src.services.essential.host import informação
+from src.services.essential.host import informação , status
 from src.services.connection.database import BancoBot , BancoUsuarios , BancoLogs
 from src.services.essential.respostas import listapegadinha
 from src.services.essential.shardsname import NOME_DOS_SHARDS
@@ -280,9 +280,10 @@ class BotStatus(commands.Cog):
         # Executa de 5 em 5 minutos (00, 05, 10, 15, ...)
         if minuto % 5 == 0:
             try:
+                res_status, host = await status(self.client.user.name)
                 latencia = round(self.client.latency * 1000, 2)
-                uso_ram = round(psutil.virtual_memory().used / 1024 / 1024, 1)
-                uso_cpu = psutil.cpu_percent()
+                uso_ram = res_status['response']['ram']
+                uso_cpu = res_status['response']['cpu']
 
                 BancoLogs.registrar_metricas_externas(latencia, uso_ram, uso_cpu)
             except Exception as e:
