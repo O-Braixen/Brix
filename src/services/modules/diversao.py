@@ -90,7 +90,7 @@ async def carregar_cache_e621():
 
 #API E621 VIA SLASH
 async def buscae621slash(interaction,quantidade,item, MOD_NSFW):
-    if await Res.print_brix(comando="buscare621slash",interaction=interaction,condicao=item):
+    if await Res.print_brix(comando="buscare621slash",interaction=interaction,condicao=f"{quantidade} / {item} / {MOD_NSFW}"):
         return
     try:
         await interaction.response.defer()
@@ -230,7 +230,7 @@ class diversao(commands.Cog):
 
     if not self.atualizar_cache_e621.is_running():
         self.atualizar_cache_e621.start()
-        await asyncio.sleep(20)
+        await asyncio.sleep(120)
         await carregar_cache_e621()
         
     if not self.autophox.is_running():

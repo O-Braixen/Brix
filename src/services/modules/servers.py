@@ -580,7 +580,7 @@ class servers(commands.Cog):
             if cargo not in member.roles:
               try:
                 await member.add_roles(cargo, reason="Usa a tag do servidor")
-                await asyncio.sleep(0.5) #Evitar abuso de api do discord
+                await asyncio.sleep(0.2) #Evitar abuso de api do discord
                 print(f"🦊 {member} recebeu o cargo {cargo.name}")
 
                 if notificar:
@@ -616,7 +616,7 @@ class servers(commands.Cog):
             if not ( member.primary_guild and member.primary_guild.id == guild.id and member.primary_guild.identity_enabled ):
               try:
                 await member.remove_roles(cargo, reason="Parou de usar a tag do servidor")
-                await asyncio.sleep(0.5) #Evitar abuso de api do discord
+                await asyncio.sleep(0.2) #Evitar abuso de api do discord
                 print(f"😿 {member} perdeu o cargo {cargo.name}")
 
                 if notificar:
@@ -915,6 +915,11 @@ class servers(commands.Cog):
       # Verificando se o usuário tem permissão
       if not interaction.user.guild_permissions.manage_roles:
         await interaction.response.send_message(Res.trad(interaction=interaction, str='message_erro_permissao_user'), delete_after=20, ephemeral=True)
+        return
+      
+      me = interaction.guild.get_member(interaction.client.user.id)
+      if not me or not me.guild_permissions.administrator:
+        await interaction.followup.send(Res.trad(interaction=interaction, str='message_erro_permissao'))
         return
       
       await interaction.response.defer()
