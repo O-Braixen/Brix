@@ -282,8 +282,8 @@ class BotStatus(commands.Cog):
             try:
                 res_status, host = await status(self.client.user.name)
                 latencia = round(self.client.latency * 1000, 2)
-                uso_ram = res_status['response']['ram']
-                uso_cpu = res_status['response']['cpu']
+                uso_ram = float(res_status['response']['ram'].replace("MB", ""))
+                uso_cpu = float(res_status['response']['cpu'].replace("%", ""))
 
                 BancoLogs.registrar_metricas_externas(latencia, uso_ram, uso_cpu)
             except Exception as e:
