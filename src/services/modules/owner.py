@@ -53,7 +53,7 @@ async def botstatus(self,interaction):
   fuso = pytz.timezone('America/Sao_Paulo')
   now = datetime.datetime.now().astimezone(fuso).replace(hour=0, minute=0, second=0, microsecond=0)
   try:
-    logs_hoje = BancoLogs.contar_comandos({"timestamp": {"$gte": now}})
+    logs_hoje = BancoLogs.contar_registros({ "tipo": 2, "timestamp": {"$gte": now}})
     dadosbot = BancoBot.insert_document()
     if self.client.user.id == 983000989894336592:
       ambiente = "Produção"
@@ -784,12 +784,13 @@ class Botoesdash(discord.ui.View):
     async def logsbrix (self,interaction: discord.Interaction, button: discord.ui.Button):
       if interaction.user.id == donoid:
         await interaction.response.defer(ephemeral=True)
-        logs = BancoLogs.listar_logs(limite=1000)  # pega últimos 1000 comandos
+        logs = BancoLogs.listar(2 ,limite=1000)  # pega últimos 1000 comandos
         lista = []
         for log in logs:
             timestamp = int(log["timestamp"].timestamp())
-            guild = f"{log['guild_name']}" if log.get("guild_name") else "DM"
-            linha = f"`/{log['comando']}` por **{log['user_name']}** {log['user_id']} (<t:{timestamp}:R>) no servidor: *{guild}*"
+            dados = log.get("dados", {})
+            guild = f"{dados['guild_name']}" if dados.get("guild_name") else "DM"
+            linha = f"`/{dados['comando']}` por **{dados['user_name']}** {dados['user_id']} (<t:{timestamp}:R>) no servidor: *{guild}*"
             lista.append(linha)
 
         if not lista:

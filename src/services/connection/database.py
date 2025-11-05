@@ -314,64 +314,128 @@ class BancoFinanceiro:
 
 
 
-# ======================================================================
-# =========================== COLEÇÃO DE LOGS ==========================
+# ======================================
+# COLEÇÃO DE LOGS GERAIS DO BRIX
+# ======================================
 
+bancologs = db_connection.get_collection("logs_brix")
 
-# Conexão com a coleção de logs de comandos
-bancologs = db_connection.get_collection("logs_comandos")
 class BancoLogs:
-    
-    def registrar_comando(interaction, comando, condicao=None):
+    """
+    Sistema unificado de registro de eventos do bot Brix.
+    Tipo:
+      1 = entrada/saída de servidor
+      2 = comando executado
+      3 = usuários / contagens gerais
+      4 = métricas externas (ping, RAM, CPU, etc)
+      5 = Assinaturas Premium
+    """
+
+    @staticmethod
+    def registrar_evento(tipo: int, dados: dict):
         now = datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo'))
+
         log_doc = {
-            "user_id": interaction.user.id,
-            "user_name": interaction.user.name,
-            "comando": comando,
-            "condicao": condicao,
-            "guild_id": interaction.guild.id if interaction.guild else None,
-            "guild_name": interaction.guild.name if interaction.guild else None,
-            "timestamp": now
+            "tipo": tipo,
+            "timestamp": now,
+            "dados": dados
         }
+
         try:
             bancologs.insert_one(log_doc)
         except Exception as e:
-            print(f"Falha ao salvar log no MongoDB: {e}")
+            print(f"Falha ao salvar log: {e}")
             print(log_doc)
 
-    def listar_logs(filtro={}, limite=20, sort_desc=True):
-        """
-        Lista logs com filtro opcional.
-        - filtro: dicionário de filtros MongoDB (ex: {"comando": "ping"})
-        - limite: quantos resultados retornar
-        - sort_desc: True para mais recentes primeiro
-        """
+    # ---------------------------------------------------------------------
+    # COMANDO EXECUTADO
+    # ---------------------------------------------------------------------
+    @staticmethod
+    def registrar_comando(interaction, comando, condicao=None):
+        dados = {
+            "user_id": interaction.user.id,
+            "user_name": interaction.user.name,
+            "guild_id": interaction.guild.id if interaction.guild else None,
+            "guild_name": interaction.guild.name if interaction.guild else None,
+            "comando": comando,
+            "condicao": condicao
+        }
+        BancoLogs.registrar_evento(2, dados)
+
+    # ---------------------------------------------------------------------
+    # ENTRADA / SAÍDA DE SERVIDOR
+    # ---------------------------------------------------------------------
+    @staticmethod
+    def registrar_guild_evento(guild, tipo_entrada=True):
+        dados = {
+            "guild_id": guild.id,
+            "guild_name": guild.name,
+            "membros": guild.member_count,
+            "acao": "entrada" if tipo_entrada else "saida"
+        }
+        BancoLogs.registrar_evento(1, dados)
+
+    # ---------------------------------------------------------------------
+    # SNAPSHOT DE USUÁRIOS E SERVIDORES (diário ou horário)
+    # ---------------------------------------------------------------------
+    @staticmethod
+    async def registrar_estatisticas_gerais(bot):
+        total_guilds = len(bot.guilds)
+        total_users = len(set(u.id for g in bot.guilds for u in g.members))
+
+        dados = {
+            "total_servidores": total_guilds,
+            "total_usuarios": total_users
+        }
+        BancoLogs.registrar_evento(3, dados)
+
+    # ---------------------------------------------------------------------
+    # DADOS EXTERNOS (ping, memória, CPU)
+    # ---------------------------------------------------------------------
+    @staticmethod
+    def registrar_metricas_externas(latencia, uso_ram, uso_cpu):
+        dados = {
+            "latencia_ms": latencia,
+            "uso_ram_mb": uso_ram,
+            "uso_cpu_percent": uso_cpu
+        }
+        BancoLogs.registrar_evento(4, dados)
+    
+
+    # ---------------------------------------------------------------------
+    # DADOS ASSINATURA (ENTREGA DE PREMIUM)
+    # ---------------------------------------------------------------------
+    @staticmethod
+    def registrar_assinatura_premium(userid , tempo):
+        dados = {
+            "usuario_recebimento_id": userid,
+            "tempo_assinatura": tempo
+        }
+        BancoLogs.registrar_evento(5, dados)
+
+    # ---------------------------------------------------------------------
+    # CONSULTAS
+    # ---------------------------------------------------------------------
+    @staticmethod
+    def listar(tipo=None, limite=50):
+        filtro = {"tipo": tipo} if tipo else {}
         try:
-            cursor = bancologs.find(filtro).sort(
-                "timestamp", -1 if sort_desc else 1
-            ).limit(limite)
+            cursor = bancologs.find(filtro).sort("timestamp", -1).limit(limite)
             return list(cursor)
         except Exception as e:
-            print(f"Falha ao buscar logs: {e}")
+            print(f"Erro ao listar logs: {e}")
             return []
 
-    def contar_comandos(filtro={}):
-        """
-        Retorna a quantidade de comandos que batem com o filtro.
-        Exemplo de filtro pra pegar só os de hoje:
-        {"timestamp": {"$gte": inicio_dia}}
-        """
+    @staticmethod
+    def contar_registros(filtro={}, limite=None):
         try:
-            return bancologs.count_documents(filtro)
+            query = filtro.copy()
+            if limite:
+                return bancologs.count_documents(query, limit=limite)
+            return bancologs.count_documents(query)
         except Exception as e:
             print(f"Falha ao contar logs: {e}")
             return 0
-
-
-
-
-
-
 
 
 

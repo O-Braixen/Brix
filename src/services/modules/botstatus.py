@@ -1,7 +1,7 @@
-import discord, os , asyncio , datetime , pytz 
+import discord, os , asyncio , datetime , pytz , psutil
 from discord.ext import commands, tasks
 from src.services.essential.host import informação
-from src.services.connection.database import BancoBot , BancoUsuarios
+from src.services.connection.database import BancoBot , BancoUsuarios , BancoLogs
 from src.services.essential.respostas import listapegadinha
 from src.services.essential.shardsname import NOME_DOS_SHARDS
 from src.services.essential.diversos import calcular_saldo 
@@ -83,6 +83,12 @@ class BotStatus(commands.Cog):
     async def on_ready(self):
         print("🤖  -  Modúlo BotStatus carregado.")
         #Ligando tasks
+        if not self.salvar_estatisticas_gerais.is_running():
+            self.salvar_estatisticas_gerais.start()
+        
+        if not self.salvar_metricas.is_running():
+            self.salvar_metricas.start()
+
         await asyncio.sleep(300)
         if not self.atualizar_status_cache.is_running():
             self.atualizar_status_cache.start()
@@ -92,8 +98,9 @@ class BotStatus(commands.Cog):
         
         if not self.update_status_loop.is_running():
             self.update_status_loop.start()
+        
+        
        
-
 
 
 
@@ -102,7 +109,7 @@ class BotStatus(commands.Cog):
 
 # ======================================================================
 
-    @tasks.loop(minutes=10)
+    @tasks.loop(hours=1)
     async def update_status_loop(self):
         dadosbot = BancoBot.insert_document()
 
@@ -246,6 +253,40 @@ class BotStatus(commands.Cog):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#TASKS PARA SALVAR ESTATISTICAS DE METRICAS DO BOT
+
+    @tasks.loop(time=datetime.time(hour=0 , minute= 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-3))))
+    async def salvar_estatisticas_gerais(self):
+        await BancoLogs.registrar_estatisticas_gerais(self.client)
+    
+
+    @tasks.loop(minutes=1)
+    async def salvar_metricas(self):
+        agora = datetime.datetime.now(pytz.timezone("America/Sao_Paulo"))
+        minuto = agora.minute
+
+        # Executa de 5 em 5 minutos (00, 05, 10, 15, ...)
+        if minuto % 5 == 0:
+            try:
+                latencia = round(self.client.latency * 1000, 2)
+                uso_ram = round(psutil.virtual_memory().used / 1024 / 1024, 1)
+                uso_cpu = psutil.cpu_percent()
+
+                BancoLogs.registrar_metricas_externas(latencia, uso_ram, uso_cpu)
+            except Exception as e:
+                print(f"Erro ao salvar métricas: {e}")
 
 
 

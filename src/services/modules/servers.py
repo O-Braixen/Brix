@@ -4,7 +4,7 @@ from discord.ext import commands, tasks
 from discord import app_commands
 from datetime import datetime, timedelta
 from src.services.essential.respostas import Res
-from src.services.connection.database import BancoServidores,BancoUsuarios,BancoLoja , BancoFinanceiro
+from src.services.connection.database import BancoServidores,BancoUsuarios,BancoLogs , BancoFinanceiro
 from src.services.modules.premium import liberarpremium
 from src.services.essential.diversos import Paginador_Global , container_media_button_url
 from functools import partial
@@ -327,6 +327,8 @@ class servers(commands.Cog):
   async def on_guild_join(self, guild: discord.Guild):
     print(f'🍕🍕🍕 - Fui adicionado ao servidor: {guild.name} (ID: {guild.id})')
     BancoServidores.bot_in_guild(guild.id, True)
+    BancoLogs.registrar_guild_evento(guild, tipo_entrada=True)
+
     # tenta achar o primeiro canal onde o bot pode mandar mensagem
     channel = None
     for c in guild.text_channels:
@@ -365,6 +367,8 @@ class servers(commands.Cog):
   async def on_guild_remove(self,guild):
     print(f'❌❌❌ - Fui removido do servidor: {guild.name} (ID: {guild.id})')
     BancoServidores.bot_in_guild(guild.id,False)
+    BancoLogs.registrar_guild_evento(guild, tipo_entrada=False)
+
 
 
 

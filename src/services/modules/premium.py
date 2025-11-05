@@ -2,7 +2,7 @@ import discord,os,asyncio,time,datetime,pytz,re , base64 , io
 from functools import partial
 from discord.ext import commands,tasks
 from discord import app_commands
-from src.services.connection.database import BancoUsuarios , BancoFinanceiro , BancoPagamentos
+from src.services.connection.database import BancoUsuarios , BancoFinanceiro , BancoPagamentos , BancoLogs
 from src.services.essential.respostas import Res
 from src.services.essential.API_Mercadopago import criar_link_pagamento , update_pagamentos
 from src.services.essential.diversos import Paginador_Global
@@ -14,53 +14,6 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '.env')) #load .env da raiz
 donoid = int(os.getenv("DONO_ID")) 
 BH_id = int(os.getenv('id_servidor_bh'))
 BH_id_boost_channel = int(os.getenv('BH_id_boost_channel'))
-
-
-
-
-
-
-  
-#FUNÇÂO DE DAR PREMIUM A MEMBRO
-"""async def liberarpremium(self, ctx, user, args, boost, presente = None):
-    dado = BancoUsuarios.insert_document(user)
-    message = f"## 🦊 - Brix Premium\nUsuario: {user.mention}"
-    try:
-        premium = dado.get('premium', datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo')))
-    except:
-        premium = datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo'))
-
-    premium += datetime.timedelta(days=args)
-    item = {"premium": premium}
-
-    try:
-        BancoUsuarios.update_document(user, item)
-        message += "\n:white_check_mark: - Premium Ativado."
-        if presente:
-          descricao_dm = Res.trad(str="message_premium_presente_send_dm").format(args , presente.mention, int(premium.timestamp()))
-        else:
-          descricao_dm = (Res.trad(str=f"message_premiumboost_{args}_send_dm").format(args, int(premium.timestamp())) if boost else Res.trad(user=user, str="message_premium_send_dm").format(int(premium.timestamp())) )
-        embed_para_usuario = discord.Embed(            colour=discord.Color.yellow(),            description=descricao_dm     )
-        embed_para_usuario.set_thumbnail(url="https://cdn.discordapp.com/emojis/1318962131567378432")
-
-        try:
-            await user.send(embed=embed_para_usuario)
-            message += f"\n:white_check_mark: - DM Enviada.\nDuração: <t:{int(premium.timestamp())}:R>"
-        except:
-            message += f"\n:x: - DM não enviada.\nDuração: <t:{int(premium.timestamp())}:R>"
-            print(f"Falha ao enviar DM para {user.id} - {user.name}")
-
-        print(f"Premium ativo para: {user.id} - {user.name}")
-
-    except Exception as e:
-        message += "\n:x: - Falha ao ativar Premium."
-        print(f"Erro ao atualizar documento no banco: {e}")
-
-    resposta = discord.Embed(color=discord.Color.yellow(), description=message)
-    try:
-        await ctx.send(embed=resposta)
-    except:
-        print("Falha ao enviar mensagem no chat para avisar do premium.")"""
 
 
 
@@ -78,6 +31,7 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
     # adiciona dias
     premium += datetime.timedelta(days=args)
     BancoUsuarios.update_document(user, {"premium": premium})
+    BancoLogs.registrar_assinatura_premium(user.id , args )
     
     message = f"## 🦊 - Brix Premium\nUsuario: {user.mention}\n"
 
