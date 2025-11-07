@@ -476,7 +476,7 @@ class bard(commands.Cog):
       await interaction.edit_original_response( view=view  , embed=embed)
 
     except Exception as e:
-        await interaction.followup.send(Res.trad(interaction=interaction,str='message_ia_servercreate_erro').format(e))
+      await Res.erro_brix_embed(interaction=interaction,str="message_ia_servercreate_erro",e=e,comando="/ai servidor criar")
    
 
 
@@ -713,7 +713,7 @@ class bard(commands.Cog):
       ans = await generate_response_with_text(f"Você se chama Brix ai e precisa fazer um resumo disso aqui em {interaction.locale.value}: {mensagens_str}")
     except Exception as e:
       # Lida com qualquer exceção durante a chamada à API (aqui você pode melhorar o tratamento de exceções)
-      await interaction.edit_original_response(embed=None, content=Res.trad(interaction=interaction, str='message_ia_resumoai_workfiltrer'))
+      await Res.erro_brix_embed(interaction=interaction,str="message_ia_resumoai_workfiltrer",e=e,comando="resumo ai")
       return
 
     # Envia o resumo como embed

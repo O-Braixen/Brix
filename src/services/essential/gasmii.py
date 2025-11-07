@@ -19,8 +19,9 @@ try:
     if not GOOGLE_AI_KEY:
         raise ValueError("API KEY ausente.")
     genaiclient = genai.Client(api_key=GOOGLE_AI_KEY)
+    print("✔️  -  Conectado a api do Gemini com sucesso.")
 except Exception as e:
-    print(f"❌  -  Erro ao inicializar GenAI: {e}")
+    print(f"❌  -  Erro ao inicializar Gemini AI: {e}")
 
 modelo_linguagem = "gemini-2.0-flash"
 imagem_modelo = "gemini-2.0-flash-preview-image-generation"
@@ -57,12 +58,18 @@ async def generate_response_with_text(message_text):
         try:
             response = genaiclient.models.generate_content(model=modelo_linguagem , contents=prompt_parts , config= types.GenerateContentConfig(safety_settings=configurações_de_segurança))
             return response.text
-        except:
+        except Exception as e:
+            print(f"[Gemini ERRO] Tentativa {attempt+1}/{MAX_RETRIES} → {e}")
+
+            # Se ainda tem tentativas, tenta de novo
             if attempt < MAX_RETRIES - 1:
-                # Atraso fixo entre as tentativas
                 await asyncio.sleep(RETRY_DELAY)
-            else:
-                return f"❌ Erro na tentativa de consulta com a API do gemini, tente mais tarde"
+                continue
+            # Acabaram as tentativas → ESTOURA o erro
+            raise
+
+
+
     
 #RESPONDE A TUDO DE IMAGEM VIA TEXTO
 async def generate_response_with_image_and_text(image_data, text):
@@ -71,12 +78,12 @@ async def generate_response_with_image_and_text(image_data, text):
         try:
             response = genaiclient.models.generate_content(model=modelo_linguagem , contents= [image , text], config= types.GenerateContentConfig(safety_settings=configurações_de_segurança))
             return response.text
-        except:
+        except Exception as e:
             if attempt < MAX_RETRIES - 1:
                 # Atraso fixo entre as tentativas
                 await asyncio.sleep(RETRY_DELAY)
             else:
-                return f"❌ Erro na tentativa de consulta com a API do gemini, tente mais tarde"
+                return f"❌ Erro na tentativa de consulta com a API do gemini, veja o erro indicado {e}"
 
 #RESPONDE A TUDO DE AUDIO VIA TEXTO
 async def generate_response_with_transcribe_audio(audio_data, text):

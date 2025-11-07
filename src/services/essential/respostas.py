@@ -6,8 +6,9 @@ from discord import HTTPException, Forbidden, NotFound , ClientException
 from dotenv import load_dotenv
 
 
-#load_dotenv(os.path.join(os.path.dirname(__file__), '.env')) #load .env da raiz
-#DISCORD_LOGS_WEBHOOK = os.getenv("DISCORD_LOGS_WEBHOOK")
+#CARREGA E LE O ARQUIVO .env na raiz
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env')) #load .env da raiz
+donoid = int(os.getenv("DONO_ID")) #acessa e define o id do dono
 
 
 
@@ -79,33 +80,6 @@ class Res:
                             idioma = 'pt-BR'
                             Res.idioma_cache[user_id] = idioma
 
-            #if interaction is not None:
-            #    user_id = interaction.user.id
-            #    guild_id = interaction.guild.id if interaction.guild else None
-                
-                # Cache para o idioma do usuário
-             #   if user_id in Res.idioma_cache:
-            #      idioma = Res.idioma_cache[user_id]
-             #     if interaction.locale.value == Res.idioma_cache[user_id]:
-            #        idioma = Res.idioma_cache[user_id]
-             #     else:
-             #       idioma = interaction.locale.value
-             #       Res.idioma_cache[user_id] = idioma
-             #       BancoUsuarios.update_document(user_id, {"language": idioma})
-              #  else:
-                    # Detecta idioma do usuário no interaction
-             #       if interaction.locale.value in respostas:
-             #           idioma = interaction.locale.value
-             #           Res.idioma_cache[user_id] = idioma
-             #           BancoUsuarios.update_document(user_id, {"language": idioma})
-              #      elif interaction.guild_locale.value in respostas:
-              #          idioma = interaction.guild_locale.value
-              #          Res.idioma_cache[guild_id] = idioma
-              #          BancoServidores.update_document(guild_id, {"language": idioma})
-              #      else:
-              #          idioma = 'pt-BR'
-              #          Res.idioma_cache[user_id] = idioma
-
             elif user:
                 # Verificação no cache para o idioma do usuário
                 user_id = user
@@ -148,7 +122,7 @@ class Res:
 
 
 
-  async def erro_brix_embed(interaction,str,e,comando):
+  async def erro_brix_embed(interaction : discord.Interaction,str,e,comando):
     erro_formatado = f"{e}"  # Evita chamar str() diretamente
 
     # Tratamento de erros específicos
@@ -166,9 +140,10 @@ class Res:
         mensagem_erro = f"Ocorreu um erro desconhecido, confira ele ai: {erro_formatado}"
 
     resposta = discord.Embed( 
-            colour=discord.Color.red(),
-            description=Res.trad(interaction=interaction, str=str).format(mensagem_erro)
-            )
+        colour=discord.Color.red(),
+        description=Res.trad(interaction=interaction, str=str).format(mensagem_erro)
+        )
+    resposta.set_footer(text="Esse erro foi encaminhado diretamente para meu desenvolvedor, então ele já esta ciente do problema ~kyuuu")
     print(f"🔴 - error: {e}\n{interaction.user} - comando:{comando}")
     try:
         await interaction.response.send_message(embed=resposta,delete_after=30, ephemeral= True)
@@ -178,6 +153,22 @@ class Res:
         except:
             await interaction.followup.send(Res.trad(interaction=interaction, str=str).format(mensagem_erro))
 
+    # ===== ENVIO MENSAGEM PARA DONO INDICANDO ERRO =====
+    try:
+        dono = await interaction.client.fetch_user(donoid)
+        embed_dono = discord.Embed(
+            colour=discord.Color.red(),
+            title="Erro no Brix",
+            description=(
+                f"**Comando:** {comando}\n"
+                f"**Usuário:** {interaction.user} (`{interaction.user.id}`)\n"
+                f"**Servidor:** {interaction.guild.name if interaction.guild else 'DM'} - ({interaction.guild.id if interaction.guild else ''})\n"
+                f"**Erro:**\n```{e}```"
+            )
+        )
+        await dono.send(embed=embed_dono)
+    except Exception as erro_envio:
+        print(f"Falha ao avisar o dono: {erro_envio}")
 
         
 
