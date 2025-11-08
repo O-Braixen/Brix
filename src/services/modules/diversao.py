@@ -134,6 +134,7 @@ async def buscae621slash(interaction, quantidade, item, MOD_NSFW):
 
         # Se estiver em DM, usa channel.send pra evitar o limite de followup
         is_dm = isinstance(interaction.channel, discord.DMChannel)
+        primeiro_envio_dm = is_dm
 
         for post in r:
             descricao = Res.trad(interaction=interaction, str="artista").format(
@@ -143,10 +144,15 @@ async def buscae621slash(interaction, quantidade, item, MOD_NSFW):
 
             # Envio seguro
             try:
-                if is_dm:
-                    await interaction.channel.send(view=view)
-                else:
+                if primeiro_envio_dm:
+                    # ✅ primeira resposta da interação, precisa ser followup
                     await interaction.followup.send(view=view)
+                    primeiro_envio_dm = False
+                else:
+                    if is_dm:
+                        await interaction.channel.send(view=view)
+                    else:
+                        await interaction.followup.send(view=view)
             except discord.errors.HTTPException as err:
                 if err.code == 40094:  # Limite de followups
                     await interaction.channel.send(view=view)
