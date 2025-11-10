@@ -90,7 +90,7 @@ class BotStatus(commands.Cog):
         if not self.salvar_metricas.is_running():
             self.salvar_metricas.start()
 
-        await asyncio.sleep(3)
+        await asyncio.sleep(300)
         if not self.atualizar_status_cache.is_running():
             self.atualizar_status_cache.start()
 
@@ -265,7 +265,7 @@ class BotStatus(commands.Cog):
 
 
     #FUNÇÃO PARA ATUALIZAR AVATAR DO BOT NAS GUILDAS
-    @tasks.loop(minutes=1)
+    @tasks.loop(minutes=3)
     async def atualizar_BOT_AVATAR(self):
         print("editando foto")
         try:
@@ -276,7 +276,6 @@ class BotStatus(commands.Cog):
             return
 
         for servidor in servidores:
-            print(servidor)
             try:
                 guild_id = servidor["_id"]
                 custom = servidor.get("custom", {})
