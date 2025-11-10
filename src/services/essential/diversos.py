@@ -1,4 +1,4 @@
-import discord,random,string
+import discord,random,string , os , aiohttp , base64
 from discord.ext import commands
 from discord import app_commands
 from functools import partial
@@ -299,3 +299,73 @@ async def trocar_pagina(self, interaction : discord.Interaction, blocos, pagina,
 
     await interaction.response.edit_message(view=view , allowed_mentions = discord.AllowedMentions(users=False , roles = False))
     await Paginador_Global(self, interaction, blocos, pagina, originaluser, descrição, thumb)
+
+
+
+
+
+
+
+
+# FUNÇÂO PARA ALTERAR O AVATAR DO BOT NOS SERVIDORES.
+
+async def to_data_uri(image_path: str | None):
+    if not image_path:
+        return None
+
+    # Detecta se é URL
+    is_url = image_path.startswith("http://") or image_path.startswith("https://")
+
+    # Pega extensão
+    _, ext = os.path.splitext(image_path)
+    ext = ext.lower()
+
+    mime = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".gif": "image/gif",
+    }.get(ext)
+
+    if not mime:
+        raise ValueError("Formato de imagem inválido (use PNG, JPG ou GIF)")
+
+    # Se for URL → baixa a imagem
+    if is_url:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(image_path) as resp:
+                if resp.status != 200:
+                    raise ValueError(f"Falha ao baixar imagem: {image_path} ({resp.status})")
+
+                data = await resp.read()
+
+    else:
+        # Arquivo local
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Arquivo não encontrado: {image_path}")
+
+        with open(image_path, "rb") as f:
+            data = f.read()
+
+    b64 = base64.b64encode(data).decode()
+    return f"data:{mime};base64,{b64}"
+
+
+
+async def set_guild_profile(    bot_token: str,    guild_id: int,    avatar_path: str | None = None,    banner_path: str | None = None,    nick: str | None = None,    bio: str | None = None,):
+    
+    url = f"https://discord.com/api/v10/guilds/{guild_id}/members/@me"
+
+    headers = { "Authorization": f"Bot {bot_token}", "Content-Type": "application/json" }
+    # Sempre monta tudo, mesmo None
+    payload = {
+        "nick": nick,
+        "bio": bio,
+        "avatar": await to_data_uri(avatar_path) if avatar_path else None,
+        "banner": await to_data_uri(banner_path) if banner_path else None,
+    }
+
+    async with aiohttp.ClientSession() as session:
+        async with session.patch(url, headers=headers, json=payload) as resp:
+            body = await resp.text()
+            return resp.status, body

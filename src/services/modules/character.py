@@ -47,24 +47,26 @@ async def worker_brix(self):
     try:
       async with message.channel.typing():
         if not await userpremiumcheck(message.author):
-            await message.reply(Res.trad(user=message.author, str="message_cai_only_premium"))
-            continue
+          await message.reply(Res.trad(user=message.author, str="message_cai_only_premium"))
+          continue
 
         try:
-            await message.add_reaction('<:BH_Badge_PequenoMago:1154180154076176466>')
+          await message.add_reaction('<:BH_Badge_PequenoMago:1154180154076176466>')
         except:
-            await message.reply(Res.trad(user=message.author, str='message_cai_erro_reacao'))
+          await message.reply(Res.trad(user=message.author, str='message_cai_erro_reacao'))
+          continue
 
         response = await enviar_mensagem_para_character_ai(self, message.author, message.content)
         print(f"🦊 - brix respondeu para {message.author.name} {message.author.id}: {response}")
 
         if random.randint(1, 100) <= 20:
-            response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
+          response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
 
         await message.reply(response, allowed_mentions=discord.AllowedMentions(everyone=False))
     except Exception as e:
-      print(e)
-      await message.channel.send(Res.trad(user=message.author, str="message_cai_erro"))
+      print(f"CHARACTER.AI ERROR: {e}")
+      await message.reply(Res.trad(user=message.author, str='message_cai_erro'))
+      continue
     finally:
       fila_global_brix.task_done()  # marca como processada
 
@@ -110,6 +112,7 @@ async def enviar_mensagem_para_character_ai(self, membro, mensagem):
     return f"{Res.trad(user=membro, str='message_cai_erro')}"
 
   except Exception as e:
+    #return await Res.erro_brix_embed(user=membro,str="message_cai_erro",e=e,comando="enviar_mensagem_para_character_ai")
       print(f"CHARACTER.AI ERROR: {e}")
       return f"{Res.trad(user=membro, str='message_cai_erro')}"
 
@@ -139,6 +142,8 @@ async def reset_character_ai(membro):
 
     return f"{text}"
   except Exception as e:
+    print(f"CHARACTER.AI ERROR: {e}")
+    #return await Res.erro_brix_embed(user=membro,str="message_cai_erro",e=e,comando="reset_character_ai")
     return f"{Res.trad(user=membro,str='message_cai_erro')}"
   
 
@@ -165,6 +170,8 @@ async def reset_character_ai_BH():
     text = greeting_message.get_primary_candidate().text
     return f"{text}"
   except Exception as e:
+    print(f"CHARACTER.AI ERROR: {e}")
+    #return await Res.erro_brix_embed(str="message_cai_erro",e=e,comando="reset_character_ai_BH")
     return f"{Res.trad(str='message_cai_erro')}"
 
 
@@ -248,6 +255,8 @@ class caracterai(commands.Cog):
                 # última tentativa, manda msg de erro
               try:
                 return await message.channel.send(Res.trad(user=message.author, str="message_cai_erro"))
+                #return await Res.erro_brix_embed(user=message.author, str="message_cai_erro",e=e,comando="brix ai canal da BH")
+
               except:return
             else:
               await asyncio.sleep(0.2)  # espera antes de tentar de novo

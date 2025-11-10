@@ -9,7 +9,7 @@ from src.services.essential.funcoes_usuario import userpremiumcheck , verificar_
 from src.services.modules.premium import liberarpremium
 from src.services.essential.host import informação,status,restart 
 from src.services.essential.gasmii import generate_response_with_text
-from src.services.essential.diversos import Paginador_Global
+from src.services.essential.diversos import Paginador_Global 
 from src.services.essential.pokemon_module import inicializar_caches_se_preciso
 from src.services.essential.shardsname import NOME_DOS_SHARDS
 from src.services.essential.Criador_embed import CriadorDeEmbed
@@ -993,6 +993,8 @@ class Botoesdash(discord.ui.View):
         return await interaction.response.send_message( Res.trad(interaction=interaction, str="message_erro_onlyowner"), delete_after=10 )
 
       await interaction.response.send_modal(ModalDeletarCodigo())
+
+
 
 
 
@@ -2274,6 +2276,24 @@ class owner(commands.Cog):
 
 
 
+
+
+
+
+
+
+  @bot.command(name="customizar", description="🦊⠂Mude meu perfil neste servidor.")
+  async def brixcustomizar(self, interaction: discord.Interaction):
+    if await Res.print_brix(comando="/brix customizar",interaction=interaction):
+      return
+    await interaction.response.defer(ephemeral=False)
+    if interaction.guild is None:
+      await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_onlyservers"))
+      return
+    if interaction.guild.owner:
+      await interaction.followup.send( Res.trad(interaction=interaction , str="onwer_customizar_dashboard" ) )
+    else:
+      await interaction.followup.send( Res.trad(interaction=interaction , str="onwer_customizar_not_onwer" ) )
 
 
 

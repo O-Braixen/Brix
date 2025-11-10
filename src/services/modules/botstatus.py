@@ -1,10 +1,10 @@
 import discord, os , asyncio , datetime , pytz
 from discord.ext import commands, tasks
 from src.services.essential.host import informação , status
-from src.services.connection.database import BancoBot , BancoUsuarios , BancoLogs
+from src.services.connection.database import BancoBot , BancoUsuarios , BancoLogs , BancoServidores
 from src.services.essential.respostas import listapegadinha
 from src.services.essential.shardsname import NOME_DOS_SHARDS
-from src.services.essential.diversos import calcular_saldo 
+from src.services.essential.diversos import calcular_saldo , set_guild_profile
 from dotenv import load_dotenv
 
 
@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 mes = int(os.getenv("mes_Braixen_day"))
 dia = int(os.getenv("dia_Braixen_day"))
+token_bot = os.getenv("DISCORD_TOKEN")
 
 
 
@@ -89,7 +90,7 @@ class BotStatus(commands.Cog):
         if not self.salvar_metricas.is_running():
             self.salvar_metricas.start()
 
-        await asyncio.sleep(300)
+        await asyncio.sleep(3)
         if not self.atualizar_status_cache.is_running():
             self.atualizar_status_cache.start()
 
@@ -98,6 +99,9 @@ class BotStatus(commands.Cog):
         
         if not self.update_status_loop.is_running():
             self.update_status_loop.start()
+        
+        if not self.atualizar_BOT_AVATAR.is_running():
+            self.atualizar_BOT_AVATAR.start()
         
         
        
@@ -248,6 +252,79 @@ class BotStatus(commands.Cog):
         
         item = { "name": str(self.client.user.name), "braixencoin": total_moeda,"usuarios": calcular_saldo(len(self.client.users))}
         BancoBot.update_one(item)
+
+
+
+
+
+
+
+
+
+
+
+
+    #FUNÇÃO PARA ATUALIZAR AVATAR DO BOT NAS GUILDAS
+    @tasks.loop(minutes=1)
+    async def atualizar_BOT_AVATAR(self):
+        print("editando foto")
+        try:
+            filtro = {"custom": {"$exists": True}}
+            servidores = BancoServidores.select_many_document(filtro)
+        except Exception as e:
+            print(f"🔴 - [ERRO] Falha ao buscar servidores: {e}")
+            return
+
+        for servidor in servidores:
+            print(servidor)
+            try:
+                guild_id = servidor["_id"]
+                custom = servidor.get("custom", {})
+
+                # ============================
+                # 1) SE TIVER delete = True → RESETAR
+                # ============================
+                if custom.get("delete") is True:
+                    print(f"🗑️ Limpando customização da guild {guild_id}")
+                    status, resp = await set_guild_profile( bot_token=token_bot, guild_id=guild_id, avatar_path=None, banner_path=None, nick=None, bio=None )
+                    # limpa no BD
+                    BancoServidores.delete_field(guild_id,{"custom": 0})
+                    continue
+
+                # ============================
+                # 2) SE NÃO ESTIVER ATIVO → IGNORA
+                # ============================
+                if custom.get("ativo") is True:
+                    continue
+
+                # ============================
+                # 3) Preparar dados para aplicar
+                # ============================
+                nome = custom.get("nome")
+                bio = custom.get("bio")
+                avatar_filename = custom.get("avatar")
+                banner_filename = custom.get("banner")
+
+                avatar_path = f"https://brixbot.xyz/cdn/{avatar_filename}" if avatar_filename else None
+                banner_path = f"https://brixbot.xyz/cdn/{banner_filename}" if banner_filename else None
+
+                # ============================
+                # 4) Aplicar no Discord
+                # ============================
+                print(f"🦊  -  Aplicando customização na guild {guild_id}")
+
+                try:
+                    status, resp = await set_guild_profile( bot_token=token_bot, guild_id=guild_id, avatar_path=avatar_path, banner_path=banner_path, nick=nome, bio=bio )
+                except Exception as e:
+                    print(f"🔴  -  Falha ao aplicar na guild {guild_id}: {e}")
+                    continue
+                BancoServidores.update_document(guild_id,{"custom.ativo": True})
+                print(f"✔️  -  Guild {guild_id} atualizada — Status: {status}")
+
+            except Exception as e:
+                print(f"🔴  -  Erro inesperado ao processar guild: {e}")
+                continue
+
 
 
 
