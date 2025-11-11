@@ -169,6 +169,8 @@ class BotStatus(commands.Cog):
                 (discord.CustomActivity(name=f"🦊 {len(self.client.guilds)} guildas confiando na sabedoria de Brix!"), discord.Status.online),
                 (discord.CustomActivity(name="🦊 Sendo um bom Braixen, kyuu!"), discord.Status.online),
                 (discord.CustomActivity(name=f"Versão {dadosbot['version']} Brix!"), discord.Status.online),
+                (discord.CustomActivity(name=f"💎 Personalize meu perfil na Dashboard"), discord.Status.online),
+                (discord.CustomActivity(name="🦊 Adquira sua assinatura Premium agora mesmo!"), discord.Status.online),
                 #(discord.CustomActivity(name=f"{shard_nome} ({shard_id}) em uso"), discord.Status.online),
                 (discord.CustomActivity(name="✨ Magia Pokémon em cada servidor!"), discord.Status.online),
             ])
@@ -267,7 +269,6 @@ class BotStatus(commands.Cog):
     #FUNÇÃO PARA ATUALIZAR AVATAR DO BOT NAS GUILDAS
     @tasks.loop(minutes=3)
     async def atualizar_BOT_AVATAR(self):
-        print("editando foto")
         try:
             filtro = {"custom": {"$exists": True}}
             servidores = BancoServidores.select_many_document(filtro)

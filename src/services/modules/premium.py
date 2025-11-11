@@ -87,7 +87,7 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
 #Função exibir item loja
 async def comprarpremium(self, interaction: discord.Interaction, quant, presente_para: discord.User = None):
   await interaction.original_response()
-  valor = 4.99
+  valor = 9.99
 
   # ======== DESCONTO POR QUANTIDADE ========
   if quant == 12:
@@ -303,6 +303,9 @@ class premium(commands.Cog):
             item = {"premium": datetime.datetime.now()}
             BancoUsuarios.delete_field(membro,item)
             print(f"o premium de {membro.name} acabou!")
+            # ✅ ajustar daily para ontem
+            ontem = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%d/%m/%Y")
+            BancoUsuarios.update_document(membro, {"date-daily": ontem})
             if member.get('premiumeterno') is True:
               await liberarpremium(self,None,membro,31,False)
             else:
@@ -521,8 +524,8 @@ class premium(commands.Cog):
     embed_atual = discord.Embed(title=f"Assinaturas Premium Atuais ({len(lista_itens)})", color=discord.Color.yellow())
     field_count = 0
 
-    for i in range(0, len(lista_itens), 10):
-        mensagem = "\n".join(lista_itens[i:i + 10])
+    for i in range(0, len(lista_itens), 5):
+        mensagem = "\n".join(lista_itens[i:i + 5])
         embed_atual.add_field(name="\u200b", value=mensagem, inline=False)
         field_count += 1
 

@@ -72,11 +72,14 @@ class financeiro(commands.Cog):
         data_verificacao = datetime.datetime.now() - datetime.timedelta(days=30) #30
         fuso = pytz.timezone('America/Sao_Paulo')
         print(f"💲  -  data de verificação daily: {data_verificacao.strftime('%d/%m/%Y')}\n\n")
-        filtro = {"date-daily": {"$exists":True} , "braixencoin": {"$gt": 0} }
+        filtro = {"date-daily": {"$exists":True} , "premium": {"$exists":False} , "braixencoin": {"$gt": 0} }
         dado = BancoUsuarios.select_many_document(filtro)
         updates = []  # Lista para armazenar dados de atualização
         transacoes = []
         TotalTaxas = 0
+        # -----------------------------
+        # LOOP DOS USUÁRIOS
+        # -----------------------------
         for membro in dado:
             try:
                 if datetime.datetime.strptime(membro['date-daily'],'%d/%m/%Y') < data_verificacao:
@@ -113,17 +116,28 @@ class financeiro(commands.Cog):
                 print(f"Error: {e}")
         
         try:
-            #CUSTO APARTAMENTO DO BRIX
+            # ------------------------------------------------------
+            # COBRANÇA DO ALUGUEL DO BRIX (2% do saldo dele) E ARRECADAÇÃO TOTAL DO IMPOSTO
+            # ------------------------------------------------------
             brix = BancoUsuarios.insert_document(self.client.user)
             custobrix = brix['braixencoin'] * 0.02
             apartamento = brix['braixencoin'] - int(custobrix)
             updates.append({"_id": brix['_id'],"update": {"$set": {"braixencoin": apartamento , "date-daily": datetime.datetime.now().strftime("%d/%m/%Y") }}})
             transacoes.append({    "user_id": str(brix['_id']),    "tipo": "gasto",    "origem": "Aluguel Ap",    "valor": custobrix,    "moeda": "braixencoin",    "descricao": "Taxa apartamento do Brix.",    "timestamp": datetime.datetime.now()})
             print(f"💲 - Brix pagou o aluguel do ap com o vini, brix tinha {brix['braixencoin']} e agora ficou com {apartamento}")
+            # REPASSE DO IMPOSTO TOTAL PARA O BRIX (100% do TotalTaxas)
+            if TotalTaxas > 0:
+                novo_valor = apartamento + int(TotalTaxas)
+                updates.append({ "_id": brix['_id'], "update": {"$set": {"braixencoin": novo_valor}} })
+                transacoes.append({ "user_id": str(brix['_id']), "tipo": "ganho", "origem": "Arrecadação Daily", "valor": int(TotalTaxas), "moeda": "braixencoin", "descricao": "Imposto total arrecadado dos usuários.", "timestamp": datetime.datetime.now() })
+                print(f"💲 - Brix recebeu {TotalTaxas} BC de impostos. Total atual: {novo_valor}")
         except Exception as e:
             print(f"Error na cobrança do apartamento de brix: {e}")
-        # Executa as atualizações em lote
-        
+
+
+        # ------------------------------------------------------
+        # APLICAR UPDATES EM LOTE
+        # ------------------------------------------------------
         if updates:
             try:
                 result = BancoUsuarios.bulk_update(updates)

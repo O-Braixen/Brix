@@ -2290,10 +2290,10 @@ class owner(commands.Cog):
     if interaction.guild is None:
       await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_onlyservers"))
       return
-    if interaction.guild.owner:
+    if interaction.permissions.manage_guild:
       await interaction.followup.send( Res.trad(interaction=interaction , str="onwer_customizar_dashboard" ) )
     else:
-      await interaction.followup.send( Res.trad(interaction=interaction , str="onwer_customizar_not_onwer" ) )
+      await interaction.followup.send( Res.trad(interaction=interaction , str="onwer_customizar_not" ) )
 
 
 
