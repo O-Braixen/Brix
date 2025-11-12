@@ -315,11 +315,12 @@ class BotStatus(commands.Cog):
 
                 try:
                     status, resp = await set_guild_profile( bot_token=token_bot, guild_id=guild_id, avatar_path=avatar_path, banner_path=banner_path, nick=nome, bio=bio )
+                    BancoServidores.update_document(guild_id,{"custom.ativo": True})
+                    print(f"✔️  -  Guild {guild_id} atualizada — Status: {status}")
                 except Exception as e:
                     print(f"🔴  -  Falha ao aplicar na guild {guild_id}: {e}")
                     continue
-                BancoServidores.update_document(guild_id,{"custom.ativo": True})
-                print(f"✔️  -  Guild {guild_id} atualizada — Status: {status}")
+                
 
             except Exception as e:
                 print(f"🔴  -  Erro inesperado ao processar guild: {e}")
