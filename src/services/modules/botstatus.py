@@ -244,17 +244,16 @@ class BotStatus(commands.Cog):
         try:
             filtro = {"braixencoin": {"$exists": True}}
             usuarios = BancoUsuarios.select_many_document(filtro)
+            total_moeda = sum(usuario.get("braixencoin", 0) for usuario in usuarios)
+            total_moeda = calcular_saldo(total_moeda)
+            item = { "name": str(self.client.user.name), "braixencoin": total_moeda,"usuarios": calcular_saldo(len(self.client.users))}
+            BancoBot.update_one(item)
+
         except Exception as e:
             print(f"🔴 - [ERRO] Falha ao atualizar cache: {e}")
-            return  # Sai e tenta de novo na próxima chamada
 
-        total_moeda = sum(usuario.get("braixencoin", 0) for usuario in usuarios)
-        total_moeda = calcular_saldo(total_moeda)
 
         
-        item = { "name": str(self.client.user.name), "braixencoin": total_moeda,"usuarios": calcular_saldo(len(self.client.users))}
-        BancoBot.update_one(item)
-
 
 
 
@@ -267,17 +266,13 @@ class BotStatus(commands.Cog):
 
 
     #FUNÇÃO PARA ATUALIZAR AVATAR DO BOT NAS GUILDAS
-    @tasks.loop(minutes=3)
+    @tasks.loop(minutes=5)
     async def atualizar_BOT_AVATAR(self):
         try:
             filtro = {"custom": {"$exists": True}}
             servidores = BancoServidores.select_many_document(filtro)
-        except Exception as e:
-            print(f"🔴 - [ERRO] Falha ao buscar servidores: {e}")
-            return
-
-        for servidor in servidores:
-            try:
+            for servidor in servidores:
+            
                 guild_id = servidor["_id"]
                 custom = servidor.get("custom", {})
 
@@ -322,9 +317,9 @@ class BotStatus(commands.Cog):
                     continue
                 
 
-            except Exception as e:
-                print(f"🔴  -  Erro inesperado ao processar guild: {e}")
-                continue
+        except Exception as e:
+            print(f"🔴  -  Erro inesperado ao processar guild: {e}")
+            
 
 
 
@@ -366,6 +361,7 @@ class BotStatus(commands.Cog):
                 BancoLogs.registrar_metricas_externas(latencia, uso_ram, uso_cpu)
             except Exception as e:
                 print(f"Erro ao salvar métricas: {e}")
+                
 
 
 

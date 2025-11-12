@@ -19,7 +19,7 @@ mongo_uri = os.getenv("MONGO_URI")
 
 # ======================================================================
 # Configuração da conexão com o MongoDB
-client = MongoClient(mongo_uri,serverSelectionTimeoutMS=3000)
+client = MongoClient(mongo_uri,serverSelectionTimeoutMS=5000)
 db_connection = client["brix"] # NOME DO BANCO DE DADOS
 
 
