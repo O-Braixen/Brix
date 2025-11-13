@@ -505,7 +505,7 @@ class servers(commands.Cog):
         
         if u["dm-notification"] is True:
           user = await self.client.fetch_user(u["_id"])
-          view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://brixbot.xyz/vote" )
+          view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://brixbot.xyz/cdn/sino_notificacao.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://brixbot.xyz/vote" )
           await user.send(view=view)
         else:
           print("🦊 - membro não recebe notificações via DM")
@@ -591,7 +591,7 @@ class servers(commands.Cog):
                   dados_do_membro = BancoUsuarios.insert_document(member)
                   if dados_do_membro["dm-notification"] is True:
                     try:
-                      await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
+                      await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_ativado_dm_aviso').format(member.mention,cargo.name, guild.name)  ,descricao_thumbnail= "https://brixbot.xyz/cdn/sino_notificacao.png" ))
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
@@ -627,7 +627,7 @@ class servers(commands.Cog):
                   dados_do_membro = BancoUsuarios.insert_document(member)
                   if dados_do_membro["dm-notification"] is True:
                     try:
-                      await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
+                      await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='servidor_tag_desativado_dm_aviso').format(cargo.name, guild.name)  ,descricao_thumbnail= "https://brixbot.xyz/cdn/sino_notificacao.png" ))
                     except:
                       print(f"📪 Falha ao enviar DM para {member}")
               except Exception as e:
@@ -923,7 +923,7 @@ class servers(commands.Cog):
       
       me = interaction.guild.get_member(interaction.client.user.id)
       if not me or not me.guild_permissions.administrator:
-        await interaction.followup.send(Res.trad(interaction=interaction, str='message_erro_permissao'))
+        await interaction.response.send_message(Res.trad(interaction=interaction, str='message_erro_permissao'))
         return
       
       await interaction.response.defer()

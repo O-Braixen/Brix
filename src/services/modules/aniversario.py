@@ -94,7 +94,7 @@ class aniversario(commands.Cog):
                 mensagem_completa = (Res.trad(user=user, str='message_aniversario_anuncio_dm').format(idade) + "\n\n" + Res.trad(user=user, str='message_aniversario_recompensa_dm').format(saldodado, saldo))
                 view = container_media_button_url(
                     descricao= mensagem_completa ,
-                    descricao_thumbnail="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg"
+                    descricao_thumbnail="https://brixbot.xyz/cdn/art_aniversario.png"
                     )
                 await user.send(view=view)
                 print(f"🎂 - Enviando DM para: {aniversariante_id}")
@@ -142,7 +142,7 @@ class aniversario(commands.Cog):
 
                         view = container_media_button_url(
                             descricao=random.choice(Res.trad(guild=servidor.id, str='message_aniversario_mensagem_random_server')).format(lista_aniversariantes, cargo_ping_str) ,
-                            descricao_thumbnail="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg",
+                            descricao_thumbnail="https://brixbot.xyz/cdn/art_aniversario.png",
                             footer=Res.trad(guild=servidor.id, str='message_aniversario_mensagem_footer_server')
                             )
                         # Enviar a mensagem no canal com os aniversariantes acumulados
@@ -322,7 +322,7 @@ class aniversario(commands.Cog):
                 item = {"aniversario.canal": canal.id,"aniversario.cargo":cargoping.id}#,"language":idioma.value}
             BancoServidores.update_document(interaction.guild.id,item)
             embed = discord.Embed( colour=discord.Color.yellow(),  title=Res.trad(interaction=interaction,str="message_aniversario_server_title"),  description=Res.trad(interaction=interaction,str="message_aniversario_server_description") )
-            embed.set_thumbnail(url="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg")
+            embed.set_thumbnail(url="https://brixbot.xyz/cdn/art_aniversario.png")
             mensagemteste = await canal.send(embed=embed)
             await interaction.followup.send(Res.trad(interaction=interaction,str="message_aniversario_notificacao_ativo"))
             await asyncio.sleep(10)
@@ -389,7 +389,7 @@ class aniversario(commands.Cog):
                 resposta = Res.trad(interaction=interaction,str="message_aniversario_server_statusativo").format(canal,cargo,destaque)                
 
             embed = discord.Embed( colour=discord.Color.yellow(),  description=resposta )
-            embed.set_thumbnail(url="https://d.furaffinity.net/art/kitsunekotaro/1669349629/1669349629.kitsunekotaro_vesta_is_back.jpg")
+            embed.set_thumbnail(url="https://brixbot.xyz/cdn/art_aniversario.png")
             await interaction.response.send_message(embed=embed)
 
         except Exception as e:

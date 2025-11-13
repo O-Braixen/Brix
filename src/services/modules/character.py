@@ -90,16 +90,16 @@ async def enviar_mensagem_para_character_ai(self, membro, mensagem):
     dado = BancoUsuarios.insert_document(membro)
     chat_id = str(dado.get("cai-idchat"))
 
-    # Se não existir histórico, reseta antes
-    if not chat_id or chat_id == "None":
-      await reset_character_ai(membro)
-      await asyncio.sleep(0.2)
-      dado = BancoUsuarios.insert_document(membro)
-      chat_id = str(dado.get("cai-idchat"))
-
     # Loop de tentativas só para o envio da mensagem
     for tentativa in range(tentativas):
       try:
+        # Se não existir histórico, reseta antes
+        if not chat_id or chat_id == "None":
+          await reset_character_ai(membro)
+          await asyncio.sleep(0.2)
+          dado = BancoUsuarios.insert_document(membro)
+          chat_id = str(dado.get("cai-idchat"))
+
         data = await clientcai.chat.send_message(char_id, str(dado['cai-idchat']), mensagem_formatada)
         return data.get_primary_candidate().text
       except Exception as e:

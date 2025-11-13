@@ -9,7 +9,7 @@ from src.services.essential.funcoes_usuario import userpremiumcheck , verificar_
 from src.services.modules.premium import liberarpremium
 from src.services.essential.host import informação,status,restart 
 from src.services.essential.gasmii import generate_response_with_text
-from src.services.essential.diversos import Paginador_Global 
+from src.services.essential.diversos import Paginador_Global ,container_media_button_url
 from src.services.essential.pokemon_module import inicializar_caches_se_preciso
 from src.services.essential.shardsname import NOME_DOS_SHARDS
 from src.services.essential.Criador_embed import CriadorDeEmbed
@@ -92,7 +92,6 @@ async def botstatus(self,interaction):
             title=f"🦊┃Informações do {self.client.user.name}",
             description=f"🖥️⠂Discloud - CLUSTER {res_information['apps']['clusterName']}"
         )
-        resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
         resposta.set_thumbnail(url=f"{self.client.user.avatar.url}")
         resposta.add_field(name="👨‍💻⠂Linguagem", value=f"```{res_information['apps']['lang']}```", inline=True)
         resposta.add_field(name="📊⠂Ram", value=f"```{(res_status['apps']['memory'])}```", inline=True)
@@ -1839,7 +1838,7 @@ class owner(commands.Cog):
             inline=True
         )
 
-    resposta.set_thumbnail(url="https://static.wikia.nocookie.net/pokemon-opalo-por-ericlostie/images/5/53/654.png/revision/latest?cb=20220313124241&path-prefix=es")
+    resposta.set_thumbnail(url="https://brixbot.xyz/cdn/brix_ping.png")
     await interaction.followup.send(embed=resposta)
 
 
@@ -2290,11 +2289,9 @@ class owner(commands.Cog):
     if interaction.guild is None:
       await interaction.followup.send(Res.trad(interaction=interaction,str="message_erro_onlyservers"))
       return
-    if interaction.permissions.manage_guild:
-      await interaction.followup.send( Res.trad(interaction=interaction , str="onwer_customizar_dashboard" ) )
-    else:
-      await interaction.followup.send( Res.trad(interaction=interaction , str="onwer_customizar_not" ) )
-
+    view = container_media_button_url(descricao= Res.trad(interaction=interaction,str="onwer_customizar_dashboard") , descricao_thumbnail="https://brixbot.xyz/cdn/brix_perfil_personalizado.png" , buttonLABEL=Res.trad(interaction=interaction,str="botão_abrir_navegador") , buttonURL="https://brixbot.xyz/dashboard")
+    await interaction.followup.send( view=view )
+    
 
 
 

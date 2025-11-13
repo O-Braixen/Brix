@@ -62,7 +62,7 @@ async def addtemproleusuario(self, interaction, membro, cargo, tempo):
             try:
               if interaction:
                 if dadosmembro['dm-notification'] is True:
-                  await membro.send(view= container_media_button_url(descricao= Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))           
+                  await membro.send(view= container_media_button_url(descricao= Res.trad(interaction=interaction, str='cargo_temporario_add_indm').format( membro.guild.name if interaction is None else interaction.guild.name, cargo.name, int(tempo_final.timestamp()) )  ,descricao_thumbnail= "https://brixbot.xyz/cdn/sino_notificacao.png" ))           
                 else:
                   print("🦊 - membro não recebe notificações via DM")
             except:
@@ -801,7 +801,7 @@ class admin(commands.Cog):
               dados_do_membro = BancoUsuarios.insert_document(member)
               if dados_do_membro["dm-notification"] is True:
                 try:
-                  await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='cargo_temporario_rem_indm').format(cargo.name, guild.name)  ,descricao_thumbnail= "https://cdn-icons-png.flaticon.com/512/8957/8957077.png" ))
+                  await member.send(view= container_media_button_url(descricao= Res.trad(user=member, str='cargo_temporario_rem_indm').format(cargo.name, guild.name)  ,descricao_thumbnail= "https://brixbot.xyz/cdn/sino_notificacao.png" ))
                 except:
                   print(f"📪 Falha ao enviar DM para {member}")
 

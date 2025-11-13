@@ -92,7 +92,7 @@ class financeiro(commands.Cog):
                             title=Res.trad(user=user, str='message_daily_impostodm_title'),
                             description=Res.trad(user=user, str='message_daily_impostodm').format(user.mention,membro['braixencoin'],int(datanova.timestamp()))
                             )
-                            resposta.set_thumbnail(url="https://i.imgur.com/rsG9pNp.png")
+                            resposta.set_thumbnail(url="https://brixbot.xyz/cdn/icon_braixencoin.png")
                             
                             resposta.set_footer(text=datetime.datetime.now().astimezone(fuso).strftime('%d/%m/%Y ás %H:%M'))
                             await user.send(embed=resposta)
@@ -183,7 +183,7 @@ class financeiro(commands.Cog):
             linha = f"**{tipo} {t['valor']:,.0f}** {emoji} <t:{timestamp}:R> - {origem}\n*{descricao}*"
             lista.append(linha)
 
-        url = "https://i.imgur.com/rsG9pNp.png" if moeda == "braixencoin" else "https://cdn.discordapp.com/emojis/1318962131567378432"
+        url = "https://brixbot.xyz/cdn/icon_braixencoin.png" if moeda == "braixencoin" else "https://cdn.discordapp.com/emojis/1318962131567378432"
         textomoeda = "Braixen Coin" if moeda == "braixencoin" else "Graveto"
         if not lista:
             lista =[f"{Res.trad(interaction= interaction, str='message_financeiro_sem_transções')}"]
@@ -515,7 +515,7 @@ class financeiro(commands.Cog):
                     description=random.choice(Res.trad(user= membro, str="message_financeiro_pagamento_sucesso_dm")).format(interaction.user.mention,quantidade,saldomembro2+quantidade)
                 )
                 resposta.set_author(name=f"{interaction.user.name}",icon_url=f"{interaction.user.avatar.url}")
-                resposta.set_thumbnail(url="https://i.imgur.com/rsG9pNp.png")
+                resposta.set_thumbnail(url="https://brixbot.xyz/cdn/icon_braixencoin.png")
                 await membro.send(embed=resposta)
             except:
                 print("erro no envio de dm para informar pagamento")
@@ -563,7 +563,7 @@ class financeiro(commands.Cog):
     if await Res.print_brix(comando="bchelp",interaction=interaction):
       return
     resposta = discord.Embed(   colour=discord.Color.yellow(),  description=Res.trad(interaction=interaction,str="message_financeiro_help")    )
-    resposta.set_thumbnail(url="https://i.imgur.com/rsG9pNp.png")
+    resposta.set_thumbnail(url="https://brixbot.xyz/cdn/icon_braixencoin.png")
     await interaction.response.send_message(embed=resposta)
   
 
@@ -803,9 +803,9 @@ class financeiro(commands.Cog):
 
         embed = discord.Embed(colour=discord.Color.yellow(), description=mensagem )
         if moedasorteada == "cara":
-            embed.set_thumbnail(url="https://i.imgur.com/rsG9pNp.png")
+            embed.set_thumbnail(url="https://brixbot.xyz/cdn/icon_braixencoin.png")
         else:
-            embed.set_thumbnail(url="https://i.imgur.com/5shod8h.png")
+            embed.set_thumbnail(url="https://brixbot.xyz/cdn/BraixenCoinCoroa.png")
         await interaction.followup.send(embed=embed)
 
       except:await interaction.followup.send(Res.trad(interaction= interaction, str='message_erro_mongodb').format(interaction.user.id),ephemeral=True)
@@ -1203,7 +1203,7 @@ class financeiro(commands.Cog):
     else:
         lista_pokemon = Res.trad(interaction=interaction, str='message_financeiro_pokemon_sem_apostas')
 
-    view = container_media_button_url(descricao= Res.trad(interaction=interaction, str='message_financeiro_pokemon_exibir_apostas').format(ultimo_sorteado, valor_total,lista_pokemon) , descricao_thumbnail="https://i.imgur.com/VuVoeFj.png")
+    view = container_media_button_url(descricao= Res.trad(interaction=interaction, str='message_financeiro_pokemon_exibir_apostas').format(ultimo_sorteado, valor_total,lista_pokemon) , descricao_thumbnail="https://brixbot.xyz/cdn/Brix%20Bet%20Aposta%20pok%C3%A9mon.png")
 
     await interaction.edit_original_response(view=view)
 

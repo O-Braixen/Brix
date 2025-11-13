@@ -856,7 +856,7 @@ class diversao(commands.Cog):
         return
     await interaction.response.defer()
     msg = random.choice(Res.trad( interaction=interaction, str='message_8ball'))
-    view = container_media_button_url( descricao_thumbnail="https://www.clipartmax.com/png/full/103-1034729_pokemon-braixen-fire-fox-ask-vixen-the-braixen-january-17.png", descricao=Res.trad(interaction=interaction,str="message_8ball_description").format(pergunta,msg) )
+    view = container_media_button_url( descricao_thumbnail="https://brixbot.xyz/cdn/brix%20raposa%20sabia.png", descricao=Res.trad(interaction=interaction,str="message_8ball_description").format(pergunta,msg) )
     await interaction.followup.send(view=view)
 
 
@@ -882,7 +882,7 @@ class diversao(commands.Cog):
     if await Res.print_brix(comando="sabedoriabrix",interaction=interaction):
         return
     await interaction.response.defer()
-    view = container_media_button_url(descricao=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')) , descricao_thumbnail="https://i.imgur.com/OEgfv4K.png")
+    view = container_media_button_url(descricao=random.choice(Res.trad( interaction=interaction, str='message_diversao_sabedoria')) , descricao_thumbnail="https://brixbot.xyz/cdn/brix%20raposa%20sabia.png")
     await interaction.followup.send(view=view)
 
 
@@ -905,7 +905,7 @@ class diversao(commands.Cog):
         return
     await interaction.response.defer()
     diario = random.choice(Res.trad( interaction=interaction, str='message_diversao_diariobrix'))
-    view = container_media_button_url(descricao=Res.trad( interaction=interaction, str='message_diversao_diariobrix_descricao').format(diario), descricao_thumbnail="https://i.imgur.com/eUJJ5BA.png")
+    view = container_media_button_url(descricao=Res.trad( interaction=interaction, str='message_diversao_diariobrix_descricao').format(diario), descricao_thumbnail="https://brixbot.xyz/cdn/diario%20de%20raposa.png")
     await interaction.followup.send(view=view)
 
 
@@ -1046,7 +1046,7 @@ class diversao(commands.Cog):
         frase = Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_100')
 
     view = container_media_button_url(
-        descricao_thumbnail="https://i.pinimg.com/736x/16/a8/5f/16a85fcca2474466a7ed3be3bcfe34f9.jpg",
+        descricao_thumbnail="https://brixbot.xyz/cdn/art_nivel_brix.png",
         descricao=Res.trad(interaction=interaction, str='message_diversao_nivelbraixen_msg').format(membro.mention , nivel , barra , frase)
     )
 

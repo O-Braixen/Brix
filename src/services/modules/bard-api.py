@@ -72,7 +72,7 @@ class bard(commands.Cog):
   #comando de contextmenu
   async def resumoaicontext(self,interaction: discord.Interaction, message: discord.Message):
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-    res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+    res.set_thumbnail(url="https://brixbot.xyz/cdn/Fen_Loading.gif")
     await interaction.response.send_message(embed=res , ephemeral=True)
     await self.resumoai(interaction,message,ephemeral=True)
 
@@ -88,7 +88,7 @@ class bard(commands.Cog):
   #comando de contextmenu
   async def midiaaskcontext(self,interaction: discord.Interaction, message: discord.Message):
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-    res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+    res.set_thumbnail(url="https://brixbot.xyz/cdn/Fen_Loading.gif")
     await interaction.response.send_message(embed=res , ephemeral=True)
     await self.midiaask(interaction,message,ephemeral=True)
 
@@ -132,7 +132,7 @@ class bard(commands.Cog):
       return
 
     # Mensagem inicial
-    embed_wait = discord.Embed( description=Res.trad(interaction=interaction, str='message_ia_generate_prompt'), color=discord.Color.yellow() ).set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+    embed_wait = discord.Embed( description=Res.trad(interaction=interaction, str='message_ia_generate_prompt'), color=discord.Color.yellow() ).set_thumbnail(url="https://brixbot.xyz/cdn/Fen_Loading.gif")
     await interaction.response.send_message(embed=embed_wait)
 
     # Checagem premium e cooldown
@@ -185,7 +185,7 @@ class bard(commands.Cog):
   async def resumoaislash(self, interaction: discord.Interaction, chat: discord.TextChannel):
     #await interaction.response.defer()
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-    res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+    res.set_thumbnail(url="https://brixbot.xyz/cdn/Fen_Loading.gif")
     await interaction.response.send_message(embed=res)
     await self.resumoai(interaction,item=chat , ephemeral=False)
 
@@ -240,7 +240,7 @@ class bard(commands.Cog):
   @app_commands.describe(midia="Anexe uma midia para saber sobre ela...")
   async def imgask(self, interaction: discord.Interaction, midia: discord.Attachment):
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-    res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+    res.set_thumbnail(url="https://brixbot.xyz/cdn/Fen_Loading.gif")
     await interaction.response.send_message(embed=res)
     await self.midiaask(interaction,midia,ephemeral=False)
 
@@ -273,7 +273,7 @@ class bard(commands.Cog):
   #@app_commands.describe(prompt="Descreva como deseja sua imagem...")
   #async def generate_image(self,interaction: discord.Interaction,prompt:str):
   #  res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-  #  res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+  #  res.set_thumbnail(url="https://brixbot.xyz/cdn/Fen_Loading.gif")
   #  await interaction.response.send_message(embed=res)
   #  check = await userpremiumcheck(interaction)
   #  if check == False:
@@ -316,7 +316,7 @@ class bard(commands.Cog):
         return
       #await interaction.response.defer()
       res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_generate_prompt'), color=discord.Color.yellow() )
-      res.set_thumbnail(url="https://cdn.discordapp.com/emojis/1371224437642236067.gif")
+      res.set_thumbnail(url="https://brixbot.xyz/cdn/Fen_Loading.gif")
       await interaction.response.send_message(embed=res)
       check = await userpremiumcheck(interaction)
       if check == False:
@@ -399,7 +399,7 @@ class bard(commands.Cog):
         return
     
     res =  discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_creater'), color=discord.Color.yellow() )
-    res.set_thumbnail(url = "https://cdn.discordapp.com/emojis/1370974233588404304.gif")
+    res.set_thumbnail(url = "https://brixbot.xyz/cdn/Braix_Loading.gif")
     await interaction.followup.send(embed =res)    
     try:
       # Primeiro prompt: obter nome e roles

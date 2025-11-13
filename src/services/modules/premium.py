@@ -44,7 +44,7 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
     else:
         descricao_dm = Res.trad(user=user, str="message_premium_send_dm").format( int(premium.timestamp()) )
 
-    embed_para_usuario = discord.Embed( colour=discord.Color.yellow(), description=descricao_dm ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+    embed_para_usuario = discord.Embed( colour=discord.Color.yellow(), description=descricao_dm ).set_thumbnail( url="https://brixbot.xyz/cdn/icon_graveto.png" )
 
 
     # tentativa de enviar DM
@@ -58,7 +58,7 @@ async def liberarpremium(self, ctx, user, args, boost, presente = None):
     if presente:
       try:
           descricao_presenteador = Res.trad(str="message_premium_presenteador_send_dm").format( user.mention ,args )
-          embed_para_presenteador = discord.Embed( colour=discord.Color.yellow(), description=descricao_presenteador ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+          embed_para_presenteador = discord.Embed( colour=discord.Color.yellow(), description=descricao_presenteador ).set_thumbnail( url="https://brixbot.xyz/cdn/icon_graveto.png" )
           await presente.send(embed=embed_para_presenteador)
           message += ":white_check_mark: - Mensagem enviada ao presenteador."
       except:
@@ -174,7 +174,7 @@ async def comprarpremium(self, interaction: discord.Interaction, quant, presente
         else:
           embed_retorno = discord.Embed(colour=discord.Color.yellow(),description=Res.trad(interaction=interaction,str="message_premium_compra").format( int(expira.timestamp()) , id , plano))
 
-      embed_retorno.set_thumbnail(url="https://cdn.discordapp.com/emojis/1318962131567378432")  
+      embed_retorno.set_thumbnail(url="https://brixbot.xyz/cdn/icon_graveto.png")  
       embed_retorno.set_image(url="attachment://qrcode.png")
 
       await interaction.edit_original_response(content="",embed=embed_retorno , attachments=[file], view = view )    
@@ -275,7 +275,7 @@ class premium(commands.Cog):
             #envia o embed de notificação no chat geral
             canal = self.client.get_channel(BH_id_boost_channel)
             embed = discord.Embed(colour=discord.Color.from_str('#f78da7'),description=f"### Um Boost a gente nunca esquece né {user.name}\n**Muito obrigado pelo boost {user.mention}!!!**\nSabia isso nos ajuda a **manter o servidor** cada vez melhor e nos **incentiva** cada vez mais então por isso **manteremos esse momento** aqui salvo neste chat para que você possa se gabar.\n\nConfira todos os **Benefícios** em <#888402749887217685> na opção **Místicas/Booster**\nE você ganhou alguns dias da **minha assinatura premium** como cortesia ~kyuuu.\nAproveite!!!" )
-            embed.set_thumbnail(url="https://emoji.discord.st/emojis/548e713f-cfd9-4c49-9caa-d0dbe3dcec91.gif")
+            embed.set_thumbnail(url="https://brixbot.xyz/cdn/icon_boost.gif")
             messageenviada = await canal.send(f"Aviso para {user.mention}!!!!!!",embed=embed)
             await messageenviada.add_reaction('<a:BH_nitro:1154334548478402650>')
 
@@ -385,7 +385,7 @@ class premium(commands.Cog):
         # tentativa de enviar DM
         try:
           descricao_dm = Res.trad(str="message_premium_eterno_ativado")
-          embed_para_usuario = discord.Embed( colour=discord.Color.yellow(), description=descricao_dm ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+          embed_para_usuario = discord.Embed( colour=discord.Color.yellow(), description=descricao_dm ).set_thumbnail( url="https://brixbot.xyz/cdn/icon_graveto.png" )
           await user.send(embed=embed_para_usuario)
           await ctx.send("🦊 - Mensagem enviada com sucesso ~kyuuu.")
         except:
@@ -417,7 +417,7 @@ class premium(commands.Cog):
         # tentativa de enviar DM
         try:
           descricao_dm = Res.trad(str="message_premium_eterno_desativado")
-          embed_para_usuario = discord.Embed( colour=discord.Color.red(), description=descricao_dm ).set_thumbnail( url="https://cdn.discordapp.com/emojis/1318962131567378432" )
+          embed_para_usuario = discord.Embed( colour=discord.Color.red(), description=descricao_dm ).set_thumbnail( url="https://brixbot.xyz/cdn/icon_graveto.png" )
           await user.send(embed=embed_para_usuario)
           await ctx.send("🦊 - Mensagem enviada com sucesso ~kyuuu.")
         except:
