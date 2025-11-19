@@ -1964,7 +1964,7 @@
     "natalxen_envio_concluido_sem_aviso": "<:Braix_Happy:1272664784814342204>┃ Gift successfully sent to **{}**!\n<:Braix_Blank:1272661806858371196>┃ But I couldn’t notify the user, kyu…",
     "natalxen_evento_coletado_sempresente": "<:Braix_Blank:1272661806858371196>┃ You don’t have any gifts to open, kyu! Try collecting one first!",
     "natalxen_evento_recebido_sempresente": "<:Braix_Blank:1272661806858371196>┃ You haven’t received any gifts yet, kyu! Maybe someone will send you one~",
-    "natalxen_evento_consulta": "### 🎁 Gift Box\n\n**Collected gifts:** {}\n**Received gifts:** {}\n\n-# Total collected so far: {}\n-# **Tip:** When you reach **15 collected gifts**, you automatically earn **your exclusive artwork** on the next collection! Kyu~!",
+    "natalxen_evento_consulta": "### 🎁 Gift Box\n\n**Collected gifts:** {}\n**Received gifts:** {}\n\n-# Total collected so far: {}\n-# **Tip:** When you reach **30 collected gifts**, you automatically earn **your exclusive artwork** on the next collection! Kyu~!",
     "natalxen_evento_consulta_footer": "Christmas at Brix 2025",
     "natalxen_evento_presentear_msg": "## 🎁 You received a gift!\nSomeone sent you a Christmas gift, kyu! Open it and see your reward!"
 
