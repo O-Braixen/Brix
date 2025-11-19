@@ -174,12 +174,13 @@ class BotStatus(commands.Cog):
                 #(discord.CustomActivity(name=f"{shard_nome} ({shard_id}) em uso"), discord.Status.online),
                 (discord.CustomActivity(name="✨ Magia Pokémon em cada servidor!"), discord.Status.online),
             ])
-
-        # loop principal para trocar os status
-        for activity, status in status_list:
-            await self.client.change_presence(activity=activity, status=status)
-            await asyncio.sleep(900)  # apenas uma vez aqui
-
+        try:
+            # loop principal para trocar os status
+            for activity, status in status_list:
+                await self.client.change_presence(activity=activity, status=status)
+                await asyncio.sleep(900)  # apenas uma vez aqui
+        except Exception as e:
+            print(f"❌ -  Falha ao atualizar o status: {e}")
 
 
 

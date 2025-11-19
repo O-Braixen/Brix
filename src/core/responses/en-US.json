@@ -1941,5 +1941,32 @@
     ],
     "message_segurança_erro_owner_aviso": "### <:Braix_Cry2:1272667164637401250>┃ Kyu~! I'm not allowed to do that...\nHey, fox owner of **{}**! I came to your DM to let you know that I can't protect your community. The function to remove or ban users is not working because I don't have permission to do so.\n\nPlease give me a role with that permission or adjust my Integration role so that I can function properly, kyu~!\n\n-# **Fox Tip:** I'll keep warning you from time to time until I receive permission or you disable this function, okay? Kyuuu~!",
     "onwer_customizar_dashboard": "### <:Braix:1272653348306419824>┃ Customize my look\nKyu~! Now you can make my appearance match your community: avatar, name, description, and even my banner!\nIt's all on my dashboard. Just go to [brixbot.xyz](https://brixbot.xyz/dashboard), choose your server, and adjust every detail the way you want.\n\nRemember, fox: to use this feature, you need to **manage the server** and also have an **active Premium subscription**. This way I unlock all the customization options for you, kyuuu~!",
-    "onwer_customizar_not": "### <:Braix_Cry2:1272667164637401250>┃ Customize my appearance\nKyu~… You can't use this function right now. You need to **manage the server** and have an **active Premium subscription** to be able to customize my appearance."
+    "onwer_customizar_not": "### <:Braix_Cry2:1272667164637401250>┃ Customize my appearance\nKyu~… You can't use this function right now. You need to **manage the server** and have an **active Premium subscription** to be able to customize my appearance.",
+
+
+
+    "natalxen_evento_encerrado": "Kyu… The Christmas event has ended. Hope to see you again in the next one, fox!",
+    "natalxen_evento_help": "## 🎄✨ Merry Christmas, kyu~!\n\nHey, fox! The holiday spirit is here and I'm super excited! During this special event you can **collect gifts**, **send them to other members**, and **open the ones you receive**. All of this gives **exclusive rewards**, kyu!\n\n🎁 **Collecting gifts:**\n• Use **/natalxen daily** to get your daily gift.\n• Collect **30 gifts** or more to earn **an exclusive event artwork**!\n\n🎀 **Opening gifts you collected:**\n• Earn between **1k and 5k Braixencoins**.\n• Or up to **2 days of Premium**!\n\n🎄 **Opening gifts received from other members:**\n• Get between **15k and 50k Braixencoins**.\n• Up to **7 days of Premium**!\n• Or even **an art item from the daily shop**!\n\n🔥 **Fox Tip:** Gifting others increases the fun and may give even more rewards, kyu! Spread the holiday cheer and enjoy!",
+    "natalxen_evento_entrega_propria_braixencoin": "You opened your gift and got **{} <:BraixenCoin:1272655353108103220> Braixencoins**!",
+    "natalxen_evento_entrega_propria_premium": "You opened your gift and got **{} days of Premium Subscription**!",
+    "natalxen_evento_entrega_presente_braixencoin": "You opened a received gift and got **{} <:BraixenCoin:1272655353108103220> Braixencoins**!",
+    "natalxen_evento_entrega_presente_premium": "You opened a received gift and got **{} days of Premium Subscription**!",
+    "natalxen_evento_entrega_presente_banner": "You opened a received gift and got the item **{}** from my Shop!",
+    "natalxen_evento_recompensa": "<:Braix_Happy:1272664784814342204>┃ Congrats, kyu! You just earned **an exclusive artwork from the Christmas event**! Show it off with pride!",
+    "natalxen_evento_daily_coleta": "<:Braix_Happy:1272664784814342204>┃ Daily gift collected successfully! You now have **{} gifts**, kyu!",
+    "natalxen_evento_daily_negacao": "<:Braix_Happy:1272664784814342204>┃ You already collected your **daily gift** today, kyu! Come back tomorrow for another one!",
+    "natalxen_evento_presentear_sempresente": "<:Braix_Blank:1272661806858371196>┃ You don’t have any gifts to send, kyu! How about collecting one first?",
+    "natalxen_evento_presentear_aleatorio_erro": "<:Braix_Blank:1272661806858371196>┃ I couldn’t find another participant to gift, kyu! Choose someone before continuing.",
+    "natalxen_evento_presentear_si_mesmo": "<:Braix_Blank:1272661806858371196>┃ You can’t send a gift to yourself, lonely fox…",
+    "natalxen_envio_anonimo": "Sent anonymously",
+    "natalxen_envio_enviado_por": "Sent by {} - {}",
+    "natalxen_envio_concluido": "<:Braix_Happy:1272664784814342204>┃ Gift successfully sent to **{}**! Kyu!",
+    "natalxen_envio_concluido_sem_aviso": "<:Braix_Happy:1272664784814342204>┃ Gift successfully sent to **{}**!\n<:Braix_Blank:1272661806858371196>┃ But I couldn’t notify the user, kyu…",
+    "natalxen_evento_coletado_sempresente": "<:Braix_Blank:1272661806858371196>┃ You don’t have any gifts to open, kyu! Try collecting one first!",
+    "natalxen_evento_recebido_sempresente": "<:Braix_Blank:1272661806858371196>┃ You haven’t received any gifts yet, kyu! Maybe someone will send you one~",
+    "natalxen_evento_consulta": "### 🎁 Gift Box\n\n**Collected gifts:** {}\n**Received gifts:** {}\n\n-# Total collected so far: {}\n-# **Tip:** When you reach **15 collected gifts**, you automatically earn **your exclusive artwork** on the next collection! Kyu~!",
+    "natalxen_evento_consulta_footer": "Christmas at Brix 2025",
+    "natalxen_evento_presentear_msg": "## 🎁 You received a gift!\nSomeone sent you a Christmas gift, kyu! Open it and see your reward!"
+
+
 }

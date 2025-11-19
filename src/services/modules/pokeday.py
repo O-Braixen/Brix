@@ -118,7 +118,7 @@ class Pokeday(commands.Cog):
             buffer_final = combinar_imagens_verticais(buffers)
             imagem_bytes = buffer_final.getvalue()
             for linha in canais:
-                await asyncio.sleep(0.2)
+                #await asyncio.sleep(0.2)
                 try: 
                     servidor = await self.client.fetch_guild(linha['_id'])
                     canal = await self.client.fetch_channel(linha['pokeday'].get('canal'))

@@ -1002,12 +1002,34 @@
     "viploja_ajuda" : "## <:Braix:1272653348306419824>┃ Ajuda sobre Loja VIP\n\nKyu~! Eu posso automatizar a venda de cargos VIP na sua comunidade. Basta registrar o cargo, definir o preço em **BraixenCoin** e escolher a duração: pode ser em **horas, dias ou meses**. Se não definir tempo, o cargo vira **permanente**!\n\nVocê também pode registrar o **mesmo cargo várias vezes** com planos diferentes (ex.: 1 mês, 3 meses ou permanente). Assim, os membros compram direto no painel e recebem o cargo na hora, sem precisar de atendimento. Todo o valor arrecadado vai automaticamente para quem cadastrou a oferta.\n\n<:Braix_uwu:1287443559074500691>┃ Então, treinador... que tal testar essa magia agora mesmo e colocar sua Loja VIP pra funcionar? Kyuuu~!",
 
 
+
+
+
+    "natalxen_evento_encerrado": "Kyu… O evento de Natal já foi encerrado. Espero te ver de novo no próximo, raposa!",
+    "natalxen_evento_help": "## 🎄✨ Feliz Natal, kyu~!\n\nEi, raposa! O espírito natalino chegou e eu tô super animado! Durante este evento especial você pode **coletar presentes**, **enviar para outros membros** e **abrir os que receber**. Tudo isso garante **recompensas exclusivas**, kyu!\n\n🎁 **Coletando presentes:**\n• Use **/natalxen daily** para pegar seu presente diário.\n• Colete **30 presentes** ou mais para ganhar **uma arte exclusiva do evento**!\n\n🎀 **Abrindo os presentes que você coletou:**\n• Ganhe entre **1k e 5k Braixencoins**.\n• Ou até **2 dias de Premium**!\n\n🎄 **Abrindo os presentes que você recebeu de outros membros:**\n• Receba entre **15k e 50k Braixencoins**.\n• Até **7 dias de Premium**!\n• Ou até mesmo **um item de arte da loja diária**!\n\n🔥 **Dica de Raposa:** Presentear outros membros aumenta a diversão e pode render ainda mais recompensas, kyu! Espalhe o clima natalino e divirta-se!",
+    "natalxen_evento_entrega_propria_braixencoin": "Você abriu seu presente e ganhou **{} <:BraixenCoin:1272655353108103220> Braixencoins**!",
+    "natalxen_evento_entrega_propria_premium": "Você abriu seu presente e ganhou **{} dias de Assinatura Premium**!",
+    "natalxen_evento_entrega_presente_braixencoin": "Você abriu um presente recebido e ganhou **{} <:BraixenCoin:1272655353108103220> Braixencoins**!",
+    "natalxen_evento_entrega_presente_premium": "Você abriu um presente recebido e ganhou **{} dias de Assinatura Premium**!",
+    "natalxen_evento_entrega_presente_banner": "Você abriu um presente recebido e ganhou o item **{}** na minha Lojinha!",
+    "natalxen_evento_recompensa": "<:Braix_Happy:1272664784814342204>┃ Parabéns, kyu! Você acaba de ganhar **uma arte exclusiva do evento de Natal**! Aproveite e exiba com orgulho!",
+    "natalxen_evento_daily_coleta": "<:Braix_Happy:1272664784814342204>┃ Presente diário coletado com sucesso! Agora você tem **{} presentes**, kyu!",
+    "natalxen_evento_daily_negacao": "<:Braix_Happy:1272664784814342204>┃ Você já coletou seu **presente diário** hoje, kyu! Volte amanhã para ganhar outro!",
+    "natalxen_evento_presentear_sempresente": "<:Braix_Blank:1272661806858371196>┃ Você não tem presentes para enviar, kyu! Que tal coletar um antes?",
+    "natalxen_evento_presentear_aleatorio_erro": "<:Braix_Blank:1272661806858371196>┃ Não encontrei outro participante para presentear, kyu! Escolha alguém antes de continuar.",
+    "natalxen_evento_presentear_si_mesmo": "<:Braix_Blank:1272661806858371196>┃ Você não pode enviar um presente para você mesmo, raposa solitária…",
+    "natalxen_envio_anonimo": "Enviado anonimamente",
+    "natalxen_envio_enviado_por": "Enviado por {} - {}",
+    "natalxen_envio_concluido": "<:Braix_Happy:1272664784814342204>┃ Presente enviado com sucesso para **{}**! Kyu!",
+    "natalxen_envio_concluido_sem_aviso": "<:Braix_Happy:1272664784814342204>┃ Presente enviado com sucesso para **{}**!\n<:Braix_Blank:1272661806858371196>┃ Mas eu não consegui avisar o usuário, kyu…",
+    "natalxen_evento_coletado_sempresente": "<:Braix_Blank:1272661806858371196>┃ Você não tem presentes para abrir, kyu! Tente coletar um primeiro!",
+    "natalxen_evento_recebido_sempresente": "<:Braix_Blank:1272661806858371196>┃ Você não recebeu nenhum presente ainda, kyu! Talvez alguém possa te enviar um~",
+    "natalxen_evento_consulta": "### 🎁 Caixinha de Presentes\n\n**Presentes coletados:** {}\n**Presentes recebidos:** {}\n\n-# Total coletado até agora: {}\n-# **Dica:** Ao atingir **15 presentes coletados**, você ganha automaticamente **sua arte exclusiva** na próxima coleta! Kyu~!",
+    "natalxen_evento_consulta_footer": "Natal no Brix 2025",
+    "natalxen_evento_presentear_msg": "## 🎁 Você recebeu um presente!\nAlguém te mandou um presente de Natal, kyu! Abra e veja sua recompensa!",
+
     
 
-
-
-
-    "message_correioelegante_consulta_inexistente" : "<:Braix_derp:1272663053875417219>┃ Não achei esse registro que você me passou, por favor verifique se digitou corretamente ~kyu..",
     
     "message_pokequiz" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\nKyu~! Que tal testar seus conhecimentos sobre o mundo Pokémon comigo? Vamos ver o quanto você realmente sabe, hein?\n### {}",
     "message_pokequiz_correta" : "### <:Braix_Happy:1272664784814342204>┃ Quiz do Brix!!!\n\n<:Braix_Happy:1272664784814342204>┃ Kyuuuu~! Você acertou, parabéns! Tá mandando bem, hein?",

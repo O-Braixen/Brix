@@ -764,7 +764,7 @@ class BancoCodigosResgate:
 
 
 #BANDO DE DAODS DEDICADO A EVENTOS
-"""
+
 eventocollection = db_connection.get_collection("evento-natalxen")
 
 class BancoEventos:
@@ -802,4 +802,3 @@ class BancoEventos:
         return document
 
 
-"""

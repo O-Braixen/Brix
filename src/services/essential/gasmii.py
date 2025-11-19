@@ -19,7 +19,7 @@ try:
     if not GOOGLE_AI_KEY:
         raise ValueError("API KEY ausente.")
     genaiclient = genai.Client(api_key=GOOGLE_AI_KEY)
-    print("✔️  -  Conectado a api do Gemini com sucesso.")
+    print("✔️   -  Conectado a api do Gemini com sucesso.")
 except Exception as e:
     print(f"❌  -  Erro ao inicializar Gemini AI: {e}")
 

@@ -496,26 +496,28 @@ class servers(commands.Cog):
 
   @tasks.loop(minutes=10)
   async def lembretes_topgg(self):
-    await asyncio.sleep(5)  # Delay para evitar spam
-    agora = datetime.now().replace(tzinfo=None).astimezone(FUSOHORARIO)
-    usuarios = BancoUsuarios.select_many_document({"topgg_lembrete": {"$lte": agora}})
+    try:
+      agora = datetime.now().replace(tzinfo=None).astimezone(FUSOHORARIO)
+      usuarios = BancoUsuarios.select_many_document({"topgg_lembrete": {"$lte": agora}})
 
-    for u in usuarios:
-      try:
-        
-        if u["dm-notification"] is True:
-          user = await self.client.fetch_user(u["_id"])
-          view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://brixbot.xyz/cdn/sino_notificacao.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://brixbot.xyz/vote" )
-          await user.send(view=view)
-        else:
-          print("🦊 - membro não recebe notificações via DM")
+      for u in usuarios:
+        await asyncio.sleep(5)  # Delay para evitar spam
+        try:
           
-      except:
-        print(f"[voto] Falha ao enviar lembrete para {u['_id']}")
+          if u["dm-notification"] is True:
+            user = await self.client.fetch_user(u["_id"])
+            view = container_media_button_url(descricao= Res.trad(user=user, str='message_votetopgg_lembrete_dm') ,descricao_thumbnail= "https://brixbot.xyz/cdn/sino_notificacao.png" ,buttonLABEL=Res.trad(user=user, str="botão_abrir_navegador"),buttonURL = "https://brixbot.xyz/vote" )
+            await user.send(view=view)
+          else:
+            print("🦊 - membro não recebe notificações via DM")
+            
+        except:
+          print(f"[voto] Falha ao enviar lembrete para {u['_id']}")
 
-        # Remove o campo pra evitar repetir
-      BancoUsuarios.delete_field(u["_id"], {"topgg_lembrete": 0})
-
+          # Remove o campo pra evitar repetir
+        BancoUsuarios.delete_field(u["_id"], {"topgg_lembrete": 0})
+    except Exception as e:
+      print(f"🔴 - LEMBRETE_TOP.GG ERROR: falha na tarefa pelo erro {e}, verificará mais tarde")
 
 
 
@@ -541,8 +543,8 @@ class servers(commands.Cog):
   # TASK DE VERIFICAÇÃO DE TAGS DE SERVIDOR
   @tasks.loop(minutes=10)  # roda a cada 10 min
   async def verificar_tags(self):
-    filtro = {"tag_server": {"$exists": True}}
     try:
+      filtro = {"tag_server": {"$exists": True}}
       servidores = BancoServidores.select_many_document(filtro)
 
       for servidor in servidores:
