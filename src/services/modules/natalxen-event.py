@@ -34,6 +34,7 @@ async def entregar_recompensa(self, interaction: discord.Interaction, tipo):
     else:  # Assinatura Premium
       dias = random.randint(1, 2)  # Exemplo: duração de 1 a 3 dias
       await interaction.followup.send( Res.trad(interaction=interaction, str="natalxen_evento_entrega_propria_premium").format(dias) )
+      await liberarpremium(self,interaction.channel,interaction.user,dias,False)
 
   else:  # USUÁRIO ESTÁ ABRINDO UM PRESENTE
         # Sorteador para Braixencoin, Assinatura Premium ou Banner
