@@ -467,7 +467,6 @@
     "message_erro_codigo_msg_arte": "grafika profilowa **{}**",
     "message_erro_codigo_msg_aviso": "<:Braix_Happy:1272664784814342204>┃ Gratulacje, {}! Odebrałeś kod **{}** i zyskałeś {}! Kyu~!",
     "message_emojibackup": "<:Braix_Happy:1272664784814342204>┃ Rozpoczynam proces tworzenia kopii zapasowej, kyu~! To może chwilę potrwać, więc bądź cierpliwy i zostaw to mnie, kyuuuuuuu~!\n-# Plik zostanie wysłany bezpośrednio na Twoją prywatną wiadomość, kyu~!",
-    "message_emojibackup_finalizado": "<:Braix_Happy:1272664784814342204>┃ Gotoweee~! Kopia zapasowa zakończona, kyu! Oto, o co prosiłeś ~kyuu!",
     "message_emojibackup_avisodono": "## <:Braix_Jay:1272669280932069437> Ostrzeżenie Bezpieczeństwa\n<:Braix_Tongue:1272662386590879795>┃ Cześć! Informuję, że użytkownik **{}** wykonał kopię zapasową emoji z Twojej społeczności **{}**, kyu~.\n-# Było to możliwe, ponieważ ma on uprawnienia do zarządzania emoji w Twojej społeczności kyuuu!",
     "message_emojiadd": "<:Braix_Happy:1272664784814342204>┃ Uhull dodałem {} do społeczności kyuuuuuuu~",
     "message_emojirem": "<:Braix_Tongue:1272662386590879795>┃ Usunąłem emoji, o które prosiłeś kyuuu~~",
@@ -1963,5 +1962,6 @@
     "natalxen_evento_recebido_sempresente": "<:Braix_Blank:1272661806858371196>┃ Nie otrzymałeś jeszcze żadnych prezentów, kyu! Może ktoś ci coś wyśle~",
     "natalxen_evento_consulta": "### 🎁 Pudełko z Prezentami\n\n**Zebrane prezenty:** {}\n**Otrzymane prezenty:** {}\n\n-# Łącznie zebrano: {}\n-# **Porada:** Po zdobyciu **30 zebranych prezentów** automatycznie otrzymasz **swoją unikalną ilustrację** przy następnej zbiórce! Kyu~!",
     "natalxen_evento_consulta_footer": "Święta w Brix 2025",
-    "natalxen_evento_presentear_msg": "## 🎁 Otrzymałeś prezent!\nKtoś wysłał Ci świąteczny prezent, kyu! Otwórz go i zobacz swoją nagrodę!"
+    "natalxen_evento_presentear_msg": "## 🎁 Otrzymałeś prezent!\nKtoś wysłał Ci świąteczny prezent, kyu! Otwórz go i zobacz swoją nagrodę!",
+    "message_emojibackup_finalizado": "<:Braix_Happy:1272664784814342204>┃ Gotowe, kyu~! Twoja kopia zapasowa została pomyślnie zakończona!\nOto kopia zapasowa serwera **{}**, kyuuu~!\n\n-# <:Braix_You:1272670440652935289>┃ **Porada od lisa:** Nie ponoszę odpowiedzialności za zawartość w pliku .zip. Za autentyczność emoji odpowiada w pełni społeczność."
 }

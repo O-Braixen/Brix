@@ -1,4 +1,4 @@
-import discord,os,random,asyncio,re,aiohttp , zipfile
+import discord,os,random,asyncio,re,aiohttp , zipfile, io
 from discord.ext import commands
 from discord import app_commands,partial_emoji
 from src.services.essential.respostas import Res
@@ -688,68 +688,101 @@ class misc(commands.Cog):
 
 
 
+# TAMANHO MÁXIMO POR ARQUIVO (7MB)
 
-#COMANDO DE REALIZAÇÂO DE BACKUP DE EMOJIS DA COMUNIDADE
+# COMANDO DE REALIZAÇÃO DE BACKUP DE EMOJIS
   @emojis.command(name="backup", description="🥳⠂Realize um backup de todos os emojis deste servidor")
   async def backup_emoji(self, interaction: discord.Interaction):
-    if await Res.print_brix(comando="Backup_emoji",interaction=interaction):
-       return
+    if await Res.print_brix(comando="Backup_emoji", interaction=interaction):
+      return
+
     if not interaction.user.guild_permissions.manage_emojis:
-        await interaction.response.send_message(Res.trad(interaction=interaction, str='message_erro'),ephemeral=True , delete_after=30)
-        return
+      await interaction.response.send_message( Res.trad(interaction=interaction, str='message_erro'), ephemeral=True, delete_after=30 )
+      return
+
     guild = interaction.guild
     if not guild.emojis:
-        await interaction.response.send_message(Res.trad(interaction=interaction, str="message_erro_notemoji"),ephemeral=True , delete_after=30)
-        return
+      await interaction.response.send_message( Res.trad(interaction=interaction, str="message_erro_notemoji"), ephemeral=True, delete_after=30 )
+      return
 
-    await interaction.response.send_message(Res.trad(interaction=interaction, str="message_emojibackup") , delete_after=30)
+    await interaction.response.send_message( Res.trad(interaction=interaction, str="message_emojibackup"), delete_after=30 )
+
     folder_name = f"{guild.id}_emojis"
-    zip_name = f"{folder_name}.zip"
-
-    # Criar pasta temporária para salvar os emojis
     os.makedirs(folder_name, exist_ok=True)
-    async with aiohttp.ClientSession() as session:
-        for emoji in guild.emojis:
-            try:
-                # Determinar a extensão com base no tipo de emoji
-                extension = "gif" if emoji.animated else "png"
-                # Usar ID do emoji no nome do arquivo para evitar conflitos
-                filename = f"{emoji.name}({emoji.id}).{extension}"
-                async with session.get(str(emoji.url)) as response:
-                    if response.status == 200:
-                        with open(f"{folder_name}/{filename}", "wb") as f:
-                            f.write(await response.read())
-            except Exception as e:
-              await Res.erro_brix_embed(interaction,str="message_erro_brixsystem",e=e,comando=f"Erro ao baixar {emoji.name}")
-    # Compactar os emojis em um arquivo ZIP
-    with zipfile.ZipFile(zip_name, 'w') as zipf:
-        for root, _, files in os.walk(folder_name):
-            for file in files:
-                zipf.write(os.path.join(root, file), arcname=file)
-    # Enviar o arquivo ZIP no chat
-    try:
-        await interaction.user.send(content=Res.trad(interaction=interaction, str="message_emojibackup_finalizado"),file=discord.File(zip_name))
-    except Exception as e:
-        await Res.erro_brix_embed(interaction,str="message_erro_brixsystem",e=e,comando="emoji backup")
-    finally:
-        # Limpar os arquivos temporários
-        for root, _, files in os.walk(folder_name):
-            for file in files:
-                os.remove(os.path.join(root, file))
-        os.rmdir(folder_name)
-        os.remove(zip_name)
-    #Aviso ao dono do servidor sobre backup
-    try:
-      donodaguilda = interaction.guild.owner
-      if donodaguilda != interaction.user:
-        resposta = discord.Embed(
-          colour=discord.Color.yellow(),
-          description=Res.trad(user=donodaguilda, str="message_emojibackup_avisodono").format(interaction.user.mention,interaction.guild.name)
-        )
-        await donodaguilda.send(embed=resposta)
-    except:
-       print(f"falha para avisar o dono da guilda ({interaction.guild_id}) sobre backup de emoji feito pelo ({interaction.user.name}-{interaction.user.id})")
 
+    # BAIXAR EMOJIS
+    async with aiohttp.ClientSession() as session:
+      for emoji in guild.emojis:
+        try:
+          ext = "gif" if emoji.animated else "png"
+          filename = f"{emoji.name}({emoji.id}).{ext}"
+
+          async with session.get(str(emoji.url)) as resp:
+            if resp.status == 200:
+              with open(f"{folder_name}/{filename}", "wb") as f:
+                f.write(await resp.read())
+        except Exception as e:
+          await Res.erro_brix_embed( interaction, str="message_erro_brixsystem", e=e, comando=f"Erro ao baixar {emoji.name}" )
+
+    # GERAR ZIPs EM PARTES
+    part = 1
+    current_zip_path = f"{folder_name}_part{part}.zip"
+    current_zip = zipfile.ZipFile(current_zip_path, 'w')
+    opened_zips = [current_zip]
+    current_size = 0
+    zip_files = [current_zip_path]
+
+    for file in os.listdir(folder_name):
+        filepath = os.path.join(folder_name, file)
+        filesize = os.path.getsize(filepath)
+
+        # troca de zip se ultrapassar 7MB
+        if current_size + filesize > 7 * 1024 * 1024:
+            current_zip.close()
+            part += 1
+            current_zip_path = f"{folder_name}_part{part}.zip"
+            current_zip = zipfile.ZipFile(current_zip_path, "w")
+            opened_zips.append(current_zip)
+            zip_files.append(current_zip_path)
+            current_size = 0
+
+        current_zip.write(filepath, arcname=file)
+        current_size += filesize
+
+    # FECHAR O ÚLTIMO ZIP
+    current_zip.close()
+
+    # PREPARAR ARQUIVOS PARA ENVIAR (em memória, sem travar)
+    file_objects = []
+    for f in zip_files:
+        with open(f, "rb") as fp:
+            data = fp.read()
+        file_objects.append(discord.File(io.BytesIO(data), filename=os.path.basename(f)))
+
+    # ENVIAR PARA O USUÁRIO
+    await interaction.user.send(
+        content=Res.trad(interaction=interaction, str="message_emojibackup_finalizado").format(guild.id),
+        files=file_objects
+    )
+
+    # ESPERAR O DISCORD FECHAR HANDLES INTERNOS
+    await asyncio.sleep(0.3)
+
+    # LIMPAR ARQUIVOS TEMPORÁRIOS
+    try:
+        # arquivos dentro da pasta
+        for f in os.listdir(folder_name):
+            os.remove(os.path.join(folder_name, f))
+
+        os.rmdir(folder_name)
+
+        # apagar ZIPs
+        for f in zip_files:
+            if os.path.exists(f):
+                os.remove(f)
+
+    except Exception as e:
+        print("Erro ao limpar:", e)
 
 
 

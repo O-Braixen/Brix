@@ -517,7 +517,7 @@
 
 
     "message_emojibackup" : "<:Braix_Happy:1272664784814342204>┃ Iniciando o processo de backup, kyu~! Isso pode levar um tempinho, então seja paciente e deixe comigo, kyuuuuuuu~!\n-# O arquivo será enviado diretamente no seu privado, kyu~!",
-    "message_emojibackup_finalizado" : "<:Braix_Happy:1272664784814342204>┃ Prontinhooo~! O backup está finalizado, kyu! Aqui está o que você pediu ~kyuu!",
+    "message_emojibackup_finalizado" : "<:Braix_Happy:1272664784814342204>┃ Prontinho, kyu~! Seu backup foi concluído com sucesso!\nAqui está o backup do servidor **{}**, kyuuu~!\n\n-# <:Braix_You:1272670440652935289>┃ **Dica de raposa:** Não me responsabilizo pelo conteúdo dentro do arquivo .zip. A veracidade dos emojis é de total responsabilidade da comunidade.",
     "message_emojibackup_avisodono" : "## <:Braix_Jay:1272669280932069437> Aviso de Segurança\n<:Braix_Tongue:1272662386590879795>┃ Olá! Estou aqui para informar que o usuário **{}** realizou uma cópia de segurança dos emojis da sua comunidade **{}**, kyu~.\n-# Isso foi possível porque ele tem permissão para gerenciar emojis na sua comunidade kyuuu!",
 
     "message_emojiadd" : "<:Braix_Happy:1272664784814342204>┃ Uhull adicionei o {} na comunidade kyuuuuuuu~",

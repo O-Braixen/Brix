@@ -66,7 +66,7 @@ async def gemini_translate(text: str, target_lang: str):
 
 class BrixTradutor(app_commands.Translator):
     def __init__(self, dir_name='src/core/traducoes', response_dir='src/core/responses'):
-        print("🌐 Iniciando Traduções Automáticas!")
+        print("🌐  -  Iniciando Traduções Automáticas!")
 
         self.dir_name = dir_name
         self.response_dir = response_dir
@@ -77,6 +77,7 @@ class BrixTradutor(app_commands.Translator):
         self.allowed_locales = {
             discord.Locale.american_english: 'en-US',
             discord.Locale.polish: 'pl',
+            discord.Locale.spain_spanish: 'es-ES',
         }
 
         self.translations = self.load_translations(self.dir_name)

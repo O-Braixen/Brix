@@ -23,7 +23,7 @@ class Client(commands.AutoShardedBot):
         intents.message_content = True
         intents.members = True
 
-        super().__init__(command_prefix='-', intents=intents)
+        super().__init__(command_prefix='-', intents=intents , shard_count= 3 )
         self.synced = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
         self.cogslist = [
             f"src.services.modules.{os.path.splitext(cog)[0]}"
@@ -84,8 +84,6 @@ class Client(commands.AutoShardedBot):
 
     async def on_ready(self):
 
-        #await self.try_sync_commands()
-        await asyncio.sleep(10)
         fuso = pytz.timezone('America/Sao_Paulo')
         now = datetime.datetime.now().astimezone(fuso)
         print("\n============================= STATUS DO BOT ==============================")
