@@ -20,6 +20,7 @@ Image.MAX_IMAGE_PIXELS = None
 id_chatBH = int(os.getenv('id_chatBH'))
 CACHE_PATH = "src/services/caches/e621_tags.json"
 e621_tags = {}
+e621api = None
 
 
 
@@ -27,16 +28,17 @@ e621_tags = {}
 
 
 
-
-# ======================================================================
-#REALIZANDO O LOGIN DA API DO E621
-try:
-    time.sleep(2)  # Espera de 2 segundos
-    e621api = E621()
-    e621api.login(os.getenv("E621_Login"), os.getenv("E621_Api"))
-    print("🦊  -  Login e621 bem-sucedido!")
-except:
-    print(f"❌  -  Falha no login do e621")
+def init_e621():
+    global e621api
+    # ======================================================================
+    #REALIZANDO O LOGIN DA API DO E621
+    try:
+        time.sleep(2)  # Espera de 2 segundos
+        e621api = E621()
+        e621api.login(os.getenv("E621_Login"), os.getenv("E621_Api"))
+        print("🦊  -  Login e621 bem-sucedido!")
+    except:
+        print(f"❌  -  Falha no login do e621")
 
 
 
@@ -256,7 +258,7 @@ class diversao(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🎲  -  Modúlo Diversao carregado.")
-    
+    init_e621() #Login da api do e621
 
     if not self.atualizar_cache_e621.is_running():
         self.atualizar_cache_e621.start()

@@ -14,14 +14,37 @@ GOOGLE_AI_KEY = os.getenv("GOOGLE_AI_KEY")
 MAX_RETRIES = 3  # Número máximo de tentativas
 RETRY_DELAY = 2  # Atraso entre as tentativas (em segundos)
 
+# variável global inicial, vazia
+genaiclient = None
 
-try:
-    if not GOOGLE_AI_KEY:
-        raise ValueError("API KEY ausente.")
-    genaiclient = genai.Client(api_key=GOOGLE_AI_KEY)
-    print("✔️   -  Conectado a api do Gemini com sucesso.")
-except Exception as e:
-    print(f"❌  -  Erro ao inicializar Gemini AI: {e}")
+
+
+
+
+def init_gemini():
+    global genaiclient
+
+    try:
+        if not GOOGLE_AI_KEY:
+            raise ValueError("API KEY ausente.")
+
+        genaiclient = genai.Client(api_key=GOOGLE_AI_KEY)
+        print("✔️   -  Conectado à API do Gemini.")
+
+    except Exception as e:
+        print(f"❌  -  Erro ao inicializar Gemini AI: {e}")
+        raise
+
+
+
+
+#try:
+#    if not GOOGLE_AI_KEY:
+#        raise ValueError("API KEY ausente.")
+#    genaiclient = genai.Client(api_key=GOOGLE_AI_KEY)
+#    print("✔️   -  Conectado a api do Gemini com sucesso.")
+#except Exception as e:
+#    print(f"❌  -  Erro ao inicializar Gemini AI: {e}")
 
 modelo_linguagem = "gemini-2.0-flash"
 imagem_modelo = "gemini-2.0-flash-preview-image-generation"

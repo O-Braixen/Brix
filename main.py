@@ -16,13 +16,14 @@ SYNC_FILE = "last_sync.json"
 
 
 
+
 class Client(commands.AutoShardedBot): 
     def __init__(self) -> None:
         intents = discord.Intents.default()
         intents.message_content = True
         intents.members = True
 
-        super().__init__(command_prefix='-', intents=intents, shard_count=3)
+        super().__init__(command_prefix='-', intents=intents)
         self.synced = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
         self.cogslist = [
             f"src.services.modules.{os.path.splitext(cog)[0]}"
@@ -32,25 +33,59 @@ class Client(commands.AutoShardedBot):
 
 
 
-    async def setup_hook(self):
 
-        self.brixtradutor = BrixTradutor() #Define o modulo de tradução
-        await asyncio.gather(
-            self.tree.set_translator(self.brixtradutor),
-            self.brixtradutor.translate_responses(),
-            *[self.load_extension(ext) for ext in self.cogslist]
-        )
+
+
+
+
+    async def setup_hook(self):       
+        self.brixtradutor = BrixTradutor()
+        # Carregar cogs de forma sequencial (evita overload no startup)
+        for ext in self.cogslist:
+            try:
+                await self.load_extension(ext)
+            except Exception as e:
+                print(f"Erro ao carregar cog {ext}: {e}")
+
+        # Criar tarefa assíncrona para inicialização pesada
+        self.loop.create_task(self.start_background_initializers())
+
+
+
+
+
+
+
+
+    async def start_background_initializers(self):
+        """Roda tudo que é pesado APÓS o bot estar 100% conectado."""
+        await self.wait_until_ready()
+        await asyncio.sleep(10)  # Ajuda a evitar rate-limit no WebSocket
+        try:
+            await self.tree.set_translator(self.brixtradutor)
+            await self.brixtradutor.translate_responses()
+        except Exception as e:
+            print(f"Erro nas traduções: {e}")
+
+        # Sincronização de comandos
+        await self.try_sync_commands()
+        print("🦊  -  Inicialização pós-login concluída.")
+
+
+
+
 
 
     async def on_shard_ready(self, shard_id):
         print(f"Shard {shard_id} ({NOME_DOS_SHARDS.get(shard_id, 'Desconhecido')}) pronto!")
 
 
+
+
     async def on_ready(self):
 
-        await self.try_sync_commands()
+        #await self.try_sync_commands()
         await asyncio.sleep(10)
-        
         fuso = pytz.timezone('America/Sao_Paulo')
         now = datetime.datetime.now().astimezone(fuso)
         print("\n============================= STATUS DO BOT ==============================")
@@ -85,6 +120,9 @@ class Client(commands.AutoShardedBot):
 
 
 
+
+
+
     # Syncronizador da arvore de comandos, só roda caso exista algum comando que realmente precise ser syncronizado
     async def try_sync_commands(self):
         # Gera hash do conteúdo dos comandos atuais
@@ -109,6 +147,7 @@ class Client(commands.AutoShardedBot):
                 print(f"❌  Erro ao sincronizar comandos: {e}")
         else:
             print("⚡  Nenhuma mudança detectada — comandos já sincronizados.")
+
 
 
 

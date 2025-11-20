@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord import app_commands, ui
 from src.services.essential.respostas import Res
 from src.services.essential.funcoes_usuario import userpremiumcheck, verificar_cooldown
-from src.services.essential.gasmii import generate_response_with_text,generate_response_with_image_and_text,generate_response_with_transcribe_audio,generate_response_with_video_and_text , generate_image_by_text
+from src.services.essential.gasmii import init_gemini , generate_response_with_text,generate_response_with_image_and_text,generate_response_with_transcribe_audio,generate_response_with_video_and_text , generate_image_by_text
 
 
 
@@ -51,6 +51,7 @@ class bard(commands.Cog):
   @commands.Cog.listener()
   async def on_ready(self):
     print("🦊  -  Modúlo Bard carregado.")
+    init_gemini() #LOGIN DA API DO GEMINI
 
 
 
