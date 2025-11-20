@@ -817,7 +817,6 @@ class admin(commands.Cog):
           BancoServidores.delete_field(servidor['_id'], {"temprole": 0})
     except Exception as e:
       print(f"🔴 - erro na verificação de temproles, tentando mais tarde\n{e}")
-    return
 
 
 

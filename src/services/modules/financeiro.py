@@ -126,11 +126,11 @@ class financeiro(commands.Cog):
             transacoes.append({    "user_id": str(brix['_id']),    "tipo": "gasto",    "origem": "Aluguel Ap",    "valor": custobrix,    "moeda": "braixencoin",    "descricao": "Taxa apartamento do Brix.",    "timestamp": datetime.datetime.now()})
             print(f"💲 - Brix pagou o aluguel do ap com o vini, brix tinha {brix['braixencoin']} e agora ficou com {apartamento}")
             # REPASSE DO IMPOSTO TOTAL PARA O BRIX (100% do TotalTaxas)
-            if TotalTaxas > 0:
-                novo_valor = apartamento + int(TotalTaxas)
-                updates.append({ "_id": brix['_id'], "update": {"$set": {"braixencoin": novo_valor}} })
-                transacoes.append({ "user_id": str(brix['_id']), "tipo": "ganho", "origem": "Arrecadação Daily", "valor": int(TotalTaxas), "moeda": "braixencoin", "descricao": "Imposto total arrecadado dos usuários.", "timestamp": datetime.datetime.now() })
-                print(f"💲 - Brix recebeu {TotalTaxas} BC de impostos. Total atual: {novo_valor}")
+            #if TotalTaxas > 0:
+            #    novo_valor = apartamento + int(TotalTaxas)
+            #    updates.append({ "_id": brix['_id'], "update": {"$set": {"braixencoin": novo_valor}} })
+            #    transacoes.append({ "user_id": str(brix['_id']), "tipo": "ganho", "origem": "Arrecadação Daily", "valor": int(TotalTaxas), "moeda": "braixencoin", "descricao": "Imposto total arrecadado dos usuários.", "timestamp": datetime.datetime.now() })
+            #    print(f"💲 - Brix recebeu {TotalTaxas} BC de impostos. Total atual: {novo_valor}")
         except Exception as e:
             print(f"Error na cobrança do apartamento de brix: {e}")
 
