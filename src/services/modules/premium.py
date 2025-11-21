@@ -240,9 +240,9 @@ class premium(commands.Cog):
 
     
   @commands.Cog.listener()
-  async def on_ready(self):
+  async def on_bot_ready(self):
     print("💎  -  Modúlo Premium carregado.")
-    await asyncio.sleep(45)
+    #await asyncio.sleep(45)
     if not self.TASK_VERIFICAR_PAGAMENTOS.is_running():
       self.TASK_VERIFICAR_PAGAMENTOS.start()
 
@@ -291,7 +291,7 @@ class premium(commands.Cog):
 
 
 #FUNÇÂO DE VERIFICAÇÃO DE ASSINANTES PREMIUM
-  @tasks.loop(minutes=15) #LOOP DE 15 Minutos
+  @tasks.loop(minutes=5) #LOOP DE 15 Minutos
   async def verificar_premium(self): 
     try:
       filtro = {"premium": {"$exists":True}}

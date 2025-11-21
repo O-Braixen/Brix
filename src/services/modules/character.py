@@ -187,7 +187,7 @@ async def reset_character_ai_BH():
 
 # ======================================================================
 
-class caracterai(commands.Cog):
+class character(commands.Cog):
   def __init__(self, client: commands.Bot):
     self.client = client
     
@@ -201,10 +201,10 @@ class caracterai(commands.Cog):
 # ======================================================================
 
   @commands.Cog.listener()
-  async def on_ready(self):
+  async def on_bot_ready(self):
     print("🤖  -  Modúlo Characterai carregado.")
     # Autentica só uma vez
-    await asyncio.sleep(5)
+    #await asyncio.sleep(5)
     await clientcai.authenticate(char_token)
     self.client.loop.create_task(worker_brix(self))
 
@@ -455,4 +455,4 @@ class caracterai(commands.Cog):
 # ======================================================================
 
 async def setup(client:commands.Bot) -> None:
-  await client.add_cog(caracterai(client))
+  await client.add_cog(character(client))

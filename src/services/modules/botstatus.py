@@ -66,7 +66,7 @@ def extrair_comandos_grupo(grupo, prefixo=""):
 
 # ======================================================================
 
-class BotStatus(commands.Cog):
+class botstatus(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
         self.isbraixenday = False
@@ -81,8 +81,8 @@ class BotStatus(commands.Cog):
 # ======================================================================
 
     @commands.Cog.listener()
-    async def on_ready(self):
-        print("🤖  -  Modúlo BotStatus carregado.")
+    async def on_bot_ready(self):
+        print("🤖  -  Modúlo botstatus carregado.")
         #Ligando tasks
         if not self.salvar_estatisticas_gerais.is_running():
             self.salvar_estatisticas_gerais.start()
@@ -90,7 +90,7 @@ class BotStatus(commands.Cog):
         if not self.salvar_metricas.is_running():
             self.salvar_metricas.start()
 
-        await asyncio.sleep(300)
+        #await asyncio.sleep(300)
         if not self.atualizar_status_cache.is_running():
             self.atualizar_status_cache.start()
 
@@ -384,4 +384,4 @@ class BotStatus(commands.Cog):
 # ======================================================================
 
 async def setup(client: commands.Bot) -> None:
-    await client.add_cog(BotStatus(client))
+    await client.add_cog(botstatus(client))

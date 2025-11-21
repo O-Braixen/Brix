@@ -150,12 +150,12 @@ class DropdownVip(discord.ui.View):
 
 # ======================================================================
 # COG VIP
-class cogvip(commands.Cog):
+class vipstore(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
 
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_bot_ready(self):
         print("⭐  -  Módulo Sistema de cargos VIP carregado.")
 
 
@@ -455,4 +455,4 @@ class cogvip(commands.Cog):
 
 # ======================================================================
 async def setup(client: commands.Bot) -> None:
-    await client.add_cog(cogvip(client))
+    await client.add_cog(vipstore(client))

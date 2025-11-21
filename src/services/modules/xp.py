@@ -3,16 +3,34 @@ from discord.ext import commands, tasks
 from discord import app_commands
 from src.services.connection.database import BancoUsuarios
 
-class XP(commands.Cog):
+
+
+
+
+
+
+class xp(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
         self.xp_cache = {}  # Dicionário para acumular XP
         self.cache_lock = asyncio.Lock()  # Lock para evitar conflito de acesso
         self.save_xp.start()  # Inicia a task para salvar o XP periodicamente
 
+
+
+
+
+
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_bot_ready(self):
         print("🎮  -  Modúlo XP carregado.")
+
+
+
+
+
+
+
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -24,6 +42,14 @@ class XP(commands.Cog):
                 if user_id not in self.xp_cache:
                     self.xp_cache[user_id] = 0
                 self.xp_cache[user_id] += 1
+
+
+
+
+
+
+
+
 
     @tasks.loop(minutes=5)
     async def save_xp(self):
@@ -41,9 +67,24 @@ class XP(commands.Cog):
                         print(f"Falha ao salvar o XP de {user_id}: {e}")
                 self.xp_cache.clear()
 
+
+
+
+
+
+
+
+
+
     @save_xp.before_loop
     async def before_save_xp(self):
         await self.client.wait_until_ready()
 
+
+
+
+
+
+
 async def setup(client: commands.Bot) -> None:
-    await client.add_cog(XP(client))
+    await client.add_cog(xp(client))

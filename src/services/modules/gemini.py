@@ -18,7 +18,7 @@ from src.services.essential.gasmii import init_gemini , generate_response_with_t
 
 # ======================================================================
 
-class bard(commands.Cog):
+class gemini(commands.Cog):
   def __init__(self, client: commands.Bot):
     self.client = client
 
@@ -49,8 +49,8 @@ class bard(commands.Cog):
 
 
   @commands.Cog.listener()
-  async def on_ready(self):
-    print("🦊  -  Modúlo Bard carregado.")
+  async def on_bot_ready(self):
+    print("🦊  -  Modúlo Gemini carregado.")
     init_gemini() #LOGIN DA API DO GEMINI
 
 
@@ -930,4 +930,4 @@ async def aplicar_estrutura(guild : discord.Guild, interaction : discord.Interac
 # ======================================================================
 
 async def setup(client:commands.Bot) -> None:
-  await client.add_cog(bard(client))
+  await client.add_cog(gemini(client))

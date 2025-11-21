@@ -96,11 +96,11 @@ class admin(commands.Cog):
 # ======================================================================
 # ON READY
   @commands.Cog.listener()
-  async def on_ready(self):
+  async def on_bot_ready(self):
     print("💼  -  Modúlo Admin carregado.")
     #Ligando tasks
     if not self.verificar_temproles.is_running():
-      await asyncio.sleep(240)
+      #await asyncio.sleep(240)
       self.verificar_temproles.start()
   
 

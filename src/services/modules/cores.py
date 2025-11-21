@@ -92,7 +92,7 @@ class DropdownCores(discord.ui.View):
 
 
 
-class cogcores(commands.Cog):
+class cores(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
 
@@ -100,7 +100,7 @@ class cogcores(commands.Cog):
 
 
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_bot_ready(self):
         print("🎨  -  Modúlo Sistema de cores carregado.")
   
 
@@ -372,4 +372,4 @@ class cogcores(commands.Cog):
 
 
 async def setup(client:commands.Bot) -> None:
-  await client.add_cog(cogcores(client))
+  await client.add_cog(cores(client))

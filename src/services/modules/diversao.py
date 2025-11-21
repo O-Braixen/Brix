@@ -256,17 +256,17 @@ class diversao(commands.Cog):
 
 
   @commands.Cog.listener()
-  async def on_ready(self):
+  async def on_bot_ready(self):
     print("🎲  -  Modúlo Diversao carregado.")
     init_e621() #Login da api do e621
 
     if not self.atualizar_cache_e621.is_running():
         self.atualizar_cache_e621.start()
-        await asyncio.sleep(120)
+        #await asyncio.sleep(120)
         await carregar_cache_e621()
         
     if not self.autophox.is_running():
-        await asyncio.sleep(1200) #1200
+        #await asyncio.sleep(1200) #1200
         self.autophox.start()
   
 
@@ -437,8 +437,13 @@ class diversao(commands.Cog):
 
 
     #LOOP DE POSTAGEM DO AUTOPHOX
-  @tasks.loop(hours=1) # hours=1
+  @tasks.loop(seconds=60) # hours=1
   async def autophox(self):
+    agora = datetime.datetime.now().astimezone()  # pega horário local
+
+    # Só roda em hora cheia
+    if agora.minute != 0:
+        return
     print("🦊 - rodando Auto Phox")
     try:
         pesquisa = ['fennekin','braixen','delphox','mega_delphox']

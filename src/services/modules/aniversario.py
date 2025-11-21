@@ -44,7 +44,7 @@ class aniversario(commands.Cog):
 
 
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_bot_ready(self):
         print("🎂  -  Modúlo Aniversário carregado.")
          #Ligando tasks
         if not self.verificar_aniversariantes.is_running():

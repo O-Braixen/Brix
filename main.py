@@ -23,8 +23,8 @@ class Client(commands.AutoShardedBot):
         intents.message_content = True
         intents.members = True
 
-        super().__init__(command_prefix='-', intents=intents , shard_count= 3 )
-        self.synced = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
+        super().__init__(command_prefix='-', intents=intents ) #, shard_count= 1
+        self.ready_tasks_done = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
         self.cogslist = [
             f"src.services.modules.{os.path.splitext(cog)[0]}"
             for cog in os.listdir("src/services/modules")
@@ -60,7 +60,13 @@ class Client(commands.AutoShardedBot):
     async def start_background_initializers(self):
         """Roda tudo que é pesado APÓS o bot estar 100% conectado."""
         await self.wait_until_ready()
-        await asyncio.sleep(10)  # Ajuda a evitar rate-limit no WebSocket
+
+        # 🛑 NOVO CONTROLE: Só executa tarefas pesadas uma vez
+        if self.ready_tasks_done:
+            print("🦊  -  Tarefas de inicialização já concluídas. Ignorando.")
+            return
+        
+        #await asyncio.sleep(10)  # Ajuda a evitar rate-limit no WebSocket
         try:
             await self.tree.set_translator(self.brixtradutor)
             await self.brixtradutor.translate_responses()
@@ -69,6 +75,14 @@ class Client(commands.AutoShardedBot):
 
         # Sincronização de comandos
         await self.try_sync_commands()
+        print("⚙️  -  Iniciando lógica de inicialização das Cogs (on_ready centralizado)...")
+        for cog_name in self.cogslist:
+            cog_instance = self.get_cog(cog_name.split('.')[-1].replace('Modúlo', '')) 
+            if hasattr(cog_instance, 'on_bot_ready'):
+                # Você precisará renomear os on_ready nas cogs para on_bot_ready
+                await cog_instance.on_bot_ready() 
+
+        self.ready_tasks_done = True
         print("🦊  -  Inicialização pós-login concluída.")
 
 
@@ -137,7 +151,7 @@ class Client(commands.AutoShardedBot):
         if current_hash != last_hash:
             try:
                 await self.tree.sync()
-                self.synced = True
+                self.ready_tasks_done = True
                 with open(SYNC_FILE, "w", encoding="utf-8") as f:
                     json.dump({"hash": current_hash, "timestamp": datetime.datetime.now().isoformat()}, f, indent=2)
                 print("✅  Comandos atualizados e sincronizados com o Discord.")

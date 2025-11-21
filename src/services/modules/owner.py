@@ -1175,15 +1175,15 @@ class owner(commands.Cog):
 
 
   @commands.Cog.listener()
-  async def on_ready(self):
+  async def on_bot_ready(self):
     print("🦊  -  Modúlo Owner carregado.")
 
     
     if not self.verificar_guilds.is_running():
       self.verificar_guilds.start()
-      await asyncio.sleep(120)
+      #await asyncio.sleep(120)
       await inicializar_caches_se_preciso()
-      await asyncio.sleep(300)
+      #await asyncio.sleep(300)
       await baixaritensloja()
 
 

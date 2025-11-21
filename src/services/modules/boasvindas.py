@@ -36,7 +36,7 @@ class boasvindas(commands.Cog):
 
 
   @commands.Cog.listener()
-  async def on_ready(self):
+  async def on_bot_ready(self):
     print("🏠  -  Modúlo Boasvindas carregado.")
   
 

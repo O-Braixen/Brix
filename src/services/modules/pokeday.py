@@ -18,7 +18,7 @@ urlcalendario = 'https://calendar.google.com/calendar/ical/j5gnr9l1o867fke2cocmj
 
 
 
-class Pokeday(commands.Cog):
+class pokeday(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
         self.pokeday_error_count = {}
@@ -29,10 +29,10 @@ class Pokeday(commands.Cog):
 
 
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_bot_ready(self):
         print("⚽  -  Modúlo Pokeday carregado.")
         if not self.postagempokeday.is_running():
-            await asyncio.sleep(60)
+            #await asyncio.sleep(60)
             downloadcalendario.start()
             self.postagempokeday.start()
 
@@ -311,4 +311,4 @@ def combinar_imagens_verticais(buffers):
 
 
 async def setup(client: commands.Bot) -> None:
-    await client.add_cog(Pokeday(client))
+    await client.add_cog(pokeday(client))

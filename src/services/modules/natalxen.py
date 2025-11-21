@@ -87,12 +87,12 @@ async def entregar_recompensa(self, interaction: discord.Interaction, tipo):
 
 
 #parte da classe do evento
-class eventonatalxen(commands.Cog):
+class natalxen(commands.Cog):
   def __init__(self, client: commands.Bot):
     self.client = client
 
   @commands.Cog.listener()
-  async def on_ready(self):
+  async def on_bot_ready(self):
     print("🎄  -  Modulo de natalxen carregado.")
   
 
@@ -314,4 +314,4 @@ class eventonatalxen(commands.Cog):
 
 
 async def setup(client:commands.Bot) -> None:
-  await client.add_cog(eventonatalxen(client))
+  await client.add_cog(natalxen(client))
