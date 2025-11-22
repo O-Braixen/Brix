@@ -113,8 +113,12 @@ class botstatus(commands.Cog):
 
 # ======================================================================
 
-    @tasks.loop(hours=1)
+    @tasks.loop(minutes=10)
     async def update_status_loop(self):
+        # evita escrever no socket enquanto ele está caindo/reconectando
+        if self.client.is_closed():
+            return
+        
         dadosbot = BancoBot.insert_document()
 
         status_list = []
@@ -160,7 +164,7 @@ class botstatus(commands.Cog):
                 print("❌ - falha ao coletar dados da hospedagem para status")
 
             status_list.extend([
-                (discord.CustomActivity(name="🦊 Minha casa discord.gg/braixen"), discord.Status.online),
+                (discord.CustomActivity(name="🦊 Minha casa dsc.gg/braixen"), discord.Status.online),
                 (discord.CustomActivity(name=f"✨ visitando {len(self.client.guilds)} servidores kyuuuuu!"), discord.Status.online),
                 (discord.CustomActivity(name="🍕📱 Pedindo uma pizza com @obraixen"), discord.Status.dnd),
                 (discord.Activity(type=discord.ActivityType.watching, name="Braixen's House 🦊"), discord.Status.do_not_disturb),
@@ -177,6 +181,8 @@ class botstatus(commands.Cog):
         try:
             # loop principal para trocar os status
             for activity, status in status_list:
+                if self.client.is_closed():
+                    return  # evita erro no meio da sequência
                 await self.client.change_presence(activity=activity, status=status)
                 await asyncio.sleep(900)  # apenas uma vez aqui
         except Exception as e:

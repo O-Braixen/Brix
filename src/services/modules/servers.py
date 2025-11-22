@@ -541,9 +541,10 @@ class servers(commands.Cog):
 
   # ======================================================================
   # TASK DE VERIFICAÇÃO DE TAGS DE SERVIDOR
-  @tasks.loop(minutes=10)  # roda a cada 10 min
+  @tasks.loop(minutes=2)  # roda a cada 2 min
   async def verificar_tags(self):
     try:
+      await asyncio.sleep(300) #300
       filtro = {"tag_server": {"$exists": True}}
       servidores = BancoServidores.select_many_document(filtro)
 
@@ -587,7 +588,7 @@ class servers(commands.Cog):
               try:
                 await member.add_roles(cargo, reason="Usa a tag do servidor")
                 await asyncio.sleep(0.2) #Evitar abuso de api do discord
-                print(f"🦊 {member} recebeu o cargo {cargo.name}")
+                print(f"🦊 {member} recebeu o cargo {cargo.name} em {guild.name} ({guild_id})")
 
                 if notificar:
                   dados_do_membro = BancoUsuarios.insert_document(member)
@@ -623,7 +624,7 @@ class servers(commands.Cog):
               try:
                 await member.remove_roles(cargo, reason="Parou de usar a tag do servidor")
                 await asyncio.sleep(0.2) #Evitar abuso de api do discord
-                print(f"😿 {member} perdeu o cargo {cargo.name}")
+                print(f"😿 {member} perdeu o cargo {cargo.name} em {guild.name} ({guild_id})")
 
                 if notificar:
                   dados_do_membro = BancoUsuarios.insert_document(member)
@@ -653,7 +654,6 @@ class servers(commands.Cog):
 
     except Exception as e:
       print(f"🔴 - erro na verificação de tags, tentando mais tarde\n{e}")
-    return
 
 
 
