@@ -21,9 +21,18 @@ class Client(commands.AutoShardedBot):
         intents = discord.Intents.default()
         intents.message_content = True
         intents.members = True
+        status = discord.Status.idle
+        activiry = discord.CustomActivity(name="🦊 Estou Ligando kyuu~")
         #MEU INICIALIZADOR SUPER COM A PRÉ DEFINIÇÃO DE INICIAÇÃO
-        super().__init__(command_prefix='-', intents=intents , chunk_guilds_at_startup= False ) #, shard_count= 1
+        super().__init__(command_prefix='-', intents=intents , chunk_guilds_at_startup= False ,status=status,activity=activiry) #, shard_count= 1
         self.ready_tasks_done = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
+        
+        # 💡 NOVO: Evento para sinalizar que o cache de membros está completo
+        self.member_cache_ready_event = asyncio.Event() 
+        # Inicializamos como 'set' (pronto) para que tarefas que rodam antes do chunking não bloqueiem
+        self.member_cache_ready_event.set()
+        self.pending_chunk_shards = 0
+        
         self.cogslist = [
             f"src.services.modules.{os.path.splitext(cog)[0]}"
             for cog in os.listdir("src/services/modules")
@@ -84,6 +93,7 @@ class Client(commands.AutoShardedBot):
         # 4. PRINTS FINAIS DE STATUS (Apenas na primeira vez)
         self.ready_tasks_done = True
         print("🦊  -  Inicialização pós-login concluída.")
+        await self.member_cache_ready_event.wait() 
         fuso = pytz.timezone('America/Sao_Paulo')
         now = datetime.datetime.now().astimezone(fuso)
         print("\n============================= STATUS DO BOT ==============================")
@@ -119,11 +129,10 @@ class Client(commands.AutoShardedBot):
 
     #CARREGADOR DE MEMBROS CONTROLADO, PARA EVITAR LIMIT RATE
     async def _load_all_members_controlled(self, shard_id):
-        
-        # 💡 Damos um tempo extra para a conexão se estabilizar antes do chunking pesado
-        print(f"⏳ Shard {shard_id}: Aguardando 5s antes de iniciar o chunking de membros.")
-        await asyncio.sleep(5)
-        MAX_CONCURRENCY = 30 
+        # 1. LIMPA O EVENTO: Sinaliza para outras tasks que o cache está sendo reconstruído
+        self.member_cache_ready_event.clear()
+
+        MAX_CONCURRENCY = 50 
         semaphore = asyncio.Semaphore(MAX_CONCURRENCY)
 
         async def chunk_guild(guild):
@@ -143,13 +152,40 @@ class Client(commands.AutoShardedBot):
         # Executa as tarefas limitando a concorrência
         await asyncio.gather(*tasks)
 
-        print(f"🏁 Shard {shard_id}: Carregamento de membros em segundo plano concluído. Cache total com {len(self.users)} usuários.")
+        # Decrementa o contador após o shard terminar o chunking
+        self.pending_chunk_shards -= 1
+
+        # Se o contador chegar a zero, TODOS os shards terminaram o chunking
+        if self.pending_chunk_shards == 0:
+            print(f"🏁  -  TODOS OS SHARDS FINALIZARAM O CARREGAMENTO DE MEMBROS. Cache populado com {len(self.users)} usuários.")
+            self.member_cache_ready_event.set() # Libera as tasks da cog!
+        else:
+            print(f"🏁  -  Shard {shard_id} concluído. {self.pending_chunk_shards} shards ainda pendentes.")
+
+
+
+
+
+
+    async def on_connect(self):
+        self.member_cache_ready_event.clear()
+        
+
 
 
     #ON_READY PARA QUANDO O SHARD FICA PRONTO, AO FICAR PRONTO ELE CHAMA A LOAD MEMBERS PARA CARREGAR TUDO DEVAGAR
     async def on_shard_ready(self, shard_id):
         print(f"Shard {shard_id} ({NOME_DOS_SHARDS.get(shard_id, 'Desconhecido')}) pronto!")
+        self.pending_chunk_shards += 1
         self.loop.create_task(self._load_all_members_controlled(shard_id))
+
+
+
+
+
+
+
+
 
 
     #SYNCRONIZADOR DA ARVORE DE COMANDOS, SÓ RODA CASO PRECISE ATUALIZAR ALGUM COMANDO

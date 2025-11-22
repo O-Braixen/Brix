@@ -115,6 +115,7 @@ class botstatus(commands.Cog):
 
     @tasks.loop(minutes=10)
     async def update_status_loop(self):
+        await self.client.member_cache_ready_event.wait() 
         # evita escrever no socket enquanto ele está caindo/reconectando
         if self.client.is_closed():
             return
@@ -248,6 +249,7 @@ class botstatus(commands.Cog):
 #FUNÇÃO PARA ATUALIZAR O CACHE DOS COMANDOS
     @tasks.loop(minutes=10)
     async def atualizar_status_cache(self):
+        await self.client.member_cache_ready_event.wait() 
         try:
             filtro = {"braixencoin": {"$exists": True}}
             usuarios = BancoUsuarios.select_many_document(filtro)

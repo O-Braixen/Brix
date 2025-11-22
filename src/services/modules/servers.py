@@ -391,6 +391,7 @@ class servers(commands.Cog):
   # FUNÇÃO DE ATUALIZAÇÃO DO TOTAL DE SERVIDORES NO TOP.GG E BOTLIST
   @tasks.loop(hours=1)
   async def update_api_servidores(self):
+    await self.client.member_cache_ready_event.wait() 
     try:
       servidores = len(self.client.guilds)
       usuarios = len(self.client.users)
