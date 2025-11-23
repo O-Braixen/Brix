@@ -59,8 +59,8 @@ async def worker_brix(self):
         response = await enviar_mensagem_para_character_ai(self, message.author, message.content)
         print(f"🦊 - brix respondeu para {message.author.name} {message.author.id}: {response}")
 
-        if random.randint(1, 100) <= 20:
-          response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
+        #if random.randint(1, 100) <= 20:
+        response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
 
         await message.reply(response, allowed_mentions=discord.AllowedMentions(everyone=False))
     except Exception as e:

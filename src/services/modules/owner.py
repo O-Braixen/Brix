@@ -1705,7 +1705,7 @@ class owner(commands.Cog):
   @app_commands.describe(mensagem="Qual é a mensagem? use \q para quebrar linha.", ia="Peça algo gerado por Inteligencia artificial.")
   @commands.has_permissions(manage_messages=True)
   async def say(self, interaction: discord.Interaction, mensagem: str = None, ia: str = None):
-    if await Res.print_brix(comando="say",interaction=interaction,condicao=f"mensagem:{mensagem} - pedido ia: {ia}"):
+    if await Res.print_brix(comando="/brix_say",interaction=interaction,condicao=f"mensagem:{mensagem} - pedido ia: {ia}"):
       return  
     if mensagem is None and ia is None:
       await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro_notargument").format("Escreva uma mensagem ou peça algo pelo Brix IA."), delete_after=20,ephemeral=True)
@@ -1725,7 +1725,7 @@ class owner(commands.Cog):
           envio = interaction.channel.send
         else:
           envio = interaction.followup.send
-        await envio(mensagem_formatada)
+        await envio(f"{mensagem_formatada}\n-# Mensagem enviada pelo {interaction.user.name} - {interaction.user.id}")
       except:
         await interaction.followup.send(Res.trad(interaction=interaction, str="message_erro_say"))
       return
@@ -1740,7 +1740,7 @@ class owner(commands.Cog):
           return
       gerado = (await generate_response_with_text(f"{ia} Limite 1800 Caracteres"))
       try:
-        await interaction.followup.send(gerado)
+        await interaction.followup.send(f"{gerado}\n-# Mensagem enviada pelo {interaction.user.name} - {interaction.user.id}")
         #await interaction.followup.send(Res.trad(interaction=interaction, str="message_say"))
       except:
         await interaction.followup.send(Res.trad(interaction=interaction, str="message_erro_say"))
@@ -1770,6 +1770,8 @@ class owner(commands.Cog):
 
   @bot.command(name="embed", description="🦊⠂Envie um embed como Brix.")
   async def embed(self, interaction: discord.Interaction):
+    if await Res.print_brix(comando="/brix_embed",interaction=interaction):
+      return  
     """Embed Generator With Default Embed"""
     if interaction.permissions.manage_messages is False:
       await interaction.response.send_message(Res.trad(interaction=interaction,str="message_erro"), delete_after=20,ephemeral=True)

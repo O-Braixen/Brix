@@ -20,7 +20,7 @@ mes = int(os.getenv("mes_Braixen_day"))
 dia = int(os.getenv("dia_Braixen_day"))
 
 # ID fixo do canal de loja
-CHANNEL_LOJA_ID = 1384179152315224234
+CHANNEL_LOJA_ID = 1441976356853514250
 
 
 

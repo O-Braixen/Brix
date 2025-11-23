@@ -805,7 +805,7 @@ async def aplicar_estrutura(guild : discord.Guild, interaction : discord.Interac
     except Exception as e:
       await msg_enviada.edit(content=Res.trad(interaction=interaction,str='message_ia_erro_delroles').format(role.name), embed = None)
       print(e)
-      return
+      continue
 
   embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>",), color=discord.Color.yellow() )
   await msg_enviada.edit(content="" , embed = embed)
@@ -818,7 +818,7 @@ async def aplicar_estrutura(guild : discord.Guild, interaction : discord.Interac
         await asyncio.sleep(0.4)
       except discord.Forbidden:
         await msg_enviada.edit(content=Res.trad(interaction=interaction,str='message_ia_erro_delchannel').format(channel.name), embed = None)
-        return
+        continue
   
   embed = discord.Embed(description=Res.trad(interaction=interaction,str='message_ia_servercreate_criando').format("<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Check:1371215835653210182>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>","<a:Brix_Loadingl:1371224437642236067>",), color=discord.Color.yellow() )
   await msg_enviada.edit(content="" , embed = embed)

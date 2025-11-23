@@ -110,7 +110,7 @@ class boasvindas(commands.Cog):
 
     #verifica se o membro entrou na BH
     if member.guild.id == idbh:
-      channel = await self.client.fetch_channel(968272277709918209)
+      channel = await self.client.fetch_channel(1441971419637616761)
 
       for _ in range(60):
         # Verifica se o membro ainda está no servidor

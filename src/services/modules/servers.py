@@ -238,10 +238,12 @@ class servers(commands.Cog):
 
      # RETORNO DE VOTO do TOP.GG
     elif int(message.channel.id) == int(canal_vote_topgg):
-      await message.add_reaction('<:BH_Braix_Me:1154340918757949501>')
+      await message.add_reaction('<:BH_Braix_Me:1154340918757949501>') 
       # Expressão regular para capturar a ID do usuário
-      padrao = r"TOP\.GG - (\d+) - \d+"
+      padrao = r"TOP\.GG - (\d+)"  #TOP.GG - <user> - <mentionuser> votou no Brix / <count> votos / <streak> sequencias!
       resultado = re.search(padrao, message.content)
+      print(message.content)
+      print(resultado)
 
       if resultado:
         user_id = resultado.group(1)  # Captura a ID do usuário
