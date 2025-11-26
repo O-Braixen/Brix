@@ -3,12 +3,11 @@
 # ======================================================================
 # shards.py
 NOME_DOS_SHARDS = {
-    0: "<:orbit_icon:1426691114785833221>⠂SHARD ORBIT",
+    0: "<:s_:1421683611777892403>⠂SHARD SQUARE CLOUD",
     1: "🦊⠂SHARD RAPOSA",
     2: "🪵⠂SHARD GRAVETO",
-    3: "<:s_:1421683611777892403>⠂SHARD SQUARE CLOUD",
+    3: "🔥⠂SHARD CHAMA",
     4: "🍕⠂SHARD PIZZA",
     5: "🔥⠂SHARD BLAZE",
-    6: "🔮⠂SHARD PSYCHIC",
-    7: "🔥⠂SHARD CHAMA"
+    6: "🔮⠂SHARD PSYCHIC"
 }

@@ -181,6 +181,7 @@ class Res:
     usuario_banco = BancoUsuarios.insert_document(interaction.user)
     now = datetime.datetime.now().astimezone(pytz.timezone('America/Sao_Paulo'))
     primeiroabril = datetime.date(now.year , 4 , 1 )
+    BancoLogs.registrar_comando(interaction, comando, condicao)
     if 'ban' in usuario_banco:  # Verifica se 'servidor' não é None ou vazio
         print(f"🦊 - Usuario {interaction.user.id} na lista de banidos, comando negado")
         await interaction.response.send_message(Res.trad(interaction=interaction,str="message_banido").format(int(usuario_banco['ban']['data'].timestamp()),usuario_banco['ban']['motivo'],usuario_banco['ban']['autor']),delete_after=60)
@@ -195,8 +196,8 @@ class Res:
             print(f"😼 - Usuario {interaction.user.id} Caiu na pegadinha de primeiro de abril")
             return True
 
-    else:
-        BancoLogs.registrar_comando(interaction, comando, condicao)
+    #else:
+    #    BancoLogs.registrar_comando(interaction, comando, condicao)
   
 
 """

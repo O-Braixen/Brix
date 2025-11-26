@@ -24,7 +24,7 @@ class Client(commands.AutoShardedBot):
         status = discord.Status.idle
         activiry = discord.CustomActivity(name="🦊 Estou Ligando kyuu~")
         #MEU INICIALIZADOR SUPER COM A PRÉ DEFINIÇÃO DE INICIAÇÃO
-        super().__init__(command_prefix='-', intents=intents , chunk_guilds_at_startup= False ,status=status,activity=activiry) #, shard_count= 1
+        super().__init__(command_prefix='-', intents=intents , chunk_guilds_at_startup= False ,status=status,activity=activiry , shard_count= 2) #, shard_count= 1
         self.ready_tasks_done = False  # Isso é usado para que o bot não sincronize os comandos mais de uma vez
         
         # 💡 NOVO: Evento para sinalizar que o cache de membros está completo

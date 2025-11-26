@@ -113,106 +113,108 @@ async def chamarlojadiaria(self,interaction:discord.Interaction,item):
 #Função exibir item loja
 async def exibiritemloja(self,interaction:discord.Interaction,item,loja,tamanholoja,originaluser):
   await interaction.original_response()
-  MAX_h = 600
-  fundo = Image.new("RGB",(MAX_h,430),"yellow")
   try:
-    backgroud = Image.open(f"src/assets/imagens/backgroud/all-itens/{loja[item]['_id']}.png")
-  except:
-    backgroud = Image.open(requests.get(loja[item]['url'], stream=True).raw)
-  backgroud = backgroud.resize((500,250))
-  fundo.paste(backgroud,(50,50))
-  fundo.paste(self.loja_artloja,(0,0),self.loja_artloja)
+    MAX_h = 600
+    fundo = Image.new("RGB",(MAX_h,430),"yellow")
+    try:
+      backgroud = Image.open(f"src/assets/imagens/backgroud/all-itens/{loja[item]['_id']}.png")
+    except:
+      backgroud = Image.open(requests.get(loja[item]['url'], stream=True).raw)
+    backgroud = backgroud.resize((500,250))
+    fundo.paste(backgroud,(50,50))
+    fundo.paste(self.loja_artloja,(0,0),self.loja_artloja)
 
-  textoname = Res.trad(interaction=interaction,str="loja_diaria")
-  fundodraw = ImageDraw.Draw(fundo)
-  h = fundodraw.textlength(textoname,self.loja_fontegrande)
-  fundodraw.text(((MAX_h-h)/2, 5), textoname, font=self.loja_fontegrande, fill='#eff1f3',align='center')
-  textoname = loja[item]['name']
-  graveto = '-' if str(loja[item]['graveto']) == '0' else "{:,}".format(int(loja[item]['graveto']))
-  braixencoin = '-' if str(loja[item]['braixencoin']) == '0' else "{:,}".format(int(loja[item]['braixencoin']))
-  pagina = f"{item+1}/{len(tamanholoja)}"
+    textoname = Res.trad(interaction=interaction,str="loja_diaria")
+    fundodraw = ImageDraw.Draw(fundo)
+    h = fundodraw.textlength(textoname,self.loja_fontegrande)
+    fundodraw.text(((MAX_h-h)/2, 5), textoname, font=self.loja_fontegrande, fill='#eff1f3',align='center')
+    textoname = loja[item]['name']
+    graveto = '-' if str(loja[item]['graveto']) == '0' else "{:,}".format(int(loja[item]['graveto']))
+    braixencoin = '-' if str(loja[item]['braixencoin']) == '0' else "{:,}".format(int(loja[item]['braixencoin']))
+    pagina = f"{item+1}/{len(tamanholoja)}"
 
-  h = fundodraw.textlength(textoname,self.loja_fontegrande)
-  fundodraw.text(((MAX_h-h)/2, 300), textoname, font=self.loja_fontegrande, fill='#ffffff',align='center')
-  if loja[item]['raridade'] == 0:
-    textoname = "Item Comum"
-  elif loja[item]['raridade'] == 1:
-    textoname = "Item Raro"
-  elif loja[item]['raridade'] == 2:
-    textoname = "Item Epico"
-  elif loja[item]['raridade'] == 3:
-    textoname = "Item Exclusivo"
-
-
-  h = fundodraw.textlength(textoname,self.loja_fontepequena)
-  fundodraw.text(((MAX_h-h)/2, 325), textoname, font=self.loja_fontepequena, fill='#ffffff',align='center')
-  fundodraw.text((45, 375), graveto, font=self.loja_fontegrande, fill='#ffffff')
-  fundodraw.text((495, 375), braixencoin, font=self.loja_fontegrande, fill='#ffffff')
-  h = fundodraw.textlength(pagina,self.loja_fontepequena)
-  fundodraw.text(((MAX_h-h)/2, 385), pagina, font=self.loja_fontepequena, fill='#ffffff',align='center')
-
-  buffer = io.BytesIO()
-  fundo.save(buffer,format="PNG")
-  buffer.seek(0)
-
-  dado = BancoUsuarios.insert_document(interaction.user)
-      #VIEW DOS BOTÔES
-  view = discord.ui.View()
-
-    #BOTOÊS DE AÇÂO DO PAINEL
-    #BOTÂO VOLTAR RAPIDO
-  botaovoltarfast = discord.ui.Button(emoji="<:setaduplaesquerda:1318716104474099722>",style=discord.ButtonStyle.gray,disabled=(item == 0),row=1)
-  view.add_item(item=botaovoltarfast)
-  botaovoltarfast.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=-item)
-    #BOTÂO VOLTAR NORMAL
-  botaovoltar = discord.ui.Button(emoji="<:setaesquerda:1318698827422765189>",style=discord.ButtonStyle.gray,disabled=(item == 0),row=1)
-  view.add_item(item=botaovoltar)
-  botaovoltar.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=-1)
-
-  lista = []
-  try:
-    for item_id in dado['backgrouds'].items():
-      lista.append(item_id[0])
-  except:
-    lista = [None]
-
-  #BOTÂO COMPRA
-  if loja[item]['_id'] in lista: #BOTÂO ITEM JÀ COMPRADO
-    botaojacomprado = discord.ui.Button(label=Res.trad(interaction=interaction,str="botão_item_adquirido"),style=discord.ButtonStyle.blurple,emoji="<:BH_Braix_Happy4:1154338634011521054>",disabled=False,row=2)
-    view.add_item(item=botaojacomprado)
-    botaojacomprado.callback = partial(pergunta_definir_fundo,item=item,loja=loja, originaluser=originaluser)
+    h = fundodraw.textlength(textoname,self.loja_fontegrande)
+    fundodraw.text(((MAX_h-h)/2, 300), textoname, font=self.loja_fontegrande, fill='#ffffff',align='center')
+    if loja[item]['raridade'] == 0:
+      textoname = "Item Comum"
+    elif loja[item]['raridade'] == 1:
+      textoname = "Item Raro"
+    elif loja[item]['raridade'] == 2:
+      textoname = "Item Epico"
+    elif loja[item]['raridade'] == 3:
+      textoname = "Item Exclusivo"
 
 
-  else: #ELSE CASO O ITEM NÂO TENHA SIDO COMPRADO
-    botaograveto = discord.ui.Button(label="{:,.0f}".format(loja[item]['graveto']),style=discord.ButtonStyle.blurple,emoji="<:Graveto:1318962131567378432>",row=2)
-    view.add_item(item=botaograveto)
-    botaograveto.callback = partial(confirmacao_comprar,self,item=item,loja=loja,tamanholoja=tamanholoja, originaluser=originaluser,moeda ="graveto")
+    h = fundodraw.textlength(textoname,self.loja_fontepequena)
+    fundodraw.text(((MAX_h-h)/2, 325), textoname, font=self.loja_fontepequena, fill='#ffffff',align='center')
+    fundodraw.text((45, 375), graveto, font=self.loja_fontegrande, fill='#ffffff')
+    fundodraw.text((495, 375), braixencoin, font=self.loja_fontegrande, fill='#ffffff')
+    h = fundodraw.textlength(pagina,self.loja_fontepequena)
+    fundodraw.text(((MAX_h-h)/2, 385), pagina, font=self.loja_fontepequena, fill='#ffffff',align='center')
 
-    if loja[item]['braixencoin'] != 0:
-      botaocoin = discord.ui.Button(label="{:,.0f}".format(loja[item]['braixencoin']),style=discord.ButtonStyle.green,emoji="<:BraixenCoin:1272655353108103220>",row=2)
-      view.add_item(item=botaocoin)
-      botaocoin.callback = partial(confirmacao_comprar,self,item=item,loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,moeda ="braixencoin")
-  
-    botaoteste = discord.ui.Button(style=discord.ButtonStyle.blurple,row=2,emoji="<:art:1322226736116666469>")
-    view.add_item(item=botaoteste)
-    botaoteste.callback = partial(testar_fundo,item=item,loja=loja,originaluser=originaluser,moeda ="braixencoin")
+    buffer = io.BytesIO()
+    fundo.save(buffer,format="PNG")
+    buffer.seek(0)
 
-  botaoduvida = discord.ui.Button(label="?",style=discord.ButtonStyle.gray,row=2)
-  view.add_item(item=botaoduvida)
-  botaoduvida.callback = partial(duvidaloja)
+    dado = BancoUsuarios.insert_document(interaction.user)
+        #VIEW DOS BOTÔES
+    view = discord.ui.View()
 
-  botaoavancar = discord.ui.Button(emoji="<:setadireita:1318698789225369660>",style=discord.ButtonStyle.gray,disabled=(item == len(tamanholoja) -1),row=1)
-  view.add_item(item=botaoavancar)
-  botaoavancar.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=+1)
-  
-  botaoavancarfast = discord.ui.Button(emoji="<:setadupladireita:1318715892242190419>",style=discord.ButtonStyle.gray,disabled=(item == len(tamanholoja) -1),row=1)
-  view.add_item(item=botaoavancarfast)
-  botaoavancarfast.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=len(tamanholoja) - item - 1)
+      #BOTOÊS DE AÇÂO DO PAINEL
+      #BOTÂO VOLTAR RAPIDO
+    botaovoltarfast = discord.ui.Button(emoji="<:setaduplaesquerda:1318716104474099722>",style=discord.ButtonStyle.gray,disabled=(item == 0),row=1)
+    view.add_item(item=botaovoltarfast)
+    botaovoltarfast.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=-item)
+      #BOTÂO VOLTAR NORMAL
+    botaovoltar = discord.ui.Button(emoji="<:setaesquerda:1318698827422765189>",style=discord.ButtonStyle.gray,disabled=(item == 0),row=1)
+    view.add_item(item=botaovoltar)
+    botaovoltar.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=-1)
 
-  fuso = pytz.timezone('America/Sao_Paulo')
-  data_coleta_daily = datetime.datetime.now().astimezone(fuso).replace(hour=0, minute=0, second=0) + datetime.timedelta(days=1)
-  await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="loja_diaria_reseta").format(int(data_coleta_daily.timestamp())),attachments=[discord.File(fp=buffer,filename="loja.png")],view=view , embed = None)
+    lista = []
+    try:
+      for item_id in dado['backgrouds'].items():
+        lista.append(item_id[0])
+    except:
+      lista = [None]
 
+    #BOTÂO COMPRA
+    if loja[item]['_id'] in lista: #BOTÂO ITEM JÀ COMPRADO
+      botaojacomprado = discord.ui.Button(label=Res.trad(interaction=interaction,str="botão_item_adquirido"),style=discord.ButtonStyle.blurple,emoji="<:Brix_Happy:1442493046670491779>",disabled=False,row=2)
+      view.add_item(item=botaojacomprado)
+      botaojacomprado.callback = partial(pergunta_definir_fundo,item=item,loja=loja, originaluser=originaluser)
+
+
+    else: #ELSE CASO O ITEM NÂO TENHA SIDO COMPRADO
+      botaograveto = discord.ui.Button(label="{:,.0f}".format(loja[item]['graveto']),style=discord.ButtonStyle.blurple,emoji="<:Graveto:1318962131567378432>",row=2)
+      view.add_item(item=botaograveto)
+      botaograveto.callback = partial(confirmacao_comprar,self,item=item,loja=loja,tamanholoja=tamanholoja, originaluser=originaluser,moeda ="graveto")
+
+      if loja[item]['braixencoin'] != 0:
+        botaocoin = discord.ui.Button(label="{:,.0f}".format(loja[item]['braixencoin']),style=discord.ButtonStyle.green,emoji="<:BraixenCoin:1272655353108103220>",row=2)
+        view.add_item(item=botaocoin)
+        botaocoin.callback = partial(confirmacao_comprar,self,item=item,loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,moeda ="braixencoin")
+    
+      botaoteste = discord.ui.Button(style=discord.ButtonStyle.blurple,row=2,emoji="<:art:1322226736116666469>")
+      view.add_item(item=botaoteste)
+      botaoteste.callback = partial(testar_fundo,item=item,loja=loja,originaluser=originaluser,moeda ="braixencoin")
+
+    botaoduvida = discord.ui.Button(label="?",style=discord.ButtonStyle.gray,row=2)
+    view.add_item(item=botaoduvida)
+    botaoduvida.callback = partial(duvidaloja)
+
+    botaoavancar = discord.ui.Button(emoji="<:setadireita:1318698789225369660>",style=discord.ButtonStyle.gray,disabled=(item == len(tamanholoja) -1),row=1)
+    view.add_item(item=botaoavancar)
+    botaoavancar.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=+1)
+    
+    botaoavancarfast = discord.ui.Button(emoji="<:setadupladireita:1318715892242190419>",style=discord.ButtonStyle.gray,disabled=(item == len(tamanholoja) -1),row=1)
+    view.add_item(item=botaoavancarfast)
+    botaoavancarfast.callback = partial(mover_item,self,item=item, loja=loja,tamanholoja=tamanholoja,originaluser=originaluser,sentido=len(tamanholoja) - item - 1)
+
+    fuso = pytz.timezone('America/Sao_Paulo')
+    data_coleta_daily = datetime.datetime.now().astimezone(fuso).replace(hour=0, minute=0, second=0) + datetime.timedelta(days=1)
+    await interaction.edit_original_response(content=Res.trad(interaction=interaction,str="loja_diaria_reseta").format(int(data_coleta_daily.timestamp())),attachments=[discord.File(fp=buffer,filename="loja.png")],view=view , embed = None)
+  except Exception as e:
+     print(e)
 
 
 
