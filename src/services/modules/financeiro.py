@@ -870,9 +870,9 @@ class financeiro(commands.Cog):
         lista = []
         for i in range(10):
             if sorteador >= i + 1:
-                lista.append("<:BH_Braix:1154338509839143023>")
+                lista.append("<:Braix:1272653348306419824>")
             else:
-                lista.append("<:BH_Braix_derp:1154338588062908436>")
+                lista.append("<:Braix_derp:1272663053875417219>")
         #calcula o valor que será atualizado no banco de dados igual ou menor que 5 só desconta o custo do ticket
         if sorteador <= 5:
             saldonovo = - 600
