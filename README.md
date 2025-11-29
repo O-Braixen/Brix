@@ -1,6 +1,6 @@
 # 🦊 Brix — Seu novo melhor amigo raposa no Discord!
 
-![Brix Bot](src/assets/imagens/Brix/brix%202024.png)
+![Brix Bot](src/assets/imagens/Brix/brix_2024.png)
 
 **Brix** é um bot em **Python** cheio de recursos, personalidade única e energia de uma Braixen pronta para animar qualquer servidor!  
 Criado por **Vinicius**, inspirado no [Braixen Atendimento](https://github.com/O-Braixen/Braixen-Atendimento) e com aprendizado do curso *Dominando o Discord* do [Dune](https://www.youtube.com/@DuneDiscord), Brix nasceu para tornar a comunidade [Braixen's House](https://discord.gg/ZRHwWydQFu) e qualquer servidor do Discord mais divertido e único! 🌟
