@@ -47,13 +47,19 @@ async def worker_brix(self):
     try:
       async with message.channel.typing():
         if not await userpremiumcheck(message.author):
-          await message.reply(Res.trad(user=message.author, str="message_cai_only_premium"))
+          try:
+            await message.reply(Res.trad(user=message.author, str="message_cai_only_premium"))
+          except discord.Forbidden:
+            await message.channel.send(Res.trad(user=message.author, str="message_cai_only_premium"))
           continue
 
         try:
           await message.add_reaction('<:BH_Badge_PequenoMago:1154180154076176466>')
         except:
-          await message.reply(Res.trad(user=message.author, str='message_cai_erro_reacao'))
+          try:
+            await message.reply(Res.trad(user=message.author, str='message_cai_erro_reacao'))
+          except discord.Forbidden:
+            await message.channel.send(Res.trad(user=message.author, str='message_cai_erro_reacao'))
           continue
 
         response = await enviar_mensagem_para_character_ai(self, message.author, message.content)
@@ -61,12 +67,17 @@ async def worker_brix(self):
 
         #if random.randint(1, 100) <= 20:
         response += f"\n{Res.trad(user=message.author, str='message_cai_footer')}"
-
-        await message.reply(response, allowed_mentions=discord.AllowedMentions(everyone=False))
+        try:
+          await message.reply(response, allowed_mentions=discord.AllowedMentions(everyone=False))
+        except discord.Forbidden:
+          await message.channel.send(response, allowed_mentions=discord.AllowedMentions(everyone=False))
     except Exception as e:
       print(f"CHARACTER.AI ERROR: {e}")
-      await message.reply(Res.trad(user=message.author, str='message_cai_erro'))
-      continue
+      try:
+        await message.reply(Res.trad(user=message.author, str='message_cai_erro'))
+      except discord.Forbidden:
+        await message.channel.send(Res.trad(user=message.author, str='message_cai_erro'))
+
     finally:
       fila_global_brix.task_done()  # marca como processada
 

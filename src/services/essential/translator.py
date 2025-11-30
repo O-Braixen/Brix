@@ -77,7 +77,7 @@ class BrixTradutor(app_commands.Translator):
         self.allowed_locales = {
             discord.Locale.american_english: 'en-US',
             discord.Locale.polish: 'pl',
-            discord.Locale.spain_spanish: 'es-ES',
+            #discord.Locale.spain_spanish: 'es-ES',
         }
 
         self.translations = self.load_translations(self.dir_name)

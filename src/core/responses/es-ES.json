@@ -1962,6 +1962,6 @@
     "natalxen_evento_recebido_sempresente": "<:Braix_Blank:1272661806858371196>┃ Aún no recibiste ningún regalo, kyu. Quizás alguien te envíe uno~",
     "natalxen_evento_consulta": "### 🎁 Cajita de Regalos\n\n**Regalos recogidos:** {}\n**Regalos recibidos:** {}\n\n-# Total recogido hasta ahora: {}\n-# **Consejo:** Al llegar a **30 regalos recogidos**, ganas automáticamente **tu arte exclusivo** en la próxima recogida. Kyu~!",
     "natalxen_evento_consulta_footer": "Navidad en Brix 2025",
-    "natalxen_evento_presentear_msg": "## 🎁 ¡Recibiste un regalo!\nAlguien te envió un regalo de Navidad, kyu. ¡Ábrelo y mira tu recompensa!",
-    "message_emojibackup_finalizado": "<:Braix_Happy:1272664784814342204>┃ ¡Listo, kyu~! ¡Tu copia de seguridad se ha completado con éxito!\nAquí está la copia de seguridad del servidor **{}**, kyuuu~!\n\n-# <:Braix_You:1272670440652935289>┃ **Consejo de zorro:** No me responsabilizo del contenido dentro del archivo .zip. La veracidad de los emojis es responsabilidad total de la comunidad."
+    "message_emojibackup_finalizado": "<:Braix_Happy:1272664784814342204>┃ ¡Listo, kyu~! ¡Tu copia de seguridad se ha completado con éxito!\nAquí está la copia de seguridad del servidor **{}**, kyuuu~!\n\n-# <:Braix_You:1272670440652935289>┃ **Consejo de zorro:** No me responsabilizo del contenido dentro del archivo .zip. La veracidad de los emojis es responsabilidad total de la comunidad.",
+    "natalxen_evento_presentear_msg": "## 🎁 ¡Has recibido un regalo!\n¡Alguien te ha enviado un regalo de Navidad, kyu! ¡Ábrelo y mira tu recompensa!\n- # Consejo de Zorro: Usa el comando /natalxen abrir recibido para abrir"
 }
