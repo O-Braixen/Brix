@@ -918,10 +918,10 @@ class admin(commands.Cog):
         registros_ordenados = sorted(consulta['temprole'].items(), key=lambda item: item[1]['tempo'])
         lista = []
         for registro,info in registros_ordenados:
-          linha = f"ID registro:**{registro}**\n<@{info['usuario']}> - <@&{info['cargo']}> - <t:{int(info['tempo'].timestamp())}:R>"
+          linha = f"ID registro:**{registro}**\n<@{info['usuario']}> ({info['usuario']}) - <@&{info['cargo']}> - <t:{int(info['tempo'].timestamp())}:R>"
           lista.append(linha)
       descrição=Res.trad(interaction= interaction, str='cargo_temporario_title')
-      blocos = [lista[i:i + 10] for i in range(0, len(lista), 10)] 
+      blocos = [lista[i:i + 8] for i in range(0, len(lista), 8)] 
       await Paginador_Global(self, interaction, blocos, pagina=0, originaluser=interaction.user,descrição=descrição, thumbnail_url=None)
 
     except Exception as e:
@@ -999,7 +999,7 @@ class admin(commands.Cog):
         mensagem_sem_registros = Res.trad(interaction=interaction, str="cargo_temporario_notlist")
         sugestoes.append(app_commands.Choice(name=mensagem_sem_registros, value=""))
 
-    return sugestoes
+    return sugestoes[:25]
   
 
 
