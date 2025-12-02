@@ -1949,7 +1949,6 @@
     "natalxen_evento_entrega_presente_premium": "You opened a received gift and got **{} days of Premium Subscription**!",
     "natalxen_evento_entrega_presente_banner": "You opened a received gift and got the item **{}** from my Shop!",
     "natalxen_evento_recompensa": "<:Braix_Happy:1272664784814342204>┃ Congrats, kyu! You just earned **an exclusive artwork from the Christmas event**! Show it off with pride!",
-    "natalxen_evento_daily_coleta": "<:Braix_Happy:1272664784814342204>┃ Daily gift collected successfully! You now have **{} gifts**, kyu!",
     "natalxen_evento_daily_negacao": "<:Braix_Happy:1272664784814342204>┃ You already collected your **daily gift** today, kyu! Come back tomorrow for another one!",
     "natalxen_evento_presentear_sempresente": "<:Braix_Blank:1272661806858371196>┃ You don’t have any gifts to send, kyu! How about collecting one first?",
     "natalxen_evento_presentear_aleatorio_erro": "<:Braix_Blank:1272661806858371196>┃ I couldn’t find another participant to gift, kyu! Choose someone before continuing.",
@@ -1963,5 +1962,6 @@
     "natalxen_evento_consulta": "### 🎁 Gift Box\n\n**Collected gifts:** {}\n**Received gifts:** {}\n\n-# Total collected so far: {}\n-# **Tip:** When you reach **30 collected gifts**, you automatically earn **your exclusive artwork** on the next collection! Kyu~!",
     "natalxen_evento_consulta_footer": "Christmas at Brix 2025",
     "message_emojibackup_finalizado": "<:Braix_Happy:1272664784814342204>┃ All done, kyu~! Your backup is complete!\nHere's the server backup **{}**, kyuuu~!\n\n-# <:Braix_You:1272670440652935289>┃ **Fox Tip:** I'm not responsible for the content within the .zip file. The accuracy of emojis is the sole responsibility of the community.",
-    "natalxen_evento_presentear_msg": "🎁 You received a gift!\nSomeone sent you a Christmas present, kyu! Open it and see your reward!\n-# Fox Tip: Use the /natalxen open received command to open"
+    "natalxen_evento_presentear_msg": "🎁 You received a gift!\nSomeone sent you a Christmas present, kyu! Open it and see your reward!\n-# Fox Tip: Use the /natalxen open received command to open",
+    "natalxen_evento_daily_coleta": "<:Braix_Happy:1272664784814342204>┃ Daily gift successfully collected! You just received **{} gifts** that you can open or distribute, kyu! 🎉🎁"
 }

@@ -1013,7 +1013,7 @@
     "natalxen_evento_entrega_presente_premium": "Você abriu um presente recebido e ganhou **{} dias de Assinatura Premium**!",
     "natalxen_evento_entrega_presente_banner": "Você abriu um presente recebido e ganhou o item **{}** na minha Lojinha!",
     "natalxen_evento_recompensa": "<:Braix_Happy:1272664784814342204>┃ Parabéns, kyu! Você acaba de ganhar **uma arte exclusiva do evento de Natal**! Aproveite e exiba com orgulho!",
-    "natalxen_evento_daily_coleta": "<:Braix_Happy:1272664784814342204>┃ Presente diário coletado com sucesso! Agora você tem **{} presentes**, kyu!",
+    "natalxen_evento_daily_coleta": "<:Braix_Happy:1272664784814342204>┃ Presente diário coletado com sucesso! Você acabou de receber **{} presentes** que poderá abrir ou distribuir, kyu!",
     "natalxen_evento_daily_negacao": "<:Braix_Happy:1272664784814342204>┃ Você já coletou seu **presente diário** hoje, kyu! Volte amanhã para ganhar outro!",
     "natalxen_evento_presentear_sempresente": "<:Braix_Blank:1272661806858371196>┃ Você não tem presentes para enviar, kyu! Que tal coletar um antes?",
     "natalxen_evento_presentear_aleatorio_erro": "<:Braix_Blank:1272661806858371196>┃ Não encontrei outro participante para presentear, kyu! Escolha alguém antes de continuar.",
