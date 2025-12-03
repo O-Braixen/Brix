@@ -275,7 +275,7 @@ class botstatus(commands.Cog):
 
 
     #FUNÇÃO PARA ATUALIZAR AVATAR DO BOT NAS GUILDAS
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=2)
     async def atualizar_BOT_AVATAR(self):
         try:
             filtro = {"custom": {"$exists": True}}
@@ -293,6 +293,7 @@ class botstatus(commands.Cog):
                     status, resp = await set_guild_profile( bot_token=token_bot, guild_id=guild_id, avatar_path=None, banner_path=None, nick=None, bio=None )
                     # limpa no BD
                     BancoServidores.delete_field(guild_id,{"custom": 0})
+                    await asyncio.sleep(10)  # apenas uma vez aqui
                     continue
 
                 # ============================
@@ -321,6 +322,7 @@ class botstatus(commands.Cog):
                     status, resp = await set_guild_profile( bot_token=token_bot, guild_id=guild_id, avatar_path=avatar_path, banner_path=banner_path, nick=nome, bio=bio )
                     BancoServidores.update_document(guild_id,{"custom.ativo": True})
                     print(f"✔️  -  Guild {guild_id} atualizada — Status: {status}")
+                    await asyncio.sleep(30)  # apenas uma vez aqui
                 except Exception as e:
                     print(f"🔴  -  Falha ao aplicar na guild {guild_id}: {e}")
                     continue

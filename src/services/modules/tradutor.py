@@ -3,6 +3,7 @@ from discord.ext import commands
 from discord import app_commands
 from deep_translator import GoogleTranslator
 from src.services.essential.respostas import Res
+from src.services.connection.database import BancoUsuarios
 
 
 language_dict = {
@@ -133,14 +134,12 @@ class tradutor(commands.Cog):
     if message.content:
       self.interaction = interaction
       self.message = message
-      self.selected_language = interaction.locale.value[:2]
+      self.selected_language = Res.trad(interaction=interaction)[:2]
       await interaction.response.defer(ephemeral=True)
       await comandotradutor(self)
     else:
       await interaction.response.send_message(Res.trad(str="message_erro_tradutor", interaction=interaction),ephemeral=True,delete_after=15)
        
-
-
 
 
 async def setup(client:commands.Bot) -> None:

@@ -36,7 +36,7 @@ class Res:
   idioma_cache = {}
 
   @staticmethod
-  def trad(str, interaction=None, guild=None, user=None , force_refresh=False):
+  def trad(str=None, interaction=None, guild=None, user=None , force_refresh=False):
         try:
             # Verificação de idioma já armazenado no cache
             if interaction is not None:
@@ -115,6 +115,10 @@ class Res:
             # Fallback caso ocorra algum erro
             print(f"Erro ao detectar idioma: {e}")
             idioma = 'pt-BR'
+        
+        # ===== SE não passar texto, só retorna o idioma =====
+        if not str:
+            return idioma
 
         # Busca a resposta no idioma correto
         res = respostas.get(idioma, {}).get(str)
